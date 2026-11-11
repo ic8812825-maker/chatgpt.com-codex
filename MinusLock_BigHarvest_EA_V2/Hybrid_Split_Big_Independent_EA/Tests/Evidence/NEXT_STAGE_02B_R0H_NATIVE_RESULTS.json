@@ -1,0 +1,92 @@
+{
+  "BaseSHA": "7afad885a8ef8ff2c8189ca72760e06a1baaa50a",
+  "TestedSHA": "7afad885a8ef8ff2c8189ca72760e06a1baaa50a",
+  "UTC": "2026-11-11T18:33:05.585955+00:00",
+  "SourceHashes": {
+    "Tests/Static/check_hsbi_02b_r0h_verify.py": "179445ca92c907588fa248df232c3cbb480a27e57a582e1026bd6fbdecc03989",
+    "Tests/Reference/hsbi_02b_r0h_identity_codec.py": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+    "Tests/Reference/hsbi_02b_r0f_independent_fixtures.py": "a8dbdd85e3a4e01a9d477e7203fa6824e7ab58b0bb6379f471ee0864a96df9c5",
+    "Tests/Static/check_hsbi_02b_r0g_contracts.py": "04e2d0ff52278016077e655ea6e24867ccf3f31ad448a4bbdce70c05d7cc5d3a",
+    "Tests/Reference/hsbi_02b_r0f_contract_candidate.py": "5e45284d78dcc29e127a9a2946ee8bf6780bd5b525368eb0a96152b5785713a5"
+  },
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "DiscoveryCommands": [
+    {
+      "Command": [
+        "which",
+        "metaeditor64"
+      ],
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": ""
+    },
+    {
+      "Command": [
+        "which",
+        "metaeditor"
+      ],
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": ""
+    },
+    {
+      "Command": [
+        "which",
+        "MetaEditor64.exe"
+      ],
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": ""
+    },
+    {
+      "Command": [
+        "which",
+        "terminal64"
+      ],
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": ""
+    },
+    {
+      "Command": [
+        "which",
+        "wine"
+      ],
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": ""
+    },
+    {
+      "Command": [
+        "rg",
+        "--files",
+        "/opt",
+        "/workspace",
+        "/usr/local/bin",
+        "-g",
+        "*[Mm]eta[Ee]ditor*",
+        "-g",
+        "*terminal64*"
+      ],
+      "ExitCode": 0,
+      "Stdout": "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Scripts/compile_metaeditor_windows.ps1\n",
+      "Stderr": ""
+    }
+  ],
+  "CompilerBinaryCandidates": [],
+  "CompilerAvailable": false,
+  "ToolchainScope": "PATH plus /opt,/workspace,/usr/local/bin; historical Windows compile helper is not MetaEditor",
+  "MQL5_COMPILE": "NOT_RUN",
+  "MQL5_NATIVE_TESTS": "NOT_RUN",
+  "NATIVE_CODEC_VERIFIED": "NO",
+  "NATIVE_RESULT": "REFERENCE_ONLY / NATIVE_NOT_RUN",
+  "CompilerVersion": "UNAVAILABLE",
+  "CompilerExitCode": null,
+  "NativeAssertions": "NOT_RUN",
+  "NativeSourceHashes": {
+    "Tests/Reference/hsbi_02b_r0h_native_goldens.mqh": "775f25bfbc3664a6382c6dd96fb8832b92177fb287491d1fc59bf5f8e22a193a",
+    "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c",
+    "Tests/Reference/hsbi_02b_r0h_native_harness.mq5": "4c4132f1899f9e6c7430c1b61df7c84d33391e2cee875cc3c3b996cec4dec41f"
+  },
+  "Limitations": "Prepared uncompiled MQL5 candidate/harness only; no C++ substitute; terminal launch/deal APIs never invoked"
+}

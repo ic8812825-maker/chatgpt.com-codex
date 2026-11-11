@@ -1,0 +1,1597 @@
+{
+  "BaseSHA": "7afad885a8ef8ff2c8189ca72760e06a1baaa50a",
+  "TestedSHA": "7afad885a8ef8ff2c8189ca72760e06a1baaa50a",
+  "UTC": "2026-11-11T18:33:05.834988+00:00",
+  "SourceHashes": {
+    "Tests/Static/check_hsbi_02b_r0h_verify.py": "179445ca92c907588fa248df232c3cbb480a27e57a582e1026bd6fbdecc03989",
+    "Tests/Reference/hsbi_02b_r0h_identity_codec.py": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+    "Tests/Reference/hsbi_02b_r0f_independent_fixtures.py": "a8dbdd85e3a4e01a9d477e7203fa6824e7ab58b0bb6379f471ee0864a96df9c5",
+    "Tests/Static/check_hsbi_02b_r0g_contracts.py": "04e2d0ff52278016077e655ea6e24867ccf3f31ad448a4bbdce70c05d7cc5d3a",
+    "Tests/Reference/hsbi_02b_r0f_contract_candidate.py": "5e45284d78dcc29e127a9a2946ee8bf6780bd5b525368eb0a96152b5785713a5"
+  },
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "Rows": [
+    {
+      "TestID": "ID-EXACT",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "NO_OP",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-CONFIRMED-NEW",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "NEW",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-UNKNOWN-HISTORY",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": [
+        "UNAVAILABLE-TO-NEW"
+      ]
+    },
+    {
+      "TestID": "ID-INCOMPLETE-REGISTRY",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-UNKNOWN-DEAL",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-MALFORMED",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-BOOL-FLAG",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-UNKNOWN-FIELD",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-MISSING-FIELD",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-NONFINITE-nan",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-NONFINITE-inf",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-NONFINITE-negative-inf",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-LEGACY",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-DUPLICATE-INDEX",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-SAME-NET",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-EXPLICIT-50-60",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-SchemaVersion",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-SchemaVersion",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-Broker",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-Broker",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "NEW",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": [
+        "IGNORE-Broker"
+      ]
+    },
+    {
+      "TestID": "ID-UNCONFIRMED-Broker",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-Server",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-Server",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "NEW",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-UNCONFIRMED-Server",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-AccountLogin",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-AccountLogin",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "NEW",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": [
+        "IGNORE-AccountLogin"
+      ]
+    },
+    {
+      "TestID": "ID-UNCONFIRMED-AccountLogin",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-Symbol",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-Symbol",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-Magic",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-Magic",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": [
+        "OMIT-Magic"
+      ]
+    },
+    {
+      "TestID": "ID-PRESENTED-CycleID",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-CycleID",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": [
+        "OMIT-CycleID"
+      ]
+    },
+    {
+      "TestID": "ID-PRESENTED-DealTicket",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-DealTicket",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "NEW",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": [
+        "IGNORE-DealTicket"
+      ]
+    },
+    {
+      "TestID": "ID-UNCONFIRMED-DealTicket",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-OrderTicket",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-OrderTicket",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-PositionIdentifier",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-PositionIdentifier",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-ActionID",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-ActionID",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-EventID",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-EventID",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-Role",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-Role",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-EntryType",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-EntryType",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-DealType",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-DealType",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-TimestampMsc",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-TimestampMsc",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-Volume",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-Volume",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-Price",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-Price",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-Profit",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-Profit",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": [
+        "OMIT-Profit",
+        "CONFLICT-TO-NOOP"
+      ]
+    },
+    {
+      "TestID": "ID-PRESENTED-Swap",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-Swap",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": [
+        "OMIT-Swap"
+      ]
+    },
+    {
+      "TestID": "ID-PRESENTED-Commission",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-Commission",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": [
+        "OMIT-Commission"
+      ]
+    },
+    {
+      "TestID": "ID-PRESENTED-Fee",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-Fee",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": [
+        "OMIT-Fee"
+      ]
+    },
+    {
+      "TestID": "ID-PRESENTED-DealNet",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-DealNet",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-Currency",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-Currency",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-Precision",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-Precision",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-SourcePlanApplicable",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-SourcePlanApplicable",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-SourcePlan",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-SourcePlan",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-SourcePolicyApplicable",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-SourcePolicyApplicable",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-PRESENTED-SourcePolicyVersion",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "ID-COHERENT-SourcePolicyVersion",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "CONFLICT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "DOMAIN-LONG_MIN",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "NO_OP",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "DOMAIN-LONG_MAX",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "NO_OP",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "DOMAIN-ULONG_MAX",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "NO_OP",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "DOMAIN-ABOVE_DOUBLE_EXACT",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "NO_OP",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "UNKNOWN-AccountLogin",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "UNKNOWN-Broker",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "UNKNOWN-Server",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "INVALID-DealTicket-True",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "INVALID-DealTicket-1.5",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "INVALID-DealTicket-18446744073709551616",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "INVALID-AccountLogin-9223372036854775808",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "INVALID-Magic-0",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "INVALID-TimestampMsc-9223372036854775808",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "INVALID-Precision-True",
+      "RequirementID": "R0H-IDENTITY",
+      "SourceFunction": "classify",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CODEC-B-FULL",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "encode",
+      "Expected": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": [
+        "BYTE-ORDER"
+      ]
+    },
+    {
+      "TestID": "CODEC-B-ROUNDTRIP",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "decode",
+      "Expected": {
+        "SchemaVersion": 1,
+        "Broker": "B1",
+        "Server": "S1",
+        "AccountLogin": 1,
+        "Symbol": "EURUSD",
+        "Magic": 7,
+        "CycleID": 1,
+        "DealTicket": 11,
+        "OrderTicket": 12,
+        "PositionIdentifier": 13,
+        "ActionID": 1,
+        "EventID": 31,
+        "Role": "BigCore",
+        "EntryType": "OUT",
+        "DealType": "SELL",
+        "TimestampMsc": 100000,
+        "Volume": 1.0,
+        "Price": 1.25,
+        "Profit": 60.0,
+        "Swap": -2.0,
+        "Commission": -7.0,
+        "Fee": -1.0,
+        "DealNet": 50.0,
+        "Currency": "USD",
+        "Precision": 2,
+        "SourcePlanApplicable": true,
+        "SourcePlan": 1,
+        "SourcePolicyApplicable": true,
+        "SourcePolicyVersion": 1
+      },
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CODEC-B-TRUNCATED",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CODEC-B-TRAILING",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CODEC-B-HEADER",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CODEC-B-UNKNOWN-SCHEMA",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CODEC-B-DUPLICATE-FIELD",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CODEC-B-UNKNOWN-FIELD",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CODEC-B-WRONG-FLOAT-TYPE",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CODEC-A-FULL",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "encode",
+      "Expected": "485342492d5431375a2d310a7331333a536368656d6156657273696f6e69313a3173363a42726f6b657273323a423173363a53657276657273323a53317331323a4163636f756e744c6f67696e69313a3173363a53796d626f6c73363a45555255534473353a4d6167696369313a3773373a4379636c65494469313a317331303a4465616c5469636b657469323a31317331313a4f726465725469636b657469323a31327331383a506f736974696f6e4964656e74696669657269323a313373383a416374696f6e494469313a3173373a4576656e74494469323a333173343a526f6c6573373a426967436f726573393a456e7472795479706573333a4f555473383a4465616c5479706573343a53454c4c7331323a54696d657374616d704d736369363a31303030303073363a566f6c756d656432333a312e30303030303030303030303030303030652b30303073353a50726963656432333a312e32353030303030303030303030303030652b30303073363a50726f6669746432333a362e30303030303030303030303030303030652b30303173343a537761706432343a2d322e30303030303030303030303030303030652b3030307331303a436f6d6d697373696f6e6432343a2d372e30303030303030303030303030303030652b30303073333a4665656432343a2d312e30303030303030303030303030303030652b30303073373a4465616c4e65746432333a352e30303030303030303030303030303030652b30303173383a43757272656e637973333a55534473393a507265636973696f6e69313a327332303a536f75726365506c616e4170706c696361626c6562317331303a536f75726365506c616e69313a317332323a536f75726365506f6c6963794170706c696361626c6562317331393a536f75726365506f6c69637956657273696f6e69313a31",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CODEC-A-ROUNDTRIP",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "decode",
+      "Expected": {
+        "SchemaVersion": 1,
+        "Broker": "B1",
+        "Server": "S1",
+        "AccountLogin": 1,
+        "Symbol": "EURUSD",
+        "Magic": 7,
+        "CycleID": 1,
+        "DealTicket": 11,
+        "OrderTicket": 12,
+        "PositionIdentifier": 13,
+        "ActionID": 1,
+        "EventID": 31,
+        "Role": "BigCore",
+        "EntryType": "OUT",
+        "DealType": "SELL",
+        "TimestampMsc": 100000,
+        "Volume": 1.0,
+        "Price": 1.25,
+        "Profit": 60.0,
+        "Swap": -2.0,
+        "Commission": -7.0,
+        "Fee": -1.0,
+        "DealNet": 50.0,
+        "Currency": "USD",
+        "Precision": 2,
+        "SourcePlanApplicable": true,
+        "SourcePlan": 1,
+        "SourcePolicyApplicable": true,
+        "SourcePolicyVersion": 1
+      },
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CODEC-A-TRUNCATED",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CODEC-A-TRAILING",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CODEC-A-HEADER",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CODEC-A-UNKNOWN-SCHEMA",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CODEC-A-DUPLICATE-FIELD",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CODEC-A-UNKNOWN-FIELD",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "CODEC-A-WRONG-FLOAT-TYPE",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "BITS-zero",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "bits",
+      "Expected": "0000000000000000",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "TEXT-zero",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "token",
+      "Expected": "0.0000000000000000e+000",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "UNBITS-zero",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "unbits",
+      "Expected": true,
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "BITS-negative-zero",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "bits",
+      "Expected": "0000000000000000",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": [
+        "ZERO-POLICY"
+      ]
+    },
+    {
+      "TestID": "TEXT-negative-zero",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "token",
+      "Expected": "0.0000000000000000e+000",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "UNBITS-negative-zero",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "unbits",
+      "Expected": true,
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "BITS-one",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "bits",
+      "Expected": "3ff0000000000000",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "TEXT-one",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "token",
+      "Expected": "1.0000000000000000e+000",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "UNBITS-one",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "unbits",
+      "Expected": true,
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "BITS-negative-five",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "bits",
+      "Expected": "c014000000000000",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "TEXT-negative-five",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "token",
+      "Expected": "-5.0000000000000000e+000",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "UNBITS-negative-five",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "unbits",
+      "Expected": true,
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "BITS-one-tenth",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "bits",
+      "Expected": "3fb999999999999a",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "TEXT-one-tenth",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "token",
+      "Expected": "1.0000000000000001e-001",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "UNBITS-one-tenth",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "unbits",
+      "Expected": true,
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "BITS-min-normal",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "bits",
+      "Expected": "0010000000000000",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "TEXT-min-normal",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "token",
+      "Expected": "2.2250738585072014e-308",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "UNBITS-min-normal",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "unbits",
+      "Expected": true,
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "BITS-min-subnormal",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "bits",
+      "Expected": "0000000000000001",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "TEXT-min-subnormal",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "token",
+      "Expected": "4.9406564584124654e-324",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "UNBITS-min-subnormal",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "unbits",
+      "Expected": true,
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "BITS-max-finite",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "bits",
+      "Expected": "7fefffffffffffff",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "TEXT-max-finite",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "token",
+      "Expected": "1.7976931348623157e+308",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "UNBITS-max-finite",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "unbits",
+      "Expected": true,
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "TOKEN-long-min",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "token",
+      "Expected": "698000000000000000",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "TOKEN-long-max",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "token",
+      "Expected": "757fffffffffffffff",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "TOKEN-ulong-max",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "token",
+      "Expected": "75ffffffffffffffff",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "TOKEN-large-id",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "token",
+      "Expected": "750020000000000001",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "UTF8-cyrillic",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "token",
+      "Expected": "7300000002d091",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": [
+        "UTF8-LENGTH"
+      ]
+    },
+    {
+      "TestID": "UTF8-emoji",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "token",
+      "Expected": "730000000542f09f9880",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "UTF8-delimiters",
+      "RequirementID": "R0H-CODEC",
+      "SourceFunction": "token",
+      "Expected": "7300000004427c3a31",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "WIRE-negative-zero",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "WIRE-inf",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "WIRE-nan",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "WIRE-STRING-OVERSIZE",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "WIRE-RECORD-OVERSIZE",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "WIRE-UNKNOWN-CODEC",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "UNAVAILABLE",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    },
+    {
+      "TestID": "WIRE-INVALID-UTF8",
+      "RequirementID": "R0H-MALFORMED",
+      "SourceFunction": "decode",
+      "Expected": "REJECT",
+      "Status": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE",
+      "NativeStatus": "NOT_RUN",
+      "MutationIDs": []
+    }
+  ],
+  "NativePlannedCases": [
+    "all29-field exact/altered",
+    "componentNet50",
+    "namespace/registry",
+    "bounds",
+    "full independentbytes",
+    "scalarbits/textprobe",
+    "utf8",
+    "truncated/trailing/unknownschema/tag/codec/duplicate/oversize",
+    "outputpreservation",
+    "legacyunavailable"
+  ],
+  "NativeHarness": "Tests/Reference/hsbi_02b_r0h_native_harness.mq5",
+  "ApprovalGate": "REFERENCE_ONLY_NATIVE_NOT_RUN",
+  "AdminApproved": false
+}

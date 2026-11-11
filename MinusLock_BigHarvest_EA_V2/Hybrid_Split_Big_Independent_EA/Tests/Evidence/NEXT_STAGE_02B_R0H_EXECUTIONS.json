@@ -1,0 +1,27 @@
+{
+  "BaseSHA": "7afad885a8ef8ff2c8189ca72760e06a1baaa50a",
+  "TestedSHA": "7afad885a8ef8ff2c8189ca72760e06a1baaa50a",
+  "UTC": "2026-11-11T18:33:05.845990+00:00",
+  "SourceHashes": {
+    "Tests/Static/check_hsbi_02b_r0h_verify.py": "179445ca92c907588fa248df232c3cbb480a27e57a582e1026bd6fbdecc03989",
+    "Tests/Reference/hsbi_02b_r0h_identity_codec.py": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+    "Tests/Reference/hsbi_02b_r0f_independent_fixtures.py": "a8dbdd85e3a4e01a9d477e7203fa6824e7ab58b0bb6379f471ee0864a96df9c5",
+    "Tests/Static/check_hsbi_02b_r0g_contracts.py": "04e2d0ff52278016077e655ea6e24867ccf3f31ad448a4bbdce70c05d7cc5d3a",
+    "Tests/Reference/hsbi_02b_r0f_contract_candidate.py": "5e45284d78dcc29e127a9a2946ee8bf6780bd5b525368eb0a96152b5785713a5"
+  },
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "StartedUtc": "2026-11-11T18:33:05.024391+00:00",
+  "FinishedUtc": "2026-11-11T18:33:05.846562+00:00",
+  "ActualProcess": {
+    "Command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/check_hsbi_02b_r0h_verify.py",
+      "--run-tests"
+    ],
+    "RunnerHash": "179445ca92c907588fa248df232c3cbb480a27e57a582e1026bd6fbdecc03989",
+    "ExitCode": 0,
+    "Stdout": "R0H reference 148 148 0 0 mutations 14 /14 native NOT_RUN\n",
+    "Stderr": ""
+  },
+  "ExitCode": 0
+}

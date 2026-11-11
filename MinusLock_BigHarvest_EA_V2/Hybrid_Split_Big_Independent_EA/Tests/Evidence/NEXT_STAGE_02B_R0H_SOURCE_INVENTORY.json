@@ -1,0 +1,66 @@
+{
+  "BaseSHA": "7afad885a8ef8ff2c8189ca72760e06a1baaa50a",
+  "TestedSHA": "7afad885a8ef8ff2c8189ca72760e06a1baaa50a",
+  "UTC": "2026-11-11T18:33:05.826376+00:00",
+  "SourceHashes": {
+    "Tests/Static/check_hsbi_02b_r0h_verify.py": "179445ca92c907588fa248df232c3cbb480a27e57a582e1026bd6fbdecc03989",
+    "Tests/Reference/hsbi_02b_r0h_identity_codec.py": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+    "Tests/Reference/hsbi_02b_r0f_independent_fixtures.py": "a8dbdd85e3a4e01a9d477e7203fa6824e7ab58b0bb6379f471ee0864a96df9c5",
+    "Tests/Static/check_hsbi_02b_r0g_contracts.py": "04e2d0ff52278016077e655ea6e24867ccf3f31ad448a4bbdce70c05d7cc5d3a",
+    "Tests/Reference/hsbi_02b_r0f_contract_candidate.py": "5e45284d78dcc29e127a9a2946ee8bf6780bd5b525368eb0a96152b5785713a5"
+  },
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "ProductionFiles": 74,
+  "Symbols": [
+    "HSBI_EconomicLedgerRecord",
+    "HSBI_BuildSourceDealKey",
+    "HSBI_ValidateEconomicRecord",
+    "HSBI_SameEconomicRecord",
+    "HSBI_ClassifyEconomicDuplicate",
+    "HSBI_SerializeEconomicRecord",
+    "HSBI_IsHarvestSourceEntry"
+  ],
+  "Matches": [
+    {
+      "File": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "Line": 6,
+      "Source": "struct HSBI_EconomicLedgerRecord{ulong dealTicket;ulong orderTicket;ulong positionIdentifier;string symbol;long magic;ulong cycleId;ulong actionId;ulong eventId;HSBI_Role role;int entryType;double volume;double price;double profit;double swap;double commission;double fee;double dealNet;datetime timestamp;string sourceDealKey;bool valid;};"
+    },
+    {
+      "File": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "Line": 7,
+      "Source": "string HSBI_BuildSourceDealKey(const HSBI_EconomicLedgerRecord &r){return r.symbol+\"|\"+LongToString(r.magic)+\"|\"+HSBI_UlongToString(r.cycleId)+\"|\"+HSBI_UlongToString(r.dealTicket);}"
+    },
+    {
+      "File": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "Line": 8,
+      "Source": "bool HSBI_ValidateEconomicRecord(const HSBI_EconomicLedgerRecord &r){return r.dealTicket>0&&r.orderTicket>0&&r.positionIdentifier>0&&r.symbol!=\"\"&&r.cycleId>0&&r.actionId>0&&r.eventId>0&&r.volume>0&&r.sourceDealKey!=\"\"&&r.valid;}"
+    },
+    {
+      "File": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "Line": 9,
+      "Source": "bool HSBI_SameEconomicRecord(const HSBI_EconomicLedgerRecord &a,const HSBI_EconomicLedgerRecord &b){return a.sourceDealKey==b.sourceDealKey&&MathAbs(a.dealNet-b.dealNet)<0.0000001&&a.volume==b.volume&&a.price==b.price;}"
+    },
+    {
+      "File": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "Line": 10,
+      "Source": "int HSBI_ClassifyEconomicDuplicate(const HSBI_EconomicLedgerRecord &existing,const HSBI_EconomicLedgerRecord &incoming){if(existing.sourceDealKey!=incoming.sourceDealKey)return 0;return HSBI_SameEconomicRecord(existing,incoming)?1:2;}"
+    },
+    {
+      "File": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "Line": 11,
+      "Source": "string HSBI_SerializeEconomicRecord(const HSBI_EconomicLedgerRecord &r){return r.sourceDealKey+\"|\"+DoubleToString(r.volume,8)+\"|\"+DoubleToString(r.price,8)+\"|\"+DoubleToString(r.dealNet,8);}"
+    },
+    {
+      "File": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "Line": 12,
+      "Source": "bool HSBI_IsHarvestSourceEntry(const HSBI_EconomicLedgerRecord &r){return r.entryType!=0&&r.dealNet>0.0;}"
+    }
+  ],
+  "Includes": [
+    "../Core/HSBI_Enums.mqh",
+    "../Core/HSBI_Identifiers.mqh",
+    "../Core/HSBI_ReasonCodes.mqh"
+  ],
+  "Scope": "Static production Include/main only; external binary/callers/ABI not proved"
+}

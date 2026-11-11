@@ -1,0 +1,1384 @@
+{
+  "BaseSHA": "7afad885a8ef8ff2c8189ca72760e06a1baaa50a",
+  "TestedSHA": "7afad885a8ef8ff2c8189ca72760e06a1baaa50a",
+  "UTC": "2026-11-11T18:33:05.430717+00:00",
+  "SourceHashes": {
+    "Tests/Static/check_hsbi_02b_r0h_verify.py": "179445ca92c907588fa248df232c3cbb480a27e57a582e1026bd6fbdecc03989",
+    "Tests/Reference/hsbi_02b_r0h_identity_codec.py": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+    "Tests/Reference/hsbi_02b_r0f_independent_fixtures.py": "a8dbdd85e3a4e01a9d477e7203fa6824e7ab58b0bb6379f471ee0864a96df9c5",
+    "Tests/Static/check_hsbi_02b_r0g_contracts.py": "04e2d0ff52278016077e655ea6e24867ccf3f31ad448a4bbdce70c05d7cc5d3a",
+    "Tests/Reference/hsbi_02b_r0f_contract_candidate.py": "5e45284d78dcc29e127a9a2946ee8bf6780bd5b525368eb0a96152b5785713a5"
+  },
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "Archived": "ARCHIVED_EVIDENCE_VERIFIED",
+  "Fresh": "FRESH_REFERENCE_EXECUTED",
+  "Native": "NOT_RUN",
+  "Scenarios": 128,
+  "Pass": 128,
+  "Fail": 0,
+  "OldBaselineCount": 1320,
+  "R0GAdditions": 17,
+  "PriorRows": [
+    {
+      "TestID": "IDENTITY-POSITIVE-EXACT",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-POSITIVE-EXACT",
+      "Expected": "NO_OP",
+      "Actual": "NO_OP",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-CONFIRMED-ABSENT",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-CONFIRMED-ABSENT",
+      "Expected": "NEW",
+      "Actual": "NEW",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-UNKNOWN-SOURCE",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-UNKNOWN-SOURCE",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-NO-HISTORY",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-NO-HISTORY",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-NO-ABSENCE-PROOF",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-NO-ABSENCE-PROOF",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-LEGACY-UNKNOWN",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-LEGACY-UNKNOWN",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-DUPLICATE-INDEX",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-DUPLICATE-INDEX",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FOREIGN-AUTHORITY",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-FOREIGN-AUTHORITY",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-SAME-NET-COMPONENTS",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-SAME-NET-COMPONENTS",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-LITERAL-50-VS-60",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-LITERAL-50-VS-60",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-SchemaVersion",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "SchemaVersion",
+        "Value": 2
+      },
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-Broker",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "Broker",
+        "Value": "B2"
+      },
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-Server",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "Server",
+        "Value": "S2"
+      },
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-AccountLogin",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "AccountLogin",
+        "Value": 2
+      },
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-Symbol",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "Symbol",
+        "Value": "GBPUSD"
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-Symbol",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-Symbol",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-Magic",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "Magic",
+        "Value": 8
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-Magic",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-Magic",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-CycleID",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "CycleID",
+        "Value": 2
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-CycleID",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-CycleID",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-DealTicket",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "DealTicket",
+        "Value": 12
+      },
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-OrderTicket",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "OrderTicket",
+        "Value": 99
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-OrderTicket",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-OrderTicket",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-PositionIdentifier",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "PositionIdentifier",
+        "Value": 99
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-PositionIdentifier",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-PositionIdentifier",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-ActionID",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "ActionID",
+        "Value": 2
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-ActionID",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-ActionID",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-EventID",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "EventID",
+        "Value": 32
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-EventID",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-EventID",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-Role",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "Role",
+        "Value": "Small"
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-Role",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-Role",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-EntryType",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "EntryType",
+        "Value": "IN"
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-EntryType",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-EntryType",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-DealType",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "DealType",
+        "Value": "BUY"
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-DealType",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-DealType",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-TimestampMsc",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "TimestampMsc",
+        "Value": 100001
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-TimestampMsc",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-TimestampMsc",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-Volume",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "Volume",
+        "Value": 2.0
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-Volume",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-Volume",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-Price",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "Price",
+        "Value": 1.5
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-Price",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-Price",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-Profit",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "Profit",
+        "Value": 61.0
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-Profit",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-Profit",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-Swap",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "Swap",
+        "Value": -3.0
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-Swap",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-Swap",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-Commission",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "Commission",
+        "Value": -8.0
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-Commission",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-Commission",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-Fee",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "Fee",
+        "Value": -2.0
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-Fee",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-Fee",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-DealNet",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "DealNet",
+        "Value": 49.0
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-DealNet",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-DealNet",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-Currency",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "Currency",
+        "Value": "EUR"
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-Currency",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-Currency",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-Precision",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "Precision",
+        "Value": 3
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-Precision",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-Precision",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-SourcePlanApplicable",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "SourcePlanApplicable",
+        "Value": false
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-SourcePlanApplicable",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-SourcePlanApplicable",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-SourcePlan",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "SourcePlan",
+        "Value": 2
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-SourcePlan",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-SourcePlan",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-SourcePolicyApplicable",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "SourcePolicyApplicable",
+        "Value": false
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-SourcePolicyApplicable",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-SourcePolicyApplicable",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-FIELD-SourcePolicyVersion",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": {
+        "Field": "SourcePolicyVersion",
+        "Value": 2
+      },
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "IDENTITY-REGISTRY-SourcePolicyVersion",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "IDENTITY-REGISTRY-SourcePolicyVersion",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "ID-DEAL-bool",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "ID-DEAL-bool",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "ID-DEAL-zero",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "ID-DEAL-zero",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "ID-DEAL-negative",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "ID-DEAL-negative",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "ID-DEAL-float",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "ID-DEAL-float",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "ID-DEAL-string",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "ID-DEAL-string",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "ID-DEAL-overflow",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "ID-DEAL-overflow",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "ID-BOUND-AccountLogin",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "ID-BOUND-AccountLogin",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "ID-BOUND-Magic",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "ID-BOUND-Magic",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "ID-BOUND-TimestampMsc",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "ID-BOUND-TimestampMsc",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "ID-BOUND-Precision",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "ID-BOUND-Precision",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "ID-VALID-AccountLogin-9223372036854775807",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "ID-VALID-AccountLogin-9223372036854775807",
+      "Expected": "NO_OP",
+      "Actual": "NO_OP",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "ID-VALID-Magic--9223372036854775808",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "ID-VALID-Magic--9223372036854775808",
+      "Expected": "NO_OP",
+      "Actual": "NO_OP",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "ID-VALID-Magic-9223372036854775807",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "ID-VALID-Magic-9223372036854775807",
+      "Expected": "NO_OP",
+      "Actual": "NO_OP",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "ID-VALID-DealTicket-18446744073709551615",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "ID-VALID-DealTicket-18446744073709551615",
+      "Expected": "NO_OP",
+      "Actual": "NO_OP",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "ID-VALID-TimestampMsc-9223372036854775807",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "ID-VALID-TimestampMsc-9223372036854775807",
+      "Expected": "NO_OP",
+      "Actual": "NO_OP",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "DTO-none",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "DTO-none",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "DTO-bool",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "DTO-bool",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "DTO-empty",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "DTO-empty",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "DTO-list",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "DTO-list",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "DTO-MISSING-Broker",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "DTO-MISSING-Broker",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "DTO-MISSING-Profit",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "DTO-MISSING-Profit",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "DTO-MISSING-SourcePlan",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "DTO-MISSING-SourcePlan",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "DTO-MISSING-Currency",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "DTO-MISSING-Currency",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "UNKNOWN-Currency",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "UNKNOWN-Currency",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "UNKNOWN-Precision",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "UNKNOWN-Precision",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "UNKNOWN-SourcePlan",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "UNKNOWN-SourcePlan",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "AUTHORITY-MALFORMED",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "AUTHORITY-MALFORMED",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "REGISTRY-MALFORMED",
+      "RequirementID": "R0G-IDENTITY",
+      "Input": "REGISTRY-MALFORMED",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-UNKNOWN",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-UNKNOWN",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-A-SAME-SOURCE",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-A-SAME-SOURCE",
+      "Expected": "NO_OP",
+      "Actual": "NO_OP",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-B-zero",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-B-zero",
+      "Expected": "0000000000000000",
+      "Actual": "0000000000000000",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-A-zero",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-A-zero",
+      "Expected": "0.0000000000000000e+000",
+      "Actual": "0.0000000000000000e+000",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-A-ROUNDTRIP-zero",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-A-ROUNDTRIP-zero",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-B-negative-zero",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-B-negative-zero",
+      "Expected": "0000000000000000",
+      "Actual": "0000000000000000",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-A-negative-zero",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-A-negative-zero",
+      "Expected": "0.0000000000000000e+000",
+      "Actual": "0.0000000000000000e+000",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-A-ROUNDTRIP-negative-zero",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-A-ROUNDTRIP-negative-zero",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-B-one",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-B-one",
+      "Expected": "3ff0000000000000",
+      "Actual": "3ff0000000000000",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-A-one",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-A-one",
+      "Expected": "1.0000000000000000e+000",
+      "Actual": "1.0000000000000000e+000",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-A-ROUNDTRIP-one",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-A-ROUNDTRIP-one",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-B-negative-five",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-B-negative-five",
+      "Expected": "c014000000000000",
+      "Actual": "c014000000000000",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-A-negative-five",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-A-negative-five",
+      "Expected": "-5.0000000000000000e+000",
+      "Actual": "-5.0000000000000000e+000",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-A-ROUNDTRIP-negative-five",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-A-ROUNDTRIP-negative-five",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-B-one-tenth",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-B-one-tenth",
+      "Expected": "3fb999999999999a",
+      "Actual": "3fb999999999999a",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-A-one-tenth",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-A-one-tenth",
+      "Expected": "1.0000000000000001e-001",
+      "Actual": "1.0000000000000001e-001",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-A-ROUNDTRIP-one-tenth",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-A-ROUNDTRIP-one-tenth",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-B-min-normal",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-B-min-normal",
+      "Expected": "0010000000000000",
+      "Actual": "0010000000000000",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-A-min-normal",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-A-min-normal",
+      "Expected": "2.2250738585072014e-308",
+      "Actual": "2.2250738585072014e-308",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-A-ROUNDTRIP-min-normal",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-A-ROUNDTRIP-min-normal",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-B-min-subnormal",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-B-min-subnormal",
+      "Expected": "0000000000000001",
+      "Actual": "0000000000000001",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-A-min-subnormal",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-A-min-subnormal",
+      "Expected": "4.9406564584124654e-324",
+      "Actual": "4.9406564584124654e-324",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-A-ROUNDTRIP-min-subnormal",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-A-ROUNDTRIP-min-subnormal",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-B-max-finite",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-B-max-finite",
+      "Expected": "7fefffffffffffff",
+      "Actual": "7fefffffffffffff",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-A-max-finite",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-A-max-finite",
+      "Expected": "1.7976931348623157e+308",
+      "Actual": "1.7976931348623157e+308",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-A-ROUNDTRIP-max-finite",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-A-ROUNDTRIP-max-finite",
+      "Expected": true,
+      "Actual": true,
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-FULL-A",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-FULL-A",
+      "Expected": "485342492d5431375a2d310a7331333a536368656d6156657273696f6e69313a3173363a42726f6b657273323a423173363a53657276657273323a53317331323a4163636f756e744c6f67696e69313a3173363a53796d626f6c73363a45555255534473353a4d6167696369313a3773373a4379636c65494469313a317331303a4465616c5469636b657469323a31317331313a4f726465725469636b657469323a31327331383a506f736974696f6e4964656e74696669657269323a313373383a416374696f6e494469313a3173373a4576656e74494469323a333173343a526f6c6573373a426967436f726573393a456e7472795479706573333a4f555473383a4465616c5479706573343a53454c4c7331323a54696d657374616d704d736369363a31303030303073363a566f6c756d656432333a312e30303030303030303030303030303030652b30303073353a50726963656432333a312e32353030303030303030303030303030652b30303073363a50726f6669746432333a362e30303030303030303030303030303030652b30303173343a537761706432343a2d322e30303030303030303030303030303030652b3030307331303a436f6d6d697373696f6e6432343a2d372e30303030303030303030303030303030652b30303073333a4665656432343a2d312e30303030303030303030303030303030652b30303073373a4465616c4e65746432333a352e30303030303030303030303030303030652b30303173383a43757272656e637973333a55534473393a507265636973696f6e69313a327332303a536f75726365506c616e4170706c696361626c6562317331303a536f75726365506c616e69313a317332323a536f75726365506f6c6963794170706c696361626c6562317331393a536f75726365506f6c69637956657273696f6e69313a31",
+      "Actual": "485342492d5431375a2d310a7331333a536368656d6156657273696f6e69313a3173363a42726f6b657273323a423173363a53657276657273323a53317331323a4163636f756e744c6f67696e69313a3173363a53796d626f6c73363a45555255534473353a4d6167696369313a3773373a4379636c65494469313a317331303a4465616c5469636b657469323a31317331313a4f726465725469636b657469323a31327331383a506f736974696f6e4964656e74696669657269323a313373383a416374696f6e494469313a3173373a4576656e74494469323a333173343a526f6c6573373a426967436f726573393a456e7472795479706573333a4f555473383a4465616c5479706573343a53454c4c7331323a54696d657374616d704d736369363a31303030303073363a566f6c756d656432333a312e30303030303030303030303030303030652b30303073353a50726963656432333a312e32353030303030303030303030303030652b30303073363a50726f6669746432333a362e30303030303030303030303030303030652b30303173343a537761706432343a2d322e30303030303030303030303030303030652b3030307331303a436f6d6d697373696f6e6432343a2d372e30303030303030303030303030303030652b30303073333a4665656432343a2d312e30303030303030303030303030303030652b30303073373a4465616c4e65746432333a352e30303030303030303030303030303030652b30303173383a43757272656e637973333a55534473393a507265636973696f6e69313a327332303a536f75726365506c616e4170706c696361626c6562317331303a536f75726365506c616e69313a317332323a536f75726365506f6c6963794170706c696361626c6562317331393a536f75726365506f6c69637956657273696f6e69313a31",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-RECORD-ROUNDTRIP-A",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-RECORD-ROUNDTRIP-A",
+      "Expected": {
+        "SchemaVersion": 1,
+        "Broker": "B1",
+        "Server": "S1",
+        "AccountLogin": 1,
+        "Symbol": "EURUSD",
+        "Magic": 7,
+        "CycleID": 1,
+        "DealTicket": 11,
+        "OrderTicket": 12,
+        "PositionIdentifier": 13,
+        "ActionID": 1,
+        "EventID": 31,
+        "Role": "BigCore",
+        "EntryType": "OUT",
+        "DealType": "SELL",
+        "TimestampMsc": 100000,
+        "Volume": 1.0,
+        "Price": 1.25,
+        "Profit": 60.0,
+        "Swap": -2.0,
+        "Commission": -7.0,
+        "Fee": -1.0,
+        "DealNet": 50.0,
+        "Currency": "USD",
+        "Precision": 2,
+        "SourcePlanApplicable": true,
+        "SourcePlan": 1,
+        "SourcePolicyApplicable": true,
+        "SourcePolicyVersion": 1
+      },
+      "Actual": {
+        "SchemaVersion": 1,
+        "Broker": "B1",
+        "Server": "S1",
+        "AccountLogin": 1,
+        "Symbol": "EURUSD",
+        "Magic": 7,
+        "CycleID": 1,
+        "DealTicket": 11,
+        "OrderTicket": 12,
+        "PositionIdentifier": 13,
+        "ActionID": 1,
+        "EventID": 31,
+        "Role": "BigCore",
+        "EntryType": "OUT",
+        "DealType": "SELL",
+        "TimestampMsc": 100000,
+        "Volume": 1.0,
+        "Price": 1.25,
+        "Profit": 60.0,
+        "Swap": -2.0,
+        "Commission": -7.0,
+        "Fee": -1.0,
+        "DealNet": 50.0,
+        "Currency": "USD",
+        "Precision": 2,
+        "SourcePlanApplicable": true,
+        "SourcePlan": 1,
+        "SourcePolicyApplicable": true,
+        "SourcePolicyVersion": 1
+      },
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-FULL-B",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-FULL-B",
+      "Expected": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+      "Actual": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-RECORD-ROUNDTRIP-B",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-RECORD-ROUNDTRIP-B",
+      "Expected": {
+        "SchemaVersion": 1,
+        "Broker": "B1",
+        "Server": "S1",
+        "AccountLogin": 1,
+        "Symbol": "EURUSD",
+        "Magic": 7,
+        "CycleID": 1,
+        "DealTicket": 11,
+        "OrderTicket": 12,
+        "PositionIdentifier": 13,
+        "ActionID": 1,
+        "EventID": 31,
+        "Role": "BigCore",
+        "EntryType": "OUT",
+        "DealType": "SELL",
+        "TimestampMsc": 100000,
+        "Volume": 1.0,
+        "Price": 1.25,
+        "Profit": 60.0,
+        "Swap": -2.0,
+        "Commission": -7.0,
+        "Fee": -1.0,
+        "DealNet": 50.0,
+        "Currency": "USD",
+        "Precision": 2,
+        "SourcePlanApplicable": true,
+        "SourcePlan": 1,
+        "SourcePolicyApplicable": true,
+        "SourcePolicyVersion": 1
+      },
+      "Actual": {
+        "SchemaVersion": 1,
+        "Broker": "B1",
+        "Server": "S1",
+        "AccountLogin": 1,
+        "Symbol": "EURUSD",
+        "Magic": 7,
+        "CycleID": 1,
+        "DealTicket": 11,
+        "OrderTicket": 12,
+        "PositionIdentifier": 13,
+        "ActionID": 1,
+        "EventID": 31,
+        "Role": "BigCore",
+        "EntryType": "OUT",
+        "DealType": "SELL",
+        "TimestampMsc": 100000,
+        "Volume": 1.0,
+        "Price": 1.25,
+        "Profit": 60.0,
+        "Swap": -2.0,
+        "Commission": -7.0,
+        "Fee": -1.0,
+        "DealNet": 50.0,
+        "Currency": "USD",
+        "Precision": 2,
+        "SourcePlanApplicable": true,
+        "SourcePlan": 1,
+        "SourcePolicyApplicable": true,
+        "SourcePolicyVersion": 1
+      },
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-NONFINITE-nan",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-NONFINITE-nan",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-NONFINITE-inf",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-NONFINITE-inf",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-NONFINITE--inf",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-NONFINITE--inf",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-UTF8-cyrillic",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-UTF8-cyrillic",
+      "Expected": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b6572730000000cd091d180d0bed0bad0b5d180730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+      "Actual": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b6572730000000cd091d180d0bed0bad0b5d180730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-UTF8-delimiter",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-UTF8-delimiter",
+      "Expected": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b65727300000004427c3a31730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+      "Actual": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b65727300000004427c3a31730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-UTF8-emoji",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-UTF8-emoji",
+      "Expected": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b6572730000000542f09f9880730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+      "Actual": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b6572730000000542f09f9880730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    },
+    {
+      "TestID": "CODEC-ZERO-EQUIVALENCE",
+      "RequirementID": "R0G-CODEC",
+      "Input": "CODEC-ZERO-EQUIVALENCE",
+      "Expected": "NO_OP",
+      "Actual": "NO_OP",
+      "Result": "PASS",
+      "ProofBoundary": "PYTHON_REFERENCE_ONLY"
+    }
+  ],
+  "PriorRunnerHash": "04e2d0ff52278016077e655ea6e24867ccf3f31ad448a4bbdce70c05d7cc5d3a",
+  "ExpectedOrigin": "R0G literals/frozen independent struct.pack fixtures; not subject evaluator"
+}

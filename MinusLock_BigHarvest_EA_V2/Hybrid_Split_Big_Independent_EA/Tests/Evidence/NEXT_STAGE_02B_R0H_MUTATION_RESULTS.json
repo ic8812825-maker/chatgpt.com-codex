@@ -1,0 +1,754 @@
+{
+  "BaseSHA": "7afad885a8ef8ff2c8189ca72760e06a1baaa50a",
+  "TestedSHA": "7afad885a8ef8ff2c8189ca72760e06a1baaa50a",
+  "UTC": "2026-11-11T18:33:05.494578+00:00",
+  "SourceHashes": {
+    "Tests/Static/check_hsbi_02b_r0h_verify.py": "179445ca92c907588fa248df232c3cbb480a27e57a582e1026bd6fbdecc03989",
+    "Tests/Reference/hsbi_02b_r0h_identity_codec.py": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+    "Tests/Reference/hsbi_02b_r0f_independent_fixtures.py": "a8dbdd85e3a4e01a9d477e7203fa6824e7ab58b0bb6379f471ee0864a96df9c5",
+    "Tests/Static/check_hsbi_02b_r0g_contracts.py": "04e2d0ff52278016077e655ea6e24867ccf3f31ad448a4bbdce70c05d7cc5d3a",
+    "Tests/Reference/hsbi_02b_r0f_contract_candidate.py": "5e45284d78dcc29e127a9a2946ee8bf6780bd5b525368eb0a96152b5785713a5"
+  },
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "Rows": [
+    {
+      "MutationID": "OMIT-Profit",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0h_identity_codec.py",
+      "TargetFunction": "equal_body",
+      "ExactEdit": {
+        "Old": "for name in FIELDS:",
+        "New": "for name in (k for k in FIELDS if k!='Profit'):"
+      },
+      "OriginalSourceHash": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+      "MutantSourceHash": "1f4a42f252afc641ff8ad708f3c523beee6f6f7d592a38aa086eca749800ebca",
+      "CausalTestID": "ID-COHERENT-Profit",
+      "OriginalPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "OriginalNegative": {
+        "TestID": "ID-COHERENT-Profit",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-Profit",
+        "Expected": "CONFLICT",
+        "Actual": "CONFLICT",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantNegative": {
+        "TestID": "ID-COHERENT-Profit",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-Profit",
+        "Expected": "CONFLICT",
+        "Actual": "NO_OP",
+        "Result": "FAIL",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "IndependentExpected": "CONFLICT",
+      "Error": null,
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL",
+      "StateDelta": "NONE: pure identity/codec; no monetary state",
+      "ProofBoundary": "PYTHON_SOURCE_MUTATION_ONLY; MQL5 mutation execution NOT_RUN"
+    },
+    {
+      "MutationID": "OMIT-Commission",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0h_identity_codec.py",
+      "TargetFunction": "equal_body",
+      "ExactEdit": {
+        "Old": "for name in FIELDS:",
+        "New": "for name in (k for k in FIELDS if k!='Commission'):"
+      },
+      "OriginalSourceHash": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+      "MutantSourceHash": "de3ac730ab2405ec6e25a428b55668e741a5ef9e2741970e409ec36ea7b19c8d",
+      "CausalTestID": "ID-COHERENT-Commission",
+      "OriginalPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "OriginalNegative": {
+        "TestID": "ID-COHERENT-Commission",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-Commission",
+        "Expected": "CONFLICT",
+        "Actual": "CONFLICT",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantNegative": {
+        "TestID": "ID-COHERENT-Commission",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-Commission",
+        "Expected": "CONFLICT",
+        "Actual": "NO_OP",
+        "Result": "FAIL",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "IndependentExpected": "CONFLICT",
+      "Error": null,
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL",
+      "StateDelta": "NONE: pure identity/codec; no monetary state",
+      "ProofBoundary": "PYTHON_SOURCE_MUTATION_ONLY; MQL5 mutation execution NOT_RUN"
+    },
+    {
+      "MutationID": "OMIT-Swap",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0h_identity_codec.py",
+      "TargetFunction": "equal_body",
+      "ExactEdit": {
+        "Old": "for name in FIELDS:",
+        "New": "for name in (k for k in FIELDS if k!='Swap'):"
+      },
+      "OriginalSourceHash": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+      "MutantSourceHash": "bf874da85a9ca63e5a14be9790074abda6b5ca0e04b8c5af732a8b5b15380574",
+      "CausalTestID": "ID-COHERENT-Swap",
+      "OriginalPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "OriginalNegative": {
+        "TestID": "ID-COHERENT-Swap",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-Swap",
+        "Expected": "CONFLICT",
+        "Actual": "CONFLICT",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantNegative": {
+        "TestID": "ID-COHERENT-Swap",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-Swap",
+        "Expected": "CONFLICT",
+        "Actual": "NO_OP",
+        "Result": "FAIL",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "IndependentExpected": "CONFLICT",
+      "Error": null,
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL",
+      "StateDelta": "NONE: pure identity/codec; no monetary state",
+      "ProofBoundary": "PYTHON_SOURCE_MUTATION_ONLY; MQL5 mutation execution NOT_RUN"
+    },
+    {
+      "MutationID": "OMIT-Fee",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0h_identity_codec.py",
+      "TargetFunction": "equal_body",
+      "ExactEdit": {
+        "Old": "for name in FIELDS:",
+        "New": "for name in (k for k in FIELDS if k!='Fee'):"
+      },
+      "OriginalSourceHash": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+      "MutantSourceHash": "5a384a05e0b074ea6b5489dec43f8312c7a3f41a885035de045ce0e14e5d827a",
+      "CausalTestID": "ID-COHERENT-Fee",
+      "OriginalPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "OriginalNegative": {
+        "TestID": "ID-COHERENT-Fee",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-Fee",
+        "Expected": "CONFLICT",
+        "Actual": "CONFLICT",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantNegative": {
+        "TestID": "ID-COHERENT-Fee",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-Fee",
+        "Expected": "CONFLICT",
+        "Actual": "NO_OP",
+        "Result": "FAIL",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "IndependentExpected": "CONFLICT",
+      "Error": null,
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL",
+      "StateDelta": "NONE: pure identity/codec; no monetary state",
+      "ProofBoundary": "PYTHON_SOURCE_MUTATION_ONLY; MQL5 mutation execution NOT_RUN"
+    },
+    {
+      "MutationID": "OMIT-Magic",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0h_identity_codec.py",
+      "TargetFunction": "equal_body",
+      "ExactEdit": {
+        "Old": "for name in FIELDS:",
+        "New": "for name in (k for k in FIELDS if k!='Magic'):"
+      },
+      "OriginalSourceHash": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+      "MutantSourceHash": "6a5dbc396d06c22ed6366ffc8a2437fab07072be589573cf795af66261212c9e",
+      "CausalTestID": "ID-COHERENT-Magic",
+      "OriginalPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "OriginalNegative": {
+        "TestID": "ID-COHERENT-Magic",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-Magic",
+        "Expected": "CONFLICT",
+        "Actual": "CONFLICT",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantNegative": {
+        "TestID": "ID-COHERENT-Magic",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-Magic",
+        "Expected": "CONFLICT",
+        "Actual": "NO_OP",
+        "Result": "FAIL",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "IndependentExpected": "CONFLICT",
+      "Error": null,
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL",
+      "StateDelta": "NONE: pure identity/codec; no monetary state",
+      "ProofBoundary": "PYTHON_SOURCE_MUTATION_ONLY; MQL5 mutation execution NOT_RUN"
+    },
+    {
+      "MutationID": "OMIT-CycleID",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0h_identity_codec.py",
+      "TargetFunction": "equal_body",
+      "ExactEdit": {
+        "Old": "for name in FIELDS:",
+        "New": "for name in (k for k in FIELDS if k!='CycleID'):"
+      },
+      "OriginalSourceHash": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+      "MutantSourceHash": "f032019c0f793aef259da8da5216d8a88ee3095e2b16188ed5bced48708694ea",
+      "CausalTestID": "ID-COHERENT-CycleID",
+      "OriginalPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "OriginalNegative": {
+        "TestID": "ID-COHERENT-CycleID",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-CycleID",
+        "Expected": "CONFLICT",
+        "Actual": "CONFLICT",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantNegative": {
+        "TestID": "ID-COHERENT-CycleID",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-CycleID",
+        "Expected": "CONFLICT",
+        "Actual": "NO_OP",
+        "Result": "FAIL",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "IndependentExpected": "CONFLICT",
+      "Error": null,
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL",
+      "StateDelta": "NONE: pure identity/codec; no monetary state",
+      "ProofBoundary": "PYTHON_SOURCE_MUTATION_ONLY; MQL5 mutation execution NOT_RUN"
+    },
+    {
+      "MutationID": "IGNORE-Broker",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0h_identity_codec.py",
+      "TargetFunction": "source_key",
+      "ExactEdit": {
+        "Old": "return (r['Broker'],r['Server'],r['AccountLogin'],r['DealTicket'])",
+        "New": "return ('IGNORED',r['Server'],r['AccountLogin'],r['DealTicket'])"
+      },
+      "OriginalSourceHash": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+      "MutantSourceHash": "8932c4ab2c1af97b3227670e33aaa7b0d1001c438371015c915d9b0075835728",
+      "CausalTestID": "ID-COHERENT-Broker",
+      "OriginalPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "OriginalNegative": {
+        "TestID": "ID-COHERENT-Broker",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-Broker",
+        "Expected": "NEW",
+        "Actual": "NEW",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantNegative": {
+        "TestID": "ID-COHERENT-Broker",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-Broker",
+        "Expected": "NEW",
+        "Actual": "CONFLICT",
+        "Result": "FAIL",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "IndependentExpected": "NEW",
+      "Error": null,
+      "Verdict": "STATUS_CONTRACT_KILL",
+      "StateDelta": "NONE: pure identity/codec; no monetary state",
+      "ProofBoundary": "PYTHON_SOURCE_MUTATION_ONLY; MQL5 mutation execution NOT_RUN"
+    },
+    {
+      "MutationID": "IGNORE-AccountLogin",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0h_identity_codec.py",
+      "TargetFunction": "source_key",
+      "ExactEdit": {
+        "Old": "return (r['Broker'],r['Server'],r['AccountLogin'],r['DealTicket'])",
+        "New": "return (r['Broker'],r['Server'],'IGNORED',r['DealTicket'])"
+      },
+      "OriginalSourceHash": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+      "MutantSourceHash": "162b6f5f0bc8c153a845d2ab636d286a8be8913a3c0c8c554417dfc9ce3825c0",
+      "CausalTestID": "ID-COHERENT-AccountLogin",
+      "OriginalPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "OriginalNegative": {
+        "TestID": "ID-COHERENT-AccountLogin",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-AccountLogin",
+        "Expected": "NEW",
+        "Actual": "NEW",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantNegative": {
+        "TestID": "ID-COHERENT-AccountLogin",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-AccountLogin",
+        "Expected": "NEW",
+        "Actual": "CONFLICT",
+        "Result": "FAIL",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "IndependentExpected": "NEW",
+      "Error": null,
+      "Verdict": "STATUS_CONTRACT_KILL",
+      "StateDelta": "NONE: pure identity/codec; no monetary state",
+      "ProofBoundary": "PYTHON_SOURCE_MUTATION_ONLY; MQL5 mutation execution NOT_RUN"
+    },
+    {
+      "MutationID": "IGNORE-DealTicket",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0h_identity_codec.py",
+      "TargetFunction": "source_key",
+      "ExactEdit": {
+        "Old": "return (r['Broker'],r['Server'],r['AccountLogin'],r['DealTicket'])",
+        "New": "return (r['Broker'],r['Server'],r['AccountLogin'],'IGNORED')"
+      },
+      "OriginalSourceHash": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+      "MutantSourceHash": "3c8d7528cf3bd03d387b01c0a7c70e221f89e5c33c25993b9c5213af0c736855",
+      "CausalTestID": "ID-COHERENT-DealTicket",
+      "OriginalPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "OriginalNegative": {
+        "TestID": "ID-COHERENT-DealTicket",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-DealTicket",
+        "Expected": "NEW",
+        "Actual": "NEW",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantNegative": {
+        "TestID": "ID-COHERENT-DealTicket",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-DealTicket",
+        "Expected": "NEW",
+        "Actual": "CONFLICT",
+        "Result": "FAIL",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "IndependentExpected": "NEW",
+      "Error": null,
+      "Verdict": "STATUS_CONTRACT_KILL",
+      "StateDelta": "NONE: pure identity/codec; no monetary state",
+      "ProofBoundary": "PYTHON_SOURCE_MUTATION_ONLY; MQL5 mutation execution NOT_RUN"
+    },
+    {
+      "MutationID": "CONFLICT-TO-NOOP",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0h_identity_codec.py",
+      "TargetFunction": "classify",
+      "ExactEdit": {
+        "Old": "return 'NO_OP' if equal_body(prior,incoming) else 'CONFLICT'",
+        "New": "return 'NO_OP' if equal_body(prior,incoming) else 'NO_OP'"
+      },
+      "OriginalSourceHash": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+      "MutantSourceHash": "8b6a5c2dc09b243e1f289e60fc5803b6694d3df267e02f586620e5c3db1b91c5",
+      "CausalTestID": "ID-COHERENT-Profit",
+      "OriginalPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "OriginalNegative": {
+        "TestID": "ID-COHERENT-Profit",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-Profit",
+        "Expected": "CONFLICT",
+        "Actual": "CONFLICT",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantNegative": {
+        "TestID": "ID-COHERENT-Profit",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-COHERENT-Profit",
+        "Expected": "CONFLICT",
+        "Actual": "NO_OP",
+        "Result": "FAIL",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "IndependentExpected": "CONFLICT",
+      "Error": null,
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL",
+      "StateDelta": "NONE: pure identity/codec; no monetary state",
+      "ProofBoundary": "PYTHON_SOURCE_MUTATION_ONLY; MQL5 mutation execution NOT_RUN"
+    },
+    {
+      "MutationID": "UNAVAILABLE-TO-NEW",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0h_identity_codec.py",
+      "TargetFunction": "classify",
+      "ExactEdit": {
+        "Old": "if authority is None or registry is None:return 'UNAVAILABLE'",
+        "New": "if authority is None or registry is None:return 'NEW'"
+      },
+      "OriginalSourceHash": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+      "MutantSourceHash": "e827121b564d03c8943c37d47a4d5107ae6f7436abaad3ae5576dab88edcfd50",
+      "CausalTestID": "ID-UNKNOWN-HISTORY",
+      "OriginalPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantPositive": {
+        "TestID": "ID-EXACT",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-EXACT",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "OriginalNegative": {
+        "TestID": "ID-UNKNOWN-HISTORY",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-UNKNOWN-HISTORY",
+        "Expected": "UNAVAILABLE",
+        "Actual": "UNAVAILABLE",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantNegative": {
+        "TestID": "ID-UNKNOWN-HISTORY",
+        "RequirementID": "R0H-IDENTITY",
+        "Input": "ID-UNKNOWN-HISTORY",
+        "Expected": "UNAVAILABLE",
+        "Actual": "NEW",
+        "Result": "FAIL",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "IndependentExpected": "UNAVAILABLE",
+      "Error": null,
+      "Verdict": "UNSAFE_ACCEPTANCE_KILL",
+      "StateDelta": "NONE: pure identity/codec; no monetary state",
+      "ProofBoundary": "PYTHON_SOURCE_MUTATION_ONLY; MQL5 mutation execution NOT_RUN"
+    },
+    {
+      "MutationID": "BYTE-ORDER",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0h_identity_codec.py",
+      "TargetFunction": "token",
+      "ExactEdit": {
+        "Old": "bits(value).to_bytes(8,'big')",
+        "New": "bits(value).to_bytes(8,'little')"
+      },
+      "OriginalSourceHash": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+      "MutantSourceHash": "67a8c16ae92aab690666a41a1c2f1892737b8cc0d062eb6b6d11894b71b3210d",
+      "CausalTestID": "CODEC-B-FULL",
+      "OriginalPositive": {
+        "TestID": "MUT-POSITIVE-BYTE-ORDER",
+        "Expected": "750000000000000001",
+        "Actual": "750000000000000001",
+        "Result": "PASS",
+        "Evidence": "Independently generated struct/literal bytes, compared with original in positive controls"
+      },
+      "MutantPositive": {
+        "TestID": "MUT-POSITIVE-BYTE-ORDER",
+        "Expected": "750000000000000001",
+        "Actual": "750000000000000001",
+        "OriginalActual": "750000000000000001",
+        "Result": "PASS"
+      },
+      "OriginalNegative": {
+        "TestID": "CODEC-B-FULL",
+        "RequirementID": "R0H-CODEC",
+        "Input": "CODEC-B-FULL",
+        "Expected": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+        "Actual": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantNegative": {
+        "TestID": "CODEC-B-FULL",
+        "RequirementID": "R0H-CODEC",
+        "Input": "CODEC-B-FULL",
+        "Expected": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+        "Actual": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d6564000000000000f03f7300000005507269636564000000000000f43f730000000650726f666974640000000000004e407300000004537761706400000000000000c0730000000a436f6d6d697373696f6e640000000000001cc0730000000346656564000000000000f0bf73000000074465616c4e6574640000000000004940730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+        "Result": "FAIL",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "IndependentExpected": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+      "Error": null,
+      "Verdict": "STATUS_CONTRACT_KILL",
+      "StateDelta": "NONE: pure identity/codec; no monetary state",
+      "ProofBoundary": "PYTHON_SOURCE_MUTATION_ONLY; MQL5 mutation execution NOT_RUN"
+    },
+    {
+      "MutationID": "UTF8-LENGTH",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0h_identity_codec.py",
+      "TargetFunction": "token",
+      "ExactEdit": {
+        "Old": "len(raw).to_bytes(4,'big')",
+        "New": "len(value).to_bytes(4,'big')"
+      },
+      "OriginalSourceHash": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+      "MutantSourceHash": "347a6e61556927268dbd3c57658f52af747488df8d5f61d5ae7eb46eb7b152fb",
+      "CausalTestID": "UTF8-cyrillic",
+      "OriginalPositive": {
+        "TestID": "MUT-POSITIVE-UTF8-LENGTH",
+        "Expected": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+        "Actual": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+        "Result": "PASS",
+        "Evidence": "Independently generated struct/literal bytes, compared with original in positive controls"
+      },
+      "MutantPositive": {
+        "TestID": "MUT-POSITIVE-UTF8-LENGTH",
+        "Expected": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+        "Actual": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+        "OriginalActual": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+        "Result": "PASS"
+      },
+      "OriginalNegative": {
+        "TestID": "UTF8-cyrillic",
+        "RequirementID": "R0H-CODEC",
+        "Input": "UTF8-cyrillic",
+        "Expected": "7300000002d091",
+        "Actual": "7300000002d091",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantNegative": {
+        "TestID": "UTF8-cyrillic",
+        "RequirementID": "R0H-CODEC",
+        "Input": "UTF8-cyrillic",
+        "Expected": "7300000002d091",
+        "Actual": "7300000001d091",
+        "Result": "FAIL",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "IndependentExpected": "7300000002d091",
+      "Error": null,
+      "Verdict": "STATUS_CONTRACT_KILL",
+      "StateDelta": "NONE: pure identity/codec; no monetary state",
+      "ProofBoundary": "PYTHON_SOURCE_MUTATION_ONLY; MQL5 mutation execution NOT_RUN"
+    },
+    {
+      "MutationID": "ZERO-POLICY",
+      "TargetFile": "Tests/Reference/hsbi_02b_r0h_identity_codec.py",
+      "TargetFunction": "bits",
+      "ExactEdit": {
+        "Old": "if x==0:return 0",
+        "New": "if x==0:return (1<<63) if math.copysign(1,x)<0 else 0"
+      },
+      "OriginalSourceHash": "654db51214003cc4f4b2cfd86dbcf7688f8c77bf4a945341b3be84d015c29dc5",
+      "MutantSourceHash": "9caa5590fb3fdc33202b2e54c840a00baa700fc7730d8cca59bc748e43b99ebb",
+      "CausalTestID": "BITS-negative-zero",
+      "OriginalPositive": {
+        "TestID": "MUT-POSITIVE-ZERO-POLICY",
+        "Expected": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+        "Actual": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+        "Result": "PASS",
+        "Evidence": "Independently generated struct/literal bytes, compared with original in positive controls"
+      },
+      "MutantPositive": {
+        "TestID": "MUT-POSITIVE-ZERO-POLICY",
+        "Expected": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+        "Actual": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+        "OriginalActual": "485342492d4636345a2d3100730000000d536368656d6156657273696f6e750000000000000001730000000642726f6b657273000000024231730000000653657276657273000000025331730000000c4163636f756e744c6f67696e750000000000000001730000000653796d626f6c730000000645555255534473000000054d6167696375000000000000000773000000074379636c654944750000000000000001730000000a4465616c5469636b657475000000000000000b730000000b4f726465725469636b657475000000000000000c7300000012506f736974696f6e4964656e74696669657275000000000000000d7300000008416374696f6e494475000000000000000173000000074576656e74494475000000000000001f7300000004526f6c657300000007426967436f72657300000009456e7472795479706573000000034f555473000000084465616c54797065730000000453454c4c730000000c54696d657374616d704d73637500000000000186a07300000006566f6c756d65643ff000000000000073000000055072696365643ff4000000000000730000000650726f66697464404e00000000000073000000045377617064c000000000000000730000000a436f6d6d697373696f6e64c01c000000000000730000000346656564bff000000000000073000000074465616c4e6574644049000000000000730000000843757272656e637973000000035553447300000009507265636973696f6e7500000000000000027300000014536f75726365506c616e4170706c696361626c656231730000000a536f75726365506c616e7500000000000000017300000016536f75726365506f6c6963794170706c696361626c6562317300000013536f75726365506f6c69637956657273696f6e750000000000000001",
+        "Result": "PASS"
+      },
+      "OriginalNegative": {
+        "TestID": "BITS-negative-zero",
+        "RequirementID": "R0H-CODEC",
+        "Input": "BITS-negative-zero",
+        "Expected": "0000000000000000",
+        "Actual": "0000000000000000",
+        "Result": "PASS",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "MutantNegative": {
+        "TestID": "BITS-negative-zero",
+        "RequirementID": "R0H-CODEC",
+        "Input": "BITS-negative-zero",
+        "Expected": "0000000000000000",
+        "Actual": "8000000000000000",
+        "Result": "FAIL",
+        "ProofBoundary": "PYTHON_REFERENCE"
+      },
+      "IndependentExpected": "0000000000000000",
+      "Error": null,
+      "Verdict": "STATUS_CONTRACT_KILL",
+      "StateDelta": "NONE: pure identity/codec; no monetary state",
+      "ProofBoundary": "PYTHON_SOURCE_MUTATION_ONLY; MQL5 mutation execution NOT_RUN"
+    }
+  ],
+  "CatalogSize": 14,
+  "Killed": 14,
+  "Survived": 0,
+  "InfrastructureErrors": 0,
+  "ExecutionScope": "Only each mutant causal negative plus positive; not full suite/native mutation coverage",
+  "InitialSurvivors": [],
+  "InitialInfrastructureErrors": [],
+  "NativeMutationExecution": "NOT_RUN",
+  "ExitCode": 0
+}
