@@ -1,0 +1,144 @@
+{
+  "BaseSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "TestedSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "UTC": "2026-11-11T20:16:08.675810+00:00",
+  "RunnerSourceHash": "9e5144c1096a966272e08bb2be1a2f0865f6e45421d470982420e70d99f88515",
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "AuditCompleteness": "PARTIAL",
+  "MainManual": "Docs/03_FULL_SYSTEM_MANUAL_RU.md",
+  "MainManualLines": 51,
+  "MainManualReadFull": true,
+  "DocumentsIndexed": 133,
+  "PrimaryOwnerDocuments": 34,
+  "PrimaryOwnerFullReadingScope": [
+    "Docs/00_PROJECT_CHARTER_RU.md",
+    "Docs/01_GLOSSARY_AND_DIMENSIONS_RU.md",
+    "Docs/02_SYSTEM_ROLES_AND_IDENTITY_RU.md",
+    "Docs/03_FULL_SYSTEM_MANUAL_RU.md",
+    "Docs/04_MATHEMATICAL_MODEL_RU.md",
+    "Docs/05_GEOMETRY_MODEL_RU.md",
+    "Docs/06_STATE_MACHINE_SPECIFICATION_RU.md",
+    "Docs/07_TRANSACTION_EXECUTION_CONTRACT_RU.md",
+    "Docs/08_MONEY_LEDGER_SPECIFICATION_RU.md",
+    "Docs/09_INITIAL_LOCK_SPECIFICATION_RU.md",
+    "Docs/10_BIG_HARVEST_SPECIFICATION_RU.md",
+    "Docs/11_PARTIAL_FAR_SPECIFICATION_RU.md",
+    "Docs/12_FINAL_CLOSE_SPECIFICATION_RU.md",
+    "Docs/13_SMALL_TRANSITION_SPECIFICATION_RU.md",
+    "Docs/14_NEW_FAR_SOLVER_SPECIFICATION_RU.md",
+    "Docs/15_RISK_AND_MARGIN_CONTRACT_RU.md",
+    "Docs/16_PERSISTENCE_AND_RESTART_RU.md",
+    "Docs/17_RECONCILIATION_AND_TERMINAL_SAFE_RU.md",
+    "Docs/18_MQL5_ARCHITECTURE_SPECIFICATION_RU.md",
+    "Docs/20_TEST_STRATEGY_RU.md",
+    "Docs/23_NORMATIVE_DECISIONS_RESOLUTION_RU.md",
+    "Docs/24_BROKER_MONEY_MODEL_RU.md",
+    "Docs/25_BROKER_GRID_AND_ROUNDING_RU.md",
+    "Docs/26_GEOMETRY_ENGINE_SPECIFICATION_RU.md",
+    "Docs/27_CONTROL_PRICES_AND_COSTS_RU.md",
+    "Docs/27_FUTURE_SMALL_SOLVER_RU.md",
+    "Docs/28_NEW_FAR_SOLVER_RU.md",
+    "Docs/29_CANDIDATE_OBJECTIVE_AND_TIEBREAK_RU.md",
+    "Docs/30_FUTURE_SMALL_AGGREGATE_PROOF_RU.md",
+    "Docs/31_MONEY_PROOF_IDENTITY_RU.md",
+    "Docs/32_RESERVE_ALLOCATION_CONSUMPTION_RU.md"
+  ],
+  "HistoricalTablesNotFullySemanticallyReviewed": [
+    "Docs/19_REQUIREMENT_TRACEABILITY_MATRIX_RU.md",
+    "Docs/21_PRODUCTION_READINESS_CRITERIA_RU.md",
+    "Docs/22_OPEN_DECISIONS_REGISTER_RU.md",
+    "Other historical proposal/test-model appendices indexed, not all independently reaudited"
+  ],
+  "ProductionModulesIndexedAndStaticallyReviewed": 74,
+  "ProductionDeclaredFunctions": 199,
+  "EntryIncludedModules": 16,
+  "EntryReachableProjectFunctions": 13,
+  "ExtractedCppSourceHeaders": 50,
+  "ExtractedCaseCount": 54,
+  "ExtractedContractPass": 27,
+  "ExtractedContractFail": 27,
+  "FormulaFamilies": 49,
+  "FormulaCounts": {
+    "VERIFIED": 24,
+    "CONTRADICTORY": 11,
+    "UNVERIFIED": 14
+  },
+  "LexicalExpressionSites": 137,
+  "ExistingPythonTestScripts": 279,
+  "FreshHistoricalRuns": 16,
+  "ReferenceScenarios": 20,
+  "DistinctPropertyInputPairs": 245,
+  "PropertyFamilies": 15,
+  "PropertyMutations": 15,
+  "SpecMathVectors": 20,
+  "MQL5_COMPILE": "NOT_RUN",
+  "MQL5_NATIVE_TESTS": "NOT_RUN",
+  "BrokerExecution": "NOT_RUN",
+  "DurableConcurrentRecovery": "UNVERIFIED",
+  "ProofLimits": [
+    {
+      "RiskID": "UR01",
+      "Title": "Global economic funding",
+      "Source": "Docs/08:12,24; R0F FUNDING",
+      "Reason": "Нет глобального unique source/allocation/account registry с фактическими opening/closing/foreign debits. Один локальный валидатор не доказывает conservation across allocations.",
+      "Status": "UNVERIFIED"
+    },
+    {
+      "RiskID": "UR02",
+      "Title": "Broker execution, posted precision, actual costs/margin",
+      "Source": "Docs/24:5-11; Docs/15:9",
+      "Reason": "OrderCalc wrappers не исполнялись в MT5; currency conversion, tiers, netting/hedging, margin calls, swap/fee timing и posted policy неизвестны.",
+      "Status": "UNVERIFIED"
+    },
+    {
+      "RiskID": "UR03",
+      "Title": "Loss bound/profitability",
+      "Source": "Docs/04:12,33-36; SCENARIO-BIG_PROFIT_SMALL_LOSS",
+      "Reason": "Нет market/stochastic assumptions/backtest. Положительный Harvest не обеспечивает положительный full-cycle PnL; gaps/remaining short liability не ограничены моделью.",
+      "Status": "UNVERIFIED"
+    },
+    {
+      "RiskID": "UR04",
+      "Title": "Cycle termination/liveness",
+      "Source": "Docs/05:25; Docs/13:12; FutureSmallSolver:144",
+      "Reason": "Сужение Far по успешным transitions не гарантирует приход нужных цен, доступность маржи, исполнения или закрытие terminalFar. Flat/adverse path может не завершить recovery.",
+      "Status": "UNVERIFIED"
+    },
+    {
+      "RiskID": "UR05",
+      "Title": "Durable/concurrent exactly-once",
+      "Source": "Docs/16; PersistenceInterface:5-7",
+      "Reason": "Нет реального backend/CAS/locks/crash/restart provider. Boolean historyUnchanged не доказывает долговечность.",
+      "Status": "UNVERIFIED"
+    },
+    {
+      "RiskID": "UR06",
+      "Title": "Native MQL5 compatibility",
+      "Source": "Docs/20:HSBI-TEST-001..003; R0H harness",
+      "Reason": "Нет MetaEditor/MT5, compile/runtime/byte/golden/out-of-memory evidence. C++ адаптер не замена.",
+      "Status": "UNVERIFIED"
+    },
+    {
+      "RiskID": "UR07",
+      "Title": "Risk/margin/source snapshot identity across candidate levels",
+      "Source": "FutureSmallSolver:83-90,127; NewFarSolver:77",
+      "Reason": "RuntimeConfirmed/evaluatedRisk/snapshotId принимаются от вызывающего слоя. Independent provider/candidate-specific reconciliation отсутствуют; self-consistent flags не proof.",
+      "Status": "UNVERIFIED"
+    },
+    {
+      "RiskID": "UR08",
+      "Title": "Coverage beyond reviewed owner contracts",
+      "Source": "INVENTORY.json Docs/TestFiles; COVERAGE.json",
+      "Reason": "Все133 документа проиндексированы, но не каждая историческая таблица/qualification oracle повторно семантически проверена;279 test scripts не все выполнены;137 expression sites не все выделены в атомарные формулы.",
+      "Status": "UNVERIFIED"
+    },
+    {
+      "RiskID": "UR09",
+      "Title": "Actual reconciliation and authority authenticity",
+      "Source": "Docs/07; Docs/17; MoneyProofIdentity:10",
+      "Reason": "Нет actual position/order/deal reader и producer origin association journal; nonzero IDs/flags не подтверждают наличие/принадлежность сделки.",
+      "Status": "UNVERIFIED"
+    }
+  ],
+  "NoOverallReadinessPercentage": true
+}

@@ -1,0 +1,1325 @@
+
+#include <bits/stdc++.h>
+using std::string;using datetime=long;
+static_assert(sizeof(ulong)==8&&sizeof(long)==8&&sizeof(double)==8,"LP64 adapter required");
+template<class T> void ZeroMemory(T &v){v=T{};}
+double MathAbs(double x){return std::abs(x);}double MathMin(double a,double b){return std::min(a,b);}double MathMax(double a,double b){return std::max(a,b);}double MathRound(double x){return std::round(x);}double MathFloor(double x){return std::floor(x);}double MathCeil(double x){return std::ceil(x);}double MathPow(double x,double y){return std::pow(x,y);}double MathLog(double x){return std::log(x);}bool MathIsValidNumber(double x){return std::isfinite(x);}
+string LongToString(long x){return std::to_string(x);}string IntegerToString(int x){return std::to_string(x);}string DoubleToString(double x,int n){std::ostringstream s;s<<std::fixed<<std::setprecision(n)<<x;return s.str();}string StringSubstr(const string&s,int at,int n){return s.substr(at,n);}int StringCompare(const string&a,const string&b){return a.compare(b);}
+enum ENUM_ORDER_TYPE{ORDER_TYPE_BUY,ORDER_TYPE_SELL};
+// EXPLICIT analytical fixtures; not terminal/broker APIs. Never a source of expected values.
+bool OrderCalcProfit(ENUM_ORDER_TYPE side,const string&,double v,double open,double close,double &out){out=v*(side==ORDER_TYPE_BUY?close-open:open-close);return true;}
+bool OrderCalcMargin(ENUM_ORDER_TYPE,const string&,double v,double price,double &out){out=v*price/100.0;return true;}
+
+
+// SOURCE Include/Core/HSBI_Version.mqh
+#define HSBI_VERSION_MQH
+#define HSBI_PROJECT_NAME "Hybrid_Split_Big_Independent_EA"
+#define HSBI_PROJECT_GENERATION 1
+#define HSBI_STAGE "HSB.1"
+#define HSBI_SCHEMA_VERSION 1
+#define HSBI_MONEY_STATE_VERSION 1
+#define HSBI_EVENT_SCHEMA_VERSION 1
+#define HSBI_SNAPSHOT_SCHEMA_VERSION 1
+#define HSBI_TRADING_IMPLEMENTED false
+#define HSBI_REAL_TRADING_ALLOWED false
+
+// SOURCE Include/Core/HSBI_Enums.mqh
+#define HSBI_ENUMS_MQH
+enum HSBI_RuntimeMode{HSBI_RUNTIME_UNSPECIFIED,HSBI_RUNTIME_PRODUCTION,HSBI_RUNTIME_SHADOW,HSBI_RUNTIME_ADMIN_VERIFICATION,HSBI_RUNTIME_DISABLED,HSBI_RUNTIME_UNIT_TEST,HSBI_RUNTIME_STRATEGY_TESTER_DRY_RUN,HSBI_RUNTIME_DEMO_DRY_RUN,HSBI_RUNTIME_SHADOW_REAL,HSBI_RUNTIME_REAL_LIMITED};
+enum HSBI_Direction{HSBI_DIRECTION_NONE,HSBI_DIRECTION_BUY,HSBI_DIRECTION_SELL};
+enum HSBI_Role{HSBI_ROLE_NONE,HSBI_ROLE_INITIAL_BUY,HSBI_ROLE_INITIAL_SELL,HSBI_ROLE_INITIAL_PLUS,HSBI_ROLE_FAR,HSBI_ROLE_BIG_CORE,HSBI_ROLE_BIG_TREND,HSBI_ROLE_SMALL_BASE,HSBI_ROLE_NEW_FAR};
+enum HSBI_Status{HSBI_STATUS_VALID,HSBI_STATUS_INVALID,HSBI_STATUS_PENDING,HSBI_STATUS_COMPLETED,HSBI_STATUS_REJECTED,HSBI_STATUS_CONFLICT,HSBI_STATUS_TERMINAL_SAFE};
+enum HSBI_MoneyBucket{HSBI_BUCKET_FINAL_RESERVE,HSBI_BUCKET_PARTIAL_FAR_BUDGET,HSBI_BUCKET_TRANSITION_BUDGET,HSBI_BUCKET_CARRY,HSBI_BUCKET_RESIDUAL};
+enum HSBI_State{HSBI_STATE_DISABLED,HSBI_STATE_IDLE,HSBI_STATE_INITIAL_PLAN_READY,HSBI_STATE_INITIAL_OPENING_BUY,HSBI_STATE_INITIAL_OPENING_SELL,HSBI_STATE_INITIAL_LOCK_ACTIVE,HSBI_STATE_INITIAL_PLUS_CLOSING,HSBI_STATE_FAR_ACTIVE,HSBI_STATE_CANDIDATE_PLANNED,HSBI_STATE_BASKET_OPENING_CORE,HSBI_STATE_BASKET_OPENING_TREND,HSBI_STATE_BASKET_OPENING_SMALL,HSBI_STATE_BASKET_ACTIVE,HSBI_STATE_BIG_HARVEST_PLANNED,HSBI_STATE_BIG_HARVEST_EXECUTING,HSBI_STATE_ALLOCATION_PENDING,HSBI_STATE_FINAL_CLOSE_PLANNED,HSBI_STATE_FINAL_CLOSE_EXECUTING,HSBI_STATE_PARTIAL_FAR_PLANNED,HSBI_STATE_PARTIAL_FAR_EXECUTING,HSBI_STATE_SMALL_TRANSITION_PLANNED,HSBI_STATE_SMALL_CONFIRMING,HSBI_STATE_SMALL_CLOSING,HSBI_STATE_OLD_FAR_CLOSING,HSBI_STATE_BIG_TREND_CLOSING,HSBI_STATE_BIG_CORE_REDUCING,HSBI_STATE_NEW_FAR_VALIDATING,HSBI_STATE_RETRY_PENDING,HSBI_STATE_RECONCILING,HSBI_STATE_EMERGENCY,HSBI_STATE_MANUAL_REVIEW,HSBI_STATE_TERMINAL_SAFE,HSBI_STATE_CYCLE_CLOSED};
+enum HSBI_ActionType{HSBI_ACTION_NONE,HSBI_ACTION_OPEN_INTENT,HSBI_ACTION_CLOSE_INTENT,HSBI_ACTION_PARTIAL_CLOSE_INTENT,HSBI_ACTION_PROMOTE_ROLE_INTENT};
+enum HSBI_EventType{HSBI_EVENT_NONE,HSBI_EVENT_REQUEST_ACCEPTED,HSBI_EVENT_PLACED,HSBI_EVENT_PARTIAL_FILL,HSBI_EVENT_COMPLETED_FILL,HSBI_EVENT_REJECTED,HSBI_EVENT_TIMEOUT,HSBI_EVENT_CONFLICT};
+
+// SOURCE Include/Core/HSBI_ReasonCodes.mqh
+#define HSBI_REASON_CODES_MQH
+enum HSBI_ReasonCode{HSBI_REASON_OK=0,HSBI_REASON_NOT_INITIALIZED,HSBI_REASON_INVALID_RUNTIME_MODE,HSBI_REASON_TRADING_NOT_IMPLEMENTED,HSBI_REASON_REAL_TRADING_FORBIDDEN,HSBI_REASON_INVALID_IDENTITY,HSBI_REASON_INVALID_STATE_TRANSITION,HSBI_REASON_DUPLICATE_FAR,HSBI_REASON_UNKNOWN_ROLE,HSBI_REASON_STALE_SNAPSHOT,HSBI_REASON_OFF_GRID_PRICE,HSBI_REASON_INVALID_VOLUME,HSBI_REASON_PENDING_ACTION,HSBI_REASON_PARTIAL_FILL_PENDING,HSBI_REASON_RECONCILIATION_REQUIRED,HSBI_REASON_PERSISTENCE_NOT_IMPLEMENTED,HSBI_REASON_LEDGER_CONSERVATION_FAILED,HSBI_REASON_FINAL_RESERVE_FOR_PARTIAL_FAR,HSBI_REASON_INTERNAL_INVARIANT_FAILED,HSBI_REASON_INVALID_INTENT_STRUCTURE,HSBI_REASON_INVALID_INTENT_IDENTITY,HSBI_REASON_INVALID_INTENT_TIMESTAMPS,HSBI_REASON_INVALID_INTENT_SOURCE,HSBI_REASON_INVALID_INTENT_VOLUME,HSBI_REASON_INVALID_INTENT_SNAPSHOT,HSBI_REASON_RUNTIME_MODE_NOT_ALLOWED,HSBI_REASON_INJECTED_PROOF_FORBIDDEN,HSBI_REASON_TEST_ONLY_PROOF_FORBIDDEN,HSBI_REASON_SIMULATED_COMPLETION_FORBIDDEN,HSBI_REASON_BROKER_DISPATCH_FORBIDDEN,HSBI_REASON_RUNTIME_SOURCE_NOT_CONFIRMED};
+string HSBI_ReasonToString(const HSBI_ReasonCode reason){switch(reason){case HSBI_REASON_OK:return "OK";case HSBI_REASON_TRADING_NOT_IMPLEMENTED:return "TRADING_NOT_IMPLEMENTED";case HSBI_REASON_REAL_TRADING_FORBIDDEN:return "REAL_TRADING_FORBIDDEN";case HSBI_REASON_INVALID_IDENTITY:return "INVALID_IDENTITY";case HSBI_REASON_INVALID_STATE_TRANSITION:return "INVALID_STATE_TRANSITION";case HSBI_REASON_DUPLICATE_FAR:return "DUPLICATE_FAR";case HSBI_REASON_STALE_SNAPSHOT:return "STALE_SNAPSHOT";case HSBI_REASON_INVALID_VOLUME:return "INVALID_VOLUME";case HSBI_REASON_RECONCILIATION_REQUIRED:return "RECONCILIATION_REQUIRED";default:return "HSBI_REASON";}}
+
+// SOURCE Include/Core/HSBI_Types.mqh
+#define HSBI_TYPES_MQH
+struct HSBI_ValidationResult{bool passed;int reason;string requirementId;string details;};
+struct HSBI_U64Id{ulong value;bool valid;};
+struct HSBI_Timestamp{datetime value;bool valid;};
+HSBI_ValidationResult HSBI_Result(const bool passed,const int reason,const string req,const string details){HSBI_ValidationResult r;r.passed=passed;r.reason=reason;r.requirementId=req;r.details=details;return r;}
+
+// SOURCE Include/Core/HSBI_Identifiers.mqh
+#define HSBI_IDENTIFIERS_MQH
+struct HSBI_Identity{long accountLogin;string symbol;long magic;ulong cycleId;ulong positionIdentifier;HSBI_Role role;};
+bool HSBI_IsValidIdentity(const HSBI_Identity &x){return x.accountLogin>0 && x.symbol!="" && x.magic!=0 && x.cycleId>0 && x.role!=HSBI_ROLE_NONE;}
+bool HSBI_SameCycle(const HSBI_Identity &a,const HSBI_Identity &b){return a.accountLogin==b.accountLogin && a.symbol==b.symbol && a.magic==b.magic && a.cycleId==b.cycleId;}
+bool HSBI_SamePositionOwner(const HSBI_Identity &a,const HSBI_Identity &b){return HSBI_SameCycle(a,b)&&a.positionIdentifier==b.positionIdentifier&&a.role==b.role;}
+bool HSBI_SameSymbolScope(const HSBI_Identity &a,const HSBI_Identity &b){return a.accountLogin==b.accountLogin&&a.symbol==b.symbol&&a.magic==b.magic;}
+string HSBI_UlongToString(const ulong value)
+{
+   if(value==0)return "0";
+   ulong remaining=value;
+   string result="";
+   while(remaining>0)
+   {
+      const int digit=(int)(remaining%10);
+      result=StringSubstr("0123456789",digit,1)+result;
+      remaining/=10;
+   }
+   return result;
+}
+string HSBI_SerializeIdentity(const HSBI_Identity &x){return LongToString(x.accountLogin)+"|"+x.symbol+"|"+LongToString(x.magic)+"|"+HSBI_UlongToString(x.cycleId)+"|"+HSBI_UlongToString(x.positionIdentifier)+"|"+IntegerToString((int)x.role);}
+
+// SOURCE Include/Core/HSBI_RuntimePolicy.mqh
+#define HSBI_RUNTIME_POLICY_MQH
+// HSB.2C-R1-P1 is orchestration-only: dispatch is unconditionally disabled.
+struct HSBI_RuntimePolicy
+{
+   HSBI_RuntimeMode mode;
+   bool diagnosticsAllowed,staticCalculationAllowed,injectedFixtureAllowed;
+   bool productionPreflightAllowed,persistenceAllowed,terminalCompletionAllowed,brokerDispatchAllowed;
+   bool valid;
+};
+HSBI_RuntimePolicy HSBI_BuildRuntimePolicy(const HSBI_RuntimeMode mode)
+{
+   HSBI_RuntimePolicy p;ZeroMemory(p);p.mode=mode;
+   if(mode==HSBI_RUNTIME_UNSPECIFIED)return p;
+   if(mode==HSBI_RUNTIME_DISABLED){p.diagnosticsAllowed=true;p.valid=true;return p;}
+   if(mode==HSBI_RUNTIME_UNIT_TEST){p.diagnosticsAllowed=true;p.staticCalculationAllowed=true;p.injectedFixtureAllowed=true;p.valid=true;return p;}
+   if(mode==HSBI_RUNTIME_STRATEGY_TESTER_DRY_RUN||mode==HSBI_RUNTIME_DEMO_DRY_RUN){p.diagnosticsAllowed=true;p.staticCalculationAllowed=true;p.persistenceAllowed=true;p.valid=true;return p;}
+   if(mode==HSBI_RUNTIME_SHADOW){p.diagnosticsAllowed=true;p.staticCalculationAllowed=true;p.productionPreflightAllowed=true;p.persistenceAllowed=true;p.valid=true;return p;}
+   if(mode==HSBI_RUNTIME_PRODUCTION||mode==HSBI_RUNTIME_ADMIN_VERIFICATION){p.diagnosticsAllowed=true;p.staticCalculationAllowed=true;p.productionPreflightAllowed=true;p.persistenceAllowed=true;p.terminalCompletionAllowed=true;p.valid=true;return p;}
+   return p; // legacy real modes are fail-closed at this stage
+}
+bool HSBI_IsInjectedProofAllowed(const HSBI_RuntimeMode mode){return HSBI_BuildRuntimePolicy(mode).injectedFixtureAllowed;}
+bool HSBI_IsProductionPreflightAllowed(const HSBI_RuntimeMode mode){return HSBI_BuildRuntimePolicy(mode).productionPreflightAllowed;}
+bool HSBI_IsBrokerDispatchAllowed(const HSBI_RuntimeMode mode){return false;}
+bool HSBI_IsStaticCalculationAllowed(const HSBI_RuntimeMode mode){return HSBI_BuildRuntimePolicy(mode).staticCalculationAllowed;}
+// Source zero is the typed RUNTIME_TERMINAL source; all fake/unverified sources are non-zero.
+bool HSBI_IsCompletionSourceAllowed(const HSBI_RuntimeMode mode,const int source)
+{return HSBI_BuildRuntimePolicy(mode).terminalCompletionAllowed&&source==0;}
+
+// SOURCE Include/Core/HSBI_RuntimeMode.mqh
+#define HSBI_RUNTIME_MODE_MQH
+// Stage-1 compatibility predicate; all policy construction is canonical.
+bool HSBI_IsRuntimeModeAllowedAtStage1(const HSBI_RuntimeMode mode)
+{return mode==HSBI_RUNTIME_DISABLED||mode==HSBI_RUNTIME_UNIT_TEST||mode==HSBI_RUNTIME_STRATEGY_TESTER_DRY_RUN;}
+
+// SOURCE Include/Core/HSBI_Roles.mqh
+#define HSBI_ROLES_MQH
+struct HSBI_PositionDescriptor{HSBI_Identity identity;ulong ticket;ulong identifier;HSBI_Role role;HSBI_Direction direction;double requestedVolume;double actualVolume;double openPrice;double currentClosePrice;HSBI_Status status;ulong creationActionId;ulong lastEventId;};
+bool HSBI_IsKnownRole(const HSBI_Role role){return role>=HSBI_ROLE_INITIAL_BUY&&role<=HSBI_ROLE_NEW_FAR;}
+HSBI_ValidationResult HSBI_ValidatePositionDescriptor(const HSBI_PositionDescriptor &p){if(!HSBI_IsKnownRole(p.role))return HSBI_Result(false,HSBI_REASON_UNKNOWN_ROLE,"HSBI-ID-010","unknown role");if(p.actualVolume<0.0||p.requestedVolume<0.0)return HSBI_Result(false,HSBI_REASON_INVALID_VOLUME,"HSBI-ID-010","negative volume");if(p.ticket>0&&p.identifier==0)return HSBI_Result(false,HSBI_REASON_INVALID_IDENTITY,"HSBI-ID-010","ticket without identifier");return HSBI_Result(true,HSBI_REASON_OK,"HSBI-ID-010","");}
+bool HSBI_CanPromoteToFar(const HSBI_PositionDescriptor &p,const ulong originalBigCoreIdentifier){return p.role==HSBI_ROLE_BIG_CORE&&p.identifier==originalBigCoreIdentifier&&p.actualVolume>0.0;}
+bool HSBI_ValidateRoleTransition(const HSBI_Role from,const HSBI_Role to){if(to==HSBI_ROLE_FAR)return from==HSBI_ROLE_BIG_CORE||from==HSBI_ROLE_NEW_FAR;return from==to;}
+int HSBI_CountFarRoles(const HSBI_PositionDescriptor &a,const HSBI_PositionDescriptor &b,const HSBI_PositionDescriptor &c,const HSBI_PositionDescriptor &d){int n=0;if(a.role==HSBI_ROLE_FAR)n++;if(b.role==HSBI_ROLE_FAR)n++;if(c.role==HSBI_ROLE_FAR)n++;if(d.role==HSBI_ROLE_FAR)n++;return n;}
+
+// SOURCE Include/Core/HSBI_Context.mqh
+#define HSBI_CONTEXT_MQH
+struct HSBI_RecoveryContext{long accountLogin;string symbol;long magic;ulong cycleId;HSBI_State currentState;HSBI_State previousState;ulong stateRevision;HSBI_RuntimeMode runtimeMode;HSBI_PositionDescriptor far;HSBI_PositionDescriptor bigCore;HSBI_PositionDescriptor bigTrend;HSBI_PositionDescriptor smallBase;HSBI_PositionDescriptor initialBuy;HSBI_PositionDescriptor initialSell;HSBI_PositionDescriptor newFarCandidate;ulong activePlanId;HSBI_Status candidatePlanStatus;ulong marketSnapshotId;ulong geometrySnapshotId;ulong pendingActionId;ulong pendingEventId;HSBI_Status expectedOutcome;HSBI_Status fillState;double realizedCycleNet;double finalReserve;double partialFarBudget;double transitionBudget;double carry;double residual;ulong ledgerRevision;ulong snapshotId;int schemaVersion;int moneyStateVersion;ulong journalRevision;int reconciliationStatus;HSBI_ReasonCode lastReason;string lastTransition;bool lastValidationPassed;};
+void HSBI_InitializeContext(HSBI_RecoveryContext &c,const HSBI_RuntimeMode mode){ZeroMemory(c);c.runtimeMode=mode;c.currentState=HSBI_STATE_DISABLED;c.previousState=HSBI_STATE_DISABLED;c.schemaVersion=HSBI_SCHEMA_VERSION;c.moneyStateVersion=HSBI_MONEY_STATE_VERSION;c.lastReason=HSBI_REASON_OK;}
+void HSBI_ResetContext(HSBI_RecoveryContext &c){HSBI_InitializeContext(c,HSBI_RUNTIME_DISABLED);}
+bool HSBI_ContextPositionValid(const HSBI_PositionDescriptor &p)
+{
+   if(p.role==HSBI_ROLE_NONE)return p.ticket==0&&p.identifier==0&&p.actualVolume==0.0&&p.requestedVolume==0.0;
+   if(!HSBI_IsKnownRole(p.role)||p.actualVolume<0.0||p.requestedVolume<0.0)return false;
+   if(p.ticket>0&&p.identifier==0)return false;
+   if(p.identity.role!=HSBI_ROLE_NONE&&p.identity.role!=p.role)return false;
+   if(p.identity.positionIdentifier>0&&p.identity.positionIdentifier!=p.identifier)return false;
+   return true;
+}
+bool HSBI_ContextRolesConflict(const HSBI_RecoveryContext &c)
+{
+   if(c.far.role!=HSBI_ROLE_NONE&&c.far.role!=HSBI_ROLE_FAR)return true;
+   if(c.bigCore.role!=HSBI_ROLE_NONE&&c.bigCore.role!=HSBI_ROLE_BIG_CORE)return true;
+   if(c.bigTrend.role!=HSBI_ROLE_NONE&&c.bigTrend.role!=HSBI_ROLE_BIG_TREND)return true;
+   if(c.smallBase.role!=HSBI_ROLE_NONE&&c.smallBase.role!=HSBI_ROLE_SMALL_BASE)return true;
+   return false;
+}
+bool HSBI_ContextPositionInScope(const HSBI_RecoveryContext &c,const HSBI_PositionDescriptor &p)
+{
+   if(p.role==HSBI_ROLE_NONE)return true;
+   if(!HSBI_IsValidIdentity(p.identity))return false;
+   return p.identity.accountLogin==c.accountLogin&&p.identity.symbol==c.symbol&&p.identity.magic==c.magic&&p.identity.cycleId==c.cycleId;
+}
+bool HSBI_ValidateContext(const HSBI_RecoveryContext &c)
+{
+   if(c.runtimeMode<HSBI_RUNTIME_DISABLED||c.runtimeMode>HSBI_RUNTIME_REAL_LIMITED)return false;
+   if(!HSBI_IsRuntimeModeAllowedAtStage1(c.runtimeMode))return false;
+   if(c.currentState<HSBI_STATE_DISABLED||c.currentState>HSBI_STATE_CYCLE_CLOSED)return false;
+   if(c.previousState<HSBI_STATE_DISABLED||c.previousState>HSBI_STATE_CYCLE_CLOSED)return false;
+   if(c.schemaVersion!=HSBI_SCHEMA_VERSION)return false;
+   if(c.moneyStateVersion!=HSBI_MONEY_STATE_VERSION)return false;
+   if(c.accountLogin<=0||c.symbol==""||c.magic==0||c.cycleId==0)return false;
+   if(c.stateRevision==0&&c.previousState!=c.currentState)return false;
+   if(c.stateRevision==0&&c.currentState!=HSBI_STATE_DISABLED&&c.currentState!=HSBI_STATE_IDLE)return false;
+   if(c.reconciliationStatus<0||c.reconciliationStatus>5)return false;
+   if(!HSBI_ContextPositionValid(c.far)||!HSBI_ContextPositionValid(c.bigCore)||!HSBI_ContextPositionValid(c.bigTrend)||!HSBI_ContextPositionValid(c.smallBase)||!HSBI_ContextPositionValid(c.initialBuy)||!HSBI_ContextPositionValid(c.initialSell)||!HSBI_ContextPositionValid(c.newFarCandidate))return false;
+   if(!HSBI_ContextPositionInScope(c,c.far)||!HSBI_ContextPositionInScope(c,c.bigCore)||!HSBI_ContextPositionInScope(c,c.bigTrend)||!HSBI_ContextPositionInScope(c,c.smallBase)||!HSBI_ContextPositionInScope(c,c.initialBuy)||!HSBI_ContextPositionInScope(c,c.initialSell)||!HSBI_ContextPositionInScope(c,c.newFarCandidate))return false;
+   if(HSBI_ContextRolesConflict(c))return false;
+   int farCount=0;
+   if(c.far.role==HSBI_ROLE_FAR)farCount++;
+   if(c.bigCore.role==HSBI_ROLE_FAR)farCount++;
+   if(c.bigTrend.role==HSBI_ROLE_FAR)farCount++;
+   if(c.smallBase.role==HSBI_ROLE_FAR)farCount++;
+   if(farCount>1)return false;
+   if(c.currentState==HSBI_STATE_CYCLE_CLOSED&&c.pendingActionId!=0)return false;
+   HSBI_RuntimePolicy policy=HSBI_BuildRuntimePolicy(c.runtimeMode);
+   if(policy.brokerDispatchAllowed)return false;
+   if(HSBI_TRADING_IMPLEMENTED||HSBI_REAL_TRADING_ALLOWED)return false;
+   return true;
+}
+
+// SOURCE Include/Core/HSBI_StateMachine.mqh
+#define HSBI_STATE_MACHINE_MQH
+struct HSBI_StateTransitionResult{bool allowed;HSBI_State fromState;HSBI_State toState;ulong proposedRevision;HSBI_ReasonCode reason;};
+bool HSBI_IsTransitionAllowed(const HSBI_State from,const HSBI_State to){if(from==to)return true;if(from==HSBI_STATE_DISABLED&&to==HSBI_STATE_IDLE)return true;if(from==HSBI_STATE_IDLE&&to==HSBI_STATE_INITIAL_PLAN_READY)return true;if(from==HSBI_STATE_INITIAL_PLAN_READY&&to==HSBI_STATE_INITIAL_OPENING_BUY)return true;if(from==HSBI_STATE_INITIAL_OPENING_BUY&&to==HSBI_STATE_INITIAL_OPENING_SELL)return true;if(from==HSBI_STATE_INITIAL_OPENING_SELL&&to==HSBI_STATE_INITIAL_LOCK_ACTIVE)return true;if(from==HSBI_STATE_INITIAL_LOCK_ACTIVE&&to==HSBI_STATE_INITIAL_PLUS_CLOSING)return true;if(from==HSBI_STATE_INITIAL_PLUS_CLOSING&&to==HSBI_STATE_FAR_ACTIVE)return true;if(from==HSBI_STATE_FAR_ACTIVE&&to==HSBI_STATE_CANDIDATE_PLANNED)return true;if(from==HSBI_STATE_CANDIDATE_PLANNED&&to==HSBI_STATE_BASKET_OPENING_CORE)return true;if(from==HSBI_STATE_RECONCILING&&(to==HSBI_STATE_TERMINAL_SAFE||to==HSBI_STATE_FAR_ACTIVE||to==HSBI_STATE_IDLE))return true;if(to==HSBI_STATE_RECONCILING||to==HSBI_STATE_TERMINAL_SAFE||to==HSBI_STATE_EMERGENCY)return true;return false;}
+HSBI_StateTransitionResult HSBI_ProposeStateTransition(const HSBI_RecoveryContext &c,const HSBI_State to){HSBI_StateTransitionResult r;r.fromState=c.currentState;r.toState=to;r.allowed=HSBI_IsTransitionAllowed(c.currentState,to);r.proposedRevision=c.stateRevision+(r.allowed?1:0);r.reason=r.allowed?HSBI_REASON_OK:HSBI_REASON_INVALID_STATE_TRANSITION;return r;}
+bool HSBI_ApplyPureStateTransition(HSBI_RecoveryContext &c,const HSBI_State to){HSBI_StateTransitionResult r=HSBI_ProposeStateTransition(c,to);if(!r.allowed)return false;c.previousState=c.currentState;c.currentState=to;c.stateRevision=r.proposedRevision;return true;}
+HSBI_State HSBI_ConflictTargetState(){return HSBI_STATE_RECONCILING;}
+HSBI_State HSBI_CriticalErrorTargetState(const bool unresolved){return unresolved?HSBI_STATE_TERMINAL_SAFE:HSBI_STATE_EMERGENCY;}
+HSBI_State HSBI_TransactionConflictTargetState(){return HSBI_STATE_TERMINAL_SAFE;}
+
+// SOURCE Include/Core/HSBI_StateValidator.mqh
+#define HSBI_STATE_VALIDATOR_MQH
+HSBI_ValidationResult HSBI_ValidateStateTopology(const HSBI_RecoveryContext &c){if(c.currentState==HSBI_STATE_CYCLE_CLOSED&&c.pendingActionId!=0)return HSBI_Result(false,HSBI_REASON_PENDING_ACTION,"HSBI-FSM-002","closed state has pending action");if(c.currentState==HSBI_STATE_FAR_ACTIVE&&c.far.role!=HSBI_ROLE_FAR)return HSBI_Result(false,HSBI_REASON_INVALID_STATE_TRANSITION,"HSBI-FSM-002","FAR_ACTIVE without FAR");return HSBI_Result(true,HSBI_REASON_OK,"HSBI-FSM-002","");}
+bool HSBI_OutcomeCompletesAction(const HSBI_EventType e){return e==HSBI_EVENT_COMPLETED_FILL;}
+
+// SOURCE Include/Core/HSBI_Invariants.mqh
+#define HSBI_INVARIANTS_MQH
+HSBI_ValidationResult HSBI_ExactlyOneFarOrZero(const HSBI_RecoveryContext &c){int n=HSBI_CountFarRoles(c.far,c.bigCore,c.bigTrend,c.smallBase);return HSBI_Result(n<=1,n<=1?HSBI_REASON_OK:HSBI_REASON_DUPLICATE_FAR,"HSBI-ID-010",IntegerToString(n));}
+HSBI_ValidationResult HSBI_NoDualTail(const HSBI_RecoveryContext &c){return HSBI_ExactlyOneFarOrZero(c);}
+HSBI_ValidationResult HSBI_NoUnknownRole(const HSBI_PositionDescriptor &p){return HSBI_Result(HSBI_IsKnownRole(p.role)||p.role==HSBI_ROLE_NONE,HSBI_IsKnownRole(p.role)||p.role==HSBI_ROLE_NONE?HSBI_REASON_OK:HSBI_REASON_UNKNOWN_ROLE,"HSBI-ID-010","");}
+HSBI_ValidationResult HSBI_ContextIdentityComplete(const HSBI_RecoveryContext &c){bool ok=c.accountLogin>0&&c.symbol!=""&&c.magic!=0;return HSBI_Result(ok,ok?HSBI_REASON_OK:HSBI_REASON_INVALID_IDENTITY,"HSBI-ID-010","");}
+HSBI_ValidationResult HSBI_StateRevisionMonotonic(const ulong before,const ulong after){bool ok=after>=before;return HSBI_Result(ok,ok?HSBI_REASON_OK:HSBI_REASON_INTERNAL_INVARIANT_FAILED,"HSBI-FSM-002","");}
+HSBI_ValidationResult HSBI_NoPendingActionConflict(const HSBI_RecoveryContext &c){bool ok=!(c.pendingActionId>0&&c.currentState==HSBI_STATE_CYCLE_CLOSED);return HSBI_Result(ok,ok?HSBI_REASON_OK:HSBI_REASON_PENDING_ACTION,"HSBI-TX-006","");}
+HSBI_ValidationResult HSBI_NoFinalReserveForPartialFar(const HSBI_MoneyBucket source){bool ok=source!=HSBI_BUCKET_FINAL_RESERVE;return HSBI_Result(ok,ok?HSBI_REASON_OK:HSBI_REASON_FINAL_RESERVE_FOR_PARTIAL_FAR,"HSBI-PF-001","");}
+HSBI_ValidationResult HSBI_AllocationConservation(const double allocated,const double available){bool ok=allocated<=available+0.0000001;return HSBI_Result(ok,ok?HSBI_REASON_OK:HSBI_REASON_LEDGER_CONSERVATION_FAILED,"HSBI-MONEY-014","");}
+HSBI_ValidationResult HSBI_RealTradingForbiddenAtHSB1(){return HSBI_Result(!HSBI_REAL_TRADING_ALLOWED&&!HSBI_TRADING_IMPLEMENTED,HSBI_REASON_OK,"HSBI-GEN-030","");}
+
+// SOURCE Include/Execution/HSBI_ActionTypes.mqh
+#define HSBI_ACTION_TYPES_MQH
+struct HSBI_ActionRecord{ulong actionId;ulong parentActionId;ulong planId;ulong cycleId;ulong stateRevision;HSBI_ActionType actionType;HSBI_Role expectedRole;ulong expectedTicket;ulong expectedIdentifier;double expectedVolume;HSBI_Status status;datetime createdAt;int retryCount;datetime timeoutAt;};
+bool HSBI_ValidateActionRecord(const HSBI_ActionRecord &a){return a.actionId>0&&a.planId>0&&a.cycleId>0&&a.stateRevision>0&&a.actionType!=HSBI_ACTION_NONE&&a.expectedVolume>=0.0;}
+string HSBI_SerializeActionIds(const HSBI_ActionRecord &a){return HSBI_UlongToString(a.planId)+"|"+HSBI_UlongToString(a.actionId)+"|"+HSBI_UlongToString(a.parentActionId)+"|"+HSBI_UlongToString(a.cycleId)+"|"+HSBI_UlongToString(a.stateRevision)+"|"+HSBI_UlongToString(a.expectedTicket)+"|"+HSBI_UlongToString(a.expectedIdentifier);}
+
+// SOURCE Include/Execution/HSBI_EventTypes.mqh
+#define HSBI_EVENT_TYPES_MQH
+struct HSBI_EventRecord{ulong eventId;ulong actionId;HSBI_EventType eventType;ulong orderTicket;ulong dealTicket;ulong positionIdentifier;double actualVolume;double actualPrice;datetime timestamp;HSBI_Status status;};
+bool HSBI_ValidateEventRecord(const HSBI_EventRecord &e){return e.eventId>0&&e.actionId>0&&e.eventType!=HSBI_EVENT_NONE&&e.actualVolume>=0.0;}
+string HSBI_SerializeEventIds(const HSBI_EventRecord &e){return HSBI_UlongToString(e.eventId)+"|"+HSBI_UlongToString(e.actionId)+"|"+HSBI_UlongToString(e.orderTicket)+"|"+HSBI_UlongToString(e.dealTicket)+"|"+HSBI_UlongToString(e.positionIdentifier);}
+
+// SOURCE Include/Execution/HSBI_TransactionTypes.mqh
+#define HSBI_TRANSACTION_TYPES_MQH
+enum HSBI_TransactionOutcome{HSBI_TX_PLACED,HSBI_TX_PARTIAL,HSBI_TX_COMPLETED,HSBI_TX_REJECTED,HSBI_TX_TIMEOUT,HSBI_TX_CONFLICT,HSBI_TX_UNKNOWN};
+struct HSBI_TransactionMetadata{ulong actionId;ulong eventId;HSBI_TransactionOutcome outcome;double accumulatedVolume;double expectedVolume;bool actualPositionRead;bool ledgerApplied;};
+struct HSBI_TransactionBarrierInput{HSBI_TransactionMetadata transaction;ulong expectedActionId;ulong lastAppliedEventId;ulong expectedStateRevision;ulong actualStateRevision;bool actualDealRead;bool ownershipConfirmed;bool reconciliationConflict;};
+bool HSBI_IsCompletedOutcome(const HSBI_TransactionOutcome o){return o==HSBI_TX_COMPLETED;}
+bool HSBI_IsRetryOfSameAction(const ulong originalActionId,const ulong retryActionId){return originalActionId>0&&originalActionId==retryActionId;}
+bool HSBI_IsFreshEvent(const ulong lastEventId,const ulong eventId){return eventId>lastEventId;}
+bool HSBI_TransactionBarrierPassed(const HSBI_TransactionBarrierInput &x)
+{
+   if(x.transaction.outcome!=HSBI_TX_COMPLETED)return false;
+   if(x.expectedActionId==0||x.transaction.actionId!=x.expectedActionId)return false;
+   if(!HSBI_IsFreshEvent(x.lastAppliedEventId,x.transaction.eventId))return false;
+   if(!x.transaction.actualPositionRead||!x.actualDealRead||!x.ownershipConfirmed)return false;
+   if(x.transaction.expectedVolume<=0.0||MathAbs(x.transaction.accumulatedVolume-x.transaction.expectedVolume)>0.0000001)return false;
+   if(x.actualStateRevision!=x.expectedStateRevision)return false;
+   if(x.reconciliationConflict)return false;
+   return true;
+}
+bool HSBI_RetryAllowed(const ulong originalActionId,const ulong retryActionId,const HSBI_TransactionOutcome priorOutcome,const bool pendingOrReconciling)
+{
+   return pendingOrReconciling&&HSBI_IsRetryOfSameAction(originalActionId,retryActionId)&&priorOutcome!=HSBI_TX_COMPLETED;
+}
+
+// SOURCE Include/Execution/HSBI_OwnershipGuardTypes.mqh
+#define HSBI_OWNERSHIP_GUARD_TYPES_MQH
+struct HSBI_OwnershipGuardInput{HSBI_Identity expectedIdentity;HSBI_Identity actualIdentity;ulong expectedTicket;ulong actualTicket;HSBI_Role expectedRole;HSBI_Role actualRole;HSBI_Direction expectedDirection;HSBI_Direction actualDirection;double expectedVolume;double actualVolume;ulong expectedStateRevision;ulong actualStateRevision;ulong planId;ulong actionId;};
+struct HSBI_OwnershipGuardResult{bool allowed;HSBI_ReasonCode reason;ulong mismatchMask;bool requiresReconciliation;};
+HSBI_OwnershipGuardResult HSBI_EvaluateOwnership(const HSBI_OwnershipGuardInput &x){HSBI_OwnershipGuardResult r;r.allowed=true;r.reason=HSBI_REASON_OK;r.mismatchMask=0;r.requiresReconciliation=false;if(!HSBI_SamePositionOwner(x.expectedIdentity,x.actualIdentity)){r.mismatchMask|=1;}if(x.expectedRole!=x.actualRole)r.mismatchMask|=2;if(x.expectedDirection!=x.actualDirection)r.mismatchMask|=4;if(MathAbs(x.expectedVolume-x.actualVolume)>0.0000001)r.mismatchMask|=8;if(x.expectedStateRevision!=x.actualStateRevision)r.mismatchMask|=16;if(x.planId==0||x.actionId==0)r.mismatchMask|=32;if(x.expectedTicket==0||x.actualTicket!=x.expectedTicket)r.mismatchMask|=64;if(r.mismatchMask!=0){r.allowed=false;r.reason=HSBI_REASON_INVALID_IDENTITY;r.requiresReconciliation=true;}return r;}
+bool HSBI_TicketMatchesObservation(const HSBI_PositionDescriptor &expected,const HSBI_PositionDescriptor &actual)
+{
+   return expected.ticket>0&&actual.ticket==expected.ticket&&HSBI_SamePositionOwner(expected.identity,actual.identity)&&expected.identifier==actual.identifier&&expected.role==actual.role;
+}
+bool HSBI_IsActualBigCoreResidual(const HSBI_PositionDescriptor &position,const ulong originalIdentifier)
+{
+   return position.role==HSBI_ROLE_BIG_CORE&&position.identifier==originalIdentifier&&position.identity.positionIdentifier==originalIdentifier&&position.actualVolume>0.0;
+}
+
+// SOURCE Include/Money/HSBI_MoneyTypes.mqh
+#define HSBI_MONEY_TYPES_MQH
+struct HSBI_MoneyAmount{double value;bool actual;datetime timestamp;ulong snapshotId;string source;bool valid;};
+struct HSBI_DealNetRecord{double profit;double swap;double commission;double fee;double dealNet;bool actual;datetime timestamp;ulong snapshotId;bool valid;};
+struct HSBI_MoneyTolerance{double value;bool valid;};
+struct HSBI_RecoveryPLSnapshot{double realizedCycleNet;double openPositionsCloseNowNet;double recoveryPLCloseNow;double minimumProfit;double executionBuffer;double tolerance;double threshold;bool allowed;datetime timestamp;ulong snapshotId;};
+struct HSBI_FinalCloseThreshold{double minimumProfit;double executionBuffer;double tolerance;double threshold;bool valid;};
+struct HSBI_TransitionLossSnapshot{double transitionNet;double transitionLossMoney;double absoluteCap;double equityCap;double oldFarRiskCap;double cumulativeCap;double allowedCap;bool allowed;};
+HSBI_RecoveryPLSnapshot HSBI_BuildRecoveryPL(const double realized,const double openNet,const HSBI_FinalCloseThreshold &t){HSBI_RecoveryPLSnapshot r;r.realizedCycleNet=realized;r.openPositionsCloseNowNet=openNet;r.recoveryPLCloseNow=realized+openNet;r.minimumProfit=t.minimumProfit;r.executionBuffer=t.executionBuffer;r.tolerance=t.tolerance;r.threshold=t.threshold;r.allowed=r.recoveryPLCloseNow>=r.threshold;return r;}
+
+// SOURCE Include/Money/HSBI_MoneyState.mqh
+#define HSBI_MONEY_STATE_MQH
+struct HSBI_MoneyState{double realizedCycleNet;double finalReserve;double partialFarBudget;double transitionBudget;double carry;double residual;ulong revision;bool valid;};
+bool HSBI_ValidateMoneyState(const HSBI_MoneyState &s){return s.finalReserve>=0&&s.partialFarBudget>=0&&s.transitionBudget>=0&&s.carry>=0&&s.residual>=0;}
+
+// SOURCE Include/Money/HSBI_BrokerMoneyTypes.mqh
+#define HSBI_BROKER_MONEY_TYPES_MQH
+enum HSBI_CalculationStatus{HSBI_CALC_PASS,HSBI_CALC_REJECT,HSBI_CALC_ERROR,HSBI_CALC_UNAVAILABLE};
+enum HSBI_BrokerPropertyStatus{HSBI_BROKER_PROPERTIES_VALID,HSBI_BROKER_PROPERTIES_INVALID,HSBI_BROKER_PROPERTIES_STALE,HSBI_BROKER_PROPERTIES_UNAVAILABLE};
+struct HSBI_BrokerProperties{string symbol;double point;double tickSize;int digits;double volumeMin;double volumeMax;double volumeStep;double tickValueProfit;double tickValueLoss;bool valid;bool fresh;ulong snapshotId;datetime timestamp;};
+struct HSBI_MoneyCalculationResult{HSBI_CalculationStatus status;bool valid;bool projected;bool actual;string symbol;HSBI_Direction direction;double volume;double openPrice;double closePrice;double grossProfit;double commission;double swap;double fee;double spreadCost;double slippageBuffer;double netMoney;ulong snapshotId;HSBI_ReasonCode reason;string details;};
+struct HSBI_MarginCalculationResult{HSBI_CalculationStatus status;bool valid;bool projected;double margin;double volume;double price;string symbol;HSBI_Direction direction;ulong snapshotId;HSBI_ReasonCode reason;string details;};
+bool HSBI_IsFiniteNumber(const double value){return MathIsValidNumber(value);}
+HSBI_BrokerPropertyStatus HSBI_ValidateBrokerProperties(const HSBI_BrokerProperties &p)
+{
+   if(!p.valid)return HSBI_BROKER_PROPERTIES_UNAVAILABLE;
+   if(!p.fresh)return HSBI_BROKER_PROPERTIES_STALE;
+   if(p.symbol==""||p.digits<0||p.snapshotId==0||p.timestamp<=0)return HSBI_BROKER_PROPERTIES_INVALID;
+   if(!HSBI_IsFiniteNumber(p.point)||!HSBI_IsFiniteNumber(p.tickSize)||!HSBI_IsFiniteNumber(p.volumeMin)||!HSBI_IsFiniteNumber(p.volumeMax)||!HSBI_IsFiniteNumber(p.volumeStep)||!HSBI_IsFiniteNumber(p.tickValueProfit)||!HSBI_IsFiniteNumber(p.tickValueLoss))return HSBI_BROKER_PROPERTIES_INVALID;
+   if(p.point<=0.0||p.tickSize<=0.0||p.volumeMin<=0.0||p.volumeMax<p.volumeMin||p.volumeStep<=0.0||p.tickValueProfit<0.0||p.tickValueLoss<0.0)return HSBI_BROKER_PROPERTIES_INVALID;
+   return HSBI_BROKER_PROPERTIES_VALID;
+}
+
+// SOURCE Include/Planning/HSBI_BrokerGrid.mqh
+#define HSBI_BROKER_GRID_MQH
+enum HSBI_GridRoundingMode{HSBI_GRID_FLOOR,HSBI_GRID_CEIL,HSBI_GRID_NEAREST};
+enum HSBI_PriceSide{HSBI_PRICE_SIDE_NONE,HSBI_PRICE_SIDE_BID,HSBI_PRICE_SIDE_ASK};
+enum HSBI_VolumePurpose{HSBI_VOLUME_BIG_CORE,HSBI_VOLUME_BIG_TREND,HSBI_VOLUME_SMALL_BASE,HSBI_VOLUME_PARTIAL_FAR};
+double HSBI_GridTolerance(const double step){return MathMax(1.0e-10,MathAbs(step)*1.0e-8);}
+bool HSBI_IsPriceOnTickGrid(const double price,const double tickSize)
+{
+   if(!HSBI_IsFiniteNumber(price)||!HSBI_IsFiniteNumber(tickSize)||price<=0.0||tickSize<=0.0)return false;
+   double ticks=price/tickSize;return MathAbs(ticks-MathRound(ticks))<=HSBI_GridTolerance(tickSize)/tickSize;
+}
+double HSBI_NormalizePriceToTick(const double price,const double tickSize,const HSBI_GridRoundingMode mode)
+{
+   if(!HSBI_IsFiniteNumber(price)||!HSBI_IsFiniteNumber(tickSize)||price<=0.0||tickSize<=0.0)return 0.0;
+   double ticks=price/tickSize;double units=MathRound(ticks);if(mode==HSBI_GRID_FLOOR)units=MathFloor(ticks+1.0e-12);else if(mode==HSBI_GRID_CEIL)units=MathCeil(ticks-1.0e-12);
+   double normalized=units*tickSize;return HSBI_IsPriceOnTickGrid(normalized,tickSize)?normalized:0.0;
+}
+bool HSBI_ValidatePriceGrid(const double price,const HSBI_BrokerProperties &p){return HSBI_ValidateBrokerProperties(p)==HSBI_BROKER_PROPERTIES_VALID&&HSBI_IsPriceOnTickGrid(price,p.tickSize);}
+double HSBI_PriceDistanceInTicks(const double first,const double second,const double tickSize){if(!HSBI_IsFiniteNumber(first)||!HSBI_IsFiniteNumber(second)||tickSize<=0.0)return 0.0;return MathAbs(second-first)/tickSize;}
+bool HSBI_IsVolumeOnGrid(const double volume,const double step)
+{
+   if(!HSBI_IsFiniteNumber(volume)||!HSBI_IsFiniteNumber(step)||volume<=0.0||step<=0.0)return false;
+   double units=volume/step;return MathAbs(units-MathRound(units))<=HSBI_GridTolerance(step)/step;
+}
+double HSBI_FloorVolumeToStep(const double volume,const double step){if(!HSBI_IsFiniteNumber(volume)||!HSBI_IsFiniteNumber(step)||volume<=0.0||step<=0.0)return 0.0;return MathFloor(volume/step+1.0e-12)*step;}
+double HSBI_CeilVolumeToStep(const double volume,const double step){if(!HSBI_IsFiniteNumber(volume)||!HSBI_IsFiniteNumber(step)||volume<=0.0||step<=0.0)return 0.0;return MathCeil(volume/step-1.0e-12)*step;}
+double HSBI_NormalizeVolume(const double volume,const double step,const HSBI_VolumePurpose purpose)
+{
+   if(purpose==HSBI_VOLUME_SMALL_BASE)return HSBI_CeilVolumeToStep(volume,step);
+   return HSBI_FloorVolumeToStep(volume,step);
+}
+bool HSBI_ValidateVolume(const double volume,const HSBI_BrokerProperties &p)
+{
+   if(HSBI_ValidateBrokerProperties(p)!=HSBI_BROKER_PROPERTIES_VALID||!HSBI_IsFiniteNumber(volume))return false;
+   return volume>=p.volumeMin-HSBI_GridTolerance(p.volumeStep)&&volume<=p.volumeMax+HSBI_GridTolerance(p.volumeStep)&&HSBI_IsVolumeOnGrid(volume,p.volumeStep);
+}
+
+// SOURCE Include/Planning/HSBI_ControlPrices.mqh
+#define HSBI_CONTROL_PRICES_MQH
+enum HSBI_ControlPriceType{HSBI_CONTROL_CURRENT_CLOSE,HSBI_CONTROL_NEXT_BIG,HSBI_CONTROL_ADVERSE_RISK,HSBI_CONTROL_GAP_STRESS,HSBI_CONTROL_FINAL_CLOSE};
+struct HSBI_ControlPrice{string symbol;double bid;double ask;double mid;double selectedPrice;HSBI_Direction direction;HSBI_PriceSide side;double point;double tickSize;int digits;datetime timestamp;ulong snapshotId;bool fresh;bool normalized;bool valid;};
+struct HSBI_PricePoint{double value;datetime timestamp;ulong snapshotId;bool normalized;bool valid;};
+struct HSBI_MarketSnapshot{string symbol;double bid;double ask;double point;double tickSize;int digits;datetime timestamp;ulong snapshotId;int freshnessSeconds;double spreadPoints;string source;bool normalized;};
+struct HSBI_ControlPriceSet{HSBI_PricePoint currentClosePrice;HSBI_PricePoint nextBigControlPrice;HSBI_PricePoint smallTransitionControlPrice;HSBI_PricePoint adverseRiskControlPrice;HSBI_PricePoint gapStressPrice;HSBI_PricePoint finalClosePrice;};
+bool HSBI_IsSnapshotFresh(const HSBI_MarketSnapshot &s,const datetime now){return s.timestamp>0&&s.freshnessSeconds>=0&&(now-s.timestamp)<=s.freshnessSeconds;}
+double HSBI_NormalizePriceToTick(const double price,const double tickSize){if(tickSize<=0.0)return 0.0;return MathRound(price/tickSize)*tickSize;}
+double HSBI_ResolveCloseSide(const HSBI_Direction d,const HSBI_MarketSnapshot &s){if(d==HSBI_DIRECTION_BUY)return s.bid;if(d==HSBI_DIRECTION_SELL)return s.ask;return 0.0;}
+HSBI_ValidationResult HSBI_ValidateMarketSnapshot(const HSBI_MarketSnapshot &s){bool ok=s.symbol!=""&&s.bid>0&&s.ask>=s.bid&&s.point>0&&s.tickSize>0&&s.snapshotId>0;return HSBI_Result(ok,ok?HSBI_REASON_OK:HSBI_REASON_STALE_SNAPSHOT,"HSBI-GEO-005","");}
+HSBI_ValidationResult HSBI_ValidateControlPriceSet(const HSBI_ControlPriceSet &p){bool ok=p.currentClosePrice.valid&&p.nextBigControlPrice.valid&&p.smallTransitionControlPrice.valid&&p.finalClosePrice.valid;return HSBI_Result(ok,ok?HSBI_REASON_OK:HSBI_REASON_OFF_GRID_PRICE,"HSBI-DEC-003","");}
+bool HSBI_ValidateTypedControlPrice(const HSBI_ControlPrice &p,const string expectedSymbol)
+{
+   if(!p.valid||!p.fresh||!p.normalized||p.timestamp<=0||p.snapshotId==0||p.symbol==""||p.symbol!=expectedSymbol)return false;
+   if(!HSBI_IsFiniteNumber(p.bid)||!HSBI_IsFiniteNumber(p.ask)||!HSBI_IsFiniteNumber(p.selectedPrice)||p.bid<=0.0||p.ask<p.bid||p.tickSize<=0.0||p.point<=0.0)return false;
+   if(!HSBI_IsPriceOnTickGrid(p.selectedPrice,p.tickSize))return false;
+   if(p.direction==HSBI_DIRECTION_BUY)return p.side==HSBI_PRICE_SIDE_BID&&MathAbs(p.selectedPrice-p.bid)<=HSBI_GridTolerance(p.tickSize);
+   if(p.direction==HSBI_DIRECTION_SELL)return p.side==HSBI_PRICE_SIDE_ASK&&MathAbs(p.selectedPrice-p.ask)<=HSBI_GridTolerance(p.tickSize);
+   return false;
+}
+
+// SOURCE Include/Planning/HSBI_GeometryTypes.mqh
+#define HSBI_GEOMETRY_TYPES_MQH
+struct HSBI_GeometrySnapshot{ulong snapshotId;double farReferencePrice;double bigMoveStartPoints;double bigMoveStepPoints;double smallOffsetPoints;int level;HSBI_ControlPriceSet controls;bool valid;};
+struct HSBI_NormalizedLots{double farLots;double coreLots;double trendLots;double smallLots;double volumeMin;double volumeMax;double volumeStep;bool valid;};
+struct HSBI_RecoveryDirectionResult{double baseMoney;double nextTickMoney;double deltaMoney;bool directionCorrect;bool moneyAvailable;bool priceFresh;HSBI_CalculationStatus status;HSBI_ReasonCode reason;};
+
+// SOURCE Include/Planning/HSBI_GeometrySolver.mqh
+#define HSBI_GEOMETRY_SOLVER_MQH
+struct HSBI_GeometryResult{HSBI_CalculationStatus status;bool valid;double farVolume;double rawCoreVolume;double rawTrendVolume;double rawSmallVolume;double coreVolume;double trendVolume;double smallVolume;double netBigVolume;double recoverySlopeLots;bool coreRoundedDown;bool trendRoundedDown;bool smallRoundedUp;bool slopePassed;bool brokerGridPassed;ulong snapshotId;HSBI_ReasonCode reason;string details;};
+bool HSBI_ValidateRecoverySlope(const double coreVolume,const double trendVolume,const double smallVolume,const double farVolume,const bool brokerGridPassed,double &slope)
+{
+   slope=0.0;if(!brokerGridPassed||!HSBI_IsFiniteNumber(coreVolume)||!HSBI_IsFiniteNumber(trendVolume)||!HSBI_IsFiniteNumber(smallVolume)||!HSBI_IsFiniteNumber(farVolume))return false;
+   if(coreVolume<0.0||trendVolume<0.0||smallVolume<=0.0||farVolume<=0.0)return false;
+   slope=coreVolume+trendVolume-smallVolume-farVolume;return HSBI_IsFiniteNumber(slope)&&slope>0.0;
+}
+HSBI_RecoveryDirectionResult HSBI_EvaluateRecoveryMoneyDirection(const HSBI_Direction farDirection,const double baseMoney,const double nextTickMoney,const bool moneyAvailable,const bool priceFresh)
+{
+   HSBI_RecoveryDirectionResult r;ZeroMemory(r);r.baseMoney=baseMoney;r.nextTickMoney=nextTickMoney;r.moneyAvailable=moneyAvailable;r.priceFresh=priceFresh;r.status=HSBI_CALC_REJECT;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;
+   if(!priceFresh){r.reason=HSBI_REASON_STALE_SNAPSHOT;return r;}
+   if(!moneyAvailable){r.status=HSBI_CALC_UNAVAILABLE;r.reason=HSBI_REASON_NOT_INITIALIZED;return r;}
+   if(!HSBI_IsFiniteNumber(baseMoney)||!HSBI_IsFiniteNumber(nextTickMoney)){r.status=HSBI_CALC_ERROR;return r;}
+   if(farDirection!=HSBI_DIRECTION_BUY&&farDirection!=HSBI_DIRECTION_SELL)return r;
+   r.deltaMoney=nextTickMoney-baseMoney;r.directionCorrect=r.deltaMoney>0.0;r.status=r.directionCorrect?HSBI_CALC_PASS:HSBI_CALC_REJECT;r.reason=r.directionCorrect?HSBI_REASON_OK:HSBI_REASON_INTERNAL_INVARIANT_FAILED;return r;
+}
+HSBI_GeometryResult HSBI_SolveBigGeometry(const double farVolume,const double coreRatio,const double trendRatio,const double smallRatio,const HSBI_BrokerProperties &p,const bool moneyPrerequisite,const bool riskPrerequisite)
+{
+   HSBI_GeometryResult r;ZeroMemory(r);r.status=HSBI_CALC_REJECT;r.reason=HSBI_REASON_INVALID_VOLUME;r.details="INVALID_GEOMETRY";r.farVolume=farVolume;r.snapshotId=p.snapshotId;
+   if(HSBI_ValidateBrokerProperties(p)!=HSBI_BROKER_PROPERTIES_VALID){r.status=HSBI_CALC_UNAVAILABLE;r.details="INVALID_BROKER_GRID";return r;}
+   if(!moneyPrerequisite||!riskPrerequisite){r.details="FAILED_MONEY_OR_RISK_PREREQUISITE";return r;}
+   if(!HSBI_IsFiniteNumber(coreRatio)||!HSBI_IsFiniteNumber(trendRatio)||!HSBI_IsFiniteNumber(smallRatio)||coreRatio<=0.0||trendRatio<0.0||smallRatio<=0.0){r.details="INVALID_RATIO";return r;}
+   if(!HSBI_ValidateVolume(farVolume,p)){r.details="INVALID_FAR_VOLUME";return r;}
+   r.rawCoreVolume=farVolume*coreRatio;r.rawTrendVolume=farVolume*trendRatio;r.rawSmallVolume=farVolume*smallRatio;
+   if(!HSBI_IsFiniteNumber(r.rawCoreVolume)||!HSBI_IsFiniteNumber(r.rawTrendVolume)||!HSBI_IsFiniteNumber(r.rawSmallVolume)){r.status=HSBI_CALC_ERROR;r.details="VOLUME_OVERFLOW";return r;}
+   r.coreVolume=HSBI_FloorVolumeToStep(r.rawCoreVolume,p.volumeStep);r.trendVolume=(r.rawTrendVolume==0.0?0.0:HSBI_FloorVolumeToStep(r.rawTrendVolume,p.volumeStep));r.smallVolume=HSBI_CeilVolumeToStep(r.rawSmallVolume,p.volumeStep);
+   r.coreRoundedDown=r.coreVolume<=r.rawCoreVolume+HSBI_GridTolerance(p.volumeStep);r.trendRoundedDown=r.trendVolume<=r.rawTrendVolume+HSBI_GridTolerance(p.volumeStep);r.smallRoundedUp=r.smallVolume+HSBI_GridTolerance(p.volumeStep)>=r.rawSmallVolume;
+   bool coreGrid=(r.coreVolume==0.0||(HSBI_IsVolumeOnGrid(r.coreVolume,p.volumeStep)&&r.coreVolume<=p.volumeMax));bool trendGrid=(r.trendVolume==0.0||(HSBI_IsVolumeOnGrid(r.trendVolume,p.volumeStep)&&r.trendVolume<=p.volumeMax));
+   r.brokerGridPassed=coreGrid&&trendGrid&&HSBI_ValidateVolume(r.smallVolume,p);if(!r.brokerGridPassed){r.details="INVALID_NORMALIZED_VOLUME";return r;}
+   r.netBigVolume=r.coreVolume+r.trendVolume-r.smallVolume;r.slopePassed=HSBI_ValidateRecoverySlope(r.coreVolume,r.trendVolume,r.smallVolume,r.farVolume,r.brokerGridPassed,r.recoverySlopeLots)&&r.recoverySlopeLots>HSBI_GridTolerance(p.volumeStep);
+   if(r.netBigVolume<=0.0||!r.slopePassed){r.details="RECOVERY_SLOPE_FAILED";return r;}
+   r.status=HSBI_CALC_PASS;r.valid=true;r.reason=HSBI_REASON_OK;r.details="PASS";return r;
+}
+
+// SOURCE Include/Money/HSBI_CostModel.mqh
+#define HSBI_COST_MODEL_MQH
+struct HSBI_CostSnapshot{double commission;double swap;double fee;double slippageBuffer;double spreadCost;bool valid;bool actual;datetime timestamp;ulong snapshotId;};
+bool HSBI_ValidateCostSnapshot(const HSBI_CostSnapshot &c,const bool expectedActual)
+{
+   if(!c.valid||c.actual!=expectedActual||c.timestamp<=0||c.snapshotId==0)return false;
+   if(!HSBI_IsFiniteNumber(c.commission)||!HSBI_IsFiniteNumber(c.swap)||!HSBI_IsFiniteNumber(c.fee)||!HSBI_IsFiniteNumber(c.slippageBuffer)||!HSBI_IsFiniteNumber(c.spreadCost))return false;
+   return c.slippageBuffer>=0.0&&c.spreadCost>=0.0;
+}
+bool HSBI_TryActualDealNet(const double profit,const HSBI_CostSnapshot &c,double &netMoney)
+{
+   netMoney=0.0;if(!HSBI_IsFiniteNumber(profit)||!HSBI_ValidateCostSnapshot(c,true))return false;netMoney=profit+c.swap+c.commission+c.fee;return HSBI_IsFiniteNumber(netMoney);
+}
+bool HSBI_TryProjectedNetMoney(const double grossProfit,const HSBI_CostSnapshot &c,const double executionSafetyBuffer,double &netMoney)
+{
+   netMoney=0.0;if(!HSBI_IsFiniteNumber(grossProfit)||!HSBI_IsFiniteNumber(executionSafetyBuffer)||executionSafetyBuffer<0.0||!HSBI_ValidateCostSnapshot(c,false))return false;
+   netMoney=grossProfit+c.swap+c.commission+c.fee-c.spreadCost-c.slippageBuffer-executionSafetyBuffer;return HSBI_IsFiniteNumber(netMoney);
+}
+
+// SOURCE Include/Money/HSBI_BrokerMoneyModel.mqh
+#define HSBI_BROKER_MONEY_MODEL_MQH
+HSBI_MoneyCalculationResult HSBI_MoneyResult(const HSBI_CalculationStatus status,const HSBI_ReasonCode reason,const string details){HSBI_MoneyCalculationResult r;ZeroMemory(r);r.status=status;r.reason=reason;r.details=details;r.projected=true;return r;}
+HSBI_MoneyCalculationResult HSBI_CalculateProjectedProfit(const HSBI_BrokerProperties &p,const HSBI_Direction direction,const double volume,const double openPrice,const double closePrice,const double bid,const double ask,const HSBI_CostSnapshot &cost,const double executionSafetyBuffer)
+{
+   HSBI_MoneyCalculationResult r=HSBI_MoneyResult(HSBI_CALC_REJECT,HSBI_REASON_INVALID_IDENTITY,"INVALID_SYMBOL_PROPERTIES");r.symbol=p.symbol;r.direction=direction;r.volume=volume;r.openPrice=openPrice;r.closePrice=closePrice;r.snapshotId=p.snapshotId;
+   if(HSBI_ValidateBrokerProperties(p)!=HSBI_BROKER_PROPERTIES_VALID)return r;
+   if(direction!=HSBI_DIRECTION_BUY&&direction!=HSBI_DIRECTION_SELL){r.details="INVALID_DIRECTION";return r;}
+   if(!HSBI_ValidateVolume(volume,p)){r.reason=HSBI_REASON_INVALID_VOLUME;r.details="INVALID_VOLUME";return r;}
+   if(!HSBI_ValidatePriceGrid(openPrice,p)||!HSBI_ValidatePriceGrid(closePrice,p)||!HSBI_IsFiniteNumber(bid)||!HSBI_IsFiniteNumber(ask)||bid<=0.0||ask<bid){r.reason=HSBI_REASON_OFF_GRID_PRICE;r.details="INVALID_PRICE_GRID";return r;}
+   double expectedClose=(direction==HSBI_DIRECTION_BUY?bid:ask);if(MathAbs(closePrice-expectedClose)>HSBI_GridTolerance(p.tickSize)){r.reason=HSBI_REASON_OFF_GRID_PRICE;r.details="WRONG_CLOSE_SIDE";return r;}
+   if(!HSBI_ValidateCostSnapshot(cost,false)||executionSafetyBuffer<0.0){r.details="INVALID_COST_SNAPSHOT";return r;}
+   double gross=0.0;ENUM_ORDER_TYPE orderType=(direction==HSBI_DIRECTION_BUY?ORDER_TYPE_BUY:ORDER_TYPE_SELL);
+   if(!OrderCalcProfit(orderType,p.symbol,volume,openPrice,closePrice,gross)){r.status=HSBI_CALC_UNAVAILABLE;r.reason=HSBI_REASON_NOT_INITIALIZED;r.details="BROKER_MONEY_UNAVAILABLE";return r;}
+   if(!HSBI_IsFiniteNumber(gross)){r.status=HSBI_CALC_ERROR;r.details="NONFINITE_MONEY";return r;}
+   r.grossProfit=gross;r.commission=cost.commission;r.swap=cost.swap;r.fee=cost.fee;r.spreadCost=cost.spreadCost;r.slippageBuffer=cost.slippageBuffer;
+   if(!HSBI_TryProjectedNetMoney(gross,cost,executionSafetyBuffer,r.netMoney)){r.status=HSBI_CALC_ERROR;r.details="NONFINITE_MONEY";return r;}
+   r.status=HSBI_CALC_PASS;r.valid=true;r.actual=false;r.reason=HSBI_REASON_OK;r.details="PASS";return r;
+}
+
+// SOURCE Include/Money/HSBI_BrokerMarginModel.mqh
+#define HSBI_BROKER_MARGIN_MODEL_MQH
+HSBI_MarginCalculationResult HSBI_CalculateProjectedMargin(const HSBI_BrokerProperties &p,const HSBI_Direction direction,const double volume,const double price)
+{
+   HSBI_MarginCalculationResult r;ZeroMemory(r);r.status=HSBI_CALC_REJECT;r.projected=true;r.symbol=p.symbol;r.direction=direction;r.volume=volume;r.price=price;r.snapshotId=p.snapshotId;r.reason=HSBI_REASON_INVALID_IDENTITY;r.details="INVALID_SYMBOL_PROPERTIES";
+   if(HSBI_ValidateBrokerProperties(p)!=HSBI_BROKER_PROPERTIES_VALID)return r;
+   if(direction!=HSBI_DIRECTION_BUY&&direction!=HSBI_DIRECTION_SELL){r.details="INVALID_DIRECTION";return r;}
+   if(!HSBI_ValidateVolume(volume,p)){r.reason=HSBI_REASON_INVALID_VOLUME;r.details="INVALID_VOLUME";return r;}
+   if(!HSBI_ValidatePriceGrid(price,p)){r.reason=HSBI_REASON_OFF_GRID_PRICE;r.details="INVALID_PRICE_GRID";return r;}
+   double margin=0.0;ENUM_ORDER_TYPE orderType=(direction==HSBI_DIRECTION_BUY?ORDER_TYPE_BUY:ORDER_TYPE_SELL);
+   if(!OrderCalcMargin(orderType,p.symbol,volume,price,margin)){r.status=HSBI_CALC_UNAVAILABLE;r.reason=HSBI_REASON_NOT_INITIALIZED;r.details="BROKER_MARGIN_UNAVAILABLE";return r;}
+   if(!HSBI_IsFiniteNumber(margin)){r.status=HSBI_CALC_ERROR;r.details="NONFINITE_MARGIN";return r;}
+   if(margin<0.0){r.status=HSBI_CALC_ERROR;r.details="NEGATIVE_MARGIN";return r;}
+   r.margin=margin;r.status=HSBI_CALC_PASS;r.valid=true;r.reason=HSBI_REASON_OK;r.details="PASS";return r;
+}
+
+// SOURCE Include/Money/HSBI_MoneyProofIdentity.mqh
+#define HSBI_MONEY_PROOF_IDENTITY_MQH
+struct HSBI_MoneyProofIdentity
+{
+   long accountLogin; string symbol; long magic; ulong cycleId; ulong positionIdentifier;
+   HSBI_Role role; HSBI_Direction direction; ulong sourceDealId; ulong sourceEventId;
+   ulong snapshotId; ulong planId; ulong stateRevision;
+};
+bool HSBI_ValidateMoneyProofIdentity(const HSBI_MoneyProofIdentity &x)
+{
+   return x.accountLogin>0&&x.symbol!=""&&x.magic!=0&&x.cycleId>0&&x.positionIdentifier>0&&
+      x.role!=HSBI_ROLE_NONE&&x.direction!=HSBI_DIRECTION_NONE&&x.sourceDealId>0&&x.sourceEventId>0&&
+      x.snapshotId>0&&x.planId>0&&x.stateRevision>0;
+}
+bool HSBI_IsSameMoneyProofIdentity(const HSBI_MoneyProofIdentity &a,const HSBI_MoneyProofIdentity &b)
+{
+   return a.accountLogin==b.accountLogin&&a.symbol==b.symbol&&a.magic==b.magic&&a.cycleId==b.cycleId&&
+      a.positionIdentifier==b.positionIdentifier&&a.role==b.role&&a.direction==b.direction&&
+      a.sourceDealId==b.sourceDealId&&a.sourceEventId==b.sourceEventId&&a.snapshotId==b.snapshotId&&
+      a.planId==b.planId&&a.stateRevision==b.stateRevision;
+}
+string HSBI_MoneyProofIdentityDigest(const HSBI_MoneyProofIdentity &x)
+{
+   return LongToString(x.accountLogin)+"|"+x.symbol+"|"+LongToString(x.magic)+"|"+HSBI_UlongToString(x.cycleId)+"|"+
+      HSBI_UlongToString(x.positionIdentifier)+"|"+IntegerToString((int)x.role)+"|"+IntegerToString((int)x.direction)+"|"+
+      HSBI_UlongToString(x.sourceDealId)+"|"+HSBI_UlongToString(x.sourceEventId)+"|"+HSBI_UlongToString(x.snapshotId)+"|"+
+      HSBI_UlongToString(x.planId)+"|"+HSBI_UlongToString(x.stateRevision);
+}
+
+// SOURCE Include/Money/HSBI_LevelMoneyEvaluator.mqh
+#define HSBI_LEVEL_MONEY_EVALUATOR_MQH
+struct HSBI_BrokerMoneyEvaluationInput{HSBI_BrokerProperties broker;string symbol;HSBI_Direction direction;double volume;double openPrice;double closePrice;double bid;double ask;HSBI_CostSnapshot costs;double executionSafetyBuffer;ulong snapshotId;datetime timestamp;bool projected;};
+struct HSBI_BrokerMoneyEvaluationResult{HSBI_MoneyProofIdentity identity;bool runtimeConfirmed;HSBI_CalculationStatus status;bool valid;bool projected;bool actual;double grossProfit;double commission;double swap;double fee;double spreadCost;double slippageBuffer;double executionSafetyBuffer;double netMoney;string symbol;HSBI_Direction direction;double volume;double openPrice;double closePrice;ulong snapshotId;HSBI_ReasonCode reason;string details;};
+HSBI_BrokerMoneyEvaluationResult HSBI_EvaluateProjectedLegMoney(const HSBI_BrokerMoneyEvaluationInput &x)
+{
+   HSBI_BrokerMoneyEvaluationResult r;ZeroMemory(r);r.status=HSBI_CALC_REJECT;r.projected=x.projected;r.actual=false;r.symbol=x.symbol;r.direction=x.direction;r.volume=x.volume;r.openPrice=x.openPrice;r.closePrice=x.closePrice;r.snapshotId=x.snapshotId;r.executionSafetyBuffer=x.executionSafetyBuffer;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.details="INVALID_INPUT";
+   if(!x.projected||x.timestamp<=0||x.snapshotId==0||x.snapshotId!=x.broker.snapshotId||x.symbol==""||x.symbol!=x.broker.symbol)return r;
+   HSBI_MoneyCalculationResult source=HSBI_CalculateProjectedProfit(x.broker,x.direction,x.volume,x.openPrice,x.closePrice,x.bid,x.ask,x.costs,x.executionSafetyBuffer);
+   r.status=source.status;r.valid=source.valid;r.runtimeConfirmed=source.valid&&source.status==HSBI_CALC_PASS;r.projected=source.projected;r.actual=source.actual;r.grossProfit=source.grossProfit;r.commission=source.commission;r.swap=source.swap;r.fee=source.fee;r.spreadCost=source.spreadCost;r.slippageBuffer=source.slippageBuffer;r.netMoney=source.netMoney;r.reason=source.reason;r.details=source.details;
+   if(r.valid&&(!HSBI_IsFiniteNumber(r.netMoney)||r.actual||!r.projected)){r.valid=false;r.status=HSBI_CALC_ERROR;r.details="INVALID_RESULT_FLAGS_OR_MONEY";}
+   return r;
+}
+
+// SOURCE Include/Money/HSBI_LevelMarginEvaluator.mqh
+#define HSBI_LEVEL_MARGIN_EVALUATOR_MQH
+HSBI_MarginCalculationResult HSBI_EvaluateProjectedLegMargin(const HSBI_BrokerMoneyEvaluationInput &x)
+{
+   HSBI_MarginCalculationResult r;ZeroMemory(r);r.status=HSBI_CALC_REJECT;r.projected=true;r.symbol=x.symbol;r.direction=x.direction;r.volume=x.volume;r.price=x.openPrice;r.snapshotId=x.snapshotId;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.details="INVALID_INPUT";
+   if(!x.projected||x.timestamp<=0||x.snapshotId==0||x.snapshotId!=x.broker.snapshotId||x.symbol==""||x.symbol!=x.broker.symbol)return r;
+   r=HSBI_CalculateProjectedMargin(x.broker,x.direction,x.volume,x.openPrice);
+   if(r.valid&&(!HSBI_IsFiniteNumber(r.margin)||r.margin<0.0)){r.valid=false;r.status=HSBI_CALC_ERROR;r.details="NONFINITE_OR_NEGATIVE_MARGIN";}
+   return r;
+}
+
+// SOURCE Include/Money/HSBI_BasketMoneyEvaluator.mqh
+#define HSBI_BASKET_MONEY_EVALUATOR_MQH
+struct HSBI_BasketMoneyInput{double farVolume;double coreVolume;double trendVolume;double smallVolume;HSBI_Direction farDirection;string symbol;HSBI_BrokerProperties broker;HSBI_ControlPrice controlPrice;double farOpenPrice;double coreOpenPrice;double trendOpenPrice;double smallOpenPrice;HSBI_CostSnapshot farCosts;HSBI_CostSnapshot coreCosts;HSBI_CostSnapshot trendCosts;HSBI_CostSnapshot smallCosts;double executionSafetyBuffer;ulong snapshotId;};
+struct HSBI_BasketMoneyResult{HSBI_CalculationStatus status;bool valid;bool brokerRuntimeConfirmed;HSBI_BrokerMoneyEvaluationResult far;HSBI_BrokerMoneyEvaluationResult core;HSBI_BrokerMoneyEvaluationResult trend;HSBI_BrokerMoneyEvaluationResult small;double basketNetMoney;double recoveryMoney;double totalMargin;double grossExposure;double reserveGainMoney;double farLossIncreaseMoney;double transitionLoss;double safetyBuffer;HSBI_ReasonCode reason;string details;};
+HSBI_BrokerMoneyEvaluationInput HSBI_BasketLegInput(const HSBI_BasketMoneyInput &x,const HSBI_Direction direction,const double volume,const double openPrice,const HSBI_CostSnapshot &cost)
+{
+   HSBI_BrokerMoneyEvaluationInput leg;ZeroMemory(leg);leg.broker=x.broker;leg.symbol=x.symbol;leg.direction=direction;leg.volume=volume;leg.openPrice=openPrice;leg.bid=x.controlPrice.bid;leg.ask=x.controlPrice.ask;leg.closePrice=(direction==HSBI_DIRECTION_BUY?leg.bid:leg.ask);leg.costs=cost;leg.executionSafetyBuffer=x.executionSafetyBuffer;leg.snapshotId=x.snapshotId;leg.timestamp=x.controlPrice.timestamp;leg.projected=true;return leg;
+}
+HSBI_BasketMoneyResult HSBI_EvaluateBasketMoney(const HSBI_BasketMoneyInput &x)
+{
+   HSBI_BasketMoneyResult r;ZeroMemory(r);r.status=HSBI_CALC_REJECT;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.details="INVALID_BASKET";if(x.farDirection!=HSBI_DIRECTION_BUY&&x.farDirection!=HSBI_DIRECTION_SELL)return r;if(!HSBI_ValidateTypedControlPrice(x.controlPrice,x.symbol))return r;
+   HSBI_Direction opposite=(x.farDirection==HSBI_DIRECTION_BUY?HSBI_DIRECTION_SELL:HSBI_DIRECTION_BUY);HSBI_BrokerMoneyEvaluationInput farIn=HSBI_BasketLegInput(x,x.farDirection,x.farVolume,x.farOpenPrice,x.farCosts),coreIn=HSBI_BasketLegInput(x,opposite,x.coreVolume,x.coreOpenPrice,x.coreCosts),trendIn=HSBI_BasketLegInput(x,opposite,x.trendVolume,x.trendOpenPrice,x.trendCosts),smallIn=HSBI_BasketLegInput(x,x.farDirection,x.smallVolume,x.smallOpenPrice,x.smallCosts);
+   r.far=HSBI_EvaluateProjectedLegMoney(farIn);r.core=HSBI_EvaluateProjectedLegMoney(coreIn);r.trend=HSBI_EvaluateProjectedLegMoney(trendIn);r.small=HSBI_EvaluateProjectedLegMoney(smallIn);if(!r.far.valid||!r.core.valid||!r.trend.valid||!r.small.valid){r.status=(r.far.status==HSBI_CALC_UNAVAILABLE||r.core.status==HSBI_CALC_UNAVAILABLE||r.trend.status==HSBI_CALC_UNAVAILABLE||r.small.status==HSBI_CALC_UNAVAILABLE)?HSBI_CALC_UNAVAILABLE:HSBI_CALC_REJECT;r.details="LEG_MONEY_UNAVAILABLE";return r;}
+   HSBI_MarginCalculationResult fm=HSBI_EvaluateProjectedLegMargin(farIn),cm=HSBI_EvaluateProjectedLegMargin(coreIn),tm=HSBI_EvaluateProjectedLegMargin(trendIn),sm=HSBI_EvaluateProjectedLegMargin(smallIn);if(!fm.valid||!cm.valid||!tm.valid||!sm.valid){r.status=(fm.status==HSBI_CALC_UNAVAILABLE||cm.status==HSBI_CALC_UNAVAILABLE||tm.status==HSBI_CALC_UNAVAILABLE||sm.status==HSBI_CALC_UNAVAILABLE)?HSBI_CALC_UNAVAILABLE:HSBI_CALC_REJECT;r.details="LEG_MARGIN_UNAVAILABLE";return r;}
+   r.basketNetMoney=r.far.netMoney+r.core.netMoney+r.trend.netMoney+r.small.netMoney;r.recoveryMoney=r.basketNetMoney;r.totalMargin=fm.margin+cm.margin+tm.margin+sm.margin;r.grossExposure=x.farVolume+x.coreVolume+x.trendVolume+x.smallVolume;r.reserveGainMoney=MathMax(0.0,r.core.netMoney+r.trend.netMoney+r.small.netMoney);r.farLossIncreaseMoney=MathMax(0.0,-r.far.netMoney);r.transitionLoss=MathMax(0.0,-r.basketNetMoney);r.safetyBuffer=x.executionSafetyBuffer*4.0;
+   if(!HSBI_IsFiniteNumber(r.basketNetMoney)||!HSBI_IsFiniteNumber(r.totalMargin)||!HSBI_IsFiniteNumber(r.grossExposure)){r.status=HSBI_CALC_ERROR;r.details="NONFINITE_BASKET";return r;}r.status=HSBI_CALC_PASS;r.valid=true;r.brokerRuntimeConfirmed=true;r.reason=HSBI_REASON_OK;r.details="PASS";return r;
+}
+string HSBI_BasketMoneyProofDigest(const HSBI_BasketMoneyResult &r)
+{
+   return IntegerToString((int)r.status)+"|"+IntegerToString((int)r.valid)+"|"+
+      DoubleToString(r.far.netMoney,8)+"|"+DoubleToString(r.core.netMoney,8)+"|"+
+      DoubleToString(r.trend.netMoney,8)+"|"+DoubleToString(r.small.netMoney,8)+"|"+
+      DoubleToString(r.basketNetMoney,8)+"|"+DoubleToString(r.recoveryMoney,8)+"|"+
+      DoubleToString(r.totalMargin,8)+"|"+DoubleToString(r.grossExposure,8)+"|"+
+      DoubleToString(r.transitionLoss,8)+"|"+IntegerToString((int)r.reason);
+}
+
+// SOURCE Include/Money/HSBI_EconomicLedgerTypes.mqh
+#define HSBI_ECONOMIC_LEDGER_TYPES_MQH
+struct HSBI_EconomicLedgerRecord{ulong dealTicket;ulong orderTicket;ulong positionIdentifier;string symbol;long magic;ulong cycleId;ulong actionId;ulong eventId;HSBI_Role role;int entryType;double volume;double price;double profit;double swap;double commission;double fee;double dealNet;datetime timestamp;string sourceDealKey;bool valid;};
+string HSBI_BuildSourceDealKey(const HSBI_EconomicLedgerRecord &r){return r.symbol+"|"+LongToString(r.magic)+"|"+HSBI_UlongToString(r.cycleId)+"|"+HSBI_UlongToString(r.dealTicket);}
+bool HSBI_ValidateEconomicRecord(const HSBI_EconomicLedgerRecord &r){return r.dealTicket>0&&r.orderTicket>0&&r.positionIdentifier>0&&r.symbol!=""&&r.cycleId>0&&r.actionId>0&&r.eventId>0&&r.volume>0&&r.sourceDealKey!=""&&r.valid;}
+bool HSBI_SameEconomicRecord(const HSBI_EconomicLedgerRecord &a,const HSBI_EconomicLedgerRecord &b){return a.sourceDealKey==b.sourceDealKey&&MathAbs(a.dealNet-b.dealNet)<0.0000001&&a.volume==b.volume&&a.price==b.price;}
+int HSBI_ClassifyEconomicDuplicate(const HSBI_EconomicLedgerRecord &existing,const HSBI_EconomicLedgerRecord &incoming){if(existing.sourceDealKey!=incoming.sourceDealKey)return 0;return HSBI_SameEconomicRecord(existing,incoming)?1:2;}
+string HSBI_SerializeEconomicRecord(const HSBI_EconomicLedgerRecord &r){return r.sourceDealKey+"|"+DoubleToString(r.volume,8)+"|"+DoubleToString(r.price,8)+"|"+DoubleToString(r.dealNet,8);}
+bool HSBI_IsHarvestSourceEntry(const HSBI_EconomicLedgerRecord &r){return r.entryType!=0&&r.dealNet>0.0;}
+
+// SOURCE Include/Money/HSBI_AllocationLedgerTypes.mqh
+#define HSBI_ALLOCATION_LEDGER_TYPES_MQH
+struct HSBI_AllocationLedgerRecord{string sourceDealKey;ulong allocationEventId;double sourceDealNet;double finalReserveAllocated;double partialFarAllocated;double transitionAllocated;double carryAllocated;double residual;double consumed;double available;HSBI_Status status;bool valid;};
+double HSBI_AllocatedTotal(const HSBI_AllocationLedgerRecord &r){return r.finalReserveAllocated+r.partialFarAllocated+r.transitionAllocated+r.carryAllocated+r.residual;}
+bool HSBI_ValidateAllocationConservation(const HSBI_AllocationLedgerRecord &r){if(!r.valid||r.sourceDealKey=="")return false;if(r.sourceDealNet<0.0)return HSBI_AllocatedTotal(r)<=0.0000001;return HSBI_AllocatedTotal(r)<=r.sourceDealNet+0.0000001&&r.consumed<=r.available+0.0000001;}
+int HSBI_ClassifyAllocationDuplicate(const HSBI_AllocationLedgerRecord &a,const HSBI_AllocationLedgerRecord &b){if(a.sourceDealKey!=b.sourceDealKey||a.allocationEventId!=b.allocationEventId)return 0;bool same=MathAbs(HSBI_AllocatedTotal(a)-HSBI_AllocatedTotal(b))<0.0000001;return same?1:2;}
+bool HSBI_CanConsumeBucket(const HSBI_MoneyBucket bucket,const bool partialFarConsumer){if(partialFarConsumer&&bucket==HSBI_BUCKET_FINAL_RESERVE)return false;return true;}
+bool HSBI_CanConsumeAmount(const HSBI_AllocationLedgerRecord &r,const double amount){return amount>=0.0&&amount<=r.available+0.0000001;}
+
+// SOURCE Include/Money/HSBI_AllocationPolicyTypes.mqh
+#define HSBI_ALLOCATION_POLICY_TYPES_MQH
+struct HSBI_AllocationPolicySnapshot
+{
+   double reserveShare;
+   double partialFarShare;
+   double transitionShare;
+   double carryShare;
+   ulong policyVersion;
+   ulong snapshotId;
+   bool valid;
+   bool fresh;
+};
+bool HSBI_ValidateAllocationPolicy(const HSBI_AllocationPolicySnapshot &p)
+{
+   if(!p.valid || !p.fresh || p.policyVersion==0 || p.snapshotId==0) return false;
+   if(!HSBI_IsFiniteNumber(p.reserveShare) || !HSBI_IsFiniteNumber(p.partialFarShare) ||
+      !HSBI_IsFiniteNumber(p.transitionShare) || !HSBI_IsFiniteNumber(p.carryShare)) return false;
+   if(p.reserveShare<0.0 || p.reserveShare>1.0 || p.partialFarShare<0.0 ||
+      p.transitionShare<0.0 || p.carryShare<0.0) return false;
+   return p.reserveShare+p.partialFarShare+p.transitionShare+p.carryShare<=1.0+1e-12;
+}
+string HSBI_AllocationPolicyDigest(const HSBI_AllocationPolicySnapshot &p)
+{
+   return DoubleToString(p.reserveShare,12)+"|"+DoubleToString(p.partialFarShare,12)+"|"+
+          DoubleToString(p.transitionShare,12)+"|"+DoubleToString(p.carryShare,12)+"|"+
+          HSBI_UlongToString(p.policyVersion)+"|"+HSBI_UlongToString(p.snapshotId)+"|"+
+          IntegerToString((int)p.valid)+"|"+IntegerToString((int)p.fresh);
+}
+
+// SOURCE Include/Money/HSBI_ReserveAllocationTypes.mqh
+#define HSBI_RESERVE_ALLOCATION_TYPES_MQH
+struct HSBI_ReserveAllocationSource
+{
+   string sourceDealKey,sourceAllocationKey; ulong sourceDealId,allocationEventId,allocationPolicyVersion;
+   double allocatableNet,reserveAllocated,partialFarAllocated,transitionAllocated,carryAllocated,residualAllocated,alreadyConsumed;
+   bool allocationConfirmed,sourceReconciled,valid;
+};
+struct HSBI_ReserveConsumptionKey
+{
+   string sourceDealKey,sourceAllocationKey; ulong planId,stateRevision,consumptionEventId; string consumer;
+};
+enum HSBI_ReserveConsumptionStatus { HSBI_CONSUMPTION_ALLOWED,HSBI_CONSUMPTION_DUPLICATE_NOOP,HSBI_CONSUMPTION_CONFLICT,HSBI_CONSUMPTION_REJECTED };
+bool HSBI_ValidateReserveAllocationSource(const HSBI_ReserveAllocationSource &x)
+{
+   if(!x.valid||!x.allocationConfirmed||!x.sourceReconciled||x.sourceDealKey==""||x.sourceAllocationKey==""||
+      x.sourceDealId==0||x.allocationEventId==0||x.allocationPolicyVersion==0||x.allocatableNet<=0.0)return false;
+   if(!HSBI_IsFiniteNumber(x.allocatableNet)||!HSBI_IsFiniteNumber(x.reserveAllocated)||!HSBI_IsFiniteNumber(x.partialFarAllocated)||
+      !HSBI_IsFiniteNumber(x.transitionAllocated)||!HSBI_IsFiniteNumber(x.carryAllocated)||!HSBI_IsFiniteNumber(x.residualAllocated)||
+      !HSBI_IsFiniteNumber(x.alreadyConsumed)||x.reserveAllocated<0.0||x.partialFarAllocated<0.0||x.transitionAllocated<0.0||
+      x.carryAllocated<0.0||x.residualAllocated<0.0||x.alreadyConsumed<0.0)return false;
+   return x.reserveAllocated+x.partialFarAllocated+x.transitionAllocated+x.carryAllocated+x.residualAllocated+x.alreadyConsumed<=x.allocatableNet+1e-10;
+}
+bool HSBI_ValidateReserveConsumption(const HSBI_ReserveConsumptionKey &x,const ulong planId,const ulong revision)
+{return x.sourceDealKey!=""&&x.sourceAllocationKey!=""&&x.consumptionEventId>0&&x.consumer!=""&&x.planId==planId&&x.stateRevision==revision;}
+bool HSBI_IsDuplicateReserveConsumption(const HSBI_ReserveConsumptionKey &a,const HSBI_ReserveConsumptionKey &b)
+{return a.sourceDealKey==b.sourceDealKey&&a.sourceAllocationKey==b.sourceAllocationKey&&a.planId==b.planId&&a.stateRevision==b.stateRevision&&a.consumptionEventId==b.consumptionEventId&&a.consumer==b.consumer;}
+bool HSBI_ReserveConsumptionConflict(const HSBI_ReserveConsumptionKey &a,const HSBI_ReserveConsumptionKey &b)
+{return (a.sourceAllocationKey==b.sourceAllocationKey||a.consumptionEventId==b.consumptionEventId)&&!HSBI_IsDuplicateReserveConsumption(a,b);}
+string HSBI_ReserveAllocationSourceDigest(const HSBI_ReserveAllocationSource &x)
+{return x.sourceDealKey+"|"+x.sourceAllocationKey+"|"+HSBI_UlongToString(x.sourceDealId)+"|"+HSBI_UlongToString(x.allocationEventId)+"|"+HSBI_UlongToString(x.allocationPolicyVersion)+"|"+DoubleToString(x.allocatableNet,8)+"|"+DoubleToString(x.reserveAllocated,8)+"|"+DoubleToString(x.partialFarAllocated,8)+"|"+DoubleToString(x.transitionAllocated,8)+"|"+DoubleToString(x.carryAllocated,8)+"|"+DoubleToString(x.residualAllocated,8)+"|"+DoubleToString(x.alreadyConsumed,8);}
+string HSBI_ReserveConsumptionKeyDigest(const HSBI_ReserveConsumptionKey &x)
+{return x.sourceDealKey+"|"+x.sourceAllocationKey+"|"+HSBI_UlongToString(x.planId)+"|"+HSBI_UlongToString(x.stateRevision)+"|"+HSBI_UlongToString(x.consumptionEventId)+"|"+x.consumer;}
+
+// SOURCE Include/Money/HSBI_ReserveCatchUpEvaluator.mqh
+#define HSBI_RESERVE_CATCH_UP_EVALUATOR_MQH
+struct HSBI_ReserveCatchUpInput
+{
+   HSBI_RuntimeMode runtimeMode; bool testOnlySource;
+   HSBI_AllocationPolicySnapshot allocationPolicy; double reserveEligibleMoney; bool reserveEligibleMoneyAlreadyAllocated;
+   double farLossIncreaseMoney,executionSafetyBuffer,netBigVolume,farVolume; HSBI_Direction farDirection;
+   HSBI_BrokerMoneyEvaluationResult reserveSourceProof,farLossProof;
+   HSBI_MoneyProofIdentity expectedReserveIdentity,expectedFarIdentity;
+   HSBI_ReserveAllocationSource reserveAllocationSource; HSBI_ReserveConsumptionKey consumptionKey,priorConsumptionKey;
+   bool hasPriorConsumption; ulong sourceDealId,sourceEventId,planId,stateRevision,snapshotId; bool projected,moneyAvailable,fresh;
+};
+struct HSBI_ReserveCatchUpResult
+{
+   HSBI_CalculationStatus status; bool valid,projected; double reserveShare,reserveEligibleMoney,reserveGainMoney;
+   double farLossIncreaseMoney,executionSafetyBuffer,catchUpMargin; ulong sourceDealId,sourceEventId,planId,stateRevision;
+   bool reserveSourceIdentityValid,farLossSourceIdentityValid,allocationSourceValid,consumptionAllowed,doubleCountFree,runtimeConfirmed;
+   string reserveSourceDigest,farLossSourceDigest,allocationSourceDigest,consumptionKeyDigest;
+   HSBI_MoneyProofIdentity reserveIdentity,farLossIdentity; HSBI_ReasonCode reason; string details;
+};
+bool HSBI_ValidateReserveSourceProof(const HSBI_BrokerMoneyEvaluationResult &p,const HSBI_MoneyProofIdentity &expected)
+{
+   return p.valid&&p.status==HSBI_CALC_PASS&&p.projected&&!p.actual&&p.runtimeConfirmed&&p.netMoney>0.0&&
+      HSBI_IsFiniteNumber(p.netMoney)&&HSBI_ValidateMoneyProofIdentity(p.identity)&&HSBI_IsSameMoneyProofIdentity(p.identity,expected)&&
+      (p.identity.role==HSBI_ROLE_BIG_CORE||p.identity.role==HSBI_ROLE_BIG_TREND);
+}
+bool HSBI_ValidateFarLossProof(const HSBI_BrokerMoneyEvaluationResult &p,const HSBI_MoneyProofIdentity &expected)
+{
+   return p.valid&&p.status==HSBI_CALC_PASS&&p.projected&&!p.actual&&p.runtimeConfirmed&&HSBI_IsFiniteNumber(p.netMoney)&&
+      HSBI_ValidateMoneyProofIdentity(p.identity)&&HSBI_IsSameMoneyProofIdentity(p.identity,expected)&&p.identity.role==HSBI_ROLE_FAR;
+}
+HSBI_ReserveCatchUpResult HSBI_EvaluateReserveCatchUp(const HSBI_ReserveCatchUpInput &x)
+{
+   HSBI_ReserveCatchUpResult r;ZeroMemory(r);r.status=HSBI_CALC_UNAVAILABLE;r.reason=HSBI_REASON_NOT_INITIALIZED;
+   r.details="RESERVE_SOURCE_UNAVAILABLE";r.projected=x.projected;r.reserveShare=x.allocationPolicy.reserveShare;
+   r.reserveEligibleMoney=x.reserveEligibleMoney;r.farLossIncreaseMoney=x.farLossIncreaseMoney;r.executionSafetyBuffer=x.executionSafetyBuffer;
+   r.sourceDealId=x.sourceDealId;r.sourceEventId=x.sourceEventId;r.planId=x.planId;r.stateRevision=x.stateRevision;
+   r.reserveIdentity=x.reserveSourceProof.identity;r.farLossIdentity=x.farLossProof.identity;
+   r.reserveSourceIdentityValid=HSBI_ValidateReserveSourceProof(x.reserveSourceProof,x.expectedReserveIdentity);
+   r.farLossSourceIdentityValid=HSBI_ValidateFarLossProof(x.farLossProof,x.expectedFarIdentity);
+   r.allocationSourceValid=HSBI_ValidateReserveAllocationSource(x.reserveAllocationSource)&&
+      x.reserveAllocationSource.allocationPolicyVersion==x.allocationPolicy.policyVersion&&
+      x.reserveAllocationSource.sourceDealId==x.reserveSourceProof.identity.sourceDealId;
+   r.consumptionAllowed=HSBI_ValidateReserveConsumption(x.consumptionKey,x.planId,x.stateRevision);
+   bool duplicate=x.hasPriorConsumption&&HSBI_IsDuplicateReserveConsumption(x.consumptionKey,x.priorConsumptionKey);
+   bool conflict=x.hasPriorConsumption&&HSBI_ReserveConsumptionConflict(x.consumptionKey,x.priorConsumptionKey);
+   r.doubleCountFree=!duplicate&&!conflict;r.runtimeConfirmed=x.reserveSourceProof.runtimeConfirmed&&x.farLossProof.runtimeConfirmed;
+   r.reserveSourceDigest=HSBI_MoneyProofIdentityDigest(x.reserveSourceProof.identity);
+   r.farLossSourceDigest=HSBI_MoneyProofIdentityDigest(x.farLossProof.identity);
+   r.allocationSourceDigest=HSBI_ReserveAllocationSourceDigest(x.reserveAllocationSource);
+   r.consumptionKeyDigest=HSBI_ReserveConsumptionKeyDigest(x.consumptionKey);
+   if(!HSBI_IsStaticCalculationAllowed(x.runtimeMode)||x.testOnlySource||!HSBI_ValidateAllocationPolicy(x.allocationPolicy)||!x.moneyAvailable||!x.fresh||x.snapshotId==0||x.planId==0||x.stateRevision==0)return r;
+   if(duplicate){r.status=HSBI_CALC_REJECT;r.details="DUPLICATE_CONSUMPTION_NOOP";return r;}
+   if(conflict){r.status=HSBI_CALC_REJECT;r.details="CONSUMPTION_CONFLICT";return r;}
+   if(!r.reserveSourceIdentityValid){r.status=HSBI_CALC_REJECT;r.details="RESERVE_SOURCE_IDENTITY_MISMATCH";return r;}
+   if(!r.farLossSourceIdentityValid){r.status=HSBI_CALC_REJECT;r.details="FAR_LOSS_SOURCE_IDENTITY_MISMATCH";return r;}
+   if(!r.allocationSourceValid||!r.consumptionAllowed||!r.doubleCountFree||!r.runtimeConfirmed){r.status=HSBI_CALC_REJECT;r.details="ALLOCATION_OR_CONSUMPTION_INVALID";return r;}
+   if(!HSBI_IsFiniteNumber(x.reserveEligibleMoney)||!HSBI_IsFiniteNumber(x.farLossIncreaseMoney)||!HSBI_IsFiniteNumber(x.executionSafetyBuffer)||
+      !HSBI_IsFiniteNumber(x.netBigVolume)||!HSBI_IsFiniteNumber(x.farVolume)){r.status=HSBI_CALC_ERROR;r.details="NONFINITE_CATCH_UP";return r;}
+   if(x.reserveEligibleMoneyAlreadyAllocated){
+      if(x.reserveAllocationSource.reserveAllocated<=0.0||x.reserveAllocationSource.reserveAllocated>x.reserveAllocationSource.allocatableNet||
+         x.reserveAllocationSource.alreadyConsumed>0.0){r.status=HSBI_CALC_REJECT;r.details="ALLOCATED_SOURCE_NOT_AVAILABLE";return r;}
+      r.reserveGainMoney=x.reserveAllocationSource.reserveAllocated;
+   } else {
+      if(x.reserveEligibleMoney<=0.0||x.sourceDealId!=x.reserveSourceProof.identity.sourceDealId||x.sourceEventId!=x.reserveSourceProof.identity.sourceEventId){
+         r.status=HSBI_CALC_REJECT;r.details="ELIGIBLE_SOURCE_NOT_BOUND";return r;}
+      r.reserveGainMoney=x.reserveEligibleMoney*x.allocationPolicy.reserveShare;
+   }
+   if(x.farLossIncreaseMoney<0.0||x.executionSafetyBuffer<0.0||x.netBigVolume<=0.0||x.farVolume<=0.0){r.status=HSBI_CALC_REJECT;r.details="INVALID_CATCH_UP_INPUT";return r;}
+   if(x.allocationPolicy.reserveShare*x.netBigVolume<=x.farVolume){r.status=HSBI_CALC_REJECT;r.details="LOT_CONDITION_FAILED";return r;}
+   r.catchUpMargin=r.reserveGainMoney-x.farLossIncreaseMoney-x.executionSafetyBuffer;
+   if(r.catchUpMargin<=0.0){r.status=HSBI_CALC_REJECT;r.details="MONEY_CONDITION_FAILED";return r;}
+   r.status=HSBI_CALC_PASS;r.valid=true;r.reason=HSBI_REASON_OK;r.details="PASS";return r;
+}
+string HSBI_ReserveCatchUpDigest(const HSBI_ReserveCatchUpResult &r)
+{return IntegerToString((int)r.status)+"|"+IntegerToString((int)r.valid)+"|"+DoubleToString(r.reserveShare,12)+"|"+
+   DoubleToString(r.reserveEligibleMoney,8)+"|"+DoubleToString(r.reserveGainMoney,8)+"|"+DoubleToString(r.farLossIncreaseMoney,8)+"|"+
+   DoubleToString(r.executionSafetyBuffer,8)+"|"+DoubleToString(r.catchUpMargin,8)+"|"+r.reserveSourceDigest+"|"+r.farLossSourceDigest+"|"+
+   r.allocationSourceDigest+"|"+r.consumptionKeyDigest+"|"+IntegerToString((int)r.runtimeConfirmed)+"|"+IntegerToString((int)r.doubleCountFree);}
+
+// SOURCE Include/Money/HSBI_CatchUpTypes.mqh
+#define HSBI_CATCH_UP_TYPES_MQH
+struct HSBI_CatchUpInput{double reserveShare;double netBigVolume;double farVolume;double reserveGainMoney;double farLossIncreaseMoney;double executionSafetyBuffer;HSBI_Direction farDirection;bool moneyAvailable;bool snapshotFresh;};
+struct HSBI_CatchUpResult{double reserveShare;double netBigVolume;double farVolume;double reserveGainMoney;double farLossIncreaseMoney;double executionSafetyBuffer;double catchUpMargin;bool passed;HSBI_CalculationStatus status;HSBI_ReasonCode reason;};
+
+// SOURCE Include/Money/HSBI_CatchUpModel.mqh
+#define HSBI_CATCH_UP_MODEL_MQH
+HSBI_CatchUpResult HSBI_EvaluateCatchUp(const HSBI_CatchUpInput &x)
+{
+   HSBI_CatchUpResult r;ZeroMemory(r);r.reserveShare=x.reserveShare;r.netBigVolume=x.netBigVolume;r.farVolume=x.farVolume;r.reserveGainMoney=x.reserveGainMoney;r.farLossIncreaseMoney=x.farLossIncreaseMoney;r.executionSafetyBuffer=x.executionSafetyBuffer;r.status=HSBI_CALC_REJECT;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;
+   if(!x.snapshotFresh){r.reason=HSBI_REASON_STALE_SNAPSHOT;return r;}
+   if(!x.moneyAvailable){r.status=HSBI_CALC_UNAVAILABLE;r.reason=HSBI_REASON_NOT_INITIALIZED;return r;}
+   if(x.farDirection!=HSBI_DIRECTION_BUY&&x.farDirection!=HSBI_DIRECTION_SELL)return r;
+   if(!HSBI_IsFiniteNumber(x.reserveShare)||!HSBI_IsFiniteNumber(x.netBigVolume)||!HSBI_IsFiniteNumber(x.farVolume)||!HSBI_IsFiniteNumber(x.reserveGainMoney)||!HSBI_IsFiniteNumber(x.farLossIncreaseMoney)||!HSBI_IsFiniteNumber(x.executionSafetyBuffer))return r;
+   if(x.reserveShare<=0.0||x.reserveShare>1.0||x.netBigVolume<=0.0||x.farVolume<=0.0||x.executionSafetyBuffer<0.0)return r;
+   if(x.reserveShare*x.netBigVolume<=x.farVolume)return r;
+   r.catchUpMargin=x.reserveGainMoney-x.farLossIncreaseMoney-x.executionSafetyBuffer;
+   if(r.catchUpMargin<=0.0)return r;
+   r.passed=true;r.status=HSBI_CALC_PASS;r.reason=HSBI_REASON_OK;return r;
+}
+
+// SOURCE Include/Risk/HSBI_RiskTypes.mqh
+#define HSBI_RISK_TYPES_MQH
+struct HSBI_RiskInput{double projectedMargin;double projectedMarginLevel;double freeMarginAfter;double cycleDrawdown;double accountDrawdown;double grossExposure;int managedPositions;double worstCaseLoss;double transitionLoss;double spread;bool snapshotFresh;};
+struct HSBI_RiskLimits{double maxProjectedMargin;double minMarginLevel;double minFreeMargin;double maxCycleDrawdown;double maxAccountDrawdown;double maxGrossExposure;int maxManagedPositions;double maxWorstCaseLoss;double maxTransitionLoss;double maxSpread;};
+
+// SOURCE Include/Risk/HSBI_RiskGateResult.mqh
+#define HSBI_RISK_GATE_RESULT_MQH
+struct HSBI_RiskGateResult{bool passed;ulong gateMask;int failedGate;HSBI_ReasonCode reason;bool failClosed;};
+HSBI_RiskGateResult HSBI_ValidateRiskInput(const HSBI_RiskInput &x,const HSBI_RiskLimits &l){HSBI_RiskGateResult r;r.passed=false;r.gateMask=0;r.failedGate=0;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.failClosed=true;if(!x.snapshotFresh){r.reason=HSBI_REASON_STALE_SNAPSHOT;return r;}if(x.projectedMargin>l.maxProjectedMargin){r.failedGate=1;return r;}if(x.projectedMarginLevel<l.minMarginLevel){r.failedGate=2;return r;}if(x.freeMarginAfter<l.minFreeMargin){r.failedGate=3;return r;}if(x.cycleDrawdown>l.maxCycleDrawdown||x.accountDrawdown>l.maxAccountDrawdown){r.failedGate=4;return r;}if(x.grossExposure>l.maxGrossExposure||x.managedPositions>l.maxManagedPositions){r.failedGate=5;return r;}if(x.worstCaseLoss>l.maxWorstCaseLoss||x.transitionLoss>l.maxTransitionLoss||x.spread>l.maxSpread){r.failedGate=6;return r;}r.passed=true;r.gateMask=63;r.failedGate=-1;r.reason=HSBI_REASON_OK;return r;}
+
+// SOURCE Include/Risk/HSBI_CalculationGateTypes.mqh
+#define HSBI_CALCULATION_GATE_TYPES_MQH
+enum HSBI_CalculationFailure{HSBI_CALC_FAILURE_NONE,HSBI_INVALID_SYMBOL_PROPERTIES,HSBI_INVALID_TICK_SIZE,HSBI_INVALID_VOLUME_STEP,HSBI_INVALID_PRICE_GRID,HSBI_INVALID_VOLUME,HSBI_INVALID_RATIO,HSBI_INVALID_DIRECTION,HSBI_STALE_SNAPSHOT,HSBI_WRONG_CLOSE_SIDE,HSBI_NONFINITE_MONEY,HSBI_NONFINITE_MARGIN,HSBI_BROKER_MONEY_UNAVAILABLE,HSBI_BROKER_MARGIN_UNAVAILABLE,HSBI_RECOVERY_SLOPE_FAILED,HSBI_CATCH_UP_FAILED};
+struct HSBI_CalculationGateResult{HSBI_CalculationStatus status;bool passed;HSBI_CalculationFailure failure;HSBI_ReasonCode reason;string details;};
+HSBI_CalculationGateResult HSBI_FailClosed(const HSBI_CalculationStatus status,const HSBI_CalculationFailure failure,const HSBI_ReasonCode reason,const string details)
+{
+   HSBI_CalculationGateResult r;r.status=status;r.passed=(status==HSBI_CALC_PASS);r.failure=failure;r.reason=reason;r.details=details;return r;
+}
+bool HSBI_CalculationResultFlagsValid(const bool valid,const bool projected,const bool actual,const HSBI_CalculationStatus status)
+{
+   if(projected&&actual)return false;if(valid!=(status==HSBI_CALC_PASS))return false;return true;
+}
+
+// SOURCE Include/Risk/HSBI_NewFarGateTypes.mqh
+#define HSBI_NEW_FAR_GATE_TYPES_MQH
+struct HSBI_NewFarGateInput{double marginNext;double allowedMargin;double riskNext;double riskOld;double riskTolerance;double grossExposureNext;double grossExposureOld;double transitionLoss;double absoluteLossCap;double equityPercentCap;double oldFarRiskCap;double cumulativeCycleLossCap;bool marginAvailable;bool riskAvailable;bool transitionCapAvailable;bool moneyAvailable;bool snapshotFresh;};
+struct HSBI_NewFarGateResult{bool passed;HSBI_CalculationStatus status;double allowedTransitionLoss;HSBI_CalculationFailure failure;HSBI_ReasonCode reason;};
+HSBI_NewFarGateResult HSBI_EvaluateNewFarGates(const HSBI_NewFarGateInput &x)
+{
+   HSBI_NewFarGateResult r;ZeroMemory(r);r.status=HSBI_CALC_REJECT;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;
+   if(!x.snapshotFresh){r.failure=HSBI_STALE_SNAPSHOT;r.reason=HSBI_REASON_STALE_SNAPSHOT;return r;}
+   if(!x.marginAvailable||!x.riskAvailable||!x.transitionCapAvailable||!x.moneyAvailable){r.status=HSBI_CALC_UNAVAILABLE;r.failure=HSBI_BROKER_MONEY_UNAVAILABLE;return r;}
+   if(!HSBI_IsFiniteNumber(x.absoluteLossCap)||!HSBI_IsFiniteNumber(x.equityPercentCap)||!HSBI_IsFiniteNumber(x.oldFarRiskCap)||!HSBI_IsFiniteNumber(x.cumulativeCycleLossCap)||x.absoluteLossCap<0.0||x.equityPercentCap<0.0||x.oldFarRiskCap<0.0||x.cumulativeCycleLossCap<0.0){r.failure=HSBI_CATCH_UP_FAILED;return r;}
+   r.allowedTransitionLoss=MathMin(MathMin(x.absoluteLossCap,x.equityPercentCap),MathMin(x.oldFarRiskCap,x.cumulativeCycleLossCap));
+   if(!HSBI_IsFiniteNumber(x.marginNext)||x.marginNext>x.allowedMargin){r.failure=HSBI_NONFINITE_MARGIN;return r;}
+   if(!HSBI_IsFiniteNumber(x.riskNext)||x.riskNext>=x.riskOld-x.riskTolerance||!HSBI_IsFiniteNumber(x.grossExposureNext)||x.grossExposureNext>=x.grossExposureOld){r.failure=HSBI_RECOVERY_SLOPE_FAILED;return r;}
+   if(!HSBI_IsFiniteNumber(x.transitionLoss)||x.transitionLoss>r.allowedTransitionLoss){r.failure=HSBI_CATCH_UP_FAILED;return r;}
+   r.passed=true;r.status=HSBI_CALC_PASS;r.failure=HSBI_CALC_FAILURE_NONE;r.reason=HSBI_REASON_OK;return r;
+}
+
+// SOURCE Include/Risk/HSBI_FutureSmallRiskEvaluator.mqh
+#define HSBI_FUTURE_SMALL_RISK_EVALUATOR_MQH
+enum HSBI_RiskProofSource
+{
+   HSBI_RISK_SOURCE_RUNTIME,
+   HSBI_RISK_SOURCE_INJECTED_TEST_ONLY,
+   HSBI_RISK_SOURCE_PROXY_TEST_ONLY,
+   HSBI_RISK_SOURCE_UNAVAILABLE
+};
+struct HSBI_FutureSmallRiskInput
+{
+   HSBI_BasketMoneyResult basket;
+   double priorRisk;
+   double tolerance;
+   double evaluatedRisk;
+   HSBI_RiskProofSource source;
+   bool runtimeConfirmed;
+   bool testOnly;
+   bool fresh;
+   ulong snapshotId;
+};
+struct HSBI_FutureSmallRiskResult
+{
+   HSBI_CalculationStatus status; bool valid; double riskValue,priorRisk,tolerance;
+   HSBI_RiskProofSource source; bool runtimeConfirmed,testOnly;
+   HSBI_ReasonCode reason; string details;
+};
+HSBI_FutureSmallRiskResult HSBI_EvaluateFutureSmallRisk(const HSBI_FutureSmallRiskInput &x)
+{
+   HSBI_FutureSmallRiskResult r; ZeroMemory(r); r.status=HSBI_CALC_UNAVAILABLE;
+   r.priorRisk=x.priorRisk; r.tolerance=x.tolerance; r.source=x.source;
+   r.runtimeConfirmed=x.runtimeConfirmed; r.testOnly=x.testOnly;
+   r.reason=HSBI_REASON_NOT_INITIALIZED; r.details="RISK_RUNTIME_PROOF_UNAVAILABLE";
+   if(!x.fresh || x.snapshotId==0 || !x.basket.valid) return r;
+   if(x.source!=HSBI_RISK_SOURCE_RUNTIME || !x.runtimeConfirmed || x.testOnly) {
+      r.riskValue=(x.source==HSBI_RISK_SOURCE_PROXY_TEST_ONLY) ?
+         x.basket.transitionLoss+x.basket.totalMargin+x.basket.grossExposure : x.evaluatedRisk;
+      r.details="RISK_PROXY_OR_TEST_ONLY_FORBIDDEN"; return r;
+   }
+   r.riskValue=x.evaluatedRisk;
+   if(!HSBI_IsFiniteNumber(r.riskValue)||!HSBI_IsFiniteNumber(x.priorRisk)||
+      !HSBI_IsFiniteNumber(x.tolerance)||x.tolerance<0.0) {
+      r.status=HSBI_CALC_ERROR; r.details="NONFINITE_RISK"; return r;
+   }
+   if(r.riskValue>=x.priorRisk-x.tolerance) {
+      r.status=HSBI_CALC_REJECT; r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;
+      r.details="RISK_NOT_REDUCED"; return r;
+   }
+   r.status=HSBI_CALC_PASS; r.valid=true; r.reason=HSBI_REASON_OK; r.details="PASS"; return r;
+}
+
+// SOURCE Include/Planning/HSBI_NewFarCandidate.mqh
+#define HSBI_NEW_FAR_CANDIDATE_MQH
+struct HSBI_NewFarCandidate
+{
+   double candidateVolume,normalizedVolume,oldFarVolume,compressionLots,compressionRatio,riskNext,marginNext;
+   HSBI_Status futureSmallStatus,finiteCatchUpStatus; bool nextCycleFeasible,moneyProofValid,marginProofValid,riskProofValid;
+   bool futureSmallProofValid,catchUpProofValid,allocationPolicyValid,controlSnapshotsValid,costSnapshotsValid,fullDigestValid;
+   bool aggregateProofValid,aggregateRuntimeConfirmed; double aggregateMinimumRecoveryMoney,aggregateWorstMargin,aggregateWorstRisk,aggregateWorstGrossExposure,aggregateWorstTransitionLoss;
+   int aggregateWorstMarginLevel,aggregateWorstRiskLevel,aggregateWorstExposureLevel,aggregateWorstTransitionLossLevel; string aggregateProofDigest;
+   ulong sourceBigCoreIdentifier,sourceBigCoreTicket; HSBI_Status validationStatus; HSBI_ReasonCode reason;
+   int futureTransitionCount; double safetyBuffer,reserveShare,reserveEligibleMoney,reserveGainMoney,farLossIncreaseMoney;
+   string moneyProofDigest,marginProofDigest,riskProofDigest,futureSmallProofDigest,catchUpProofDigest;
+   string allocationPolicyDigest,controlPriceDigest,costSnapshotDigest,candidateDigest;
+};
+struct HSBI_ProjectedNewFar { double volume; ulong planId,stateRevision; string digest; bool valid; };
+struct HSBI_ActualNewFar { double residualVolume; ulong sourceIdentifier,sourceDealId,planId,stateRevision; bool fillsConfirmed,actual,valid; };
+HSBI_ValidationResult HSBI_ValidateNewFarCandidateStructure(const HSBI_NewFarCandidate &c)
+{
+   bool ok=c.normalizedVolume>0.0&&c.normalizedVolume<c.oldFarVolume&&c.compressionLots>0.0&&c.sourceBigCoreIdentifier>0&&c.sourceBigCoreTicket>0;
+   return HSBI_Result(ok,ok?HSBI_REASON_OK:HSBI_REASON_INVALID_VOLUME,"HSBI-NF-001","");
+}
+bool HSBI_IsCandidateSourceValid(const HSBI_NewFarCandidate &c,const ulong id,const ulong ticket)
+{return c.sourceBigCoreIdentifier==id&&c.sourceBigCoreTicket==ticket;}
+bool HSBI_IsCompleteCandidateProof(const HSBI_NewFarCandidate &c)
+{
+   return c.validationStatus==HSBI_STATUS_VALID&&c.nextCycleFeasible&&c.moneyProofValid&&c.marginProofValid&&c.riskProofValid&&
+      c.futureSmallProofValid&&c.catchUpProofValid&&c.aggregateProofValid&&c.aggregateRuntimeConfirmed&&c.aggregateProofDigest!=""&&c.allocationPolicyValid&&c.controlSnapshotsValid&&c.costSnapshotsValid&&
+      c.fullDigestValid&&c.moneyProofDigest!=""&&c.marginProofDigest!=""&&c.riskProofDigest!=""&&c.futureSmallProofDigest!=""&&
+      c.catchUpProofDigest!=""&&c.allocationPolicyDigest!=""&&c.controlPriceDigest!=""&&c.costSnapshotDigest!=""&&c.candidateDigest!="";
+}
+int HSBI_CompareCandidateTieBreak(const HSBI_NewFarCandidate &a,const HSBI_NewFarCandidate &b)
+{
+   bool av=HSBI_IsCompleteCandidateProof(a),bv=HSBI_IsCompleteCandidateProof(b);if(av!=bv)return av?-1:1;
+   if(a.riskNext!=b.riskNext)return a.riskNext<b.riskNext?-1:1;if(a.marginNext!=b.marginNext)return a.marginNext<b.marginNext?-1:1;
+   if(a.futureTransitionCount!=b.futureTransitionCount)return a.futureTransitionCount<b.futureTransitionCount?-1:1;
+   if(a.safetyBuffer!=b.safetyBuffer)return a.safetyBuffer>b.safetyBuffer?-1:1;
+   if(a.normalizedVolume!=b.normalizedVolume)return a.normalizedVolume<b.normalizedVolume?-1:1;
+   return StringCompare(a.candidateDigest,b.candidateDigest);
+}
+
+// SOURCE Include/Planning/HSBI_FutureSmallTypes.mqh
+#define HSBI_FUTURE_SMALL_TYPES_MQH
+enum HSBI_FutureSmallProofStatus { HSBI_FS_EXACT_PROOF, HSBI_FS_CONSERVATIVE_BOUND, HSBI_FS_UNPROVEN, HSBI_FS_REJECTED };
+enum HSBI_FutureFarProjectionSource { HSBI_FAR_PROJECTION_BIGCORE_RESIDUAL, HSBI_FAR_PROJECTION_EXPLICIT_MODEL, HSBI_FAR_PROJECTION_UNAVAILABLE };
+struct HSBI_MoneyStateSnapshot { double recoveryMoney; double reserve; bool available; bool fresh; ulong snapshotId; };
+struct HSBI_RiskSnapshot { double currentRisk; double riskTolerance; double currentGrossExposure; double nextGrossExposureLimit; bool available; bool fresh; ulong snapshotId; };
+struct HSBI_MarginSnapshot { double currentMargin; double allowedMargin; bool available; bool fresh; ulong snapshotId; };
+struct HSBI_ControlPriceSnapshot { string symbol; double selectedPrice; double tickSize; bool valid; bool fresh; ulong snapshotId; };
+struct HSBI_FutureSmallLevelMarketSnapshot
+{
+   int levelIndex; string symbol; double bid; double ask; double selectedPrice; double tickSize;
+   HSBI_PriceSide side; datetime timestamp; ulong snapshotId; bool fresh; bool normalized; bool valid;
+};
+struct HSBI_FutureSmallLevelCostSnapshot
+{
+   int levelIndex; HSBI_CostSnapshot farCosts; HSBI_CostSnapshot coreCosts;
+   HSBI_CostSnapshot trendCosts; HSBI_CostSnapshot smallCosts;
+   ulong snapshotId; bool fresh; bool valid; bool sharedCostSnapshot;
+};
+struct HSBI_FutureFarProjection
+{
+   double projectedFar; HSBI_FutureFarProjectionSource source; ulong sourceIdentifier; ulong sourceDealId;
+   bool projected; bool actual; bool confirmed; bool valid; HSBI_ReasonCode reason;
+};
+struct HSBI_FutureSmallInput
+{
+   HSBI_RuntimeMode runtimeMode;HSBI_AllocationPolicySnapshot allocationPolicy;
+   double currentFar,coreRatio,trendRatio,smallRatio,maxNewFarRatio,minimumCompressionLots,minimumCompressionRatio;
+   int maximumDepth; double conservativeQ,volumeMin,volumeMax,volumeStep,tickSize; HSBI_Direction farDirection;
+   HSBI_MoneyStateSnapshot moneyState; HSBI_RiskSnapshot riskState; HSBI_MarginSnapshot marginState;
+   HSBI_ControlPriceSnapshot controlPrice; HSBI_ControlPrice typedControlPrice; HSBI_BrokerProperties broker;
+   double farOpenPrice,coreOpenPrice,trendOpenPrice,smallOpenPrice,transitionLossCap,executionSafetyBuffer;
+   double expectedReserve,currentBigGross,currentGrossExposure; ulong cycleId,stateRevision,planId;
+   bool snapshotsFresh,brokerPropertiesValid,costsIncluded,roundingIncluded,terminalRouteAllowed;
+   bool useInjectedBrokerProofs,testOnlyApproximation;
+   int levelMarketSnapshotCount,levelCostSnapshotCount,farProjectionCount;
+   HSBI_FutureSmallLevelMarketSnapshot levelMarketSnapshots[128];
+   HSBI_FutureSmallLevelCostSnapshot levelCostSnapshots[128];
+   HSBI_FutureFarProjection farProjections[128];
+   double evaluatedRisks[128]; HSBI_RiskProofSource riskProofSources[128];
+   bool riskRuntimeConfirmed[128]; bool riskTestOnly[128]; ulong riskProofSnapshotIds[128];
+   HSBI_BasketMoneyResult injectedBrokerProofs[128];
+};
+struct HSBI_FutureSmallLevelProof
+{
+   int levelIndex; double farBefore,coreVolume,trendVolume,smallVolume,netBigVolume,farAfter;
+   double compressionLots,compressionRatio,recoverySlopeLots,projectedRecoveryMoney,projectedReserve;
+   double projectedMargin,projectedRisk,transitionLoss,grossExposure,controlPrice,bid,ask,tickSize;
+   ulong controlSnapshotId,farCostSnapshotId,coreCostSnapshotId,trendCostSnapshotId,smallCostSnapshotId;
+   bool valid,moneyIncluded,marginIncluded,riskIncluded,transitionLossIncluded,controlSnapshotValid,costSnapshotValid,farProjectionValid,runtimeConfirmed;
+   HSBI_CalculationStatus moneyProofStatus,marginProofStatus,riskProofStatus,transitionLossProofStatus;
+   HSBI_FutureSmallProofStatus proofStatus; HSBI_ReasonCode reason; string levelDigest; HSBI_BrokerMoneyEvaluationResult reserveSourceProof; HSBI_BrokerMoneyEvaluationResult farLossProof;
+};
+struct HSBI_FutureSmallResult
+{
+   bool valid; HSBI_FutureSmallProofStatus status; int provenDepth,theoreticalDepth; double terminalFar;
+   bool finiteSequence,plateauDetected; ulong planId,stateRevision; string proofDigest;
+   HSBI_ReasonCode reason; string details; HSBI_FutureSmallLevelProof levels[128];
+};
+struct HSBI_FutureSmallLevelInput
+{
+   HSBI_RuntimeMode runtimeMode;int levelIndex; double farBefore,coreRatio,trendRatio,smallRatio; HSBI_Direction farDirection; HSBI_BrokerProperties broker;
+   HSBI_FutureSmallLevelMarketSnapshot market; HSBI_FutureSmallLevelCostSnapshot costs;
+   HSBI_FutureFarProjection farProjection; double farOpenPrice,coreOpenPrice,trendOpenPrice,smallOpenPrice;
+   HSBI_MoneyStateSnapshot moneyState; HSBI_RiskSnapshot riskState; HSBI_MarginSnapshot marginState;
+   double minimumCompressionLots,minimumCompressionRatio,maxNewFarRatio,transitionLossCap,executionSafetyBuffer;
+   double priorBigGross,priorGrossExposure; double evaluatedRisk; HSBI_RiskProofSource riskProofSource; bool riskRuntimeConfirmed,riskTestOnly; ulong riskProofSnapshotId; ulong planId,stateRevision;
+   bool useInjectedBrokerProof,testOnlyApproximation; HSBI_BasketMoneyResult injectedBrokerProof;
+};
+struct HSBI_FutureSmallLevelResult
+{
+   bool valid; int levelIndex; double farBefore,farAfter,coreVolume,trendVolume,smallVolume,netBigVolume;
+   double recoverySlopeLots,recoveryMoney,totalMargin,grossExposure,transitionLoss,compressionLots,compressionRatio,riskValue;
+   bool moneyIncluded,marginIncluded,riskIncluded,transitionLossIncluded,controlSnapshotValid,costSnapshotValid,farProjectionValid,runtimeConfirmed;
+   HSBI_FutureSmallProofStatus status; HSBI_ReasonCode reason; string details;
+   HSBI_BasketMoneyResult basketProof;
+};
+
+// SOURCE Include/Planning/HSBI_FutureSmallSolver.mqh
+#define HSBI_FUTURE_SMALL_SOLVER_MQH
+bool HSBI_CalculateFutureSmallDepth(const double f,const double vmin,const double q,const double step,int &depth)
+{
+   depth=0; if(!HSBI_IsFiniteNumber(f)||!HSBI_IsFiniteNumber(vmin)||!HSBI_IsFiniteNumber(q)||
+      !HSBI_IsFiniteNumber(step)||f<=0.0||vmin<=0.0||vmin>f||q<=0.0||q>=1.0||step<=0.0) return false;
+   double value=MathLog(vmin/f)/MathLog(q); if(!HSBI_IsFiniteNumber(value)||value<0.0||value>2147483647.0) return false;
+   depth=(int)MathCeil(value); return true;
+}
+bool HSBI_ValidateConservativeBound(const double initialFar,const double observedFar,const double q,const int depth,
+   const bool rounding,const bool costs,const bool margin,const bool risk,const bool loss)
+{
+   return depth>=2&&q>0.0&&q<1.0&&rounding&&costs&&margin&&risk&&loss&&initialFar>0.0&&observedFar>0.0&&
+      observedFar<=initialFar*MathPow(q,depth)+1e-10;
+}
+bool HSBI_ValidateLevelMarket(const HSBI_FutureSmallLevelMarketSnapshot &m,const int level,const HSBI_BrokerProperties &b,const HSBI_Direction d)
+{
+   if(m.levelIndex!=level||!m.valid||!m.fresh||!m.normalized||m.snapshotId==0||m.timestamp<=0||m.symbol!=b.symbol||
+      !HSBI_IsFiniteNumber(m.bid)||!HSBI_IsFiniteNumber(m.ask)||!HSBI_IsFiniteNumber(m.selectedPrice)||m.bid<=0.0||m.ask<m.bid||
+      MathAbs(m.tickSize-b.tickSize)>HSBI_GridTolerance(b.tickSize)||!HSBI_IsPriceOnTickGrid(m.selectedPrice,m.tickSize)) return false;
+   if(d==HSBI_DIRECTION_BUY) return m.side==HSBI_PRICE_SIDE_BID&&MathAbs(m.selectedPrice-m.bid)<=HSBI_GridTolerance(m.tickSize);
+   if(d==HSBI_DIRECTION_SELL) return m.side==HSBI_PRICE_SIDE_ASK&&MathAbs(m.selectedPrice-m.ask)<=HSBI_GridTolerance(m.tickSize);
+   return false;
+}
+bool HSBI_ValidateLevelCosts(const HSBI_FutureSmallLevelCostSnapshot &c,const int level)
+{
+   return c.levelIndex==level&&c.valid&&c.fresh&&c.snapshotId>0&&HSBI_ValidateCostSnapshot(c.farCosts,false)&&
+      HSBI_ValidateCostSnapshot(c.coreCosts,false)&&HSBI_ValidateCostSnapshot(c.trendCosts,false)&&HSBI_ValidateCostSnapshot(c.smallCosts,false);
+}
+bool HSBI_ValidateFarProjection(const HSBI_FutureFarProjection &p,const HSBI_BrokerProperties &b,const double before)
+{
+   if(!p.valid||!p.projected||p.actual||!p.confirmed||p.source==HSBI_FAR_PROJECTION_UNAVAILABLE||p.projectedFar<=0.0||
+      p.projectedFar>=before||!HSBI_ValidateVolume(p.projectedFar,b)) return false;
+   if(p.source==HSBI_FAR_PROJECTION_BIGCORE_RESIDUAL) return p.sourceIdentifier>0&&p.sourceDealId>0;
+   return p.source==HSBI_FAR_PROJECTION_EXPLICIT_MODEL&&p.sourceIdentifier>0;
+}
+HSBI_ControlPrice HSBI_LevelControlPrice(const HSBI_FutureSmallLevelMarketSnapshot &m,const HSBI_BrokerProperties &b,const HSBI_Direction d)
+{
+   HSBI_ControlPrice p; ZeroMemory(p); p.symbol=m.symbol;p.bid=m.bid;p.ask=m.ask;p.mid=(m.bid+m.ask)/2.0;
+   p.selectedPrice=m.selectedPrice;p.direction=d;p.side=m.side;p.point=b.point;p.tickSize=m.tickSize;p.digits=b.digits;
+   p.timestamp=m.timestamp;p.snapshotId=m.snapshotId;p.fresh=m.fresh;p.normalized=m.normalized;p.valid=m.valid;return p;
+}
+bool HSBI_ValidateFutureSmallInput(const HSBI_FutureSmallInput &x)
+{
+   if(!HSBI_IsStaticCalculationAllowed(x.runtimeMode)||x.testOnlyApproximation||(x.useInjectedBrokerProofs&&!HSBI_IsInjectedProofAllowed(x.runtimeMode))||!HSBI_ValidateAllocationPolicy(x.allocationPolicy)||!x.brokerPropertiesValid||!x.snapshotsFresh||
+      !x.roundingIncluded||!x.costsIncluded||!x.moneyState.available||!x.moneyState.fresh||!x.riskState.available||
+      !x.riskState.fresh||!x.marginState.available||!x.marginState.fresh) return false;
+   if(HSBI_ValidateBrokerProperties(x.broker)!=HSBI_BROKER_PROPERTIES_VALID||x.cycleId==0||x.stateRevision==0||x.planId==0||
+      x.maximumDepth<2||x.maximumDepth>128||x.levelMarketSnapshotCount<x.maximumDepth||x.levelCostSnapshotCount<x.maximumDepth||
+      x.farProjectionCount<x.maximumDepth||x.currentFar<=0.0||x.volumeStep<=0.0||x.conservativeQ<=0.0||x.conservativeQ>=1.0) return false;
+   if(x.maxNewFarRatio<=0.0||x.maxNewFarRatio>=1.0||x.minimumCompressionLots<=0.0||
+      x.minimumCompressionRatio<=0.0||x.minimumCompressionRatio>=1.0) return false;
+   return x.farDirection==HSBI_DIRECTION_BUY||x.farDirection==HSBI_DIRECTION_SELL;
+}
+HSBI_FutureSmallLevelResult HSBI_EvaluateFutureSmallLevel(const HSBI_FutureSmallLevelInput &x)
+{
+   HSBI_FutureSmallLevelResult r; ZeroMemory(r);r.levelIndex=x.levelIndex;r.farBefore=x.farBefore;
+   r.status=HSBI_FS_UNPROVEN;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.details="LEVEL_UNPROVEN";
+   if(!HSBI_IsStaticCalculationAllowed(x.runtimeMode)||x.testOnlyApproximation||(x.useInjectedBrokerProof&&!HSBI_IsInjectedProofAllowed(x.runtimeMode))||!HSBI_ValidateLevelMarket(x.market,x.levelIndex,x.broker,x.farDirection)||
+      !HSBI_ValidateLevelCosts(x.costs,x.levelIndex)||!HSBI_ValidateFarProjection(x.farProjection,x.broker,x.farBefore)) return r;
+   HSBI_GeometryResult g=HSBI_SolveBigGeometry(x.farBefore,x.coreRatio,x.trendRatio,x.smallRatio,x.broker,true,true);
+   if(!g.valid){r.details="GEOMETRY_FAILED";return r;}
+   r.coreVolume=g.coreVolume;r.trendVolume=g.trendVolume;r.smallVolume=g.smallVolume;r.netBigVolume=g.netBigVolume;
+   r.recoverySlopeLots=g.recoverySlopeLots;r.farAfter=x.farProjection.projectedFar;
+   r.compressionLots=x.farBefore-r.farAfter;r.compressionRatio=r.compressionLots/x.farBefore;
+   if(r.farAfter>x.maxNewFarRatio*x.farBefore+HSBI_GridTolerance(x.broker.volumeStep)||
+      r.compressionLots<x.minimumCompressionLots-HSBI_GridTolerance(x.broker.volumeStep)||r.compressionRatio<x.minimumCompressionRatio-1e-10) {
+      r.details="COMPRESSION_FAILED";return r;
+   }
+   HSBI_BasketMoneyResult basket;
+   if(x.useInjectedBrokerProof){basket=x.injectedBrokerProof;if(!basket.valid||!basket.brokerRuntimeConfirmed){r.details="INJECTED_PROOF_UNCONFIRMED";return r;}}
+   else {
+      HSBI_BasketMoneyInput bi;ZeroMemory(bi);bi.farVolume=x.farBefore;bi.coreVolume=g.coreVolume;bi.trendVolume=g.trendVolume;bi.smallVolume=g.smallVolume;
+      bi.farDirection=x.farDirection;bi.symbol=x.broker.symbol;bi.broker=x.broker;
+      bi.controlPrice=HSBI_LevelControlPrice(x.market,x.broker,bi.farDirection);bi.farOpenPrice=x.farOpenPrice;bi.coreOpenPrice=x.coreOpenPrice;
+      bi.trendOpenPrice=x.trendOpenPrice;bi.smallOpenPrice=x.smallOpenPrice;bi.farCosts=x.costs.farCosts;bi.coreCosts=x.costs.coreCosts;
+      bi.trendCosts=x.costs.trendCosts;bi.smallCosts=x.costs.smallCosts;bi.executionSafetyBuffer=x.executionSafetyBuffer;bi.snapshotId=x.market.snapshotId;
+      basket=HSBI_EvaluateBasketMoney(bi);
+   }
+   r.basketProof=basket;if(!basket.valid){r.details="BROKER_MONEY_OR_MARGIN_UNAVAILABLE";return r;}
+   HSBI_FutureSmallRiskInput ri;ZeroMemory(ri);ri.basket=basket;ri.priorRisk=x.riskState.currentRisk;ri.tolerance=x.riskState.riskTolerance;
+   ri.evaluatedRisk=x.evaluatedRisk;ri.source=x.riskProofSource;ri.runtimeConfirmed=x.riskRuntimeConfirmed;ri.testOnly=x.riskTestOnly;
+   ri.fresh=x.riskState.fresh;ri.snapshotId=x.riskProofSnapshotId;
+   HSBI_FutureSmallRiskResult risk=HSBI_EvaluateFutureSmallRisk(ri);if(!risk.valid){r.details="RISK_RUNTIME_PROOF_UNAVAILABLE_OR_FAILED";return r;}
+   r.recoveryMoney=basket.recoveryMoney;r.totalMargin=basket.totalMargin;r.grossExposure=basket.grossExposure;r.transitionLoss=basket.transitionLoss;
+   r.riskValue=risk.riskValue;r.moneyIncluded=true;r.marginIncluded=true;r.riskIncluded=true;r.transitionLossIncluded=true;r.controlSnapshotValid=true;r.costSnapshotValid=true;r.farProjectionValid=true;r.runtimeConfirmed=basket.brokerRuntimeConfirmed&&risk.runtimeConfirmed;
+   if(r.recoveryMoney<=x.moneyState.recoveryMoney||r.totalMargin>x.marginState.allowedMargin||r.grossExposure>=x.priorGrossExposure||
+      r.netBigVolume>=x.priorBigGross||r.transitionLoss>x.transitionLossCap){r.details="LEVEL_GATES_FAILED";return r;}
+   r.valid=true;r.status=HSBI_FS_EXACT_PROOF;r.reason=HSBI_REASON_OK;r.details="EXACT_LEVEL";return r;
+}
+string HSBI_FutureSmallLevelDigest(const HSBI_FutureSmallLevelProof &p)
+{
+   return IntegerToString(p.levelIndex)+"|"+DoubleToString(p.farBefore,8)+"|"+DoubleToString(p.farAfter,8)+"|"+
+      DoubleToString(p.coreVolume,8)+"|"+DoubleToString(p.trendVolume,8)+"|"+DoubleToString(p.smallVolume,8)+"|"+
+      DoubleToString(p.netBigVolume,8)+"|"+DoubleToString(p.recoverySlopeLots,8)+"|"+DoubleToString(p.projectedRecoveryMoney,8)+"|"+
+      DoubleToString(p.projectedMargin,8)+"|"+DoubleToString(p.grossExposure,8)+"|"+DoubleToString(p.projectedRisk,8)+"|"+
+      DoubleToString(p.transitionLoss,8)+"|"+DoubleToString(p.compressionLots,8)+"|"+DoubleToString(p.compressionRatio,12)+"|"+
+      DoubleToString(p.controlPrice,8)+"|"+DoubleToString(p.bid,8)+"|"+DoubleToString(p.ask,8)+"|"+DoubleToString(p.tickSize,8)+"|"+
+      HSBI_UlongToString(p.controlSnapshotId)+"|"+HSBI_UlongToString(p.farCostSnapshotId)+"|"+HSBI_UlongToString(p.coreCostSnapshotId)+"|"+
+      HSBI_UlongToString(p.trendCostSnapshotId)+"|"+HSBI_UlongToString(p.smallCostSnapshotId)+"|"+IntegerToString((int)p.moneyProofStatus)+"|"+
+      IntegerToString((int)p.marginProofStatus)+"|"+IntegerToString((int)p.riskProofStatus)+"|"+IntegerToString((int)p.transitionLossProofStatus)+"|"+
+      IntegerToString((int)p.proofStatus)+"|"+IntegerToString((int)p.reason);
+}
+string HSBI_FutureSmallProofDigest(const HSBI_FutureSmallResult &r)
+{
+   string d="FS|"+HSBI_UlongToString(r.planId)+"|"+HSBI_UlongToString(r.stateRevision);
+   for(int i=0;i<r.provenDepth;i++) d+="|L|"+HSBI_FutureSmallLevelDigest(r.levels[i]);
+   return d+"|END|"+IntegerToString((int)r.status)+"|"+IntegerToString(r.provenDepth)+"|"+
+      DoubleToString(r.terminalFar,8)+"|"+IntegerToString((int)r.finiteSequence)+"|"+IntegerToString((int)r.plateauDetected);
+}
+HSBI_FutureSmallResult HSBI_SolveFutureSmall(const HSBI_FutureSmallInput &x)
+{
+   HSBI_FutureSmallResult r;ZeroMemory(r);r.status=HSBI_FS_REJECTED;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;
+   r.planId=x.planId;r.stateRevision=x.stateRevision;r.details="INVALID_INPUT";if(!HSBI_ValidateFutureSmallInput(x))return r;
+   if(!HSBI_CalculateFutureSmallDepth(x.currentFar,x.volumeMin,x.conservativeQ,x.volumeStep,r.theoreticalDepth)){r.details="NONFINITE_DEPTH";return r;}
+   double far=x.currentFar,priorBig=x.currentBigGross,priorExposure=x.currentGrossExposure;HSBI_MoneyStateSnapshot money=x.moneyState;
+   HSBI_RiskSnapshot risk=x.riskState;HSBI_MarginSnapshot margin=x.marginState;bool terminal=false,boundConditions=true;
+   for(int k=0;k<x.maximumDepth;k++) {
+      HSBI_FutureSmallLevelInput li;ZeroMemory(li);li.runtimeMode=x.runtimeMode;li.levelIndex=k+1;li.farBefore=far;li.coreRatio=x.coreRatio;li.trendRatio=x.trendRatio;
+      li.smallRatio=x.smallRatio;li.farDirection=x.farDirection;li.broker=x.broker;li.market=x.levelMarketSnapshots[k];li.costs=x.levelCostSnapshots[k];li.farProjection=x.farProjections[k];
+      li.farOpenPrice=x.farOpenPrice;li.coreOpenPrice=x.coreOpenPrice;li.trendOpenPrice=x.trendOpenPrice;li.smallOpenPrice=x.smallOpenPrice;
+      li.moneyState=money;li.riskState=risk;li.marginState=margin;li.minimumCompressionLots=x.minimumCompressionLots;
+      li.minimumCompressionRatio=x.minimumCompressionRatio;li.maxNewFarRatio=x.maxNewFarRatio;li.transitionLossCap=x.transitionLossCap;
+      li.executionSafetyBuffer=x.executionSafetyBuffer;li.priorBigGross=priorBig;li.priorGrossExposure=priorExposure;li.planId=x.planId;li.stateRevision=x.stateRevision;
+      li.evaluatedRisk=x.evaluatedRisks[k];li.riskProofSource=x.riskProofSources[k];li.riskRuntimeConfirmed=x.riskRuntimeConfirmed[k];
+      li.riskTestOnly=x.riskTestOnly[k];li.riskProofSnapshotId=x.riskProofSnapshotIds[k];li.useInjectedBrokerProof=x.useInjectedBrokerProofs;
+      li.testOnlyApproximation=x.testOnlyApproximation;if(x.useInjectedBrokerProofs)li.injectedBrokerProof=x.injectedBrokerProofs[k];
+      HSBI_FutureSmallLevelResult level=HSBI_EvaluateFutureSmallLevel(li);if(!level.valid){r.details=level.details;r.proofDigest=HSBI_FutureSmallProofDigest(r);return r;}
+      HSBI_FutureSmallLevelProof p;ZeroMemory(p);p.levelIndex=level.levelIndex;p.farBefore=level.farBefore;p.farAfter=level.farAfter;
+      p.coreVolume=level.coreVolume;p.trendVolume=level.trendVolume;p.smallVolume=level.smallVolume;p.netBigVolume=level.netBigVolume;
+      p.compressionLots=level.compressionLots;p.compressionRatio=level.compressionRatio;p.recoverySlopeLots=level.recoverySlopeLots;
+      p.projectedRecoveryMoney=level.recoveryMoney;p.projectedReserve=x.expectedReserve;p.projectedMargin=level.totalMargin;p.projectedRisk=level.riskValue;
+      p.transitionLoss=level.transitionLoss;p.grossExposure=level.grossExposure;p.controlPrice=li.market.selectedPrice;p.bid=li.market.bid;p.ask=li.market.ask;
+      p.tickSize=li.market.tickSize;p.controlSnapshotId=li.market.snapshotId;p.farCostSnapshotId=li.costs.farCosts.snapshotId;
+      p.coreCostSnapshotId=li.costs.coreCosts.snapshotId;p.trendCostSnapshotId=li.costs.trendCosts.snapshotId;p.smallCostSnapshotId=li.costs.smallCosts.snapshotId;
+      p.valid=level.valid;p.moneyIncluded=level.moneyIncluded;p.marginIncluded=level.marginIncluded;p.riskIncluded=level.riskIncluded;p.transitionLossIncluded=level.transitionLossIncluded;p.controlSnapshotValid=level.controlSnapshotValid;p.costSnapshotValid=level.costSnapshotValid;p.farProjectionValid=level.farProjectionValid;p.runtimeConfirmed=level.runtimeConfirmed;
+      p.moneyProofStatus=level.basketProof.status;p.marginProofStatus=level.basketProof.status;p.riskProofStatus=HSBI_CALC_PASS;
+      p.transitionLossProofStatus=level.basketProof.status;p.reserveSourceProof=level.basketProof.core;p.farLossProof=level.basketProof.far;p.proofStatus=HSBI_FS_EXACT_PROOF;p.reason=HSBI_REASON_OK;p.levelDigest=HSBI_FutureSmallLevelDigest(p);
+      r.levels[k]=p;r.provenDepth=k+1;
+      if(level.farAfter>x.conservativeQ*level.farBefore+HSBI_GridTolerance(x.volumeStep))boundConditions=false;
+      far=level.farAfter;priorBig=level.netBigVolume;priorExposure=level.grossExposure;money.recoveryMoney=level.recoveryMoney;
+      risk.currentRisk=level.riskValue;margin.currentMargin=level.totalMargin;if(far<=x.volumeMin+HSBI_GridTolerance(x.volumeStep)){terminal=true;break;}
+   }
+   r.terminalFar=far;r.finiteSequence=terminal;bool bound=boundConditions&&HSBI_ValidateConservativeBound(x.currentFar,far,x.conservativeQ,r.provenDepth,x.roundingIncluded,x.costsIncluded,true,true,true);
+   r.valid=r.provenDepth>=2&&(terminal||bound);r.status=terminal&&r.provenDepth>=2?HSBI_FS_EXACT_PROOF:(bound?HSBI_FS_CONSERVATIVE_BOUND:HSBI_FS_UNPROVEN);
+   r.reason=r.valid?HSBI_REASON_OK:HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.details=r.valid?(r.status==HSBI_FS_EXACT_PROOF?"EXACT_PROOF":"CONSERVATIVE_BOUND"):"UNPROVEN";
+   r.proofDigest=HSBI_FutureSmallProofDigest(r);return r;
+}
+
+// SOURCE Include/Planning/HSBI_FutureSmallProofAggregator.mqh
+#define HSBI_FUTURE_SMALL_PROOF_AGGREGATOR_MQH
+enum HSBI_ProofSelectionPolicy { HSBI_PROOF_POLICY_WORST_CASE,HSBI_PROOF_POLICY_FINAL_LEVEL,HSBI_PROOF_POLICY_EXPLICIT_CONTROL_LEVEL };
+struct HSBI_FutureSmallAggregateProof
+{
+   bool valid;int levelCount,evaluatedLevelCount,rejectedLevelCount;
+   double worstRecoveryMoney,minimumRecoveryMoney,worstMargin,maximumMargin,worstRisk,maximumRisk;
+   double worstGrossExposure,maximumGrossExposure,worstTransitionLoss,maximumTransitionLoss;
+   double minimumCompressionLots,minimumCompressionRatio,finalFar,maximumFutureTransitions,safetyBuffer;
+   int worstRecoveryLevel,worstMarginLevel,worstRiskLevel,worstExposureLevel,worstTransitionLossLevel,catchUpControlLevel;
+   bool allMoneyProofsValid,allMarginProofsValid,allRiskProofsValid,allTransitionLossProofsValid;
+   bool allControlSnapshotsValid,allCostSnapshotsValid,allFarProjectionsValid,exactProof,conservativeBound,runtimeConfirmed;
+   HSBI_ProofSelectionPolicy selectionPolicy;string aggregateDigest;HSBI_ReasonCode reason;string details;
+};
+string HSBI_AggregateDigest(const HSBI_FutureSmallAggregateProof &a,const string levelsDigest)
+{return "AGG|"+IntegerToString((int)a.selectionPolicy)+"|"+IntegerToString(a.levelCount)+"|"+DoubleToString(a.minimumRecoveryMoney,8)+"|"+
+   DoubleToString(a.maximumMargin,8)+"|"+DoubleToString(a.maximumRisk,8)+"|"+DoubleToString(a.maximumGrossExposure,8)+"|"+
+   DoubleToString(a.maximumTransitionLoss,8)+"|"+DoubleToString(a.minimumCompressionLots,8)+"|"+DoubleToString(a.minimumCompressionRatio,12)+"|"+
+   DoubleToString(a.finalFar,8)+"|"+IntegerToString(a.worstRecoveryLevel)+"|"+IntegerToString(a.worstMarginLevel)+"|"+
+   IntegerToString(a.worstRiskLevel)+"|"+IntegerToString(a.worstExposureLevel)+"|"+IntegerToString(a.worstTransitionLossLevel)+"|"+
+   IntegerToString(a.catchUpControlLevel)+"|"+levelsDigest;}
+HSBI_FutureSmallAggregateProof HSBI_AggregateFutureSmallProof(const HSBI_FutureSmallResult &p,const HSBI_ProofSelectionPolicy policy,const int explicitControlLevel)
+{
+   HSBI_FutureSmallAggregateProof a;ZeroMemory(a);a.levelCount=p.provenDepth;a.selectionPolicy=policy;a.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;
+   a.details="PROOF_INCOMPLETE";a.allMoneyProofsValid=true;a.allMarginProofsValid=true;a.allRiskProofsValid=true;
+   a.allTransitionLossProofsValid=true;a.allControlSnapshotsValid=true;a.allCostSnapshotsValid=true;a.allFarProjectionsValid=true;a.runtimeConfirmed=true;
+   if(!p.valid||p.provenDepth<2||p.provenDepth>128)return a;string chain="";
+   for(int i=0;i<p.provenDepth;i++){
+      HSBI_FutureSmallLevelProof l=p.levels[i];a.evaluatedLevelCount++;
+      bool complete=l.valid&&l.levelIndex==i+1&&l.moneyIncluded&&l.marginIncluded&&l.riskIncluded&&l.transitionLossIncluded&&
+         l.controlSnapshotValid&&l.costSnapshotValid&&l.farProjectionValid&&l.proofStatus==HSBI_FS_EXACT_PROOF&&l.runtimeConfirmed;
+      if(!complete)a.rejectedLevelCount++;
+      a.allMoneyProofsValid&=l.valid&&l.moneyIncluded&&l.moneyProofStatus==HSBI_CALC_PASS;
+      a.allMarginProofsValid&=l.valid&&l.marginIncluded&&l.marginProofStatus==HSBI_CALC_PASS;
+      a.allRiskProofsValid&=l.valid&&l.riskIncluded&&l.riskProofStatus==HSBI_CALC_PASS;
+      a.allTransitionLossProofsValid&=l.valid&&l.transitionLossIncluded&&l.transitionLossProofStatus==HSBI_CALC_PASS;
+      a.allControlSnapshotsValid&=l.controlSnapshotValid;a.allCostSnapshotsValid&=l.costSnapshotValid;
+      a.allFarProjectionsValid&=l.farProjectionValid;a.runtimeConfirmed&=l.runtimeConfirmed;
+      if(i==0||l.projectedRecoveryMoney<a.minimumRecoveryMoney){a.minimumRecoveryMoney=l.projectedRecoveryMoney;a.worstRecoveryMoney=l.projectedRecoveryMoney;a.worstRecoveryLevel=l.levelIndex;}
+      if(i==0||l.projectedMargin>a.maximumMargin){a.maximumMargin=l.projectedMargin;a.worstMargin=l.projectedMargin;a.worstMarginLevel=l.levelIndex;}
+      if(i==0||l.projectedRisk>a.maximumRisk){a.maximumRisk=l.projectedRisk;a.worstRisk=l.projectedRisk;a.worstRiskLevel=l.levelIndex;}
+      if(i==0||l.grossExposure>a.maximumGrossExposure){a.maximumGrossExposure=l.grossExposure;a.worstGrossExposure=l.grossExposure;a.worstExposureLevel=l.levelIndex;}
+      if(i==0||l.transitionLoss>a.maximumTransitionLoss){a.maximumTransitionLoss=l.transitionLoss;a.worstTransitionLoss=l.transitionLoss;a.worstTransitionLossLevel=l.levelIndex;}
+      if(i==0||l.compressionLots<a.minimumCompressionLots)a.minimumCompressionLots=l.compressionLots;
+      if(i==0||l.compressionRatio<a.minimumCompressionRatio)a.minimumCompressionRatio=l.compressionRatio;
+      chain+="|"+HSBI_FutureSmallLevelDigest(l);
+   }
+   a.finalFar=p.levels[p.provenDepth-1].farAfter;a.maximumFutureTransitions=p.theoreticalDepth;
+   if(policy==HSBI_PROOF_POLICY_WORST_CASE)a.catchUpControlLevel=a.worstTransitionLossLevel;
+   else if(policy==HSBI_PROOF_POLICY_FINAL_LEVEL)a.catchUpControlLevel=p.provenDepth;
+   else a.catchUpControlLevel=explicitControlLevel;
+   if(a.catchUpControlLevel<1||a.catchUpControlLevel>p.provenDepth)a.rejectedLevelCount++;
+   a.exactProof=p.status==HSBI_FS_EXACT_PROOF;a.conservativeBound=p.status==HSBI_FS_CONSERVATIVE_BOUND;
+   a.valid=a.rejectedLevelCount==0&&a.allMoneyProofsValid&&a.allMarginProofsValid&&a.allRiskProofsValid&&
+      a.allTransitionLossProofsValid&&a.allControlSnapshotsValid&&a.allCostSnapshotsValid&&a.allFarProjectionsValid&&a.runtimeConfirmed;
+   a.reason=a.valid?HSBI_REASON_OK:HSBI_REASON_INTERNAL_INVARIANT_FAILED;a.details=a.valid?"AGGREGATE_VALID":"PROOF_INCOMPLETE";
+   a.aggregateDigest=HSBI_AggregateDigest(a,chain);return a;
+}
+
+// SOURCE Include/Execution/HSBI_ExecutionIntent.mqh
+#define HSBI_EXECUTION_INTENT_MQH
+enum HSBI_IntentStatus{HSBI_INTENT_CREATED,HSBI_INTENT_PREFLIGHT_PASSED,HSBI_INTENT_PERSISTED,HSBI_INTENT_DISPATCH_BLOCKED,HSBI_INTENT_OUTCOME_PENDING,HSBI_INTENT_OUTCOME_RECEIVED,HSBI_INTENT_RECONCILING,HSBI_INTENT_COMPLETED,HSBI_INTENT_REJECTED,HSBI_INTENT_EXPIRED,HSBI_INTENT_INVALIDATED,HSBI_INTENT_CONFLICT,HSBI_INTENT_SUPERSEDED};
+struct HSBI_ExecutionIntent
+{
+   ulong intentId,planId,cycleId,stateRevision;string planDigest,candidateDigest,aggregateProofDigest;
+   long accountLogin;string symbol;long magic;HSBI_Direction direction;HSBI_Role role;
+   double requestedVolume,normalizedVolume,controlPrice;HSBI_PriceSide controlPriceSide;
+   ulong marketSnapshotId,costSnapshotId,riskSnapshotId,marginSnapshotId;
+   ulong sourcePositionIdentifier,sourceTicket,sourceDealId,sourceEventId,expectedActionId;
+   string expectedTransition;datetime creationTimestamp,expiryTimestamp;HSBI_IntentStatus status;string digest;
+};
+string HSBI_ExecutionIntentDigest(const HSBI_ExecutionIntent &x)
+{
+   return HSBI_UlongToString(x.intentId)+"|"+HSBI_UlongToString(x.planId)+"|"+x.planDigest+"|"+x.candidateDigest+"|"+x.aggregateProofDigest+"|"+
+      HSBI_UlongToString(x.cycleId)+"|"+HSBI_UlongToString(x.stateRevision)+"|"+LongToString(x.accountLogin)+"|"+x.symbol+"|"+LongToString(x.magic)+"|"+
+      IntegerToString((int)x.direction)+"|"+IntegerToString((int)x.role)+"|"+DoubleToString(x.requestedVolume,8)+"|"+DoubleToString(x.normalizedVolume,8)+"|"+
+      DoubleToString(x.controlPrice,12)+"|"+IntegerToString((int)x.controlPriceSide)+"|"+HSBI_UlongToString(x.marketSnapshotId)+"|"+
+      HSBI_UlongToString(x.costSnapshotId)+"|"+HSBI_UlongToString(x.riskSnapshotId)+"|"+HSBI_UlongToString(x.marginSnapshotId)+"|"+
+      HSBI_UlongToString(x.sourcePositionIdentifier)+"|"+HSBI_UlongToString(x.sourceTicket)+"|"+HSBI_UlongToString(x.sourceDealId)+"|"+
+      HSBI_UlongToString(x.sourceEventId)+"|"+HSBI_UlongToString(x.expectedActionId)+"|"+x.expectedTransition+"|"+
+      LongToString((long)x.creationTimestamp)+"|"+LongToString((long)x.expiryTimestamp)+"|"+IntegerToString((int)x.status);
+}
+bool HSBI_ValidateExecutionIntentDigest(const HSBI_ExecutionIntent &x){return x.digest!=""&&x.digest==HSBI_ExecutionIntentDigest(x);}
+bool HSBI_IsValidIntentStatus(const HSBI_IntentStatus s){return (int)s>=(int)HSBI_INTENT_CREATED&&(int)s<=(int)HSBI_INTENT_SUPERSEDED;}
+bool HSBI_ValidateExecutionIntentStructure(const HSBI_ExecutionIntent &x)
+{
+   if(x.intentId==0||x.planId==0||x.cycleId==0||x.stateRevision==0||x.expectedActionId==0)return false;
+   if(x.accountLogin<=0||x.symbol==""||x.magic==0||x.direction==HSBI_DIRECTION_NONE||x.role==HSBI_ROLE_NONE)return false;
+   if(!HSBI_IsFiniteNumber(x.requestedVolume)||!HSBI_IsFiniteNumber(x.normalizedVolume)||!HSBI_IsFiniteNumber(x.controlPrice)||
+      x.requestedVolume<=0.0||x.normalizedVolume<=0.0||x.controlPrice<=0.0)return false;
+   if(x.controlPriceSide!=HSBI_PRICE_SIDE_BID&&x.controlPriceSide!=HSBI_PRICE_SIDE_ASK)return false;
+   if((x.direction==HSBI_DIRECTION_BUY&&x.controlPriceSide!=HSBI_PRICE_SIDE_BID)||(x.direction==HSBI_DIRECTION_SELL&&x.controlPriceSide!=HSBI_PRICE_SIDE_ASK))return false;
+   if(x.marketSnapshotId==0||x.costSnapshotId==0||x.riskSnapshotId==0||x.marginSnapshotId==0)return false;
+   if(x.sourcePositionIdentifier==0||x.sourceTicket==0||x.sourceDealId==0||x.sourceEventId==0)return false;
+   if(x.planDigest==""||x.candidateDigest==""||x.aggregateProofDigest==""||x.expectedTransition=="")return false;
+   if(x.creationTimestamp<=0||x.expiryTimestamp<=x.creationTimestamp||!HSBI_IsValidIntentStatus(x.status))return false;
+   return HSBI_ValidateExecutionIntentDigest(x);
+}
+string HSBI_IntentIdempotencyKey(const HSBI_ExecutionIntent &x){return HSBI_UlongToString(x.intentId)+"|"+HSBI_UlongToString(x.expectedActionId)+"|"+x.planDigest+"|"+HSBI_UlongToString(x.stateRevision);}
+bool HSBI_IsSameIntentRetry(const HSBI_ExecutionIntent &a,const HSBI_ExecutionIntent &b){return HSBI_IntentIdempotencyKey(a)==HSBI_IntentIdempotencyKey(b)&&a.digest==b.digest;}
+bool HSBI_IsIntentConflict(const HSBI_ExecutionIntent &a,const HSBI_ExecutionIntent &b){return HSBI_IntentIdempotencyKey(a)==HSBI_IntentIdempotencyKey(b)&&a.digest!=b.digest;}
+
+// SOURCE Include/Persistence/HSBI_ExecutionJournal.mqh
+#define HSBI_EXECUTION_JOURNAL_MQH
+enum HSBI_IntentJournalEntryType{HSBI_JE_INTENT_CREATED,HSBI_JE_PREFLIGHT_RESULT,HSBI_JE_INTENT_PERSISTED,HSBI_JE_DISPATCH_NOT_PERFORMED,HSBI_JE_EXTERNAL_OUTCOME_RECEIVED,HSBI_JE_RECONCILIATION_STARTED,HSBI_JE_RECONCILIATION_PASSED,HSBI_JE_RECONCILIATION_REJECTED,HSBI_JE_INTENT_COMPLETED,HSBI_JE_INTENT_EXPIRED,HSBI_JE_INTENT_INVALIDATED,HSBI_JE_CONFLICT_DETECTED};
+enum HSBI_JournalAppendStatus{HSBI_JOURNAL_APPENDED,HSBI_JOURNAL_NO_OP,HSBI_JOURNAL_CONFLICT,HSBI_JOURNAL_REJECTED};
+struct HSBI_ExecutionJournalEntry
+{
+   ulong journalEntryId,intentId,planId,cycleId,stateRevision,actionId,eventId;HSBI_IntentJournalEntryType entryType;
+   HSBI_Status entryStatus;datetime timestamp;long accountLogin;string symbol;long magic;
+   string previousEntryDigest,currentEntryDigest,payloadDigest;
+};
+string HSBI_ExecutionJournalEntryDigest(const HSBI_ExecutionJournalEntry &x)
+{return HSBI_UlongToString(x.journalEntryId)+"|"+HSBI_UlongToString(x.intentId)+"|"+HSBI_UlongToString(x.planId)+"|"+
+   HSBI_UlongToString(x.cycleId)+"|"+HSBI_UlongToString(x.stateRevision)+"|"+HSBI_UlongToString(x.actionId)+"|"+
+   HSBI_UlongToString(x.eventId)+"|"+IntegerToString((int)x.entryType)+"|"+IntegerToString((int)x.entryStatus)+"|"+
+   LongToString((long)x.timestamp)+"|"+LongToString(x.accountLogin)+"|"+x.symbol+"|"+LongToString(x.magic)+"|"+
+   x.previousEntryDigest+"|"+x.payloadDigest;}
+bool HSBI_ValidateJournalEntry(const HSBI_ExecutionJournalEntry &x,const string expectedPrevious,const ulong cycleId,const ulong planId,const ulong revision)
+{return x.journalEntryId>0&&x.intentId>0&&x.actionId>0&&x.timestamp>0&&x.cycleId==cycleId&&x.planId==planId&&x.stateRevision==revision&&
+   x.previousEntryDigest==expectedPrevious&&x.payloadDigest!=""&&x.currentEntryDigest==HSBI_ExecutionJournalEntryDigest(x);}
+bool HSBI_IsDuplicateJournalEntry(const HSBI_ExecutionJournalEntry &a,const HSBI_ExecutionJournalEntry &b)
+{return a.journalEntryId==b.journalEntryId&&a.intentId==b.intentId&&a.actionId==b.actionId&&a.eventId==b.eventId&&a.currentEntryDigest==b.currentEntryDigest;}
+bool HSBI_IsJournalEntryConflict(const HSBI_ExecutionJournalEntry &a,const HSBI_ExecutionJournalEntry &b)
+{return a.journalEntryId==b.journalEntryId&&a.intentId==b.intentId&&a.actionId==b.actionId&&a.currentEntryDigest!=b.currentEntryDigest;}
+HSBI_JournalAppendStatus HSBI_ClassifyJournalAppend(const HSBI_ExecutionJournalEntry &candidate,const HSBI_ExecutionJournalEntry &last,const string expectedPrevious,const ulong cycleId,const ulong planId,const ulong revision)
+{
+   if(HSBI_IsDuplicateJournalEntry(candidate,last))return HSBI_JOURNAL_NO_OP;
+   if(HSBI_IsJournalEntryConflict(candidate,last))return HSBI_JOURNAL_CONFLICT;
+   return HSBI_ValidateJournalEntry(candidate,expectedPrevious,cycleId,planId,revision)&&candidate.journalEntryId==last.journalEntryId+1&&candidate.eventId>last.eventId?HSBI_JOURNAL_APPENDED:HSBI_JOURNAL_REJECTED;
+}
+
+// SOURCE Include/Execution/HSBI_ExecutionPreflight.mqh
+#define HSBI_EXECUTION_PREFLIGHT_MQH
+enum HSBI_PreflightStatus{HSBI_PREFLIGHT_PASS,HSBI_PREFLIGHT_REJECT,HSBI_PREFLIGHT_ERROR,HSBI_PREFLIGHT_UNAVAILABLE,HSBI_PREFLIGHT_STALE,HSBI_PREFLIGHT_CONFLICT,HSBI_PREFLIGHT_DIGEST_MISMATCH};
+struct HSBI_ExecutionPreflightInput
+{
+   HSBI_RuntimeMode runtimeMode;HSBI_ExecutionIntent intent;HSBI_FutureSmallAggregateProof aggregate;HSBI_ReserveCatchUpResult catchUp;
+   HSBI_BrokerProperties broker;HSBI_ControlPrice controlPrice;long currentAccount;string currentSymbol;long currentMagic;
+   ulong currentCycleId,currentStateRevision;datetime now;bool planningFullyProven,worstCasePresent,farLossProofPresent;
+   bool proxyOrTestOnly,reconciliationConflict,activeIntentPresent,marketFresh,allocationConflict;
+   ulong appliedActionId;string appliedActionPayloadDigest;
+};
+struct HSBI_ExecutionPreflightResult{HSBI_PreflightStatus status;bool valid;HSBI_ReasonCode reason;string details;string digest;};
+HSBI_ExecutionPreflightResult HSBI_ValidateExecutionPreflight(const HSBI_ExecutionPreflightInput &x)
+{
+   HSBI_ExecutionPreflightResult r;ZeroMemory(r);r.status=HSBI_PREFLIGHT_REJECT;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.details="REJECT";
+   if(!HSBI_IsProductionPreflightAllowed(x.runtimeMode)||!HSBI_ValidateExecutionIntentStructure(x.intent)){r.reason=HSBI_REASON_INVALID_INTENT_STRUCTURE;r.details="INVALID_INTENT_STRUCTURE";return r;}
+   if(!HSBI_ValidateExecutionIntentDigest(x.intent)){r.status=HSBI_PREFLIGHT_DIGEST_MISMATCH;r.details="INTENT_DIGEST_MISMATCH";return r;}
+   if(x.intent.planDigest==""||x.intent.candidateDigest==""||x.intent.aggregateProofDigest!=x.aggregate.aggregateDigest){r.status=HSBI_PREFLIGHT_DIGEST_MISMATCH;r.details="PLAN_CANDIDATE_AGGREGATE_DIGEST_MISMATCH";return r;}
+   if(!x.marketFresh||x.now>x.intent.expiryTimestamp||!x.controlPrice.fresh){r.status=HSBI_PREFLIGHT_STALE;r.details="STALE_OR_EXPIRED";return r;}
+   if(x.reconciliationConflict||x.activeIntentPresent||x.allocationConflict||(x.appliedActionId==x.intent.expectedActionId&&x.appliedActionPayloadDigest!=x.intent.digest)){r.status=HSBI_PREFLIGHT_CONFLICT;r.details="CONFLICT";return r;}
+   if(!x.planningFullyProven||!x.aggregate.valid||x.aggregate.levelCount<2||!x.worstCasePresent||!x.aggregate.runtimeConfirmed||
+      !x.catchUp.valid||!x.catchUp.runtimeConfirmed||!x.catchUp.reserveSourceIdentityValid||!x.catchUp.farLossSourceIdentityValid||
+      !x.farLossProofPresent||x.proxyOrTestOnly){r.status=HSBI_PREFLIGHT_UNAVAILABLE;r.details="PROOF_UNAVAILABLE";return r;}
+   if(x.currentAccount!=x.intent.accountLogin||x.currentSymbol!=x.intent.symbol||x.currentMagic!=x.intent.magic||x.currentCycleId!=x.intent.cycleId||
+      x.currentStateRevision!=x.intent.stateRevision){r.details="IDENTITY_OR_REVISION_MISMATCH";return r;}
+   if(HSBI_ValidateBrokerProperties(x.broker)!=HSBI_BROKER_PROPERTIES_VALID||!HSBI_ValidateVolume(x.intent.normalizedVolume,x.broker)||
+      !HSBI_ValidateTypedControlPrice(x.controlPrice,x.intent.symbol)||MathAbs(x.intent.controlPrice-x.controlPrice.selectedPrice)>HSBI_GridTolerance(x.broker.tickSize)){
+      r.details="GRID_OR_PRICE_REJECT";return r;}
+   r.status=HSBI_PREFLIGHT_PASS;r.valid=true;r.reason=HSBI_REASON_OK;r.details="PASS";r.digest=x.intent.digest+"|PREFLIGHT_PASS";return r;
+}
+bool HSBI_IsIntentLifecycleTransitionAllowed(const HSBI_IntentStatus from,const HSBI_IntentStatus to,const bool validOutcome)
+{
+   if(to==HSBI_INTENT_REJECTED||to==HSBI_INTENT_EXPIRED||to==HSBI_INTENT_INVALIDATED||to==HSBI_INTENT_CONFLICT)return from!=HSBI_INTENT_COMPLETED;
+   if(from==HSBI_INTENT_CREATED)return to==HSBI_INTENT_PREFLIGHT_PASSED;
+   if(from==HSBI_INTENT_PREFLIGHT_PASSED)return to==HSBI_INTENT_PERSISTED;
+   if(from==HSBI_INTENT_PERSISTED)return to==HSBI_INTENT_DISPATCH_BLOCKED;
+   if(from==HSBI_INTENT_DISPATCH_BLOCKED)return to==HSBI_INTENT_OUTCOME_PENDING||to==HSBI_INTENT_RECONCILING;
+   if(from==HSBI_INTENT_OUTCOME_PENDING)return to==HSBI_INTENT_OUTCOME_RECEIVED||to==HSBI_INTENT_RECONCILING;
+   if(from==HSBI_INTENT_OUTCOME_RECEIVED)return to==HSBI_INTENT_RECONCILING;
+   if(from==HSBI_INTENT_RECONCILING)return to==HSBI_INTENT_COMPLETED&&validOutcome;
+   return false;
+}
+bool HSBI_IntentRetryAllowed(const HSBI_ExecutionIntent &x,const ulong retryActionId)
+{return retryActionId==x.expectedActionId&&(x.status==HSBI_INTENT_OUTCOME_PENDING||x.status==HSBI_INTENT_RECONCILING||x.status==HSBI_INTENT_DISPATCH_BLOCKED);}
+
+// SOURCE Include/Execution/HSBI_ExternalOutcome.mqh
+#define HSBI_EXTERNAL_OUTCOME_MQH
+enum HSBI_ExternalOutcomeStatus{HSBI_EXTERNAL_PENDING,HSBI_EXTERNAL_COMPLETED,HSBI_EXTERNAL_REJECTED,HSBI_EXTERNAL_PARTIAL,HSBI_EXTERNAL_CONFLICT};
+enum HSBI_OutcomeSource{HSBI_OUTCOME_RUNTIME_TERMINAL,HSBI_OUTCOME_EXTERNAL_UNVERIFIED,HSBI_OUTCOME_SIMULATED,HSBI_OUTCOME_INJECTED_TEST_ONLY,HSBI_OUTCOME_PROXY};
+struct HSBI_ExternalTransactionOutcome
+{
+   ulong actionId,eventId,dealId,positionIdentifier,ticket;long accountLogin;string symbol;long magic;
+   HSBI_Direction direction;HSBI_Role role;double volume,price;ulong stateRevision,cycleId,planId;
+   HSBI_OutcomeSource source;bool runtimeConfirmed,positionActuallyRead,dealActuallyRead;datetime readTimestamp;
+   HSBI_ExternalOutcomeStatus status;string digest;
+};
+string HSBI_ExternalOutcomeDigest(const HSBI_ExternalTransactionOutcome &x)
+{return HSBI_UlongToString(x.actionId)+"|"+HSBI_UlongToString(x.eventId)+"|"+HSBI_UlongToString(x.dealId)+"|"+
+   HSBI_UlongToString(x.positionIdentifier)+"|"+HSBI_UlongToString(x.ticket)+"|"+LongToString(x.accountLogin)+"|"+x.symbol+"|"+
+   LongToString(x.magic)+"|"+IntegerToString((int)x.direction)+"|"+IntegerToString((int)x.role)+"|"+DoubleToString(x.volume,8)+"|"+
+   DoubleToString(x.price,12)+"|"+HSBI_UlongToString(x.stateRevision)+"|"+HSBI_UlongToString(x.cycleId)+"|"+HSBI_UlongToString(x.planId)+"|"+
+   IntegerToString((int)x.source)+"|"+IntegerToString((int)x.runtimeConfirmed)+"|"+IntegerToString((int)x.positionActuallyRead)+"|"+
+   IntegerToString((int)x.dealActuallyRead)+"|"+LongToString((long)x.readTimestamp)+"|"+IntegerToString((int)x.status);}
+struct HSBI_ExecutionReconciliationInput{HSBI_RuntimeMode runtimeMode;HSBI_ExecutionIntent intent;HSBI_ExternalTransactionOutcome outcome;ulong lastAppliedEventId;bool reconciliationConflict,snapshotFresh,ownershipPassed;double volumeTolerance,priceTolerance;};
+struct HSBI_ExecutionReconciliationResult{bool valid,completionAllowed,noMutationBeforeCommit;HSBI_IntentStatus targetStatus;HSBI_ReasonCode reason;string details;string digest;};
+HSBI_ExecutionReconciliationResult HSBI_ReconcileExecutionOutcome(const HSBI_ExecutionReconciliationInput &x)
+{
+   HSBI_ExecutionReconciliationResult r;ZeroMemory(r);r.targetStatus=HSBI_INTENT_RECONCILING;r.reason=HSBI_REASON_INTERNAL_INVARIANT_FAILED;r.details="RECONCILIATION_REJECTED";r.noMutationBeforeCommit=true;
+   if(!HSBI_IsCompletionSourceAllowed(x.runtimeMode,(int)x.outcome.source)||!HSBI_ValidateExecutionIntentDigest(x.intent)||x.outcome.digest!=HSBI_ExternalOutcomeDigest(x.outcome)||x.reconciliationConflict||!x.snapshotFresh||!x.ownershipPassed)return r;
+   if(x.outcome.status!=HSBI_EXTERNAL_COMPLETED||!x.outcome.runtimeConfirmed||!x.outcome.positionActuallyRead||!x.outcome.dealActuallyRead)return r;
+   if(x.outcome.actionId!=x.intent.expectedActionId||x.outcome.eventId<=x.lastAppliedEventId||x.outcome.dealId==0||x.outcome.positionIdentifier!=x.intent.sourcePositionIdentifier||
+      x.outcome.ticket!=x.intent.sourceTicket||x.outcome.accountLogin!=x.intent.accountLogin||x.outcome.symbol!=x.intent.symbol||x.outcome.magic!=x.intent.magic||
+      x.outcome.direction!=x.intent.direction||x.outcome.role!=x.intent.role||x.outcome.stateRevision!=x.intent.stateRevision||x.outcome.cycleId!=x.intent.cycleId||
+      x.outcome.planId!=x.intent.planId||MathAbs(x.outcome.volume-x.intent.normalizedVolume)>x.volumeTolerance||MathAbs(x.outcome.price-x.intent.controlPrice)>x.priceTolerance)return r;
+   r.valid=true;r.completionAllowed=true;r.targetStatus=HSBI_INTENT_COMPLETED;r.reason=HSBI_REASON_OK;r.details="RECONCILIATION_PASSED";r.digest=x.intent.digest+"|"+x.outcome.digest;return r;
+}
+
+void emit(const string&id,bool actual,bool expected){std::cout<<"CASE|"<<id<<"|"<<actual<<"|"<<expected<<"\n";}
+HSBI_BrokerProperties broker(){HSBI_BrokerProperties p{};p.symbol="X";p.point=1;p.tickSize=1;p.digits=0;p.volumeMin=.01;p.volumeMax=100;p.volumeStep=.01;p.tickValueProfit=1;p.tickValueLoss=1;p.valid=true;p.fresh=true;p.snapshotId=1;p.timestamp=100;return p;}
+HSBI_CostSnapshot costs(){HSBI_CostSnapshot c{};c.valid=true;c.timestamp=100;c.snapshotId=1;return c;}
+HSBI_EconomicLedgerRecord econ(){HSBI_EconomicLedgerRecord r{};r.dealTicket=11;r.orderTicket=12;r.positionIdentifier=13;r.symbol="X";r.magic=7;r.cycleId=1;r.actionId=1;r.eventId=1;r.role=HSBI_ROLE_BIG_CORE;r.entryType=1;r.volume=1;r.price=100;r.profit=50;r.dealNet=50;r.timestamp=100;r.sourceDealKey=HSBI_BuildSourceDealKey(r);r.valid=true;return r;}
+HSBI_ReserveCatchUpInput reserve(){HSBI_ReserveCatchUpInput x{};x.runtimeMode=HSBI_RUNTIME_SHADOW;x.allocationPolicy.reserveShare=.9;x.allocationPolicy.policyVersion=1;x.allocationPolicy.snapshotId=1;x.allocationPolicy.valid=true;x.allocationPolicy.fresh=true;x.reserveEligibleMoney=50;x.reserveEligibleMoneyAlreadyAllocated=true;x.farLossIncreaseMoney=20;x.executionSafetyBuffer=1;x.netBigVolume=3;x.farVolume=1;x.farDirection=HSBI_DIRECTION_SELL;x.planId=1;x.stateRevision=1;x.sourceDealId=1;x.sourceEventId=1;x.snapshotId=1;x.projected=true;x.moneyAvailable=true;x.fresh=true;
+ HSBI_MoneyProofIdentity i{};i.accountLogin=1;i.symbol="X";i.magic=7;i.cycleId=1;i.positionIdentifier=1;i.role=HSBI_ROLE_BIG_CORE;i.direction=HSBI_DIRECTION_BUY;i.sourceDealId=1;i.sourceEventId=1;i.snapshotId=1;i.planId=1;i.stateRevision=1;
+ x.reserveSourceProof.identity=i;x.reserveSourceProof.valid=true;x.reserveSourceProof.projected=true;x.reserveSourceProof.runtimeConfirmed=true;x.reserveSourceProof.status=HSBI_CALC_PASS;x.reserveSourceProof.netMoney=50;x.expectedReserveIdentity=i;
+ i.role=HSBI_ROLE_FAR;i.direction=HSBI_DIRECTION_SELL;i.positionIdentifier=2;i.sourceDealId=2;i.sourceEventId=2;x.farLossProof=x.reserveSourceProof;x.farLossProof.identity=i;x.farLossProof.netMoney=-20;x.expectedFarIdentity=i;
+ x.reserveAllocationSource.sourceDealKey="D1";x.reserveAllocationSource.sourceAllocationKey="A1";x.reserveAllocationSource.sourceDealId=1;x.reserveAllocationSource.allocationEventId=1;x.reserveAllocationSource.allocationPolicyVersion=1;x.reserveAllocationSource.allocatableNet=50;x.reserveAllocationSource.reserveAllocated=50;x.reserveAllocationSource.valid=true;x.reserveAllocationSource.allocationConfirmed=true;x.reserveAllocationSource.sourceReconciled=true;x.consumptionKey.sourceDealKey="D1";x.consumptionKey.sourceAllocationKey="A1";x.consumptionKey.planId=1;x.consumptionKey.stateRevision=1;x.consumptionKey.consumptionEventId=1;x.consumptionKey.consumer="CatchUp";return x;}
+int main(){
+ auto r=econ(),s=r;emit("ECON_POSITIVE_VALID",HSBI_ValidateEconomicRecord(r),true);emit("ECON_EXACT",HSBI_ClassifyEconomicDuplicate(r,s)==1,true);
+ s.profit=60;s.commission=-10;emit("L01_COMPONENT_CONFLICT",HSBI_ClassifyEconomicDuplicate(r,s)==2,true);
+ s=r;s.magic=8;s.sourceDealKey=HSBI_BuildSourceDealKey(s);emit("KEY_MAGIC_PARTITION",r.sourceDealKey==s.sourceDealKey,true);
+ HSBI_AllocationLedgerRecord z{};z.sourceDealKey="D1";z.allocationEventId=1;z.sourceDealNet=50;z.finalReserveAllocated=50;z.available=50;z.valid=true;z.status=HSBI_STATUS_COMPLETED;auto zz=z;emit("ALLOC_POSITIVE_VALID",HSBI_ValidateAllocationConservation(z),true);zz.finalReserveAllocated=0;zz.partialFarAllocated=50;emit("L02_VECTOR_CONFLICT",HSBI_ClassifyAllocationDuplicate(z,zz)==2,true);
+ zz=z;zz.finalReserveAllocated=-50;zz.partialFarAllocated=100;emit("ALLOC_NEGATIVE_BUCKET_REJECT",!HSBI_ValidateAllocationConservation(zz),true);
+ zz=z;zz.finalReserveAllocated=10;emit("ALLOC_COMMITTED_UNALLOCATED",!HSBI_ValidateAllocationConservation(zz),true);
+ HSBI_MoneyState money{};money.valid=true;money.revision=1;money.finalReserve=50;emit("MONEY_POSITIVE",HSBI_ValidateMoneyState(money),true);money.valid=false;money.revision=0;emit("MONEY_INVALID_FLAG_REV",!HSBI_ValidateMoneyState(money),true);money.finalReserve=std::numeric_limits<double>::infinity();emit("MONEY_INFINITY",!HSBI_ValidateMoneyState(money),true);
+ auto ci=reserve();emit("RESERVE_POSITIVE",HSBI_EvaluateReserveCatchUp(ci).valid,true);auto foreign=ci;foreign.consumptionKey.sourceDealKey="FOREIGN";foreign.consumptionKey.sourceAllocationKey="FOREIGN";emit("M01_FOREIGN_SOURCE_REJECT",!HSBI_EvaluateReserveCatchUp(foreign).valid,true);
+ foreign=ci;foreign.expectedReserveIdentity.accountLogin=999;foreign.reserveSourceProof.identity=foreign.expectedReserveIdentity;emit("M02_COPIED_FOREIGN_EXPECTED",HSBI_ValidateReserveSourceProof(foreign.reserveSourceProof,foreign.expectedReserveIdentity),true);emit("M02_INDEPENDENT_EXPECTED_REJECTS_FOREIGN",!HSBI_ValidateReserveSourceProof(foreign.reserveSourceProof,ci.expectedReserveIdentity),true);
+ ci.hasPriorConsumption=true;ci.priorConsumptionKey=ci.consumptionKey;emit("RESERVE_REPLAY_REJECTS_NEW_PERMISSION",!HSBI_EvaluateReserveCatchUp(ci).valid,true);
+ auto p=broker();auto g=HSBI_SolveBigGeometry(.1,.01,3,.1,p,true,true);emit("ZERO_CORE_MINLOT",!g.valid,true);std::cout<<"VALUE|ZERO_CORE|"<<g.coreVolume<<"|"<<g.trendVolume<<"|"<<g.recoverySlopeLots<<"\n";
+ p.volumeMin=.05;p.volumeStep=.01;g=HSBI_SolveBigGeometry(.1,.1,3,.5,p,true,true);emit("BELOW_MIN_CORE",!g.valid,true);
+ HSBI_RiskInput ri{};HSBI_RiskLimits rl{};ri.snapshotFresh=true;ri.projectedMargin=10;ri.projectedMarginLevel=1000;ri.freeMarginAfter=100;ri.managedPositions=1;rl.maxProjectedMargin=100;rl.minMarginLevel=100;rl.maxGrossExposure=100;rl.maxManagedPositions=10;rl.maxWorstCaseLoss=100;rl.maxTransitionLoss=100;rl.maxSpread=10;rl.maxCycleDrawdown=100;rl.maxAccountDrawdown=100;emit("RISK_POSITIVE",HSBI_ValidateRiskInput(ri,rl).passed,true);
+ ri.projectedMargin=std::numeric_limits<double>::quiet_NaN();emit("RISK_NAN_REJECT",!HSBI_ValidateRiskInput(ri,rl).passed,true);
+ HSBI_NewFarGateInput ng{};ng.snapshotFresh=true;ng.marginAvailable=ng.riskAvailable=ng.transitionCapAvailable=ng.moneyAvailable=true;ng.absoluteLossCap=ng.equityPercentCap=ng.oldFarRiskCap=ng.cumulativeCycleLossCap=100;ng.marginNext=10;ng.allowedMargin=100;ng.riskNext=10;ng.riskOld=20;ng.riskTolerance=1;ng.grossExposureNext=1;ng.grossExposureOld=2;ng.transitionLoss=1;emit("NF_GATE_POSITIVE",HSBI_EvaluateNewFarGates(ng).passed,true);ng.allowedMargin=std::numeric_limits<double>::quiet_NaN();emit("NF_GATE_UNKNOWN_LIMIT_REJECT",!HSBI_EvaluateNewFarGates(ng).passed,true);
+ HSBI_MarketSnapshot ms{};ms.timestamp=1000;ms.freshnessSeconds=10;emit("FUTURE_TIMESTAMP_REJECT",!HSBI_IsSnapshotFresh(ms,100),true);
+ HSBI_RecoveryContext ctx{};ctx.stateRevision=1;ctx.currentState=HSBI_STATE_BASKET_OPENING_CORE;emit("FSM_CORE_TO_TREND",HSBI_IsTransitionAllowed(ctx.currentState,HSBI_STATE_BASKET_OPENING_TREND),true);
+ ctx.currentState=HSBI_STATE_TERMINAL_SAFE;bool resumed=HSBI_ApplyPureStateTransition(ctx,HSBI_STATE_RECONCILING)&&HSBI_ApplyPureStateTransition(ctx,HSBI_STATE_FAR_ACTIVE);emit("FSM_AUTO_RESUME_UNGUARDED",!resumed,true);
+ ctx.currentState=HSBI_STATE_IDLE;ctx.stateRevision=std::numeric_limits<ulong>::max();auto tr=HSBI_ProposeStateTransition(ctx,HSBI_STATE_INITIAL_PLAN_READY);emit("FSM_REVISION_OVERFLOW_REJECT",!tr.allowed,true);
+ HSBI_BasketMoneyInput bi{};bi.farVolume=bi.coreVolume=bi.trendVolume=bi.smallVolume=1;bi.farDirection=HSBI_DIRECTION_SELL;bi.symbol="X";bi.broker=broker();bi.controlPrice.symbol="X";bi.controlPrice.bid=100;bi.controlPrice.ask=101;bi.controlPrice.selectedPrice=101;bi.controlPrice.side=HSBI_PRICE_SIDE_ASK;bi.controlPrice.direction=HSBI_DIRECTION_SELL;bi.controlPrice.point=bi.controlPrice.tickSize=1;bi.controlPrice.timestamp=100;bi.controlPrice.snapshotId=1;bi.controlPrice.fresh=bi.controlPrice.normalized=bi.controlPrice.valid=true;bi.farOpenPrice=110;bi.coreOpenPrice=bi.trendOpenPrice=101;bi.smallOpenPrice=111;bi.farCosts=bi.coreCosts=bi.trendCosts=bi.smallCosts=costs();bi.snapshotId=1;auto bm=HSBI_EvaluateBasketMoney(bi);emit("BASKET_STUB_POSITIVE_VALID",bm.valid,true);emit("M05_BIG_NEGATIVE_SMALL_POSITIVE",bm.reserveGainMoney==0,true);std::cout<<"VALUE|M05_FIELD|"<<bm.reserveGainMoney<<"\n";
+ g=HSBI_SolveBigGeometry(.1,3,0,.1,broker(),true,true);emit("TREND_ZERO_GEOMETRY_ACCEPTED",g.valid,true);bi.trendVolume=0;emit("TREND_ZERO_BASKET_ACCEPTED",HSBI_EvaluateBasketMoney(bi).valid,true);
+ HSBI_TransactionBarrierInput tx{};tx.transaction.actionId=tx.expectedActionId=1;tx.transaction.eventId=2;tx.lastAppliedEventId=1;tx.transaction.expectedVolume=tx.transaction.accumulatedVolume=1;tx.transaction.actualPositionRead=true;tx.actualDealRead=tx.ownershipConfirmed=true;tx.actualStateRevision=tx.expectedStateRevision=1;tx.transaction.outcome=HSBI_TX_COMPLETED;emit("TX_COMPLETE_POSITIVE",HSBI_TransactionBarrierPassed(tx),true);tx.transaction.outcome=HSBI_TX_PARTIAL;emit("TX_PARTIAL_BLOCKED",!HSBI_TransactionBarrierPassed(tx),true);
+
+ tx.transaction.outcome=HSBI_TX_COMPLETED;tx.transaction.accumulatedVolume=std::numeric_limits<double>::quiet_NaN();emit("TX_NAN_VOLUME_REJECT",!HSBI_TransactionBarrierPassed(tx),true);
+ HSBI_ExecutionIntent intent{};intent.intentId=intent.planId=intent.cycleId=intent.stateRevision=intent.expectedActionId=1;intent.planDigest="P";intent.candidateDigest="C";intent.aggregateProofDigest="A";intent.accountLogin=1;intent.symbol="X";intent.magic=7;intent.direction=HSBI_DIRECTION_BUY;intent.role=HSBI_ROLE_BIG_CORE;intent.requestedVolume=intent.normalizedVolume=1;intent.controlPrice=100;intent.controlPriceSide=HSBI_PRICE_SIDE_BID;intent.marketSnapshotId=intent.costSnapshotId=intent.riskSnapshotId=intent.marginSnapshotId=1;intent.sourcePositionIdentifier=12;intent.sourceTicket=11;intent.sourceDealId=13;intent.sourceEventId=14;intent.expectedTransition="NEXT";intent.creationTimestamp=100;intent.expiryTimestamp=200;intent.status=HSBI_INTENT_OUTCOME_PENDING;intent.digest=HSBI_ExecutionIntentDigest(intent);
+ HSBI_ExecutionReconciliationInput er{};er.runtimeMode=HSBI_RUNTIME_PRODUCTION;er.intent=intent;er.snapshotFresh=er.ownershipPassed=true;er.volumeTolerance=er.priceTolerance=1e-8;auto &o=er.outcome;o.actionId=1;o.eventId=2;o.dealId=13;o.positionIdentifier=12;o.ticket=11;o.accountLogin=1;o.symbol="X";o.magic=7;o.direction=HSBI_DIRECTION_BUY;o.role=HSBI_ROLE_BIG_CORE;o.volume=1;o.price=100;o.stateRevision=o.cycleId=o.planId=1;o.source=HSBI_OUTCOME_RUNTIME_TERMINAL;o.runtimeConfirmed=o.positionActuallyRead=o.dealActuallyRead=true;o.readTimestamp=100;o.status=HSBI_EXTERNAL_COMPLETED;o.digest=HSBI_ExternalOutcomeDigest(o);emit("OUTCOME_POSITIVE",HSBI_ValidateExecutionIntentStructure(intent)&&HSBI_ReconcileExecutionOutcome(er).completionAllowed,true);o.volume=std::numeric_limits<double>::quiet_NaN();o.digest=HSBI_ExternalOutcomeDigest(o);emit("OUTCOME_NAN_VOLUME_REJECT",!HSBI_ReconcileExecutionOutcome(er).completionAllowed,true);o.volume=1;o.price=std::numeric_limits<double>::quiet_NaN();o.digest=HSBI_ExternalOutcomeDigest(o);emit("OUTCOME_NAN_PRICE_REJECT",!HSBI_ReconcileExecutionOutcome(er).completionAllowed,true);
+ HSBI_FutureSmallLevelInput li{};li.runtimeMode=HSBI_RUNTIME_UNIT_TEST;li.useInjectedBrokerProof=true;li.levelIndex=1;li.farBefore=.1;li.coreRatio=6;li.trendRatio=6;li.smallRatio=10;li.farDirection=HSBI_DIRECTION_SELL;li.broker=broker();li.market.levelIndex=1;li.market.symbol="X";li.market.bid=100;li.market.ask=101;li.market.selectedPrice=101;li.market.tickSize=1;li.market.side=HSBI_PRICE_SIDE_ASK;li.market.timestamp=100;li.market.snapshotId=1;li.market.fresh=li.market.normalized=li.market.valid=true;li.costs.levelIndex=1;li.costs.snapshotId=1;li.costs.valid=li.costs.fresh=true;li.costs.farCosts=li.costs.coreCosts=li.costs.trendCosts=li.costs.smallCosts=costs();li.farProjection.projectedFar=.05;li.farProjection.source=HSBI_FAR_PROJECTION_EXPLICIT_MODEL;li.farProjection.sourceIdentifier=1;li.farProjection.projected=li.farProjection.confirmed=li.farProjection.valid=true;li.maxNewFarRatio=.8;li.minimumCompressionLots=.01;li.minimumCompressionRatio=.1;li.injectedBrokerProof.valid=li.injectedBrokerProof.brokerRuntimeConfirmed=true;li.injectedBrokerProof.status=HSBI_CALC_PASS;li.injectedBrokerProof.recoveryMoney=10;li.injectedBrokerProof.totalMargin=10;li.injectedBrokerProof.grossExposure=2.3;li.injectedBrokerProof.transitionLoss=1;li.riskState.currentRisk=20;li.riskState.riskTolerance=1;li.riskState.fresh=true;li.riskRuntimeConfirmed=true;li.riskProofSource=HSBI_RISK_SOURCE_RUNTIME;li.riskProofSnapshotId=1;li.evaluatedRisk=10;li.moneyState.recoveryMoney=0;li.marginState.allowedMargin=100;li.priorGrossExposure=3;li.priorBigGross=2;li.transitionLossCap=100;emit("FS_BIG_GROSS_POSITIVE",HSBI_EvaluateFutureSmallLevel(li).valid,true);li.priorBigGross=1;emit("FS_BIG_GROSS_GROWTH_REJECT",!HSBI_EvaluateFutureSmallLevel(li).valid,true);
+
+ auto spent=reserve();spent.reserveEligibleMoneyAlreadyAllocated=false;spent.reserveAllocationSource.reserveAllocated=0;spent.reserveAllocationSource.alreadyConsumed=50;emit("RESERVE_SPENT_SOURCE_REJECT",!HSBI_EvaluateReserveCatchUp(spent).valid,true);std::cout<<"VALUE|SPENT_SOURCE_GAIN|"<<HSBI_EvaluateReserveCatchUp(spent).reserveGainMoney<<"\n";
+ auto zero=reserve();zero.farLossIncreaseMoney=50;zero.executionSafetyBuffer=0;emit("CATCHUP_ZERO_MARGIN_REJECT",!HSBI_EvaluateReserveCatchUp(zero).valid,true);
+ auto cost=costs();cost.actual=true;cost.swap=-2;cost.commission=-7;cost.fee=-1;double actualNet=0;emit("ACTUAL_SIGNED_NET",HSBI_TryActualDealNet(60,cost,actualNet)&&actualNet==50,true);emit("ACTUAL_NEGATIVE_NET",HSBI_TryActualDealNet(-10,cost,actualNet)&&actualNet==-20,true);cost.actual=false;cost.spreadCost=1;cost.slippageBuffer=2;emit("PROJECTED_SIGNED_NET",HSBI_TryProjectedNetMoney(60,cost,3,actualNet)&&actualNet==44,true);emit("LOT_FLOOR_CEIL",MathAbs(HSBI_FloorVolumeToStep(.256,.01)-.25)<1e-12&&MathAbs(HSBI_CeilVolumeToStep(.256,.01)-.26)<1e-12,true);
+
+ HSBI_RecoveryContext cc{};cc.accountLogin=1;cc.symbol="X";cc.magic=7;cc.cycleId=1;cc.stateRevision=1;cc.currentState=cc.previousState=HSBI_STATE_FAR_ACTIVE;cc.runtimeMode=HSBI_RUNTIME_UNIT_TEST;cc.schemaVersion=HSBI_SCHEMA_VERSION;cc.moneyStateVersion=HSBI_MONEY_STATE_VERSION;cc.far.ticket=cc.far.identifier=1;cc.far.role=HSBI_ROLE_FAR;cc.far.direction=HSBI_DIRECTION_BUY;cc.far.actualVolume=cc.far.requestedVolume=1;cc.far.identity.accountLogin=1;cc.far.identity.symbol="X";cc.far.identity.magic=7;cc.far.identity.cycleId=1;cc.far.identity.positionIdentifier=1;cc.far.identity.role=HSBI_ROLE_FAR;emit("CONTEXT_ONE_FAR_POSITIVE",HSBI_ValidateContext(cc),true);
+ cc.initialBuy=cc.far;cc.initialBuy.ticket=cc.initialBuy.identifier=2;cc.initialBuy.identity.positionIdentifier=2;emit("CONTEXT_TWO_FAR_OTHER_SLOT_REJECT",!HSBI_ValidateContext(cc),true);emit("INVARIANT_DUAL_FAR_OTHER_SLOT_REJECT",!HSBI_NoDualTail(cc).passed,true);
+ emit("BOUND_FINITE_PREFIX_NOT_GLOBAL_PROOF",HSBI_ValidateConservativeBound(1,.64,.8,2,true,true,true,true,true),true);
+
+ HSBI_ExecutionJournalEntry je{};je.journalEntryId=je.intentId=je.planId=je.cycleId=je.stateRevision=je.actionId=je.eventId=1;je.entryType=HSBI_JE_INTENT_CREATED;je.entryStatus=HSBI_STATUS_PENDING;je.timestamp=100;je.accountLogin=1;je.symbol="X";je.magic=7;je.payloadDigest="A";je.currentEntryDigest=HSBI_ExecutionJournalEntryDigest(je);emit("JOURNAL_VALID_POSITIVE",HSBI_ValidateJournalEntry(je,"",1,1,1),true);emit("JOURNAL_EXACT_NOOP",HSBI_ClassifyJournalAppend(je,je,"",1,1,1)==HSBI_JOURNAL_NO_OP,true);auto altered=je;altered.payloadDigest="ALTERED";emit("JOURNAL_ALTERED_BODY_NOT_NOOP",HSBI_ClassifyJournalAppend(altered,je,"",1,1,1)!=HSBI_JOURNAL_NO_OP,true);
+
+ HSBI_FutureSmallInput fsi{};fsi.runtimeMode=HSBI_RUNTIME_UNIT_TEST;fsi.allocationPolicy=reserve().allocationPolicy;fsi.currentFar=.03;fsi.coreRatio=fsi.trendRatio=6;fsi.smallRatio=1;fsi.maxNewFarRatio=.8;fsi.minimumCompressionLots=.005;fsi.minimumCompressionRatio=.1;fsi.maximumDepth=2;fsi.conservativeQ=.8;fsi.volumeMin=.01;fsi.volumeMax=100;fsi.volumeStep=.01;fsi.tickSize=1;fsi.farDirection=HSBI_DIRECTION_SELL;fsi.broker=broker();fsi.moneyState.available=fsi.moneyState.fresh=true;fsi.riskState.available=fsi.riskState.fresh=true;fsi.riskState.currentRisk=100;fsi.riskState.riskTolerance=1;fsi.marginState.available=fsi.marginState.fresh=true;fsi.marginState.allowedMargin=100;fsi.transitionLossCap=100;fsi.currentBigGross=fsi.currentGrossExposure=10;fsi.cycleId=fsi.stateRevision=fsi.planId=1;fsi.snapshotsFresh=fsi.brokerPropertiesValid=fsi.costsIncluded=fsi.roundingIncluded=true;fsi.useInjectedBrokerProofs=true;fsi.levelMarketSnapshotCount=fsi.levelCostSnapshotCount=fsi.farProjectionCount=2;
+ for(int j=0;j<2;j++){fsi.levelMarketSnapshots[j]=li.market;fsi.levelMarketSnapshots[j].levelIndex=j+1;fsi.levelMarketSnapshots[j].snapshotId=j+1;fsi.levelCostSnapshots[j]=li.costs;fsi.levelCostSnapshots[j].levelIndex=j+1;fsi.farProjections[j]=li.farProjection;fsi.farProjections[j].projectedFar=j==0?.02:.01;fsi.evaluatedRisks[j]=j==0?10:5;fsi.riskProofSources[j]=HSBI_RISK_SOURCE_RUNTIME;fsi.riskRuntimeConfirmed[j]=true;fsi.riskProofSnapshotIds[j]=j+1;fsi.injectedBrokerProofs[j]=li.injectedBrokerProof;fsi.injectedBrokerProofs[j].recoveryMoney=j==0?10:20;fsi.injectedBrokerProofs[j].totalMargin=j==0?10:8;fsi.injectedBrokerProofs[j].grossExposure=j==0?.42:.28;}
+ fsi.terminalRouteAllowed=true;auto fsr=HSBI_SolveFutureSmall(fsi);emit("FS_MINLOT_TERMINAL_POSITIVE",fsr.valid&&fsr.terminalFar>0,true);fsi.terminalRouteAllowed=false;emit("FS_MISSING_TERMINAL_ROUTE_REJECT",!HSBI_SolveFutureSmall(fsi).valid,true);
+ HSBI_FutureSmallResult proof{};proof.valid=true;proof.status=HSBI_FS_EXACT_PROOF;proof.provenDepth=2;
+ for(int j=0;j<2;j++){auto &l=proof.levels[j];l.levelIndex=j+1;l.valid=l.moneyIncluded=l.marginIncluded=l.riskIncluded=l.transitionLossIncluded=l.controlSnapshotValid=l.costSnapshotValid=l.farProjectionValid=l.runtimeConfirmed=true;l.moneyProofStatus=l.marginProofStatus=l.riskProofStatus=l.transitionLossProofStatus=HSBI_CALC_PASS;l.proofStatus=HSBI_FS_EXACT_PROOF;l.projectedRecoveryMoney=1;l.projectedMargin=1;l.projectedRisk=1;l.grossExposure=1;l.compressionLots=.1;l.compressionRatio=.1;l.farAfter=.1;}
+ proof.levels[0].transitionLoss=10;proof.levels[1].transitionLoss=5;auto ag=HSBI_AggregateFutureSmallProof(proof,HSBI_PROOF_POLICY_WORST_CASE,0);emit("AGGREGATE_POSITIVE_VALID",ag.valid,true);std::cout<<"VALUE|CR09_SELECTED|"<<ag.catchUpControlLevel<<"\n";
+ for(int i=0;i<=HSBI_STATE_CYCLE_CLOSED;i++)for(int j=0;j<=HSBI_STATE_CYCLE_CLOSED;j++)std::cout<<"EDGE|"<<i<<"|"<<j<<"|"<<HSBI_IsTransitionAllowed((HSBI_State)i,(HSBI_State)j)<<"\n";
+ return 0;
+}

@@ -1,0 +1,75 @@
+{
+  "BaseSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "TestedSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "UTC": "2026-11-11T20:16:08.079573+00:00",
+  "RunnerSourceHash": "469cd6c73391512ad30b7fafd27efb46502661858dce02e79ec0ec4b96a87913",
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "Commands": [
+    {
+      "Command": [
+        "which",
+        "metaeditor64"
+      ],
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": ""
+    },
+    {
+      "Command": [
+        "which",
+        "metaeditor"
+      ],
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": ""
+    },
+    {
+      "Command": [
+        "which",
+        "MetaEditor64.exe"
+      ],
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": ""
+    },
+    {
+      "Command": [
+        "which",
+        "terminal64"
+      ],
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": ""
+    },
+    {
+      "Command": [
+        "which",
+        "wine"
+      ],
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": ""
+    },
+    {
+      "Command": [
+        "rg",
+        "--files",
+        "/opt",
+        "/workspace",
+        "/usr/local/bin",
+        "-g",
+        "*[Mm]eta[Ee]ditor*",
+        "-g",
+        "*terminal64*"
+      ],
+      "ExitCode": 0,
+      "Stdout": "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Scripts/compile_metaeditor_windows.ps1\n",
+      "Stderr": ""
+    }
+  ],
+  "MQL5_COMPILE": "NOT_RUN",
+  "MQL5_NATIVE_TESTS": "NOT_RUN",
+  "StrategyTester": "NOT_RUN",
+  "CompilerAvailable": false,
+  "Scope": "No real MetaEditor/terminal/Wine in PATH/searched locations; Windows helper is not installed compiler. No broker/account IO performed."
+}

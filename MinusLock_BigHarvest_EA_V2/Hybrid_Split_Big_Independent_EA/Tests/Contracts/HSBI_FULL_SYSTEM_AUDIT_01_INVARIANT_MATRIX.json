@@ -1,0 +1,421 @@
+{
+  "BaseSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "TestedSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "UTC": "2026-11-11T20:16:08.675810+00:00",
+  "RunnerSourceHash": "9e5144c1096a966272e08bb2be1a2f0865f6e45421d470982420e70d99f88515",
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "Rows": [
+    {
+      "InvariantID": "CONSERVATION",
+      "MathematicalPositive": {
+        "G": "7331",
+        "C": "10",
+        "R": "20",
+        "F": "7301"
+      },
+      "MathematicalNegative": {
+        "G": "7331",
+        "C": "10",
+        "R": "20",
+        "F": "7302"
+      },
+      "LiteralExpected": [
+        true,
+        false
+      ],
+      "Seed": 20261111,
+      "DistinctInputPairs": 24,
+      "ModelStatus": "REFERENCE_EXECUTED_PASS",
+      "MutationID": "PROPERTY-MUT-CONSERVATION",
+      "ProductionSystemStatus": "CONTRADICTORY",
+      "Boundary": "Abstract acceptance predicate/fixture; no actual backend/orchestration or broker proof",
+      "Evidence": "REFERENCE.json#Properties[PropertyID=CONSERVATION]"
+    },
+    {
+      "InvariantID": "DOUBLE_FUNDING",
+      "MathematicalPositive": {
+        "newSource": "D2",
+        "fundedSources": [
+          "D1"
+        ]
+      },
+      "MathematicalNegative": {
+        "newSource": "D1",
+        "fundedSources": [
+          "D1"
+        ]
+      },
+      "LiteralExpected": [
+        true,
+        false
+      ],
+      "Seed": 20261111,
+      "DistinctInputPairs": 1,
+      "ModelStatus": "REFERENCE_EXECUTED_PASS",
+      "MutationID": "PROPERTY-MUT-DOUBLE_FUNDING",
+      "ProductionSystemStatus": "UNVERIFIED",
+      "Boundary": "Abstract acceptance predicate/fixture; no actual backend/orchestration or broker proof",
+      "Evidence": "REFERENCE.json#Properties[PropertyID=DOUBLE_FUNDING]"
+    },
+    {
+      "InvariantID": "REPLAY_IDENTITY",
+      "MathematicalPositive": {
+        "newPayload": [
+          "D1",
+          7301
+        ],
+        "savedPayload": [
+          "D1",
+          7301
+        ]
+      },
+      "MathematicalNegative": {
+        "newPayload": [
+          "D1",
+          7302
+        ],
+        "savedPayload": [
+          "D1",
+          7301
+        ]
+      },
+      "LiteralExpected": [
+        true,
+        false
+      ],
+      "Seed": 20261111,
+      "DistinctInputPairs": 24,
+      "ModelStatus": "REFERENCE_EXECUTED_PASS",
+      "MutationID": "PROPERTY-MUT-REPLAY_IDENTITY",
+      "ProductionSystemStatus": "CONTRADICTORY",
+      "Boundary": "Abstract acceptance predicate/fixture; no actual backend/orchestration or broker proof",
+      "Evidence": "REFERENCE.json#Properties[PropertyID=REPLAY_IDENTITY]"
+    },
+    {
+      "InvariantID": "SOURCE_NAMESPACE",
+      "MathematicalPositive": {
+        "requestKey": [
+          "B",
+          "S",
+          1,
+          7301
+        ],
+        "authorityKey": [
+          "B",
+          "S",
+          1,
+          7301
+        ]
+      },
+      "MathematicalNegative": {
+        "requestKey": [
+          "B",
+          "S",
+          2,
+          7301
+        ],
+        "authorityKey": [
+          "B",
+          "S",
+          1,
+          7301
+        ]
+      },
+      "LiteralExpected": [
+        true,
+        false
+      ],
+      "Seed": 20261111,
+      "DistinctInputPairs": 24,
+      "ModelStatus": "REFERENCE_EXECUTED_PASS",
+      "MutationID": "PROPERTY-MUT-SOURCE_NAMESPACE",
+      "ProductionSystemStatus": "CONTRADICTORY",
+      "Boundary": "Abstract acceptance predicate/fixture; no actual backend/orchestration or broker proof",
+      "Evidence": "REFERENCE.json#Properties[PropertyID=SOURCE_NAMESPACE]"
+    },
+    {
+      "InvariantID": "NO_FALSE_NOOP",
+      "MathematicalPositive": {
+        "profitA": "7301",
+        "profitB": "7301",
+        "commissionA": "0",
+        "commissionB": "0",
+        "netA": "7301",
+        "netB": "7301"
+      },
+      "MathematicalNegative": {
+        "profitA": "7301",
+        "profitB": "7306",
+        "commissionA": "0",
+        "commissionB": "0",
+        "netA": "7301",
+        "netB": "7301"
+      },
+      "LiteralExpected": [
+        true,
+        false
+      ],
+      "Seed": 20261111,
+      "DistinctInputPairs": 24,
+      "ModelStatus": "REFERENCE_EXECUTED_PASS",
+      "MutationID": "PROPERTY-MUT-NO_FALSE_NOOP",
+      "ProductionSystemStatus": "CONTRADICTORY",
+      "Boundary": "Abstract acceptance predicate/fixture; no actual backend/orchestration or broker proof",
+      "Evidence": "REFERENCE.json#Properties[PropertyID=NO_FALSE_NOOP]"
+    },
+    {
+      "InvariantID": "UNAVAILABLE_NOT_NEW",
+      "MathematicalPositive": {
+        "historyComplete": true,
+        "sourceConfirmed": true
+      },
+      "MathematicalNegative": {
+        "historyComplete": false,
+        "sourceConfirmed": true
+      },
+      "LiteralExpected": [
+        true,
+        false
+      ],
+      "Seed": 20261111,
+      "DistinctInputPairs": 1,
+      "ModelStatus": "REFERENCE_EXECUTED_PASS",
+      "MutationID": "PROPERTY-MUT-UNAVAILABLE_NOT_NEW",
+      "ProductionSystemStatus": "UNVERIFIED",
+      "Boundary": "Abstract acceptance predicate/fixture; no actual backend/orchestration or broker proof",
+      "Evidence": "REFERENCE.json#Properties[PropertyID=UNAVAILABLE_NOT_NEW]"
+    },
+    {
+      "InvariantID": "ATTRIBUTION",
+      "MathematicalPositive": {
+        "bigCredit": "0",
+        "posted": "7301",
+        "role": "Small"
+      },
+      "MathematicalNegative": {
+        "bigCredit": "7301",
+        "posted": "7301",
+        "role": "Small"
+      },
+      "LiteralExpected": [
+        true,
+        false
+      ],
+      "Seed": 20261111,
+      "DistinctInputPairs": 24,
+      "ModelStatus": "REFERENCE_EXECUTED_PASS",
+      "MutationID": "PROPERTY-MUT-ATTRIBUTION",
+      "ProductionSystemStatus": "PARTIALLY_VERIFIED",
+      "Boundary": "Abstract acceptance predicate/fixture; no actual backend/orchestration or broker proof",
+      "Evidence": "REFERENCE.json#Properties[PropertyID=ATTRIBUTION]"
+    },
+    {
+      "InvariantID": "COST_COVERAGE",
+      "MathematicalPositive": {
+        "requiredCosts": [
+          "C",
+          "S",
+          "F"
+        ],
+        "coveredCosts": [
+          "C",
+          "S",
+          "F"
+        ]
+      },
+      "MathematicalNegative": {
+        "requiredCosts": [
+          "C",
+          "S",
+          "F"
+        ],
+        "coveredCosts": [
+          "C",
+          "F"
+        ]
+      },
+      "LiteralExpected": [
+        true,
+        false
+      ],
+      "Seed": 20261111,
+      "DistinctInputPairs": 1,
+      "ModelStatus": "REFERENCE_EXECUTED_PASS",
+      "MutationID": "PROPERTY-MUT-COST_COVERAGE",
+      "ProductionSystemStatus": "UNVERIFIED",
+      "Boundary": "Abstract acceptance predicate/fixture; no actual backend/orchestration or broker proof",
+      "Evidence": "REFERENCE.json#Properties[PropertyID=COST_COVERAGE]"
+    },
+    {
+      "InvariantID": "LOT_LIMITS",
+      "MathematicalPositive": {
+        "min": "1/20",
+        "max": "100",
+        "v": "1/20",
+        "step": "1/100"
+      },
+      "MathematicalNegative": {
+        "min": "1/20",
+        "max": "100",
+        "v": "1/100",
+        "step": "1/100"
+      },
+      "LiteralExpected": [
+        true,
+        false
+      ],
+      "Seed": 20261111,
+      "DistinctInputPairs": 1,
+      "ModelStatus": "REFERENCE_EXECUTED_PASS",
+      "MutationID": "PROPERTY-MUT-LOT_LIMITS",
+      "ProductionSystemStatus": "CONTRADICTORY",
+      "Boundary": "Abstract acceptance predicate/fixture; no actual backend/orchestration or broker proof",
+      "Evidence": "REFERENCE.json#Properties[PropertyID=LOT_LIMITS]"
+    },
+    {
+      "InvariantID": "SIGNED_EXPOSURE",
+      "MathematicalPositive": {
+        "buy": "7301",
+        "sell": "10",
+        "reportedNet": "7291",
+        "reportedGross": "7311"
+      },
+      "MathematicalNegative": {
+        "buy": "7301",
+        "sell": "10",
+        "reportedNet": "7311",
+        "reportedGross": "7311"
+      },
+      "LiteralExpected": [
+        true,
+        false
+      ],
+      "Seed": 20261111,
+      "DistinctInputPairs": 24,
+      "ModelStatus": "REFERENCE_EXECUTED_PASS",
+      "MutationID": "PROPERTY-MUT-SIGNED_EXPOSURE",
+      "ProductionSystemStatus": "PARTIALLY_VERIFIED",
+      "Boundary": "Abstract acceptance predicate/fixture; no actual backend/orchestration or broker proof",
+      "Evidence": "REFERENCE.json#Properties[PropertyID=SIGNED_EXPOSURE]"
+    },
+    {
+      "InvariantID": "BALANCE_EQUITY",
+      "MathematicalPositive": {
+        "balance": "7301",
+        "floating": "-10",
+        "equity": "7291"
+      },
+      "MathematicalNegative": {
+        "balance": "7301",
+        "floating": "-10",
+        "equity": "7301"
+      },
+      "LiteralExpected": [
+        true,
+        false
+      ],
+      "Seed": 20261111,
+      "DistinctInputPairs": 24,
+      "ModelStatus": "REFERENCE_EXECUTED_PASS",
+      "MutationID": "PROPERTY-MUT-BALANCE_EQUITY",
+      "ProductionSystemStatus": "UNVERIFIED",
+      "Boundary": "Abstract acceptance predicate/fixture; no actual backend/orchestration or broker proof",
+      "Evidence": "REFERENCE.json#Properties[PropertyID=BALANCE_EQUITY]"
+    },
+    {
+      "InvariantID": "AFFORDABILITY",
+      "MathematicalPositive": {
+        "free": "7301",
+        "amount": "7301"
+      },
+      "MathematicalNegative": {
+        "free": "7301",
+        "amount": "7306"
+      },
+      "LiteralExpected": [
+        true,
+        false
+      ],
+      "Seed": 20261111,
+      "DistinctInputPairs": 24,
+      "ModelStatus": "REFERENCE_EXECUTED_PASS",
+      "MutationID": "PROPERTY-MUT-AFFORDABILITY",
+      "ProductionSystemStatus": "CONTRADICTORY",
+      "Boundary": "Abstract acceptance predicate/fixture; no actual backend/orchestration or broker proof",
+      "Evidence": "REFERENCE.json#Properties[PropertyID=AFFORDABILITY]"
+    },
+    {
+      "InvariantID": "FSM_COMPLETION",
+      "MathematicalPositive": {
+        "completed": true,
+        "positionRead": true,
+        "historyComplete": true
+      },
+      "MathematicalNegative": {
+        "completed": false,
+        "positionRead": true,
+        "historyComplete": true
+      },
+      "LiteralExpected": [
+        true,
+        false
+      ],
+      "Seed": 20261111,
+      "DistinctInputPairs": 1,
+      "ModelStatus": "REFERENCE_EXECUTED_PASS",
+      "MutationID": "PROPERTY-MUT-FSM_COMPLETION",
+      "ProductionSystemStatus": "CONTRADICTORY",
+      "Boundary": "Abstract acceptance predicate/fixture; no actual backend/orchestration or broker proof",
+      "Evidence": "REFERENCE.json#Properties[PropertyID=FSM_COMPLETION]"
+    },
+    {
+      "InvariantID": "NO_HIDDEN_RESERVE",
+      "MathematicalPositive": {
+        "reserveAfterPreview": "7301",
+        "reserveBeforePreview": "7301"
+      },
+      "MathematicalNegative": {
+        "reserveAfterPreview": "7300",
+        "reserveBeforePreview": "7301"
+      },
+      "LiteralExpected": [
+        true,
+        false
+      ],
+      "Seed": 20261111,
+      "DistinctInputPairs": 24,
+      "ModelStatus": "REFERENCE_EXECUTED_PASS",
+      "MutationID": "PROPERTY-MUT-NO_HIDDEN_RESERVE",
+      "ProductionSystemStatus": "PARTIALLY_VERIFIED",
+      "Boundary": "Abstract acceptance predicate/fixture; no actual backend/orchestration or broker proof",
+      "Evidence": "REFERENCE.json#Properties[PropertyID=NO_HIDDEN_RESERVE]"
+    },
+    {
+      "InvariantID": "SNAPSHOT_BINDING",
+      "MathematicalPositive": {
+        "snapshotId": 7301,
+        "receiptId": 7301,
+        "content": "A",
+        "receiptContent": "A"
+      },
+      "MathematicalNegative": {
+        "snapshotId": 7301,
+        "receiptId": 7301,
+        "content": "B",
+        "receiptContent": "A"
+      },
+      "LiteralExpected": [
+        true,
+        false
+      ],
+      "Seed": 20261111,
+      "DistinctInputPairs": 24,
+      "ModelStatus": "REFERENCE_EXECUTED_PASS",
+      "MutationID": "PROPERTY-MUT-SNAPSHOT_BINDING",
+      "ProductionSystemStatus": "UNVERIFIED",
+      "Boundary": "Abstract acceptance predicate/fixture; no actual backend/orchestration or broker proof",
+      "Evidence": "REFERENCE.json#Properties[PropertyID=SNAPSHOT_BINDING]"
+    }
+  ],
+  "ModelNotProduction": true
+}

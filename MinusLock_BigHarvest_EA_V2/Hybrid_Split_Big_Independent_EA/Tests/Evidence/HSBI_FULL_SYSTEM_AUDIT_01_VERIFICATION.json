@@ -1,0 +1,62 @@
+{
+  "BaseSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "TestedSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "UTC": "2026-11-11T20:16:11.825153+00:00",
+  "RunnerSourceHash": "00da1eb714020a24e6988ecc51524e1448eb14fe6e35997782f4d4eb56f9a5e9",
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "PackagePositive": "PASS",
+  "Errors": [],
+  "NegativeProbes": [
+    {
+      "ProbeID": "omitted-baseline",
+      "Errors": [
+        "baseline independent Git inventory/bytes/blob/mode"
+      ],
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "altered-production-hash",
+      "Errors": [
+        "production74"
+      ],
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "altered-artifact-hash",
+      "Errors": [
+        "artifact hash Reports/HSBI_FULL_SYSTEM_AUDIT_01_DEFECT_REGISTER_RU.md"
+      ],
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "omitted-new-artifact",
+      "Errors": [
+        "full new-file inventory"
+      ],
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "rootduplicate",
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "nestedduplicate",
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "nan",
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "infinity",
+      "Result": "PASS"
+    }
+  ],
+  "PackageExitCode": 0,
+  "AuditCompleteness": "PARTIAL",
+  "StageComplete": false,
+  "SystemSafetyPass": false,
+  "ProductionFilesUnchanged": true,
+  "HistoricalEvidenceUnchanged": true,
+  "Scope": "Integrity/consistency PASS is NOT audit completeness/native/system/trading PASS"
+}

@@ -1,0 +1,76 @@
+{
+  "InitialCommand": "python Tests/Static/HSBI_FULL_SYSTEM_AUDIT_01_reference.py",
+  "ExitCode": 1,
+  "Result": "20/20 scenarios,360/360 sample pairs,14/15 mutations",
+  "Rows": [
+    {
+      "MutationID": "PROPERTY-MUT-ATTRIBUTION",
+      "ExactEdit": {
+        "Old": "d['posted'] if d['role'] in ('BigCore','BigTrend') else 0",
+        "New": "d['posted']"
+      },
+      "OriginalSourceHash": "fd36ace889160e722ce619d4440fdee44a7771c91120ae9b0695ab3515d491df",
+      "MutantSourceHash": "4d0533d51afe3bf80c1ca74e9ee2f497f22850339910ea377cb24e1bf42fcc85",
+      "Positive": {
+        "bigCredit": "0",
+        "posted": "7301",
+        "role": "Small"
+      },
+      "Negative": {
+        "bigCredit": "7301",
+        "posted": "7301",
+        "role": "Small"
+      },
+      "IndependentExpected": [
+        true,
+        false
+      ],
+      "OriginalActual": [
+        true,
+        false
+      ],
+      "MutantActual": [
+        false,
+        true
+      ],
+      "Verdict": "MUTATION_SURVIVED",
+      "ProofBoundary": "ANALYTICAL_PREDICATE_MUTATION_NOT_PRODUCTION_OR_NATIVE"
+    }
+  ],
+  "OriginalRunnerHash": "ddf799a2c088f4a96c854b425567ee0cfbf4cfcc3afd2d29f5e7916e68c11a3f",
+  "ArtifactSHA256": "c1d3d9e556e211053d49da2c02d19851a1fb9229811d3a598640820172ee87da",
+  "Reason": "ATTRIBUTION mutant changed positive Small fixture itself. Need a valid BigCore positive control; negative remains Small nonzero Big credit. Not a production error and not exception-as-kill.",
+  "InitialSourceArchive": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_01_INITIAL_REFERENCE_SOURCE.txt",
+  "InitialSourceReconstructionVerifiedByRecordedSHA256": true,
+  "FinalScopeCorrection": "Scenario16 additionally closes Small to match full C/T/S Harvest example;115 exact duplicate property input pairs excluded; final245distinctpairs.",
+  "ReviewScopeCorrection": {
+    "PriorSourceRows": 53,
+    "PriorPass": 24,
+    "PriorFail": 29,
+    "PriorRunnerHash": "734b96e6bffbfc3d51006f480f95115aaf36d3bfa490af0801dbe2abbb8b572d",
+    "Rows": [
+      {
+        "TestID": "M02_COPIED_FOREIGN_EXPECTED",
+        "Actual": false,
+        "Expected": true,
+        "Result": "FAIL",
+        "ProofBoundary": "EXTRACTED_CPP_SOURCE_SUBSET_NOT_NATIVE_MQL5"
+      },
+      {
+        "TestID": "BOUND_FINITE_PREFIX_NOT_GLOBAL_PROOF",
+        "Actual": false,
+        "Expected": true,
+        "Result": "FAIL",
+        "ProofBoundary": "EXTRACTED_CPP_SOURCE_SUBSET_NOT_NATIVE_MQL5"
+      }
+    ],
+    "Reason": "These two observations concern caller/global proof obligations, not a helper obligation to authenticate its supplied expected context or prove an infinite tail from flags. Preserve observed acceptance, correct helper expected to True, add independent expected-identity rejection control and exact finite-prefix/tail counterexample. This does not resolve M02/proof gap or alter production."
+  },
+  "InitialPackageFailure": {
+    "ExitCode": 1,
+    "Errors": [
+      "defect registry consistent"
+    ],
+    "Cause": "DefectCounts summary includes P3=0 but issue registry omitted zero Counter key; data serialization consistency, not source behavior. All cases/negative source findings kept."
+  }
+}

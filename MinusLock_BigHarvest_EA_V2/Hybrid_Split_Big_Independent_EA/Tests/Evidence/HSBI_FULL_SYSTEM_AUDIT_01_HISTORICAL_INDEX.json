@@ -1,0 +1,2085 @@
+{
+  "BaseSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "TestedSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "UTC": "2026-11-11T20:16:08.611144+00:00",
+  "RunnerSourceHash": "469cd6c73391512ad30b7fafd27efb46502661858dce02e79ec0ec4b96a87913",
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "Rows": [
+    {
+      "File": "Reports/HSB_2D_V1_R7_FALSE_PASS_ANALYSIS_RU.md",
+      "SHA256": "c21b911bada5b92df4fbb1d65c7031b13f329abeb0fc91de9abb1c46e76c82ff",
+      "StatusLocators": [],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/HSB_2D_V1_R7_FILE_MANIFEST_SHA256.txt",
+      "SHA256": "cb7550478c2fbb0a6ef17c5765da11350854e1b133b3466e69fcac2fd40e9bd4",
+      "StatusLocators": [
+        {
+          "Line": 109,
+          "Text": "dad67ad14d50d1f2300a820dd7651d5312f8960d8033d465016c5bed8c2a0160  Reports/HSB_2D_V1_R7_FINAL_VERDICT_RU.md"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/HSB_2D_V1_R7_FINAL_PUBLICATION_RECORD_RU.md",
+      "SHA256": "0f3ad0d156d8b4b5e001d66b1b618534c019aa83a53caf84702c5c2dfe06a612",
+      "StatusLocators": [
+        {
+          "Line": 26,
+          "Text": "METAEDITOR_MAIN_COMPILE=NOT_RUN"
+        },
+        {
+          "Line": 27,
+          "Text": "METAEDITOR_TEST_COMPILE=NOT_RUN"
+        },
+        {
+          "Line": 28,
+          "Text": "MQL5_TESTS_T01_T464=NOT_RUN"
+        },
+        {
+          "Line": 29,
+          "Text": "STRATEGY_TESTER=NOT_RUN"
+        },
+        {
+          "Line": 30,
+          "Text": "BROKER_MONEY_RUNTIME_PROOF=NOT_RUN"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/HSB_2D_V1_R7_FINAL_VERDICT_RU.md",
+      "SHA256": "dad67ad14d50d1f2300a820dd7651d5312f8960d8033d465016c5bed8c2a0160",
+      "StatusLocators": [],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/HSB_2D_V1_R7_MUTATION_AUDIT_RU.md",
+      "SHA256": "839fc96a78fc56b5a44021279ab8589eb8bc32d6891a1660c99bda6888214828",
+      "StatusLocators": [],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02A_DECISIONS_REQUIRED_RU.md",
+      "SHA256": "8d45394bec744693cd22479e600fd1d40446eca9fbbea54e72731dc8e07aa967",
+      "StatusLocators": [],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02A_FINDINGS_RU.md",
+      "SHA256": "2bd77d1072ad6b5f1fe78bc45e2d275447dfa87dc5a3c5a6af4a7965ea33427a",
+      "StatusLocators": [
+        {
+          "Line": 7,
+          "Text": "| M-01 | P0 | FAIL | `consumptionKey.sourceDealKey/sourceAllocationKey` не сравниваются с соответствующими ключами `reserveAllocationSource` | Чужой allocation source может быть использован как формально допустимый Reserve; New Far получает ложный Catch-Up PASS |"
+        },
+        {
+          "Line": 8,
+          "Text": "| M-02 | P0 | FAIL | New Far формирует expected identity копированием identity из проверяемого proof | Equality не доказывает существование broker deal/event и provenance суммы |"
+        },
+        {
+          "Line": 10,
+          "Text": "| M-04 | P1 | UNPROVEN | `recoveryMoney=basketNetMoney` обозначает projected сумму четырёх ног, а не settled fund | Прогноз может быть ошибочно принят за доступные деньги |"
+        },
+        {
+          "Line": 11,
+          "Text": "| M-05 | P1 | FAIL | `reserveGainMoney=max(0, Core+Trend+Small)` включает Small, хотя допустимый Reserve proof ограничен BigCore/BigTrend | При `0+0+10` поле даёт 10 без разрешённого Reserve source |"
+        },
+        {
+          "Line": 15,
+          "Text": "| PERSIST-01 | P0 | UNPROVEN | Production persistence — stub; SHA-256 persistence не реализован | Restart guarantees не существуют end-to-end |"
+        },
+        {
+          "Line": 16,
+          "Text": "| REPLAY-01 | P0 | UNPROVEN | Catch-Up видит только один caller-supplied prior key; `hasPriorConsumption=false` снимает replay check | Reserve может снова стать доступным после неполного восстановления |"
+        },
+        {
+          "Line": 17,
+          "Text": "| BROKER-01 | P1 | NOT_RUN | Нет свежего `OrderCalcProfit/OrderCalcMargin` на реальном symbol/account | Broker-specific money и margin не доказаны |"
+        },
+        {
+          "Line": 18,
+          "Text": "| TEST-01 | P1 | FAIL as full proof | R12A canonicalizer при прямом запуске хеширует пустой ledger и не читает production MQL5 | Его exit 0 нельзя считать proof денежной реализации |"
+        },
+        {
+          "Line": 19,
+          "Text": "| TEST-02 | P1 | UNPROVEN | R12A causal checks подтверждают Python evaluator, но source mutations второго блока не начаты | `SECOND_BLOCK_ACCEPTANCE=NOT_GRANTED` |"
+        },
+        {
+          "Line": 20,
+          "Text": "| TEST-03 | P2 | FAIL | Frozen R7 verifier на текущем дереве: 57/62; status/manifest markers устарели | Исторический seal нельзя применять как актуальный acceptance gate |"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02A_TEST_EXECUTION_RU.md",
+      "SHA256": "9977a9ed5d6b4f1fe64f35c93cfc5f011520fc8a0376eff0a5fa5848edf185de",
+      "StatusLocators": [
+        {
+          "Line": 23,
+          "Text": "| `verify_hsb_2d_v1_r7.py --root <project> --skip-seal` | 1 | FAIL | 57/62 current-tree static checks; five failures are stale status/manifest/marker expectations and missing historical artifacts |"
+        },
+        {
+          "Line": 26,
+          "Text": "Первый вызов R7/R8 без обязательного `--root` завершился argparse exit 2 и не считается выполнением теста. После диагностики оба запуска повторены с корректным root; R8 прошёл, R7 дал описанный FAIL."
+        },
+        {
+          "Line": 28,
+          "Text": "## NOT_RUN"
+        },
+        {
+          "Line": 42,
+          "Text": "PASS reference-тестов доказывает только поведение Python specification и отдельных static contracts. Он не повышает `FULL_ECONOMIC_CORRECTNESS` до PASS и не заменяет MQL5/broker execution. Frozen R7 FAIL не означает торговую регрессию: verifier ожидает исторический sealed set, который не соответствует текущему более позднему дереву."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0A_ADMIN_APPROVAL_SHEET_RU.md",
+      "SHA256": "6ef34196a9f60d8b905a676ec97981b32eb2a6b82816983ccde29b6f22c8cd6f",
+      "StatusLocators": [
+        {
+          "Line": 31,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 60,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 89,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 114,
+          "Text": "**Risks:** ABSOLUTE консервативнее данного примера, но не является доказательством полной recovery. Broker-specific расчёты NOT_RUN."
+        },
+        {
+          "Line": 118,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 147,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 176,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 201,
+          "Text": "**Risks:** Гонки consumers и torn journals остаются UNPROVEN до отдельной durable реализации. Не считать ELIGIBLE совершённым денежным событием."
+        },
+        {
+          "Line": 205,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 234,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 249,
+          "Text": "**ExactNormativeText:** RequiredLevels определяется immutable proof depth/планом до расчёта margin и независимо от знака результата. EligibleLevels для all-level гарантии должен покрывать RequiredLevels полностью: отсутствие/неполнота/stale source, money, cost, risk, margin, Far projection или snapshot proof => UNAVAILABLE/UNPROVEN для всей гарантии, а не исключение неудобного уровня. Каждый обязательный уровень проходит lot gate Share*Bnet>F, независимый source/available proof и согласованную loss/buffer policy. Для варианта A WorstCatchUpMargin=min_i(AvailableReserve_i-FarLossMetric_i-SafetyBuffer_i); PASS только при строгом >0 и всех прочих gates. Tie-break — минимальный levelIndex среди минимумов; все уровни/metrics/proofs/policy входят в digest. Available_i не является суммой одинаковых средств по альтернативным сценариям; для последовательного пути нужен проверенный cumulative balance evolution. Projected future gain без source/available proof не даёт authority. Вариант B оценивает immutable выбранный control level и возвращает SINGLE_LEVEL_ONLY без all-level guarantee; maximum TransitionLoss не доказывает A. Политика и её scope требуют отдельного утверждения; production selector здесь не меняется."
+        },
+        {
+          "Line": 263,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0A_CONFLICTS_AND_BLOCKERS_RU.md",
+      "SHA256": "ade28f55dab406125b0d6ee8e563f0758322e33be26250ea6673585cdf419dcb",
+      "StatusLocators": [
+        {
+          "Line": 3,
+          "Text": "База `cb5e55cb38aa4f2eb5b58e5218462c6738f3097a`. Адресные доказательства R0 подтверждены без production remediation. Полные точные тексты: [кандидат](../Docs/NEXT_STAGE_02B_R0A_CONTRACT_FREEZE_CANDIDATE_RU.md), утверждение: [лист администратора](NEXT_STAGE_02B_R0A_ADMIN_APPROVAL_SHEET_RU.md)."
+        },
+        {
+          "Line": 8,
+          "Text": "- M-02: точная assembly expected копирует submitted identity; independent expected tests отклоняют те же foreign fields. Полная NewFar selection NOT_RUN."
+        },
+        {
+          "Line": 18,
+          "Text": "**D-01:** Docs/04,08 требуют equality; Docs/32 допускает <= и складывает consumed с неуточнёнными grants. Безопасный вариант: Полные immutable grants; отдельные balances; промежуточный Unallocated недоступен. Статус: AWAITING_ADMIN_APPROVAL. Источники: Docs/04:Allocation conservation; Docs/08:Allocation Ledger; Docs/32; CR-01/04/07/08."
+        },
+        {
+          "Line": 20,
+          "Text": "**D-02:** Общее recoveryMoney может смешивать прогноз и доступный ресурс. Безопасный вариант: Раздельные DTO, без неявного projected→actual/available. Статус: AWAITING_ADMIN_APPROVAL. Источники: Docs/04:RecoveryPL; Docs/24; Docs/27; Docs/31; CR-02/05/10."
+        },
+        {
+          "Line": 22,
+          "Text": "**D-03:** Aggregate Core+Trend+Small ошибочно выглядит разрешённым Big Reserve. Безопасный вариант: Small positive net — ResidualHeld, не BigReserve; Core/Trend только confirmed eligible источники. Статус: AWAITING_ADMIN_APPROVAL. Источники: Docs/08:Isolation; Docs/31; CR-10; M05-small-only."
+        },
+        {
+          "Line": 24,
+          "Text": "**D-04:** Название increase не определяет baseline и может ослаблять gate. Безопасный вариант: Хранить оба, для рекомендуемого рабочего gate выбрать ABSOLUTE; incremental — diagnostic до отдельного разрешения. Статус: AWAITING_ADMIN_APPROVAL. Источники: Docs/04:Reserve Catch-Up; Docs/24; Docs/31; D-04 предыдущего пакета."
+        },
+        {
+          "Line": 26,
+          "Text": "**D-05:** Одна семантическая область для плановой оценки и фактического accounting. Безопасный вариант: Раздельные типы и обязательная post-fill reconciliation. Статус: AWAITING_ADMIN_APPROVAL. Источники: Docs/04:Transition Loss; Docs/08; Docs/27; R12A per-ticket fill/batch atomicity."
+        },
+        {
+          "Line": 28,
+          "Text": "**D-06:** Не определено пересечение per-leg и Catch-Up deductions. Безопасный вариант: Charge-once по документированным riskBasis/window, отдельные независимые risk budgets; unresolved overlap блокирует proof. Статус: AWAITING_ADMIN_APPROVAL. Источники: Docs/24; Docs/04:Reserve Catch-Up; Include/Money/HSBI_CostModel.mqh:18; D-06 предыдущего пакета."
+        },
+        {
+          "Line": 30,
+          "Text": "**D-07:** Bool prior и key без amount не доказывают exactly-once. Безопасный вариант: Typed outcomes; eligibility отдельно от commit, durable registry как prerequisite. Статус: AWAITING_ADMIN_APPROVAL. Источники: Docs/08:Keys/exactly-once; Docs/16; Docs/32; R10 replay binding."
+        },
+        {
+          "Line": 32,
+          "Text": "**D-08:** Флаги и self-copy expected не подтверждают existence/provenance. Безопасный вариант: История брокера плюс durable журнал и независимая reconciliation; fixture только для тестов. Статус: AWAITING_ADMIN_APPROVAL. Источники: Docs/08; Docs/16; Docs/31; Docs/32; R10 proofBoundary; R12A scope boundary."
+        },
+        {
+          "Line": 34,
+          "Text": "**CR-09:** Maximum TransitionLoss не обязан совпадать с minimum Catch-Up margin. Безопасный вариант: A; B допустим только явно ограниченным альтернативным решением. Статус: AWAITING_ADMIN_APPROVAL. Источники: Docs/30; Docs/27; Include/Planning/HSBI_FutureSmallProofAggregator.mqh:50; CR-09 предыдущего пакета."
+        },
+        {
+          "Line": 37,
+          "Text": "## UNPROVEN / NOT_RUN"
+        },
+        {
+          "Line": 41,
+          "Text": "| Confirmed broker history и role/plan reconciliation | NOT_RUN / UNPROVEN | read-only provider в целевом account namespace; fixture не заменяет terminal |"
+        },
+        {
+          "Line": 42,
+          "Text": "| Durable consumption registry/CAS/commit/restart | UNPROVEN | approved backend и crash/concurrency injection; in-memory модель не является IO |"
+        },
+        {
+          "Line": 43,
+          "Text": "| Полная NewFar integration и обязательность всех authority callers | UNPROVEN / NOT_RUN | отдельный integration этап; локальные validators не доказывают невозможность обхода |"
+        },
+        {
+          "Line": 44,
+          "Text": "| MQL5 main/harness compile и tests | NOT_RUN | MetaEditor/MT5 отсутствуют; template компилируемость не заявляется |"
+        },
+        {
+          "Line": 45,
+          "Text": "| Strategy Tester и broker money/margin modes | NOT_RUN | безопасная terminal environment и реальные logs; без dispatch |"
+        },
+        {
+          "Line": 46,
+          "Text": "| Currency/precision posting и cost overlap | DECISION_REQUIRED / NOT_RUN | D-01/D-06 утверждение и broker validation; decimal fixture не доказывает currency conversion |"
+        },
+        {
+          "Line": 47,
+          "Text": "| WORST_CASE all-level future funding | UNPROVEN | proof каждого required уровня и cumulative balance evolution; не отфильтровывать отрицательные/missing уровни |"
+        },
+        {
+          "Line": 48,
+          "Text": "| Экономическая конечность recovery | UNPROVEN | feasible execution path; slope/positive local margin недостаточны |"
+        },
+        {
+          "Line": 52,
+          "Text": "128 новых checks — executable tests предложенных правил. Decimal math использует USD/2-digit профиль и unit-price linear инструмент для иллюстрации Bid/Ask; не вызывает broker APIs. Authority/complete/fresh в этих тестах являются предпосылками независимо заданных fixtures, а не реальными broker-confirmation flags. In-memory state evolution показывает арифметическую идемпотентность, но не durable exactly-once. Source-sensitive guard проверяет извлечённый unchanged runtime policy; MQL5 runtime NOT_RUN."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0A_DECISION_RECOMMENDATIONS_RU.md",
+      "SHA256": "43d7c8068f7564ed5d88d6bed9e80d1e2dc0facde2763462fb4fd16581fc20b7",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "Точные формулировки и поля утверждения: [лист администратора](NEXT_STAGE_02B_R0A_ADMIN_APPROVAL_SHEET_RU.md). Этот пакет не отменяет исторические нормы по дате публикации."
+        },
+        {
+          "Line": 71,
+          "Text": "**Риск и миграция:** ABSOLUTE консервативнее данного примера, но не является доказательством полной recovery. Broker-specific расчёты NOT_RUN. Сохранять lossMetric/version, baseline origin и lineage. Старый baseline не угадывать; current absolute semantics до реализации остаётся прежней."
+        },
+        {
+          "Line": 125,
+          "Text": "**Риск и миграция:** Гонки consumers и torn journals остаются UNPROVEN до отдельной durable реализации. Не считать ELIGIBLE совершённым денежным событием. Старые events без amount/bucket/policy нельзя автоматически считать exact replay. Восстановить source payload или UNAVAILABLE/manual review."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0A_TEST_RESULTS_RU.md",
+      "SHA256": "c55fbb9d4dd39d58494cbd95eb56871988c7a8d1a6324c240290ea61e05e86b8",
+      "StatusLocators": [
+        {
+          "Line": 10,
+          "Text": "PRODUCTION_CONTRACT_STATUS=FAIL"
+        },
+        {
+          "Line": 11,
+          "Text": "RUNTIME_VERIFICATION_STATUS=NOT_RUN"
+        },
+        {
+          "Line": 30,
+          "Text": "128 PASS, 0 FAIL, exit0. Expected outcomes не импортируются из production evaluator. Проверяются Decimal суммы/precision/residual, negative/zero net, typed conversion, role Small/opening filter, absolute/incremental/BidAsk/partial-close baseline, actual transition overcap/partial fills, buffer overlap, replay/full spend/reservations, owner namespace, source/proof/digest/net, all-level worst criterion/tie/missing/zero/negative и zero-Core. No-trade проверен отдельным source-sensitive execution неизменённой policy в пяти режимах; безусловный return false покрывает остальные режимы по исходнику."
+        },
+        {
+          "Line": 48,
+          "Text": "Новый helper reconciled_net моделирует только eligible closing-source path Reserve. Opening commissions/fees не исчезают: general economic accounting должен сохранить их отдельно; отсутствие harvest grant не запрещает economic record. Source fixtures complete/fresh обозначают предпосылки теста, не фиктивное подключение брокера. USD/2-digit и linear unit-price fixtures ограничивают числовую область теста; полный schema/authority caller integration остаётся UNPROVEN."
+        },
+        {
+          "Line": 69,
+          "Text": "| R7_frozen | 1 | FAIL: 57/62; historical status/manifest mismatch, не скрыт |"
+        },
+        {
+          "Line": 73,
+          "Text": "## NOT_RUN / UNPROVEN"
+        },
+        {
+          "Line": 75,
+          "Text": "- MQL5_COMPILE=NOT_RUN; MQL5_TESTS=NOT_RUN: MetaEditor/MT5 недоступны. Из существующего .mq5.in не создавался якобы проверенный .mq5; компилируемость template не заявляется."
+        },
+        {
+          "Line": 76,
+          "Text": "- STRATEGY_TESTER=NOT_RUN; broker money/margin/history/account modes=NOT_RUN."
+        },
+        {
+          "Line": 77,
+          "Text": "- Durable commit/replay/CAS/concurrency/crash recovery=UNPROVEN: in-memory apply не является файловым backend."
+        },
+        {
+          "Line": 78,
+          "Text": "- Полная NewFar money authorization, mandatory caller chain и broker-reachable future trajectory=UNPROVEN/NOT_RUN."
+        },
+        {
+          "Line": 79,
+          "Text": "- Административные D-01–08/CR-09=AWAITING; zero-Core не исправлен, geometry scope отдельно."
+        },
+        {
+          "Line": 83,
+          "Text": "Только новые audit/test-only документы, JSON, reference и runner в разрешённом каталоге. Старые R0 29 файлов и 74 production hashes сверены; изменённых historical artifacts нет. Source/guard manifest и log hashes входят в verification summary. Публикация выполняется одним новым commit после diff и повторной remote parity проверки; конечный SHA фиксируется финальным сообщением, а не угадывается внутри self-referencing commit. Исходный нормативный gate остаётся FAIL; утверждение и R1 запрещены до решения администратора."
+        },
+        {
+          "Line": 91,
+          "Text": "- `Reports/NEXT_STAGE_02B_R0A_ADMIN_APPROVAL_SHEET_RU.md`"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0B_ADMIN_APPROVAL_SHEET_RU.md",
+      "SHA256": "e5b2c8daf81fdc66f64087fc0e68752e5cf5e93e985e596adf5dbeff83b305c2",
+      "StatusLocators": [
+        {
+          "Line": 17,
+          "Text": "**ExactNormativeText:** ActualDealNetRaw=Profit+Swap+Commission+Fee с исходными знаками и без повторного вычитания costs. PostedActualDealNet — независимо подтверждённая posted сумма/сумма posted компонентов данного источника. Если брокерский posted факт неизвестен, локальный HALF_EVEN не создаёт actual resource. AllocatableActualDealNet=max(0,PostedActualDealNet) только для подтверждённого reconciled eligible closing source. Отрицательный/нулевой net даёт zero grant, сохраняя signed economic result. Для COMMITTED: Σ OriginalBucketGrant=AllocatableActualDealNet, Unallocated=0; для PREPARED: Σ Grant+Unallocated=AllocatableActualDealNet, расход запрещён. Для каждого bucket Remaining+Consumed=Grant, 0<=Reserved<=Remaining, Available=Remaining-Reserved. Consumed не является источником. Все суммы конечны, одной валюты и precision. Вариант B (не default), candidate PrecisionPolicy R0A-MONEY-1: decimal minor units, ROUND_HALF_EVEN один раз после суммы raw components; первые четыре shares округляются вниз, весь остаток — ResidualHeld. Policy должна быть утверждена и сверена с broker posting; несовпадение/неизвестная точность => UNAVAILABLE. ResidualHeld входит в сохранение денег, но не доступен потребителю; это не промежуточный Unallocated. Replay immutable grant сравнивает весь per-bucket vector, source, policy и schema. Balance меняется только отдельным consumption/reservation/release event. R0B рекомендует первичными broker-posted данные; local precision policy допустима только versioned, после source/account/currency-specific сверки с receipt. При mismatch либо неизвестной precision — UNAVAILABLE. Неатрибутированный actual debit/убыток требует независимой funding reconciliation: нельзя ни восстановить Consumed, ни списать случайный bucket; aggregate availability до сверки UNPROVEN/UNAVAILABLE."
+        },
+        {
+          "Line": 31,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 62,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 91,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 114,
+          "Text": "**Tests:** R0A unchanged 128: D-04 numeric vectors; broker runtime NOT_RUN"
+        },
+        {
+          "Line": 120,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 143,
+          "Text": "**Tests:** R0A unchanged 128: D-05 numeric vectors; broker runtime NOT_RUN"
+        },
+        {
+          "Line": 149,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 172,
+          "Text": "**Tests:** R0A unchanged 128: D-06 numeric vectors; broker runtime NOT_RUN"
+        },
+        {
+          "Line": 178,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 207,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 236,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 253,
+          "Text": "**ExactNormativeText:** RequiredLevels определяется immutable proof depth/планом до расчёта margin и независимо от знака результата. EligibleLevels для all-level гарантии должен покрывать RequiredLevels полностью: отсутствие/неполнота/stale source, money, cost, risk, margin, Far projection или snapshot proof => UNAVAILABLE/UNPROVEN для всей гарантии, а не исключение неудобного уровня. Каждый обязательный уровень проходит lot gate Share*Bnet>F, независимый source/available proof и согласованную loss/buffer policy. Для варианта A WorstCatchUpMargin=min_i(AvailableReserve_i-FarLossMetric_i-SafetyBuffer_i); PASS только при строгом >0 и всех прочих gates. Tie-break — минимальный levelIndex среди минимумов; все уровни/metrics/proofs/policy входят в digest. Available_i не является суммой одинаковых средств по альтернативным сценариям; для последовательного пути нужен проверенный cumulative balance evolution. Projected future gain без source/available proof не даёт authority. Вариант B оценивает immutable выбранный control level и возвращает SINGLE_LEVEL_ONLY без all-level guarantee; maximum TransitionLoss не доказывает A. Политика и её scope требуют отдельного утверждения; production selector здесь не меняется."
+        },
+        {
+          "Line": 267,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0B_DECISIONS_REQUIRED_RU.md",
+      "SHA256": "13481104dc33387689cc9f5528f476c999e7b35c08d6ff52cbcc62770b6b9830",
+      "StatusLocators": [
+        {
+          "Line": 23,
+          "Text": "**Approval:** AWAITING."
+        },
+        {
+          "Line": 41,
+          "Text": "**Approval:** AWAITING."
+        },
+        {
+          "Line": 59,
+          "Text": "**Approval:** AWAITING."
+        },
+        {
+          "Line": 77,
+          "Text": "**Approval:** AWAITING."
+        },
+        {
+          "Line": 95,
+          "Text": "**Approval:** AWAITING."
+        },
+        {
+          "Line": 113,
+          "Text": "**Approval:** AWAITING."
+        },
+        {
+          "Line": 131,
+          "Text": "**Approval:** AWAITING."
+        },
+        {
+          "Line": 149,
+          "Text": "**Approval:** AWAITING."
+        },
+        {
+          "Line": 167,
+          "Text": "**Approval:** AWAITING."
+        },
+        {
+          "Line": 177,
+          "Text": "См. [лист утверждения](NEXT_STAGE_02B_R0B_ADMIN_APPROVAL_SHEET_RU.md), [precision review](../Docs/NEXT_STAGE_02B_R0B_PRECISION_POLICY_REVIEW_RU.md) и [R1.1 spec](../Docs/NEXT_STAGE_02B_R1_1_IMPLEMENTATION_SPEC_RU.md)."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0B_FINAL_VERDICT_RU.md",
+      "SHA256": "59705a95a2e3fafd320d141cbe5ff883f5e337e7adc52f3cc45c780aed4e4c0e",
+      "StatusLocators": [
+        {
+          "Line": 14,
+          "Text": "- Доступные исторические regressions повторены с command/UTC/SHA/exit/counts. R7 57/62 и R0 46 mismatches остаются FAIL; это ожидаемые, не скрытые результаты."
+        },
+        {
+          "Line": 19,
+          "Text": "Нет fresh MQL5 compilation/runtime, Strategy Tester, broker precision/margin/authenticity или real execution. Durable journal/CAS/restart, own-reservation settlement, global debit attribution, partial-fill execution и full NewFar integration UNPROVEN/NOT_RUN. Никакой in-memory commit или положительный future margin не закрывает эти зависимости."
+        },
+        {
+          "Line": 21,
+          "Text": "Отдельного executable02A suite нет; все доступные команды его execution report повторены под R8/R10/R12/R12A/R7. NOT_RUN не превращён в PASS. R12A canonicalizer напечатал hash и выполнил ноль assertions; это не proof Economic Ledger."
+        },
+        {
+          "Line": 25,
+          "Text": "D01_D08_ADMIN_APPROVAL=AWAITING, CR09_ADMIN_APPROVAL=AWAITING. CONTRACT_FREEZE_STATUS=PROPOSED. M01/M02/L01/L02/ZeroCore не исправлены. STAGE_02B_R1_IMPLEMENTATION_ALLOWED=NO. BrokerDispatch/real trading запрещены."
+        },
+        {
+          "Line": 27,
+          "Text": "После публикации единственного audit/test-only commit проверить remote SHA и clean tree; итоговый SHA фиксируется финальным сообщением. Сам commit не может содержать собственный SHA без self-reference. Следующий шаг — решение администратора по [approval sheet](NEXT_STAGE_02B_R0B_ADMIN_APPROVAL_SHEET_RU.md); не запускать production фазы автоматически."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0B_FINDINGS_RU.md",
+      "SHA256": "ff01f784eeae6966b49de9d7895953914ac9f60f1c817df58459b3f020468bf1",
+      "StatusLocators": [
+        {
+          "Line": 10,
+          "Text": "4. R0A authorize/apply boundary не представляет/проверяет Symbol/Magic/Deal/Order/Position/Snapshot. Unknown extra field может игнорироваться и дать COMMITTED_IN_MEMORY. Это не доказательство обхода полного verify_proof pipeline: обязательность coupling и реальный provider остаются UNPROVEN."
+        },
+        {
+          "Line": 14,
+          "Text": "8. Zero Core ниже Vmin, max-volume и slope — разные ограничения. Core>=Vmin не достаточен; неизвестный min/step grid требует UNPROVEN, а не молчаливой нормализации."
+        },
+        {
+          "Line": 15,
+          "Text": "9. CR-09 A/B неэквивалентны; sequential source50 нельзя потратить30+30. Missing trajectory data →UNPROVEN."
+        },
+        {
+          "Line": 25,
+          "Text": "Внешняя broker authenticity/precision/margin, durable journal/CAS/restart/concurrency, реальные partial fills, обязательность complete caller chain, полный NewFar и экономическая конечность recovery — NOT_RUN/UNPROVEN. Source DTO validity/positive P&L/ненулевые IDs не заменяют эти доказательства."
+        },
+        {
+          "Line": 31,
+          "Text": "Точные SourceFile/Function/Line и все 19 измерений evidence: [verification matrix](../Tests/Contracts/NEXT_STAGE_02B_R0B_VERIFICATION_MATRIX.json). CurrentStatus не повышает NOT_RUN/UNPROVEN до PASS. PASS source formula/no-trade относится только к указанному локальному scope."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0B_MUTATION_RESULTS_RU.md",
+      "SHA256": "5c0e52a20bcb99295cd79591ea818c98efd3c39a5eab0a6504930af8deca0b8a",
+      "StatusLocators": [
+        {
+          "Line": 61,
+          "Text": "Смена original model/hash или отсутствующий anchor вызывает infrastructure failure. Результаты не основаны на fail-to-compile. Expected критических tests — literal REJECT/CONFLICT/NO_OP и фиксированные суммы50/40/0, а не вывод изменяемого evaluator. Математический источник — proposed D-01/D-07/D-08, а не approval администратора. MQL5/broker mutation evidence NOT_RUN."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0B_TEST_RESULTS_RU.md",
+      "SHA256": "55ef1e575e6030fc006fe040f654d65fc6db4e3c495a54e50d8e19bfef0b3599",
+      "StatusLocators": [
+        {
+          "Line": 9,
+          "Text": "141 PASS, 0 FAIL, exit0. Набор содержит 14 positive identity controls, 14 single-field negatives с zero balance/journal/revision deltas, replay после revision/policy changes, full consumption/spent rejection, source/budget/bucket/finite/precision tests, signed rebates, JPY0/USD2/KWD3 fixtures, single-vs-double rounding, raw64 golden vectors, all required CR-09 cases и восемь geometry profiles. Negative money/loss и insufficient proof depth не становятся positive future proof."
+        },
+        {
+          "Line": 25,
+          "Text": "| Run | Exit | PASS | FAIL | Область/причина |"
+        },
+        {
+          "Line": 43,
+          "Text": "| 02A | None | None | None | Standalone runner отсутствует: NOT_RUN. Все команды архивного 02A report повторены как R8/R10/R12/R12A/R7; native/broker NOT_RUN. |"
+        },
+        {
+          "Line": 49,
+          "Text": "## NOT_RUN / UNPROVEN"
+        },
+        {
+          "Line": 51,
+          "Text": "MQL5_COMPILE/MQL5_TESTS/STRATEGY_TESTER/BROKER_PRECISION/BROKER_MARGIN=NOT_RUN — MetaEditor/MT5/целевого account runtime нет. DURABLE_RESTART/CAS/concurrency/own-reservation settlement/provider authenticity/NewFar integration=UNPROVEN. Partial-fill arithmetic R0A fixture прошла, реальное partial execution не проверено. Никакой zero-Core/ledger/source production remediation не выполнялась."
+        },
+        {
+          "Line": 64,
+          "Text": "- `Reports/NEXT_STAGE_02B_R0B_ADMIN_APPROVAL_SHEET_RU.md`"
+        },
+        {
+          "Line": 66,
+          "Text": "- `Reports/NEXT_STAGE_02B_R0B_FINAL_VERDICT_RU.md`"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0C_ADMIN_DECISIONS_RU.md",
+      "SHA256": "1446fc9e37480e8bb49d04580d28c42680c8c153f404402b8d2e14fd416601a9",
+      "StatusLocators": [
+        {
+          "Line": 3,
+          "Text": "База `8903f7ba5d376dc642024ac8ab4400b884466c55`. Никаких решений автоматически не утверждено. Исходный R0B approval sheet неизменен. D-01–D-08 и CR-09 остаются AWAITING_ADMIN_APPROVAL."
+        },
+        {
+          "Line": 13,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 27,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 41,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 55,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 69,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 83,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 95,
+          "Text": "Влияние: Уточнение D-07; durable journal/CAS и own reservations ещё UNPROVEN."
+        },
+        {
+          "Line": 97,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 111,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0C_FINAL_VERDICT_RU.md",
+      "SHA256": "3f92f18b29e8bd82d93f1899bce57457b47ba91a8b585c49a9ab2274759494a0",
+      "StatusLocators": [
+        {
+          "Line": 3,
+          "Text": "База `8903f7ba5d376dc642024ac8ab4400b884466c55`. Статус **TEST_ONLY_COMPLETE_WITH_EXTERNAL_DEPENDENCIES_UNPROVEN**: завершён заявленный ограниченный oracle/test-only scope, не доказана готовность EA."
+        },
+        {
+          "Line": 5,
+          "Text": "Независимо подтверждены R0C-01–R0C-05; поведение unsupported content/clock metadata старого oracle осталось UNPROVEN. Четыре R0B weakened copies проходят141 старый тест и принимают запрещённые примеры. R0C: 221 сценариев/927 сравнений PASS; 30/30 causal mutations KILLED, final survivors0, infrastructureErrors0. Initial survivor/error и исполнимое воспроизведение прежнего harness defect раскрыты в DEVELOPMENT_CHECKS, alias edit действительно повторён после исправления fresh-fixture test."
+        },
+        {
+          "Line": 9,
+          "Text": "Исторический `Reports/NEXT_STAGE_02B_R0B_FINAL_VERDICT_RU.md`:5 и прежнее COMPLETE=YES не переписываются. **R0B_COMPLETE_REASSESSMENT=NOT_ACCEPTED_AS_FULL_ORACLE_VALIDATION** из-за четырёх дополнительных survivors и snapshot/DTO/time gaps. Его141PASS/30KILLED — корректные факты для тогдашних каталогов. Новый R0C закрывает проверенные gaps только в PROPOSED Python profile; это не ретроспективное изменение исторических evidence и не production remediation."
+        },
+        {
+          "Line": 13,
+          "Text": "Исходный R0B parent9b43c38,22 additions подтверждены. Production74 и все15 R0A/21 hash-listed R0B artifacts проверены по worktree и Git objects. Полный preservation proof связывает все существовавшие tracked project files с baseline Git blob/hash; новых файлов вне Docs/Reports/Tests нет. Synthetic fixtures B1/S1/Account1, без broker credentials. No-trade scan74 files и10 controls пройден; runtime NOT_RUN."
+        },
+        {
+          "Line": 15,
+          "Text": "REGRESSION_TESTS=FAIL: frozen R7 остаётся57PASS/5FAIL и R0 остаётся35/46. REGRESSION_BASELINE_MATCH=YES. Доступные R8/R10/R12/R12A и R0A128/R0B141/старый mutation30 повторены, исходные exits сохранены. 02A standalone NOT_RUN; команды его archived report выполнены."
+        },
+        {
+          "Line": 19,
+          "Text": "Global source→multiple allocations conservation, concurrency/durable CAS/restart, own-reservation settlement, provider/broker authenticity, precision/margin runtime, partial fill execution и NewFar integration UNPROVEN/NOT_RUN. MetaEditor/MT5/Wine в среде отсутствуют: MQL5_COMPILE/MQL5_TESTS/STRATEGY_TESTER=NOT_RUN."
+        },
+        {
+          "Line": 21,
+          "Text": "D-01–D-08/CR-09/R0C clauses AWAITING_ADMIN_APPROVAL. R1.1 addendum READY_FOR_REVIEW, не разрешение реализации. M01/M02/L01/L02/ZeroCore production remediation=NO. STAGE_02B_R1_IMPLEMENTATION_ALLOWED=NO, TRADING_LOGIC_START_ALLOWED=NO, BROKER_DISPATCH_ALLOWED=NO, REAL_TRADING_ALLOWED=NO."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0C_REVIEW_FINDINGS_RU.md",
+      "SHA256": "6b95185736f0b4bde927287250f6c9806c36de405478afbe30b0b912767f6fa4",
+      "StatusLocators": [
+        {
+          "Line": 15,
+          "Text": "Не всякий отрицательный input R0B имеет дефект. False/0/negative event могут корректно отвергаться; matching outcomes отмечены NOT_REPRODUCED **для конкретного контрпримера**, без отмены FindingID в целом. R0B content receipt/clock-domain extras не поддерживаются: там UNPROVEN. Одно отсутствие проверки extra field не объявлено обходом production layer."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0C_TEST_AND_MUTATION_RESULTS_RU.md",
+      "SHA256": "1615673495eb38c4842f5f19527343e3d98f26b40ea95e8f5b9de8509dfa1113",
+      "StatusLocators": [
+        {
+          "Line": 7,
+          "Text": "221 PASS, 0 FAIL, exit0. 221 именованных сценариев / 927 явно учитываемых сравнений-предикатов; это не 927 различных сценариев. Сценарии содержат control/negative/boundary/fault cases, а не только успешно отклонённые запросы. Expected literal statuses/balances заданы test source; independent wire encoder не вызывает subject digest."
+        },
+        {
+          "Line": 54,
+          "Text": "| Suite | Exit | PASS | FAIL | Совпадает baseline |"
+        },
+        {
+          "Line": 75,
+          "Text": "| 02A | None | None | None | NOT_RUN |"
+        },
+        {
+          "Line": 79,
+          "Text": "R7 остаётся57/62, exit1: S040B/S040C/S044A/S044B — frozen status expectations, S045 — старый manifest; это не доказанная функциональная торговая регрессия. R0: native81=35/46, reference58, source probes13, exit1. Общий REGRESSION_TESTS=FAIL, REGRESSION_BASELINE_MATCH=YES. Нулевой exit R0C regression orchestrator означает совпадение ожидаемых exits, а не превращение R7/R0 в PASS."
+        },
+        {
+          "Line": 94,
+          "Text": "MQL5_COMPILE/MQL5_TESTS/STRATEGY_TESTER=NOT_RUN. Broker authenticity/margin/precision, durable journal/CAS/concurrency/restart, global source funding, own-reservation settlement, real partial fills/NewFar integration остаются NOT_RUN/UNPROVEN. Python PASS не является production readiness."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0D_ADMIN_DECISIONS_RU.md",
+      "SHA256": "ca4f0b6a100367c73e8b3518afbbc96f94f926300ae6d5e9c44e1b8f4586d765",
+      "StatusLocators": [
+        {
+          "Line": 3,
+          "Text": "Все D-01–D-08/CR-09/R0C/R0D остаются AWAITING_ADMIN_APPROVAL. Старые approval sheets не изменены. База `ec7ae40fe22e1d6e5bed035450750502a1162ab5`."
+        },
+        {
+          "Line": 11,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 25,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 39,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 53,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0D_FINAL_VERDICT_RU.md",
+      "SHA256": "99292adb8a5e72db174da47ced016611317c171565332165b391ec8d30947c30",
+      "StatusLocators": [
+        {
+          "Line": 3,
+          "Text": "База `ec7ae40fe22e1d6e5bed035450750502a1182ab5`. Статус **TEST_ONLY_COMPLETE_WITH_EXTERNAL_DEPENDENCIES_UNPROVEN** относится только к объявленному reference/profile domain; финальная package/preservation проверка пройдена. Нет production remediation и нет утверждения экономической модели."
+        },
+        {
+          "Line": 9,
+          "Text": "Исторический COMPLETE=YES не переписывается. R0C_COMPLETE_REASSESSMENT=NOT_ACCEPTED_AS_FULL_NUMERIC_VALIDATION из-за actual worst/sequential arithmetic defects и snapshot schema ambiguity. Его221PASS/30KILLED — факты прежних каталогов. R0D не исправляет прошлые production defects M01/M02/L01/L02/ZeroCore и не повышает статус EA до trading-ready."
+        },
+        {
+          "Line": 13,
+          "Text": "R7 exit1/57PASS/5FAIL и R0 exit1/35PASS/46mismatches сохранены. REGRESSION_TESTS=FAIL, REGRESSION_BASELINE_MATCH=YES. Остальные доступные reference/static runs повторены с реальными exits. 02A standalone NOT_RUN; native MetaEditor/MT5/Strategy Tester отсутствуют. No-trade static scan не runtime proof."
+        },
+        {
+          "Line": 19,
+          "Text": "D-01–D-08/CR-09/R0C/R0D approval=AWAITING. Global source funding across allocations, broker history/snapshot/posted authenticity, broker margin/precision runtime, own-reservation settlement, concurrent durable CAS/restart, real partial fills/NewFar integration UNPROVEN/NOT_RUN. Fractions и fixture codec не являются MQL5 implementation."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0D_REPRODUCTION_RU.md",
+      "SHA256": "e0e04c523da353c76bd481a42fb4f2be75a649490af4bcd693d9e365f4456e39",
+      "StatusLocators": [],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0D_TEST_AND_MUTATION_RESULTS_RU.md",
+      "SHA256": "1590fb6fac8e00b9a5578336eb7b1ac0fe876a4ac54c474a077c772077cae68d",
+      "StatusLocators": [
+        {
+          "Line": 7,
+          "Text": "118 разных сценариев,8 configurations, 944 executions, 4696 явно учитываемых comparison predicates, 944PASS/0FAIL/0INFRASTRUCTURE_ERROR, exit0. Эти числа не складываются. Predicate counts считают явные проверки/поля; вложенный trace — составной предикат, не отдельное утверждение на каждый Python operator."
+        },
+        {
+          "Line": 48,
+          "Text": "| Suite | Exit | PASS | FAIL | BaselineMatch |"
+        },
+        {
+          "Line": 72,
+          "Text": "| 02A | None | None | None | NOT_RUN |"
+        },
+        {
+          "Line": 74,
+          "Text": "R7 frozen57/62 и R0 native35/46 остаются FAIL/exit1; REGRESSION_BASELINE_MATCH=YES не превращает их в PASS. R12A canonicalizer выполняет0 assertions; package checker R0C не публикует comparable case count. R0B/R0C mutation catalogs по30 выполнены отдельно от нового22. Старые221 tests и30mutations не переопределены новым результатом. 02A standalone отсутствует; команды archived execution report повторены, scan74 files/0matches плюс7 positive/3 negative controls. MQL5_COMPILE/MQL5_TESTS/STRATEGY_TESTER=NOT_RUN."
+        },
+        {
+          "Line": 78,
+          "Text": "Новый checker самостоятельно читает baseline Git tree и проверяет полный inventory, bytes/blob/SHA256, scope, source hashes, matrix function/line refs, per-row/aggregate verdict и пустые approvals. Seven disposable-copy negatives: missing inventory, altered historical source, spoofed source hash, wrong total, FAIL row under aggregate PASS, missing mandatory file, outside-scope file. Там, где меняется новый JSON, его preservation hash обновляется **в disposable copy**, чтобы не маскировать целевую semantic проверку простым hash mismatch. Actual findings в PACKAGE_RESULTS; historical originals не трогаются."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_ADMIN_APPROVAL_SHEET_RU.md",
+      "SHA256": "0d2af2cd80731530130a57db53f6176695a71ca23534fef29cc35411b9ecd495",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "Статус: PROPOSED / AWAITING_ADMIN_APPROVAL. Только audit/test-only; никаких production-изменений и торговли."
+        },
+        {
+          "Line": 17,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 32,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 47,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 62,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 77,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 87,
+          "Text": "ExactProposedContract: Каждая стоимость имеет CostID, Source, RiskBasis, Window, Currency, Amount, AlreadyIncluded, AdditionalDeduction, PolicyVersion, Evidence. Уже включённая стоимость не вычитается повторно; unknown overlap UNPROVEN."
+        },
+        {
+          "Line": 92,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 107,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 122,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 137,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 152,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 167,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 182,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 197,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 207,
+          "Text": "ExactProposedContract: До отдельного ledger attribution contract +50 и -20 дают economic30, но ни доказанный available50, ни автоматический debit20 произвольного bucket; availability UNPROVEN, spending UNAVAILABLE."
+        },
+        {
+          "Line": 212,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 227,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 242,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_C1_ADMIN_DECISIONS_RU.md",
+      "SHA256": "8788a4212abee1e57397ba0ab34bffadfd7f015d5ebf99e6dc098f404390d8c3",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. Audit/test-only; production/trading/dispatch запрещены."
+        },
+        {
+          "Line": 17,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 32,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 47,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 62,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 77,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 92,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 107,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 122,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 137,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 152,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 167,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 182,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 197,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 212,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 227,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 242,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_C1_FINAL_VERDICT_RU.md",
+      "SHA256": "bde2f7ae9ef9fb409ce1b2433fae6c37900d500e5601caab58e2519a96c2bf88",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. Audit/test-only; production/trading/dispatch запрещены."
+        },
+        {
+          "Line": 11,
+          "Text": "[C1_FINAL_STATUS]"
+        },
+        {
+          "Line": 12,
+          "Text": "ADMIN_APPROVAL_COMPLETE=NO"
+        },
+        {
+          "Line": 17,
+          "Text": "STAGE_02B_R0E_C1_COMPLETE=YES"
+        },
+        {
+          "Line": 19,
+          "Text": "[/C1_FINAL_STATUS]"
+        },
+        {
+          "Line": 21,
+          "Text": "READY означает пригодность ограниченного C1 пакета к независимому review и административному рассмотрению, а не утверждение contracts. Пока package NOT_RUN/FAIL, COMPLETE/READY остаютсяNO. Final publication SHA/parity сообщаются после реального push; self-referential SHA внутрь commit не подставляется. После C1 остановиться."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_C1_REPRODUCTION_RU.md",
+      "SHA256": "9bb4fa86ad175785af80aa60e14667dc35f08125e599b34e7aa861348ae3d937",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. Audit/test-only; production/trading/dispatch запрещены."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_C1_TEST_AND_MUTATION_RESULTS_RU.md",
+      "SHA256": "11de49e3ef1ffbb0e46d1dcc42e08813a2284086d011bb252a65ec07dc7a2c48",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. Audit/test-only; production/trading/dispatch запрещены."
+        },
+        {
+          "Line": 7,
+          "Text": "Reference: 105 различных сценариев × 8 contexts = 840 executions; PASS=840, FAIL=0, INFRA=0. Comparisons=1680 — два top-level comparison на execution, не количество независимых сценариев. Context0 Input.Calls содержит фактические аргументы заявленного public operation; остальные contexts ссылаются на этот fixture. SubjectCalls захватывает реально вызванные операции."
+        },
+        {
+          "Line": 17,
+          "Text": "DEVELOPMENT.json хранит initial contract run:4FAIL/12INFRA из-за ambient Decimal addition в независимом fixture receipt builder; заменено integer minor arithmetic. Malformed nested source record в prototype вызывал TypeError; malformed external journal ранее возвращал UNAVAILABLE; добавлены shape validation и causal semantic mutations без засчитывания runtime errors как kills. Прототип C1 также принимал historical receipt с Magic999 при history Magic7: добавлены historical source/allocation/evaluationContext bindings и три causal probes/mutations. Первый regression runner временно хранил baseline archives перед recursive R7 scan, получил S009 guards219/unique73 и56/6; archive materialization перенесена после recursive suites, frozen test не менялся. Draft source metadata не считается final execution evidence."
+        },
+        {
+          "Line": 25,
+          "Text": "| Suite | Exit | PASS | FAIL | BaselineMatch | Classification |"
+        },
+        {
+          "Line": 39,
+          "Text": "| R7_frozen | 1 | 57 | 5 | True | EXPECTED_HISTORICAL_FAILURE |"
+        },
+        {
+          "Line": 40,
+          "Text": "| 02B_R0 | 1 | 35 | 46 | True | EXPECTED_HISTORICAL_FAILURE |"
+        },
+        {
+          "Line": 56,
+          "Text": "Исторические FAIL R7/R0 не скрыты. R7 S040B/S040C/S044A/S044B — старые status/markers; S045 — frozen manifest. Обязательными остаются действующие runtime/no-trade guards и baseline preservation, не возврат исторических status labels. C1 не изменяет production, поэтому подтверждённой новой функциональной регрессии при baseline match нет. 02A standalone suite отсутствует; executable report commands покрыты named runs. R0E_mutations — ссылка на реальное reproduction execution, не отдельный фиктивный CLI запуск, который мог бы перезаписать historical JSON."
+        },
+        {
+          "Line": 60,
+          "Text": "MQL5_COMPILE/MQL5_TESTS/STRATEGY_TESTER=NOT_RUN; MetaEditor/terminal64/Wine availability сохранена в preservation. C++ extraction не MQL5 runtime. Broker authenticity/precision/margin, real partial fills, global funding/debit attribution, durable/concurrent enforcement и full NewFar остаются UNPROVEN. Флаги complete/fresh — fixture provider assumptions, не broker receipts. Ни одна таблица не разрешает trading или implementation."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_C2_ADMIN_ADDENDUM_RU.md",
+      "SHA256": "1c11bc8d0926f17a4378939a5c81a2b1cee276332559d01331ac8445de6c8640",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. Только audit/test-only; production и trading запрещены."
+        },
+        {
+          "Line": 7,
+          "Text": "Прежние16 решений остаются AWAITING_ADMIN_APPROVAL. Strict ID/nested shape/JSON исправляют implementation ранее предложенного контракта; отдельный экономический размер/источник средств не выбирается. Полная shape до replay и REJECT malformed authority token — уточнения API scope. Ограниченный recovery не расширяется до historical authorization. Новый validation inventory/strict evidence grammar — технические proposed contracts, требуют review, не самостоятельные16 новых экономических решений. Влияние на R1.1: использовать approved immutable namespace/equality и typed boundary; реализацию не начинать."
+        },
+        {
+          "Line": 17,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 32,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 47,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 62,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 77,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 92,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 107,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 122,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 137,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 152,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 167,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 182,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 197,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 212,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 227,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 242,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_C2_FINAL_VERDICT_RU.md",
+      "SHA256": "1f71c6386dbdea7a681f60c0a291018b91cc8473c4cce0f6db425c777c190006",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. Только audit/test-only; production и trading запрещены."
+        },
+        {
+          "Line": 11,
+          "Text": "[C2_FINAL_STATUS]"
+        },
+        {
+          "Line": 12,
+          "Text": "ADMIN_APPROVAL_COMPLETE=NO"
+        },
+        {
+          "Line": 17,
+          "Text": "STAGE_02B_R0E_C2_COMPLETE=YES"
+        },
+        {
+          "Line": 19,
+          "Text": "[/C2_FINAL_STATUS]"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_C2_REPRODUCTION_RU.md",
+      "SHA256": "5e7b9e95d09a96cf6c7898d29d3db072b81c34cb550615bb18db37809cab737c",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. Только audit/test-only; production и trading запрещены."
+        },
+        {
+          "Line": 11,
+          "Text": "C2-04: last-key-wins C1 принимает скрытый FAIL/exit1 при последнем PASS/0; обратный порядок фиксируется отдельно и может корректно отвергаться. Опубликованные evidence не обвиняются в дубликатах. C2-05: recovery ограничен reconstruction/bindings, не полным historical reauthorization; см. scope table."
+        },
+        {
+          "Line": 75,
+          "Text": "Classification: UNPROVEN"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_C2_TEST_AND_MUTATION_RESULTS_RU.md",
+      "SHA256": "927835dffcefbe11374d92f5c6a62e339387df0f86a7f7de500db5ec9965da95",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. Только audit/test-only; production и trading запрещены."
+        },
+        {
+          "Line": 13,
+          "Text": "Regression status=FAIL; baseline match=True; runs=31. R7/R0 сохраняют исходные exit1 и57/5,35/46. Нет выдуманного standalone02A; повторяется доступный no-trade scan. Commands, timestamps, source/runner hashes, stdout/stderr: REGRESSIONS.json. Adapted C2 runner — новый реальный файл со своим source hash, не подмена C1 runner."
+        },
+        {
+          "Line": 15,
+          "Text": "DEVELOPMENT.json сохраняет initial8FAIL/8INFRA (nullable batch dereference и status expectation) и начальный archive adapter failure. Ни одна ошибка не удалена из evidence. Дополнительно сохранены initial regression copy-race, неверный путь mandatory package probe и перезапись inventory edit при reseal. Две bool-counter probes первоначально получили FAIL из-за ожидаемого кода позднего слоя: strict JSON уже корректно отклонял их как PACKAGE_SCHEMA; изменён диагностический expected code, защита не ослаблена. DEVELOPMENT.log/MUTATION.log/REPRODUCTION.log/REGRESSIONS.log сохраняют последовательность запусков. Expected malformed DTO не скрывается blanket except Exception; неожиданные implementation errors видимы как INFRASTRUCTURE_ERROR."
+        },
+        {
+          "Line": 19,
+          "Text": "MQL5_COMPILE=NOT_RUN; MQL5_TESTS=NOT_RUN; STRATEGY_TESTER=NOT_RUN. Production не исправлялся. Broker/global funding/durable/concurrency/NewFar — UNPROVEN."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_C3_ADMIN_DECISION_MATRIX_RU.md",
+      "SHA256": "1622ffc81f0e2f5e52b51a09837bdd0c737d24688d6f34507448fb93127ce007",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "AUDIT / PROPOSED / AWAITING_ADMIN_APPROVAL. Production, trading и dispatch запрещены."
+        },
+        {
+          "Line": 25,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 44,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 63,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 82,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 101,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 120,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 139,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 141,
+          "Text": "ApprovalReadiness: SEMANTIC_CHOICE_READY_BACKEND_UNPROVEN"
+        },
+        {
+          "Line": 158,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 160,
+          "Text": "ApprovalReadiness: SEMANTIC_CHOICE_READY_PROVIDER_UNPROVEN"
+        },
+        {
+          "Line": 177,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 179,
+          "Text": "ApprovalReadiness: SEMANTIC_CHOICE_READY_GATES_UNPROVEN"
+        },
+        {
+          "Line": 196,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 215,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 234,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 236,
+          "Text": "ApprovalReadiness: SEMANTIC_CHOICE_READY_CODEC_IMPLEMENTATION_UNPROVEN"
+        },
+        {
+          "Line": 253,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 255,
+          "Text": "ApprovalReadiness: SEMANTIC_CHOICE_READY_PROVIDER_UNPROVEN"
+        },
+        {
+          "Line": 272,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 291,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 310,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 312,
+          "Text": "ApprovalReadiness: SEMANTIC_CHOICE_READY_MIGRATION_UNPROVEN"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_C3_FINAL_VERDICT_RU.md",
+      "SHA256": "61c9e10d1a5b37667725950c228af3012eff4f1acc61024166e49d151848b054",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "AUDIT / PROPOSED / AWAITING_ADMIN_APPROVAL. Production, trading и dispatch запрещены."
+        },
+        {
+          "Line": 7,
+          "Text": "Опубликованные C2 числа воспроизводятся, но не доказывают полноту денежных контрактов или mutation coverage. Из6 survivors5 обоснованы в заявленном domain,1 не является глобально эквивалентным по status contract (OverlapKnown1). Unsafe debit этим не показан. L01/L02 production defects подтверждены extracted native subset; MQL5 runtime NOT_RUN. Snapshot-content integration, public reservation lifecycle, durable/concurrent/global funding/NewFar остаются UNPROVEN."
+        },
+        {
+          "Line": 11,
+          "Text": "Git publication SHA/parity не встраиваются в собственный commit; фактические значения сообщаются после публикации. Ни один исторический verdict не изменён. MQL5_COMPILE=NOT_RUN; MQL5_TESTS=NOT_RUN; STRATEGY_TESTER=NOT_RUN."
+        },
+        {
+          "Line": 13,
+          "Text": "[C3_FINAL_STATUS]"
+        },
+        {
+          "Line": 25,
+          "Text": "REGRESSION_STATUS=FAIL"
+        },
+        {
+          "Line": 28,
+          "Text": "ADMIN_APPROVAL_COMPLETE=NO"
+        },
+        {
+          "Line": 34,
+          "Text": "STAGE_02B_R0E_C3_COMPLETE=YES"
+        },
+        {
+          "Line": 35,
+          "Text": "[/C3_FINAL_STATUS]"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_C3_MONEY_CONTRACT_AUDIT_RU.md",
+      "SHA256": "6827b4172a26447506277624377989097b673455416a19cc71d68a5886769ab8",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "AUDIT / PROPOSED / AWAITING_ADMIN_APPROVAL. Production, trading и dispatch запрещены."
+        },
+        {
+          "Line": 7,
+          "Text": "Независимые сценарии: 76; PASS=76; FAIL=0; INFRA=0. Их expected — literals и новый integer coefficient/scale oracle без imports subject evaluator. До/после и trace reserve/release/consume/owner rejection находятся в INDEPENDENT_TESTS.json; raw/posted/currency/grid не смешиваются."
+        },
+        {
+          "Line": 22,
+          "Text": "| Persistence | Include/Persistence/HSBI_PersistenceInterface.mqh:7; HSBI_PersistSnapshotStub | success=false, PERSISTENCE_NOT_IMPLEMENTED; durable/CAS/restart UNPROVEN |"
+        },
+        {
+          "Line": 25,
+          "Text": "Native source normative result=FAIL; finding=L01_L02_CONFIRMED. Это воспроизведение дефекта, не production PASS. Production modifications=NO. Остальные статические finding не объявлены выполненным MQL5 runtime тестом."
+        },
+        {
+          "Line": 27,
+          "Text": "Регрессии: FAIL; BaselineMatch=True. Исторические R7/R0 FAIL не исправлены. Матрица70 frozen guards и C3 public obligations явно различает reproduction и независимое покрытие; GUARD_COVERAGE=PARTIAL."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_C3_MUTATION_AUDIT_RU.md",
+      "SHA256": "304e7d70154c6658802a605445ee84b2eaa46604d188408ad622cda77b7b7180",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "AUDIT / PROPOSED / AWAITING_ADMIN_APPROVAL. Production, trading и dispatch запрещены."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_C3_R1_READINESS_RU.md",
+      "SHA256": "432d299ba6c5de9ba4a35d363daf2ea8585bf40ac602f247108d24e6b314e845",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "AUDIT / PROPOSED / AWAITING_ADMIN_APPROVAL. Production, trading и dispatch запрещены."
+        },
+        {
+          "Line": 11,
+          "Text": "| Approval | Все16 AWAITING | Явные выбранные schema/namespace/codec/precision зависимости |"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_C3_REPRODUCTION_RU.md",
+      "SHA256": "a0e11223e33f1b7f8cba44fb6cb25cd01b91d6ad72a6f8cab1d754858c020325",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "AUDIT / PROPOSED / AWAITING_ADMIN_APPROVAL. Production, trading и dispatch запрещены."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_CONFLICT_REGISTER_RU.md",
+      "SHA256": "b280aa0b8e6f2f3af7f47e97b59ee328d3bf8cd6ed7d7f63e4999f23dce7347c",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "Статус: PROPOSED / AWAITING_ADMIN_APPROVAL. Только audit/test-only; никаких production-изменений и торговли."
+        },
+        {
+          "Line": 13,
+          "Text": "SourceAndApprovalEvidence: Docs/08; Docs/32; R0D NUM-BALANCE; историческая подпись APPROVAL_UNPROVEN."
+        },
+        {
+          "Line": 23,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL / DECISION_REQUIRED."
+        },
+        {
+          "Line": 29,
+          "Text": "SourceAndApprovalEvidence: Docs/04; Docs/08; Docs/31; историческая подпись APPROVAL_UNPROVEN."
+        },
+        {
+          "Line": 39,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL / DECISION_REQUIRED."
+        },
+        {
+          "Line": 45,
+          "Text": "SourceAndApprovalEvidence: Docs/04; Docs/24; Docs/32; историческая подпись APPROVAL_UNPROVEN."
+        },
+        {
+          "Line": 55,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL / DECISION_REQUIRED."
+        },
+        {
+          "Line": 61,
+          "Text": "SourceAndApprovalEvidence: Docs/04; Docs/24; Docs/27; Docs/31; историческая подпись APPROVAL_UNPROVEN."
+        },
+        {
+          "Line": 71,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL / DECISION_REQUIRED."
+        },
+        {
+          "Line": 77,
+          "Text": "SourceAndApprovalEvidence: Docs/24; Docs/27; Docs/30; историческая подпись APPROVAL_UNPROVEN."
+        },
+        {
+          "Line": 87,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL / DECISION_REQUIRED."
+        },
+        {
+          "Line": 93,
+          "Text": "SourceAndApprovalEvidence: Docs/24; Docs/27; Docs/30; историческая подпись APPROVAL_UNPROVEN."
+        },
+        {
+          "Line": 95,
+          "Text": "ProposedRule: Каждая стоимость имеет CostID, Source, RiskBasis, Window, Currency, Amount, AlreadyIncluded, AdditionalDeduction, PolicyVersion, Evidence. Уже включённая стоимость не вычитается повторно; unknown overlap UNPROVEN."
+        },
+        {
+          "Line": 103,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL / DECISION_REQUIRED."
+        },
+        {
+          "Line": 109,
+          "Text": "SourceAndApprovalEvidence: Docs/08; Docs/16; Docs/32; историческая подпись APPROVAL_UNPROVEN."
+        },
+        {
+          "Line": 119,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL / DECISION_REQUIRED."
+        },
+        {
+          "Line": 125,
+          "Text": "SourceAndApprovalEvidence: Docs/24; Docs/31; Docs/32; историческая подпись APPROVAL_UNPROVEN."
+        },
+        {
+          "Line": 135,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL / DECISION_REQUIRED."
+        },
+        {
+          "Line": 141,
+          "Text": "SourceAndApprovalEvidence: Docs/27; Docs/30; FutureSmallProofAggregator; историческая подпись APPROVAL_UNPROVEN."
+        },
+        {
+          "Line": 151,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL / DECISION_REQUIRED."
+        },
+        {
+          "Line": 157,
+          "Text": "SourceAndApprovalEvidence: R0D NUM-EXACT-1; Docs/24; историческая подпись APPROVAL_UNPROVEN."
+        },
+        {
+          "Line": 167,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL / DECISION_REQUIRED."
+        },
+        {
+          "Line": 173,
+          "Text": "SourceAndApprovalEvidence: R0D NUM-DOMAIN-1; историческая подпись APPROVAL_UNPROVEN."
+        },
+        {
+          "Line": 183,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL / DECISION_REQUIRED."
+        },
+        {
+          "Line": 189,
+          "Text": "SourceAndApprovalEvidence: R0D NUM-CODEC; историческая подпись APPROVAL_UNPROVEN."
+        },
+        {
+          "Line": 199,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL / DECISION_REQUIRED."
+        },
+        {
+          "Line": 205,
+          "Text": "SourceAndApprovalEvidence: R0D SNAP-FIXTURE-1; R0C snapshot proposal; историческая подпись APPROVAL_UNPROVEN."
+        },
+        {
+          "Line": 215,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL / DECISION_REQUIRED."
+        },
+        {
+          "Line": 221,
+          "Text": "SourceAndApprovalEvidence: Docs/08; Docs/16; R0D unproven boundaries; историческая подпись APPROVAL_UNPROVEN."
+        },
+        {
+          "Line": 223,
+          "Text": "ProposedRule: До отдельного ledger attribution contract +50 и -20 дают economic30, но ни доказанный available50, ни автоматический debit20 произвольного bucket; availability UNPROVEN, spending UNAVAILABLE."
+        },
+        {
+          "Line": 231,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL / DECISION_REQUIRED."
+        },
+        {
+          "Line": 237,
+          "Text": "SourceAndApprovalEvidence: MQL5 signed long; NUM-DOMAIN-1; историческая подпись APPROVAL_UNPROVEN."
+        },
+        {
+          "Line": 247,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL / DECISION_REQUIRED."
+        },
+        {
+          "Line": 253,
+          "Text": "SourceAndApprovalEvidence: R0D Gross; R0E Free; историческая подпись APPROVAL_UNPROVEN."
+        },
+        {
+          "Line": 263,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL / DECISION_REQUIRED."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_FINAL_VERDICT_RU.md",
+      "SHA256": "5dfe5e95bfd659521ae918f019248df07ce6e8b5d6d10d54fd596762ed80a52d",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "Статус: PROPOSED / AWAITING_ADMIN_APPROVAL. Только audit/test-only; никаких production-изменений и торговли."
+        },
+        {
+          "Line": 11,
+          "Text": "Reference91 сценариев×8contexts=728 PASS;13/13 source mutations; точные package results в отдельном JSON. Исторические R7/R0 FAIL сохранены, baseline match YES. Начальные16 harness errors раскрыты в DEVELOPMENT.json. Candidate не исправляет production. Исторические COMPLETE/approvals не переписаны; новая оценка ограничивает их доказательный scope и исправляет metadata новым errata."
+        },
+        {
+          "Line": 14,
+          "Text": "ADMIN_APPROVAL_COMPLETE=NO"
+        },
+        {
+          "Line": 20,
+          "Text": "Новые рекомендации остаются AWAITING_ADMIN_APPROVAL. Следующий шаг — явное административное рассмотрение16 решений; затем отдельное ограниченное задание R1.1 с новым verified baseline. Сейчас ни один implementation phase не начинается. Final commit SHA/parity/clean tree сообщаются после реальной публикации; самоописательный commit hash в этот файл не подставляется."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_R0D_PROVENANCE_ERRATA_RU.md",
+      "SHA256": "0d84b8817478c0c6550d7a585e240a32d2202e63c33d9357ea232d2b01a98528",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "Статус: PROPOSED / AWAITING_ADMIN_APPROVAL. Только audit/test-only; никаких production-изменений и торговли."
+        },
+        {
+          "Line": 7,
+          "Text": "Исторические оригиналы не изменяются. Ошибка находится в Reports/NEXT_STAGE_02B_R0D_TEST_AND_MUTATION_RESULTS_RU.md:3 и Reports/NEXT_STAGE_02B_R0D_FINAL_VERDICT_RU.md:3."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0E_TEST_RESULTS_RU.md",
+      "SHA256": "5a342a9f3990b1b0cacf74628791a1a42aade6744ad730e740c7d4de28a3903e",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "Статус: PROPOSED / AWAITING_ADMIN_APPROVAL. Только audit/test-only; никаких production-изменений и торговли."
+        },
+        {
+          "Line": 7,
+          "Text": "Новый reference: 91 различных сценариев, 8 contexts, 728 выполнений PASS, FAIL0, INFRASTRUCTURE_ERROR0. Два top-level comparisons на выполнение (actual==literal expected и context unchanged) = 1456; это не число независимых экономических сценариев. Nested field equality не искусственно суммируется. Классы каждого сценария сохранены в VERIFICATION_SUMMARY.json. Initial harness run имел16 ошибок (два scenario×8 contexts из-за shadowed replay callable), сохранён в DEVELOPMENT.json, исправление относится только к harness."
+        },
+        {
+          "Line": 24,
+          "Text": "| Suite | ExitCode | PASS | FAIL | BaselineMatch | Классификация |"
+        },
+        {
+          "Line": 38,
+          "Text": "| R7_frozen | 1 | 57 | 5 | True | EXPECTED_HISTORICAL_FAILURE |"
+        },
+        {
+          "Line": 39,
+          "Text": "| 02B_R0 | 1 | 35 | 46 | True | EXPECTED_HISTORICAL_FAILURE |"
+        },
+        {
+          "Line": 51,
+          "Text": "| 02A_standalone | None | None | None | NOT_RUN | NOT_RUN |"
+        },
+        {
+          "Line": 53,
+          "Text": "R7 frozen57/62: S040B/S040C/S044A/S044B проверяют старые status keys/канонические markers, S045 — frozen manifest; они расходятся с более поздними документальными blocks/inventory (см. Reports/NEXT_STAGE_02B_R0_TEST_RESULTS_RU.md:75–81); точные failure labels и raw stdout сохранены, тест не исправлялся. R0 native35/81:46 расхождений с proposed contract — действующие blockers/contract conflicts, не новая регрессия R0E. Совпадение baseline не превращает FAIL вPASS. 02A не имеет отдельного suite: executable commands из execution report воспроизведены named runs и scanner, standalone NOT_RUN."
+        },
+        {
+          "Line": 63,
+          "Text": "MetaEditor/terminal64/Wine в PATH не найдены; MQL5_COMPILE/MQL5_TESTS/STRATEGY_TESTER=NOT_RUN. C++ extraction не заменяет MQL5. Broker authenticity/precision/margin, реальные partial fills, global debit attribution, durable backend/concurrent double-spend и полная NewFar integration —UNPROVEN/NOT_RUN. Restart fixtures проверяют последовательный in-memory journal reconciliation с independent fixtures, а не crash-consistent storage. Fixture no-trade scan дополняется byte-for-byte сохранностью RuntimePolicy; торговых вызовов не добавлено."
+        },
+        {
+          "Line": 71,
+          "Text": "Дополнительная граница: R0E registry operations не интегрируют полный proof DTO/market receipt в свой API. Source-cap/ownership/replay доказаны как математические registry операции; verify_identity отдельно подтверждает independent expected identity. Полная композиция всех guards с durable consumption/NewFar остаётся UNPROVEN. Это не end-to-end production authorization. Финальные package probes включают также bool context ID и дублированное административное поле."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0F_ADMIN_APPROVAL_PACKAGE_RU.md",
+      "SHA256": "974c93615e4f06789e2c3f2ed14310481739c7b78be653d459c931b8c8703e5a",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. CONTRACT-DECISION-PREPARATION / TEST-ONLY. Не разрешение production или торговли."
+        },
+        {
+          "Line": 28,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 47,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 66,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 85,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 104,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 123,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 142,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 161,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 180,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 199,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 218,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 237,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 256,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 262,
+          "Text": "CurrentContract: C3 source-local cap доказан, глобальные account debit/credit и concurrency UNPROVEN."
+        },
+        {
+          "Line": 275,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 281,
+          "Text": "CurrentContract: C3 Python signed64 simulation и g++ subset; MetaEditor NOT_RUN."
+        },
+        {
+          "Line": 294,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 313,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0F_CONFLICT_RESOLUTION_RU.md",
+      "SHA256": "e8d0213ca2bd64edd50952f0cee30ec2bcac71b650da7d5db2bc38ae7344f2d0",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. CONTRACT-DECISION-PREPARATION / TEST-ONLY. Не разрешение production или торговли."
+        },
+        {
+          "Line": 10,
+          "Text": "| MONEY-TYPE | Projected positive и actual деньги одной формой | Шесть disjoint money types/independent receipts | Provider/broker/runtime UNPROVEN |"
+        },
+        {
+          "Line": 18,
+          "Text": "| FUNDING | Source-local cap != account economic funding | Explicit scope; full account all roles/external debits required | Backend/global data UNPROVEN |"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0F_FINAL_VERDICT_RU.md",
+      "SHA256": "d841111e6ffcab28a40207b36aa125dcdde23d5ce5e01886395aa80acba8a938",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. CONTRACT-DECISION-PREPARATION / TEST-ONLY. Не разрешение production или торговли."
+        },
+        {
+          "Line": 9,
+          "Text": "R0F COMPLETE — завершение decision preparation, не production readiness. Broker authenticity, posted policy applicability, global economic funding, durable/CAS/concurrency, actual fills и NewFar integration остаются UNPROVEN. Source key, raw codec или local equality не создают authority/available money. Self-consistent fixture/provider flag не заменяет broker history."
+        },
+        {
+          "Line": 13,
+          "Text": "[R0F_FINAL_STATUS]"
+        },
+        {
+          "Line": 30,
+          "Text": "MQL5_COMPILE=NOT_RUN"
+        },
+        {
+          "Line": 31,
+          "Text": "MQL5_TESTS=NOT_RUN"
+        },
+        {
+          "Line": 32,
+          "Text": "ADMIN_APPROVAL_COMPLETE=NO"
+        },
+        {
+          "Line": 38,
+          "Text": "STAGE_02B_R0F_COMPLETE=YES"
+        },
+        {
+          "Line": 39,
+          "Text": "[/R0F_FINAL_STATUS]"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0F_MUTATION_STATUS_GAP_RU.md",
+      "SHA256": "7c1a78a52a93f818e259b62e25beead4ecd90cd14c3951893beaa934c9a76b02",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. CONTRACT-DECISION-PREPARATION / TEST-ONLY. Не разрешение production или торговли."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0F_VERIFICATION_RU.md",
+      "SHA256": "455defb6f79c27a1052d6d5a2af9b5e7fe0e915e4a5afd7f10f88aaeca9934d4",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. CONTRACT-DECISION-PREPARATION / TEST-ONLY. Не разрешение production или торговли."
+        },
+        {
+          "Line": 7,
+          "Text": "Новые candidate scenarios=116, PASS=116, FAIL=0, infrastructure=0. Expected — literal vectors, independent struct packing/fixture decoders и signed integer units, не проверяемый evaluator. Raw codec scalar expectations включают17-digit text и IEEE hex, whole record A/B, zero/subnormal/maxfinite. Fixture decoders работают только на known goldens, не подтверждают hostile-stream/native parser."
+        },
+        {
+          "Line": 9,
+          "Text": "C3 status=ARCHIVED_EVIDENCE_VERIFIED; его обязательные archived artifacts/hashes проверены exact Git archive. Полный C3 reference/mutation suite повторно NOT_RUN; это не новый запуск76/70/58. Отдельно свежий original/mutant status gap воспроизведён по literals. Fresh frozen R7/02B-R0: [('R7_frozen', 57, 5, 1), ('02B_R0', 35, 46, 1)]; baseline match=True. Исторический FAIL остаётся FAIL. Commands, timestamps, hashes, stdout/stderr и scopes — VERIFICATION.json. TEST_RESULTS содержит complete balance traces; CODEC_GOLDENS — независимые expected."
+        },
+        {
+          "Line": 11,
+          "Text": "Consistency tests проверяют16 unique IDs, пустые admin decisions, allowed readiness statuses, no selected D05/codec,29 immutable fields, acyclic approval/runtime graphs, fixed one-file Minimal и отдельно Extended, no production helpers/runtime changes. Evidence package verifier проверяет baseline Git bytes/blob/modes и new hashes. MQL5_COMPILE/MQL5_TESTS/STRATEGY_TESTER=NOT_RUN, не заменены Python."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0G_APPROVAL_BALLOT_RU.md",
+      "SHA256": "0f0ec8050089d1b5db0fd8034250f0ae3f5e1181851f058a7cfbb7e2b7832c5e",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. Только подготовка Minimal R1.1; ни одного production изменения или утверждения."
+        },
+        {
+          "Line": 15,
+          "Text": "ApprovalStatus: AWAITING_ADMIN_APPROVAL"
+        },
+        {
+          "Line": 24,
+          "Text": "KnownLimitations: broker/source-origin authenticity UNPROVEN; full semantic reconciliation/native codec implementation NOT_RUN; source-level/global funding/CAS/durable restart/NewFar not implemented. No flag becomes provider evidence. Full account nontrade/manual events вне EA-attributed profile."
+        },
+        {
+          "Line": 32,
+          "Text": "ADMIN_APPROVAL_COMPLETE=NO"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0G_BLOCKER_ANALYSIS_RU.md",
+      "SHA256": "63ac90557cade510b3527db7c6d0a09fa841147dd492c3892d23d4aab965bb15",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. Только подготовка Minimal R1.1; ни одного production изменения или утверждения."
+        },
+        {
+          "Line": 28,
+          "Text": "Дополнительные обязательные approvals: ECONOMIC-SCHEMA-1 (29fields/key/provenance envelope), LEGACY-COMPAT-1 (old diagnostics vs V2 financial prohibition), NATIVE-ACCEPTANCE-1. Это технические уточнения R0F, не новая экономическая policy. Все16 прежних decisions остаются AWAITING, в R0G ничего автоматически не approved."
+        },
+        {
+          "Line": 32,
+          "Text": "C3 cost status gap не блокирует local identity equality, потому cost API в этом scope не вызывается. R7/R0 historical FAIL остаются frozen; R0G не повторяет общий аудит/полную regression suite и не объявляет их исправленными. R0F16/package preservation проверяются новым read-only checker; отдельные нативные/runtime регрессии NOT_RUN."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0G_FINAL_VERDICT_RU.md",
+      "SHA256": "2317ee025f3ed9eae38c3a0c262a73efa21b9967d1fb60266d4c119e5f4ea82b",
+      "StatusLocators": [
+        {
+          "Line": 5,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. Это пакет решений, не исправление production и не разрешение R1.1."
+        },
+        {
+          "Line": 15,
+          "Text": "Новые128 scenarios PASS (не128 native executions/неcontexts×assertions). Нативные tests, MetaEditor compile и Strategy Tester NOT_RUN. Исторические R7/R0 FAIL не перезапускались в R0G и не исправлялись; frozen R0F evidence сохранены, read-only проверены. No-trade scan:74sources,forbidden=[],controls=true,guard=true. Полный production inventory независимо получен из baseline Git tree, а не из self-reported списка."
+        },
+        {
+          "Line": 17,
+          "Text": "Все выводы о кодеках ограничены captured finite64 reference-domain и known fixture roundtrip; native codec/untrusted decoder/resource-cap tests — будущая обязательная приёмка. Broker authenticity, origin journal/provider implementation, global funding, durable/concurrent enforcement, NewFar остаются UNPROVEN. Точное время/исходные source hashes и реальные exit codes в TEST_RESULTS/EXECUTIONS/PACKAGE_RESULTS/PRESERVATION; source/contract ссылки в четырёх Docs и IDENTITY/APPROVAL_MATRIX. Основные production references: Include/Money/HSBI_EconomicLedgerTypes.mqh:6–12; new subject classify; frozen R0F record_shape/encode_record; TestID IDENTITY-*/ID-*/DTO-*/CODEC-*."
+        },
+        {
+          "Line": 21,
+          "Text": "[R0G_FINAL_STATUS]"
+        },
+        {
+          "Line": 33,
+          "Text": "MQL5_NATIVE_TESTS=NOT_RUN"
+        },
+        {
+          "Line": 36,
+          "Text": "ADMIN_APPROVAL_COMPLETE=NO"
+        },
+        {
+          "Line": 42,
+          "Text": "STAGE_02B_R0G_COMPLETE=YES_DECISION_PREPARATION_ONLY"
+        },
+        {
+          "Line": 43,
+          "Text": "[/R0G_FINAL_STATUS]"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0H_APPROVAL_GATE_RU.md",
+      "SHA256": "2b26994fa89a3357e481dbe10e91c42bad099c3bd2caee4258e4d5e2d71c528c",
+      "StatusLocators": [
+        {
+          "Line": 3,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. R0H TEST-ONLY. No production remediation, broker/account IO, funding, allocation or persistence."
+        },
+        {
+          "Line": 10,
+          "Text": "B REFERENCE_ONLY / NATIVE_NOT_RUN — текущий фактический результат. Reference identity/status/strictcodec checks pass, native source prepared but uncompiled; no productionacceptance/start."
+        },
+        {
+          "Line": 11,
+          "Text": "C BLOCKED / NATIVE_FAILED — при native compile/semantics/golden mismatch; нельзя присваивать сейчас без запуска. Будущие исправления только test scope до отдельного разрешения."
+        },
+        {
+          "Line": 13,
+          "Text": "F64Z recommendation reference-only; no codec APPROVED. D02/D08, NUM-CODEC/MQL-DOMAIN, fullschema/compatibility и nativegate остаются AWAITING_ADMIN_APPROVAL. R0H не подписывает R0G ballot. Broker/EA origin authenticity, actual reconciliation/globalfunding/durableconcurrency/NewFar UNPROVEN. Semantic decision может быть рассмотрено администратором, но никакой A/B/C сам не разрешает R1.1."
+        },
+        {
+          "Line": 15,
+          "Text": "ADMIN_APPROVAL_COMPLETE=NO"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0H_FINAL_VERDICT_RU.md",
+      "SHA256": "59c82cf8d6718a67f37a11684a2b546b344d428acf50643bfc67f29211c14c56",
+      "StatusLocators": [
+        {
+          "Line": 3,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. R0H TEST-ONLY. No production remediation, broker/account IO, funding, allocation or persistence."
+        },
+        {
+          "Line": 11,
+          "Text": "Outcome B: REFERENCE_ONLY / NATIVE_NOT_RUN. Full native toolchain plus targetimplementation required before productionacceptance. APPROVAL_BALLOT not signed; source/body/codec choices still proposed. Currentwork does not remediate productionL01 or othermoneydefects. No automaticR1.1."
+        },
+        {
+          "Line": 15,
+          "Text": "[R0H_FINAL_STATUS]"
+        },
+        {
+          "Line": 28,
+          "Text": "MQL5_COMPILE=NOT_RUN"
+        },
+        {
+          "Line": 29,
+          "Text": "MQL5_NATIVE_TESTS=NOT_RUN"
+        },
+        {
+          "Line": 32,
+          "Text": "MINIMAL_R1_ONE_FILE_FEASIBLE=STATICALLY_PLAUSIBLE_NATIVE_UNPROVEN"
+        },
+        {
+          "Line": 33,
+          "Text": "APPROVAL_GATE_STATUS=REFERENCE_ONLY_NATIVE_NOT_RUN"
+        },
+        {
+          "Line": 34,
+          "Text": "ADMIN_APPROVAL_COMPLETE=NO"
+        },
+        {
+          "Line": 40,
+          "Text": "STAGE_02B_R0H_COMPLETE=YES_TEST_PREPARATION_ONLY"
+        },
+        {
+          "Line": 41,
+          "Text": "[/R0H_FINAL_STATUS]"
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0H_MUTATION_AUDIT_RU.md",
+      "SHA256": "4eda0d05f96f8412bba61d245b29531a094b69d44c48b1152fc69ccae983e5e5",
+      "StatusLocators": [
+        {
+          "Line": 3,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. R0H TEST-ONLY. No production remediation, broker/account IO, funding, allocation or persistence."
+        },
+        {
+          "Line": 30,
+          "Text": "14 killed,0survived,0infrastructure in finalcatalog (counts in evidence); this is not full mutation coverage and not native mutation verification. Native mutants NOT_RUN. All initial runs observed successful; no hidden development failures claimed. Acceptance matrix links guard/test/mutation/scope. Future native suite must rerun samesemantic probes on compiled MQL code; Python source kill does not prove native caller integration."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0H_NATIVE_FEASIBILITY_RU.md",
+      "SHA256": "dbd2d6079f4da9f1b604ad865edee4312323ffcd3d9d7d3483f31d968f282806",
+      "StatusLocators": [
+        {
+          "Line": 3,
+          "Text": "PROPOSED / AWAITING_ADMIN_APPROVAL. R0H TEST-ONLY. No production remediation, broker/account IO, funding, allocation or persistence."
+        },
+        {
+          "Line": 9,
+          "Text": "Baseline exact7afad885..; R0G independently checked1320previousinventory+17additions and stored hash graph. ARCHIVED_EVIDENCE_VERIFIED separate from FRESH_REFERENCE_EXECUTED128 scenarios. Fresh R0Hreference=148 PASS=148 FAIL=0,infra=0. NativeMQL5 EXECUTED=NO. See R0G_REPRODUCTION/TEST_RESULTS/NATIVE_RESULTS/EXECUTION evidence."
+        },
+        {
+          "Line": 11,
+          "Text": "PATH discovery which metaeditor64/metaeditor/MetaEditor64.exe/terminal64/wine plus rg files /opt,/workspace,/usr/local/bin only historical Windows helper found, no compiler. Native compiler version/output/exit absent=>NOT_RUN, notPASS. No MetaEditor download/platform installation or liveaccountconnection attempted. Prepared `.mqh` codec + `.mqh` independentgoldens + `.mq5` harness hashed; code review not compileproof. T17probe incomplete native textcodec explicitly identified."
+        },
+        {
+          "Line": 13,
+          "Text": "R0H outcome B — REFERENCE_ONLY / NATIVE_NOT_RUN. Cannot claim native feasibility confirmed; limitations remain blocking production acceptance. MQL5 status/equality and encoderdecoder source is uncompiled candidate. No native mutation outcomes. Current no-trade controls checked independently by baselinehash+static scan, not actual runtimeexecution. Native resource failure/Unicode/long casts still require targettoolchain."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0_DECISIONS_REQUIRED_RU.md",
+      "SHA256": "f09d3ec8e53a3ded55b7e258c2ed0454fcab55a89232e084a358773bad395071",
+      "StatusLocators": [
+        {
+          "Line": 3,
+          "Text": "Базовый SHA: `4e7d911002824a4a92e49b54f0f964afcf8cf703`. Статус всех предложений: `AWAITING_ADMIN_APPROVAL`."
+        },
+        {
+          "Line": 58,
+          "Text": "12. **Необходимые тесты:** M02-control/foreign/digest, O-history-unavailable; новая R1 projected→actual mutation; broker runtime NOT_RUN."
+        },
+        {
+          "Line": 142,
+          "Text": "12. **Необходимые тесты:** No-fill projected-only; actual over-cap; partial fills; signed DealNet components; NOT_RUN terminal fills."
+        },
+        {
+          "Line": 198,
+          "Text": "12. **Необходимые тесты:** M01-exact/altered/restart/spent; O-changed-amount-replay, O-consume-over-remaining; durable crash checks NOT_RUN."
+        },
+        {
+          "Line": 226,
+          "Text": "12. **Необходимые тесты:** M02 независимые ownership/deal/event/plan/revision/stale/digest/Net/reuse, O-proof-*; broker/restart fault injection NOT_RUN."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0_FINDINGS_RU.md",
+      "SHA256": "a3ab0397ba02fec75a5c361beb76f53d8d5ca089d1fb7d8d5871a7ea60b8a7f3",
+      "StatusLocators": [
+        {
+          "Line": 7,
+          "Text": "Не повторялся полный 02A audit. Проверены указанные документы и денежные функции, выполнены численные эксперименты на C++-совместимом подмножестве **извлечённых production MQL тел**, independent Python proposed oracle, актуальные regression suites. Shim заменяет базовые Math/string/ZeroMemory операции, не broker APIs. Aggregate digest в selector experiment заменён явным test-only shim: это не проверка digest integrity. Exact MQL5 семантика и полная NewFar selection — NOT_RUN."
+        },
+        {
+          "Line": 31,
+          "Text": "Неверный digest, changed DealNet, missing event/history и allocation reuse проверены независимым Python oracle: REJECT; unavailable history: UNAVAILABLE. Их production end-to-end статус UNPROVEN: поля/lookup отсутствуют, нельзя выдать прохождение reference теста за проверку broker history."
+        },
+        {
+          "Line": 71,
+          "Text": "Confirmed history [NOT_RUN] → economic authority [L-01/account gap] → allocation authority [L-02/conservation decision] → consumption [M-01/restart gap] → expected identity [M-02] → Catch-Up [локальная арифметика проверена, authorization blocked] → Future Small [selector decision/runtime NOT_RUN] → NewFar [полная selection NOT_RUN]. Source/plan guards и fail-closed runtime policy сохраняются, но не заменяют эту цепочку. Positive margin не доказывает конечное исполнимое восстановление."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    },
+    {
+      "File": "Reports/NEXT_STAGE_02B_R0_TEST_RESULTS_RU.md",
+      "SHA256": "dfc8941c1bbf8b52dbda80b8b2d739575fa4a2f5b3eccee591fd475f0345705e",
+      "StatusLocators": [
+        {
+          "Line": 10,
+          "Text": "- `--enforce-contract` завершился **exit 1**, `moneyIntegrity=FAIL`. Это ожидаемый красный нормативный gate на текущем production; инфраструктура завершилась без ошибок. Режим без enforce выдаёт 0 за успешную генерацию evidence, а не за денежную корректность."
+        },
+        {
+          "Line": 19,
+          "Text": "| Restart / CR-08 | полный reference registry | registry неизвестен, hasPrior=false | локальный ALLOW против UNAVAILABLE; durable IO UNPROVEN |"
+        },
+        {
+          "Line": 22,
+          "Text": "| M-02 / CR-02 | свежий canonical authority fixture | stale/digest/Net/reused allocation | independent oracle REJECT; broker boundary UNPROVEN |"
+        },
+        {
+          "Line": 25,
+          "Text": "| E / CR-04/05 | valid finite DTO, допустимый bucket | invalid/revision/negative/Infinity/foreign | результаты по каждому полю в matrix/results; caller obligation UNPROVEN |"
+        },
+        {
+          "Line": 42,
+          "Text": "MQL5 harness подготовлен как **test-only исходный шаблон** `Tests/MQL5/HSBI_02B_R0_MoneyContracts.mq5.in`. Для MetaEditor скопировать его в соседний test-only `.mq5` с тем же stem, сохранив relative Includes, затем компилировать/выполнять как script и сохранять полный журнал CHECKS/CONTRACT_FAILURES. Шаблон `.mq5.in` позволяет хранить тест без попадания в исторический coarse scope gate, запрещающий любые новые `.mq5/.mqh`; это не production EA. Исходник содержит реальные assertions с ожидаемыми отказами текущего кода, а не печать константного PASS. Эти действия здесь **не выполнялись**."
+        },
+        {
+          "Line": 59,
+          "Text": "| `R7_frozen` | 1 | FAIL frozen metadata/manifest, см. разбор ниже; `Tests/Evidence/NEXT_STAGE_02B_R0_RUNS/R7_frozen.log` |"
+        },
+        {
+          "Line": 85,
+          "Text": "## NOT_RUN и UNPROVEN"
+        },
+        {
+          "Line": 89,
+          "Text": "| MetaEditor main/harness compilation | NOT_RUN | executable отсутствует |"
+        },
+        {
+          "Line": 90,
+          "Text": "| MQL5 tests | NOT_RUN | MT5 terminal отсутствует |"
+        },
+        {
+          "Line": 91,
+          "Text": "| Strategy Tester | NOT_RUN | MT5 отсутствует |"
+        },
+        {
+          "Line": 92,
+          "Text": "| Broker OrderCalcProfit/OrderCalcMargin/account history | NOT_RUN | нет terminal/account/symbol runtime |"
+        },
+        {
+          "Line": 93,
+          "Text": "| Полный NewFar solver с authoritative provider | NOT_RUN | протестированы только локальная assembly/equality/Catch-Up граница и selector |"
+        },
+        {
+          "Line": 94,
+          "Text": "| Durable restart/exactly-once/concurrent consumers | UNPROVEN | production persistence stub, нет полного authority pipeline |"
+        },
+        {
+          "Line": 95,
+          "Text": "| M02 digest/DealNet independent production reconciliation | UNPROVEN | oracle проверен, реальный источник не подключён |"
+        },
+        {
+          "Line": 96,
+          "Text": "| R12A second-block native source mutations | NOT_RUN / NOT_STARTED | R0 native subset probes не являются R12A implementation acceptance |"
+        },
+        {
+          "Line": 97,
+          "Text": "| Экономическая конечность восстановления | UNPROVEN | локальная арифметика/geometry не доказывает broker-executable trajectory |"
+        },
+        {
+          "Line": 101,
+          "Text": "`PYTHON_TESTS=FAIL` для совокупного нормативного gate (известные mismatches + frozen R7), при `REFERENCE_ORACLE=PASS`, `EVIDENCE_EXECUTION=PASS`, актуальных regression suites PASS в указанной области. MQL5_COMPILE/MQL5_TESTS/STRATEGY_TESTER=NOT_RUN. D-01–08 и CR-09 ожидают администратора. Исправление production, broker dispatch и реальная торговля не разрешены."
+        }
+      ],
+      "ReviewBoundary": "HISTORICAL_EVIDENCE_ONLY unless separately reproduced by current tests; indexing is not semantic reacceptance"
+    }
+  ],
+  "Count": 60
+}

@@ -1,0 +1,111 @@
+{
+  "BaseSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "TestedSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "UTC": "2026-11-11T20:16:08.739459+00:00",
+  "RunnerSourceHash": "00da1eb714020a24e6988ecc51524e1448eb14fe6e35997782f4d4eb56f9a5e9",
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "StartedUtc": "2026-11-11T20:15:29.581821+00:00",
+  "FinishedUtc": "2026-11-11T20:16:08.739521+00:00",
+  "Runs": [
+    {
+      "Runner": "Tests/Static/HSBI_FULL_SYSTEM_AUDIT_01_common.py",
+      "RunnerHash": "6f79eb44a5788782c1ebeb33e42d31156645bda74f01d96233abcdf560a97a74",
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_FULL_SYSTEM_AUDIT_01_common.py"
+      ],
+      "StartedUtc": "2026-11-11T20:15:29.581846+00:00",
+      "FinishedUtc": "2026-11-11T20:15:30.298943+00:00",
+      "TestedSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+      "ActualExitCode": 0,
+      "Stdout": "inventory 1361 production 74 lines 1812 docs 133 formula sites 137\n",
+      "Stderr": ""
+    },
+    {
+      "Runner": "Tests/Static/HSBI_FULL_SYSTEM_AUDIT_01_extracted.py",
+      "RunnerHash": "80aa4352baa4ebf5406ccd087a458738e443607db7d4c11ba7a03e8403d20aa3",
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_FULL_SYSTEM_AUDIT_01_extracted.py"
+      ],
+      "StartedUtc": "2026-11-11T20:15:30.305356+00:00",
+      "FinishedUtc": "2026-11-11T20:15:32.575582+00:00",
+      "TestedSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+      "ActualExitCode": 0,
+      "Stdout": "EXTRACTED 54 27 27 build 0\n\n",
+      "Stderr": ""
+    },
+    {
+      "Runner": "Tests/Static/HSBI_FULL_SYSTEM_AUDIT_01_reference.py",
+      "RunnerHash": "97759259ae5fffb5646b958e3663f8287952dfd0aac153bac7b9bb824a15dcca",
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_FULL_SYSTEM_AUDIT_01_reference.py"
+      ],
+      "StartedUtc": "2026-11-11T20:15:32.579607+00:00",
+      "FinishedUtc": "2026-11-11T20:15:32.771045+00:00",
+      "TestedSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+      "ActualExitCode": 0,
+      "Stdout": "REFERENCE 20 /20 245 /245 mutations 15 /15\n[]\n",
+      "Stderr": ""
+    },
+    {
+      "Runner": "Tests/Static/HSBI_FULL_SYSTEM_AUDIT_01_math.py",
+      "RunnerHash": "1d6225fc50b74e7eea2d9ed48cb7f7c1018479d2e5869a46b64120c74b6fb8b9",
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_FULL_SYSTEM_AUDIT_01_math.py"
+      ],
+      "StartedUtc": "2026-11-11T20:15:32.773710+00:00",
+      "FinishedUtc": "2026-11-11T20:15:32.834330+00:00",
+      "TestedSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+      "ActualExitCode": 0,
+      "Stdout": "MATH 20 20\n",
+      "Stderr": ""
+    },
+    {
+      "Runner": "Tests/Static/HSBI_FULL_SYSTEM_AUDIT_01_regressions.py",
+      "RunnerHash": "4553501c86f867197241e2efe8050f6281d7f52c130c8ec98178191af468cd70",
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_FULL_SYSTEM_AUDIT_01_regressions.py"
+      ],
+      "StartedUtc": "2026-11-11T20:15:32.837355+00:00",
+      "FinishedUtc": "2026-11-11T20:16:07.914160+00:00",
+      "TestedSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+      "ActualExitCode": 0,
+      "Stdout": "R8 exit 1 pass None fail None\nR10 exit 1 pass None fail None\nR12 exit 0 pass None fail None\nR12A exit 0 pass None fail None\nR7_FROZEN exit 1 pass 57 fail 5\nR0 exit 1 pass 35 fail 46\nR0A exit 0 pass 128 fail 0\nR0B exit 0 pass 141 fail 0\nR0C exit 0 pass 221 fail 0\nR0D exit 0 pass 944 fail 0\nR0E exit 0 pass 728 fail 0\nC1 exit 0 pass 840 fail 0\nC2 exit 0 pass 1264 fail 0\n",
+      "Stderr": ""
+    },
+    {
+      "Runner": "Tests/Static/HSBI_FULL_SYSTEM_AUDIT_01_followup.py",
+      "RunnerHash": "469cd6c73391512ad30b7fafd27efb46502661858dce02e79ec0ec4b96a87913",
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_FULL_SYSTEM_AUDIT_01_followup.py"
+      ],
+      "StartedUtc": "2026-11-11T20:16:07.916650+00:00",
+      "FinishedUtc": "2026-11-11T20:16:08.622545+00:00",
+      "TestedSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+      "ActualExitCode": 0,
+      "Stdout": "FOLLOWUP R0F 116 116 native NOT_RUN\n",
+      "Stderr": ""
+    },
+    {
+      "Runner": "Tests/Static/HSBI_FULL_SYSTEM_AUDIT_01_build.py",
+      "RunnerHash": "9e5144c1096a966272e08bb2be1a2f0865f6e45421d470982420e70d99f88515",
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_FULL_SYSTEM_AUDIT_01_build.py"
+      ],
+      "StartedUtc": "2026-11-11T20:16:08.625490+00:00",
+      "FinishedUtc": "2026-11-11T20:16:08.724591+00:00",
+      "TestedSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+      "ActualExitCode": 0,
+      "Stdout": "BUILD 29 issues {'P0': 10, 'P1': 14, 'P2': 5} formulas {'VERIFIED': 24, 'CONTRADICTORY': 11, 'UNVERIFIED': 14} audit PARTIAL\n",
+      "Stderr": ""
+    }
+  ],
+  "Completed": true,
+  "Interpretation": "Package preparation succeeded, audit remains PARTIAL;54sourcechecks27PASS27FAIL, R7/R0/R8/R10 historicalFAIL retained."
+}

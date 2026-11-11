@@ -1,0 +1,1428 @@
+{
+  "BaseSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "TestedSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "UTC": "2026-11-11T20:16:08.675810+00:00",
+  "RunnerSourceHash": "9e5144c1096a966272e08bb2be1a2f0865f6e45421d470982420e70d99f88515",
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "Rows": [
+    {
+      "FormulaID": "F01",
+      "Expression": "Core floor(F*Rc)",
+      "UnitsAndDomain": "lot; finite positive/grid",
+      "NormativeSource": "Docs/04:9",
+      "Source": "Include/Planning/HSBI_BrokerGrid.mqh:26",
+      "Status": "VERIFIED",
+      "IndependentVector": "F.1 Rc2.56 step.01 ->.25",
+      "TestID": "LOT_FLOOR_CEIL",
+      "ProofBoundary": "Algebra/local rounding only; mandatory minimum checked separately",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F02",
+      "Expression": "Trend floor(F*Rt),Rt>=0",
+      "UnitsAndDomain": "lot",
+      "NormativeSource": "Docs/04:9",
+      "Source": "Include/Money/HSBI_BasketMoneyEvaluator.mqh:15",
+      "Status": "CONTRADICTORY",
+      "IndependentVector": "geometry acceptsT0, moneyrequires positivevolume",
+      "TestID": "TREND_ZERO_BASKET_ACCEPTED",
+      "ProofBoundary": "Inactive-leg integration inconsistency",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F03",
+      "Expression": "Small ceil(F*Rs)",
+      "UnitsAndDomain": "lot",
+      "NormativeSource": "Docs/04:9",
+      "Source": "Include/Planning/HSBI_BrokerGrid.mqh:27",
+      "Status": "VERIFIED",
+      "IndependentVector": ".256/.01 ->.26",
+      "TestID": "LOT_FLOOR_CEIL",
+      "ProofBoundary": "Post-round risk/margin still needed",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F04",
+      "Expression": "All active legs min<=V<=max/grid",
+      "UnitsAndDomain": "lot",
+      "NormativeSource": "Docs/04:9",
+      "Source": "Include/Planning/HSBI_GeometrySolver.mqh:32",
+      "Status": "CONTRADICTORY",
+      "IndependentVector": "Core0 orCore.01<min.05 accepted",
+      "TestID": "ZERO_CORE_MINLOT",
+      "ProofBoundary": "No real orders",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F05",
+      "Expression": "Bnet=C+T-S; slope=Bnet-F",
+      "UnitsAndDomain": "lot",
+      "NormativeSource": "Docs/04:12",
+      "Source": "Include/Planning/HSBI_GeometrySolver.mqh:10",
+      "Status": "VERIFIED",
+      "IndependentVector": "C1.2 T1 S.5 F1 ->slope.7",
+      "TestID": "SCENARIO-UP",
+      "ProofBoundary": "Necessary local sensitivity, not profitability",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F06",
+      "Expression": "reserveShare*Bnet>F",
+      "UnitsAndDomain": "dimensionless*lot",
+      "NormativeSource": "Docs/04:15",
+      "Source": "Include/Money/HSBI_CatchUpModel.mqh:12",
+      "Status": "VERIFIED",
+      "IndependentVector": ".9*3>1",
+      "TestID": "RESERVE_POSITIVE",
+      "ProofBoundary": "Only necessary symmetric linear filter",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F07",
+      "Expression": "ActualDealNet=P+Swap+C+Fee",
+      "UnitsAndDomain": "account currency signed",
+      "NormativeSource": "Docs/08:6",
+      "Source": "Include/Money/HSBI_CostModel.mqh:13",
+      "Status": "VERIFIED",
+      "IndependentVector": "60-2-7-1=50; -10-2-7-1=-20",
+      "TestID": "ACTUAL_SIGNED_NET",
+      "ProofBoundary": "Actual broker receipt authenticity notproved",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F08",
+      "Expression": "ProjectedNet=gross+swap+comm+fee-spread-slip-buffer",
+      "UnitsAndDomain": "money",
+      "NormativeSource": "Docs/24:7",
+      "Source": "Include/Money/HSBI_CostModel.mqh:18",
+      "Status": "VERIFIED",
+      "IndependentVector": "60-2-7-1-1-2-3=44",
+      "TestID": "PROJECTED_SIGNED_NET",
+      "ProofBoundary": "Only disjoint cost basis; overlap F09",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F09",
+      "Expression": "No repeated cost coverage",
+      "UnitsAndDomain": "costID/basis/window",
+      "NormativeSource": "D06 awaiting",
+      "Source": "Include/Money/HSBI_CostModel.mqh:4",
+      "Status": "UNVERIFIED",
+      "IndependentVector": "Bid/AskPL9 minus same spread1 =>8",
+      "TestID": "COST-OVERLAP",
+      "ProofBoundary": "Missing basis/policy; conditional counterexample",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F10",
+      "Expression": "RecoveryPL=RealizedCycleNet+OpenCloseNowNet",
+      "UnitsAndDomain": "money",
+      "NormativeSource": "Docs/04:18",
+      "Source": "Include/Money/HSBI_MoneyTypes.mqh:9",
+      "Status": "VERIFIED",
+      "IndependentVector": "500-450=50",
+      "TestID": "FINAL-50-16",
+      "ProofBoundary": "No full FinalClose authority implemented",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F11",
+      "Expression": "Final threshold=minProfit+execBuffer+tolerance",
+      "UnitsAndDomain": "money allnonnegative",
+      "NormativeSource": "Docs/12:7",
+      "Source": "Include/Money/HSBI_MoneyTypes.mqh:7",
+      "Status": "VERIFIED",
+      "IndependentVector": "10+5+1=16,50>=16",
+      "TestID": "FINAL-50-16",
+      "ProofBoundary": "Threshold.valid/coverage/lifecycle notestablishedbyalgebra",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F12",
+      "Expression": "Committed sumGrants=EligibleNet",
+      "UnitsAndDomain": "settled money",
+      "NormativeSource": "Docs/08:12 vs Docs/32:3",
+      "Source": "Include/Money/HSBI_AllocationLedgerTypes.mqh:7",
+      "Status": "CONTRADICTORY",
+      "IndependentVector": "Committed10of50 passesinequality",
+      "TestID": "ALLOC_COMMITTED_UNALLOCATED",
+      "ProofBoundary": "PREPARED/COMMITTED needsapprovedschema",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F13",
+      "Expression": "Grant=Consumed+Reserved+Free",
+      "UnitsAndDomain": "settled money nonnegative",
+      "NormativeSource": "R0F D01 proposal",
+      "Source": "No production completebalance API",
+      "Status": "VERIFIED",
+      "IndependentVector": "50=10+15+25",
+      "TestID": "PROPERTY-CONSERVATION",
+      "ProofBoundary": "Abstractmodel only; approval pending",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F14",
+      "Expression": "RemainingGross=Reserved+Free",
+      "UnitsAndDomain": "settled money",
+      "NormativeSource": "R0F BALANCE mapping proposal",
+      "Source": "No production representation",
+      "Status": "VERIFIED",
+      "IndependentVector": "40=15+25",
+      "TestID": "PROPERTY-CONSERVATION",
+      "ProofBoundary": "Legacy Remaining ambiguous; not actual migration",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F15",
+      "Expression": "0<Amount<=Free; C+=Amount,F-=Amount",
+      "UnitsAndDomain": "money/owner",
+      "NormativeSource": "D07 proposal",
+      "Source": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:63",
+      "Status": "UNVERIFIED",
+      "IndependentVector": "50 grant40spent10free cannot spend11",
+      "TestID": "PROPERTY-AFFORDABILITY",
+      "ProofBoundary": "Full consume API/backend absent",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F16",
+      "Expression": "Immutable allocation vector != equal total",
+      "UnitsAndDomain": "money per bucket",
+      "NormativeSource": "Docs/08:15",
+      "Source": "Include/Money/HSBI_AllocationLedgerTypes.mqh:8",
+      "Status": "CONTRADICTORY",
+      "IndependentVector": "50/0 vs0/50 same total",
+      "TestID": "L02_VECTOR_CONFLICT",
+      "ProofBoundary": "Currentclassifier returnsidentical",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F17",
+      "Expression": "Immutable components independent of net equality",
+      "UnitsAndDomain": "raw signed money",
+      "NormativeSource": "Docs/08:6,15",
+      "Source": "Include/Money/HSBI_EconomicLedgerTypes.mqh:9",
+      "Status": "CONTRADICTORY",
+      "IndependentVector": "P50 C0 vsP60 C-10 Net50",
+      "TestID": "L01_COMPONENT_CONFLICT",
+      "ProofBoundary": "Currentvalidator lacksfullimmutablebody",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F18",
+      "Expression": "sum source funding across allocations <=eligible source",
+      "UnitsAndDomain": "account/source money",
+      "NormativeSource": "R0F FUNDING proposal",
+      "Source": "No global source allocationregistry",
+      "Status": "UNVERIFIED",
+      "IndependentVector": "two allocations50 each same source50 =>100",
+      "TestID": "PROPERTY-DOUBLE_FUNDING",
+      "ProofBoundary": "Toy guard not production global conservation",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F19",
+      "Expression": "Source/bucket consumption bound to remaining grant",
+      "UnitsAndDomain": "money identity/state",
+      "NormativeSource": "Docs/08:15,24",
+      "Source": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:47",
+      "Status": "CONTRADICTORY",
+      "IndependentVector": "spent50reserve0 can regain45 viaflagfalse",
+      "TestID": "RESERVE_SPENT_SOURCE_REJECT",
+      "ProofBoundary": "Permission only, no actual ledger update",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F20",
+      "Expression": "AbsoluteFarLoss=max(0,-CloseNowFarNet)",
+      "UnitsAndDomain": "money",
+      "NormativeSource": "D04 proposal",
+      "Source": "Include/Money/HSBI_BasketMoneyEvaluator.mqh:17",
+      "Status": "VERIFIED",
+      "IndependentVector": "net-50 ->loss50",
+      "TestID": "FAR-ABSOLUTE",
+      "ProofBoundary": "Executable quote not actual futurefill",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F21",
+      "Expression": "IncrementalLoss=AbsoluteLoss-BaselineLoss",
+      "UnitsAndDomain": "money/stablebasis",
+      "NormativeSource": "Docs/04:15 naming vs D04",
+      "Source": "Include/Money/HSBI_BasketMoneyEvaluator.mqh:17",
+      "Status": "CONTRADICTORY",
+      "IndependentVector": "Abs50-base40=10,Reserve30 failsabs butpassesdelta",
+      "TestID": "FAR-ABSOLUTE",
+      "ProofBoundary": "Metric/baseline choice unresolved; code namedincreasecomputesabsolute",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F22",
+      "Expression": "CatchUpMargin=Reserve-Loss-Buffer>0",
+      "UnitsAndDomain": "money",
+      "NormativeSource": "Docs/24:9",
+      "Source": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:74",
+      "Status": "VERIFIED",
+      "IndependentVector": "50-20-1=29,50-50=0 rejected",
+      "TestID": "CATCHUP_ZERO_MARGIN_REJECT",
+      "ProofBoundary": "Requires eligible independent reserve",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F23",
+      "Expression": "all-level minMargin>0 vs maxTransitionLoss level",
+      "UnitsAndDomain": "money/index",
+      "NormativeSource": "proposedCR09 vs Docs/30:5",
+      "Source": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh:50",
+      "Status": "CONTRADICTORY",
+      "IndependentVector": "Trans10 margin9 vsTrans5 margin-11",
+      "TestID": "CR09-EXTREMA",
+      "ProofBoundary": "Proposed semantics, not automatically approved replacement",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F24",
+      "Expression": "TransitionLoss=max(0,-sum signedfills)",
+      "UnitsAndDomain": "money",
+      "NormativeSource": "Docs/13:9",
+      "Source": "No actual fillbatch accumulator",
+      "Status": "VERIFIED",
+      "IndependentVector": "[-15,+100] finalNet85 loss0",
+      "TestID": "TRANSITION-ABC",
+      "ProofBoundary": "Current signed policy only",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F25",
+      "Expression": "Sticky breach and peak loss differ from current loss",
+      "UnitsAndDomain": "money/time/policy",
+      "NormativeSource": "D05 awaiting",
+      "Source": "No chosen newpolicy",
+      "Status": "UNVERIFIED",
+      "IndependentVector": "[-15,+100] cap12 =>peak15,stickytrue,current0",
+      "TestID": "TRANSITION-ABC",
+      "ProofBoundary": "A/B/C no automaticchoice",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F26",
+      "Expression": "AllowedLoss=min(absolute,equity,oldrisk,cumulative caps)",
+      "UnitsAndDomain": "money",
+      "NormativeSource": "Docs/15:15",
+      "Source": "Include/Risk/HSBI_NewFarGateTypes.mqh:12",
+      "Status": "VERIFIED",
+      "IndependentVector": "min(20,15,12,18)=12",
+      "TestID": "CAP-MIN",
+      "ProofBoundary": "Need knownfiniteinput and actual equity basis",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F27",
+      "Expression": "compressionLots=F-N; ratio=(F-N)/F",
+      "UnitsAndDomain": "lot/ratio",
+      "NormativeSource": "Docs/04:21",
+      "Source": "Include/Planning/HSBI_NewFarSolver.mqh:111",
+      "Status": "VERIFIED",
+      "IndependentVector": "F1,N.6 ->.4lots/.4ratio",
+      "TestID": "COMPRESSION",
+      "ProofBoundary": "F>0 afterrounding mandatory",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F28",
+      "Expression": "N<=maxRatio*F",
+      "UnitsAndDomain": "lot",
+      "NormativeSource": "Docs/14:13",
+      "Source": "Include/Planning/HSBI_NewFarSolver.mqh:112",
+      "Status": "VERIFIED",
+      "IndependentVector": ".6<=.8*1",
+      "TestID": "COMPRESSION",
+      "ProofBoundary": "No actual role promotion from projection",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F29",
+      "Expression": "NextBigGross<OldBigGross",
+      "UnitsAndDomain": "lot",
+      "NormativeSource": "Docs/04:21",
+      "Source": "Include/Planning/HSBI_FutureSmallSolver.mqh:90",
+      "Status": "CONTRADICTORY",
+      "IndependentVector": "nextGross1.2/net.2 vspriorGross1",
+      "TestID": "FS_BIG_GROSS_GROWTH_REJECT",
+      "ProofBoundary": "UnitTestlevel valid; productionselection notexecuted",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F30",
+      "Expression": "Gross=sum absLots; Net=sum signedLots",
+      "UnitsAndDomain": "lot",
+      "NormativeSource": "Docs/01 dimensions",
+      "Source": "Include/Money/HSBI_BasketMoneyEvaluator.mqh:17",
+      "Status": "VERIFIED",
+      "IndependentVector": "buy2.2 sell1.5 =>gross3.7/net.7",
+      "TestID": "SCENARIO-UP",
+      "ProofBoundary": "Direction/sign/brokeraccountsemantics required",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F31",
+      "Expression": "RiskNext<RiskOld-Tolerance",
+      "UnitsAndDomain": "money",
+      "NormativeSource": "Docs/15:12",
+      "Source": "Include/Risk/HSBI_FutureSmallRiskEvaluator.mqh:46",
+      "Status": "UNVERIFIED",
+      "IndependentVector": "10<20-1 butruntimeRiskSource notimplemented",
+      "TestID": "NF_GATE_POSITIVE",
+      "ProofBoundary": "Inequality elementary; actual risk model/identity missing",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F32",
+      "Expression": "sum standalone leg margins as account requiredmargin",
+      "UnitsAndDomain": "money",
+      "NormativeSource": "Docs/15:9",
+      "Source": "Include/Money/HSBI_BasketMoneyEvaluator.mqh:17",
+      "Status": "UNVERIFIED",
+      "IndependentVector": "Hedged/netting/tiermargin maydiffer",
+      "TestID": "SCENARIO-LOW_MARGIN",
+      "ProofBoundary": "Stubmargin not brokerproof",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F33",
+      "Expression": "marginLevel=100*Equity/Margin",
+      "UnitsAndDomain": "percent",
+      "NormativeSource": "Docs/15 configurablelimits",
+      "Source": "RiskInput only, no accountcalculator",
+      "Status": "UNVERIFIED",
+      "IndependentVector": "100*1000/100=1000%",
+      "TestID": "MARGIN-LEVEL",
+      "ProofBoundary": "ZeroMargin/netting/broker stopout details unresolved",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F34",
+      "Expression": "Equity=Balance+Unrealized",
+      "UnitsAndDomain": "money excluding futureexitcost",
+      "NormativeSource": "account identity",
+      "Source": "No account provider",
+      "Status": "VERIFIED",
+      "IndependentVector": "1003.46-5=998.46",
+      "TestID": "SCENARIO-BIG_PROFIT_SMALL_LOSS",
+      "ProofBoundary": "Analyticalfixture; broker accruedcharges requireprovider",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F35",
+      "Expression": "CyclePnL=Allrealized+Floating-futureexitcost",
+      "UnitsAndDomain": "money",
+      "NormativeSource": "Full economic audit identity",
+      "Source": "No fullaccount/cycle accountingbackend",
+      "Status": "VERIFIED",
+      "IndependentVector": "positive closed C/T/S Harvest3.83 butliquidationCycle-1.64",
+      "TestID": "SCENARIO-BIG_PROFIT_SMALL_LOSS",
+      "ProofBoundary": "Initialexcluded recoverymetric isnot totalaccountPnL",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F36",
+      "Expression": "unknown/nonfinite risk/outcome cannotPASS",
+      "UnitsAndDomain": "typed real-valued domain",
+      "NormativeSource": "Docs/15:6; Docs/07:21",
+      "Source": "Include/Risk/HSBI_RiskGateResult.mqh:6",
+      "Status": "CONTRADICTORY",
+      "IndependentVector": "NaN>false comparisonsallfalse",
+      "TestID": "RISK_NAN_REJECT",
+      "ProofBoundary": "C++ IEEE adapter; nativeMQLNOT_RUN",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F37",
+      "Expression": "K=ceil(log(Vmin/F0)/log(q))",
+      "UnitsAndDomain": "dimensionless steps",
+      "NormativeSource": "Docs/04:36",
+      "Source": "Include/Planning/HSBI_FutureSmallSolver.mqh:9",
+      "Status": "VERIFIED",
+      "IndependentVector": "F01,Vmin.01,q.8 ->K21",
+      "TestID": "DEPTH-CONDITIONAL",
+      "ProofBoundary": "Uniformq afterrounding assumed; notwallclockbound",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F38",
+      "Expression": "finiteprefix implies global geometric tail",
+      "UnitsAndDomain": "quantifier over future levels",
+      "NormativeSource": "Docs/27 conservativebound",
+      "Source": "Include/Planning/HSBI_FutureSmallSolver.mqh:146",
+      "Status": "UNVERIFIED",
+      "IndependentVector": ".8,.64 thenplateau.64 breaksq^3",
+      "TestID": "BOUND_FINITE_PREFIX_NOT_GLOBAL_PROOF",
+      "ProofBoundary": "Finiteprefix cannotproveuniversalmodel",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F39",
+      "Expression": "RecoveryMoney(P+tick)>RecoveryMoney(P) overrange",
+      "UnitsAndDomain": "money/price",
+      "NormativeSource": "Docs/05:22",
+      "Source": "Include/Planning/HSBI_GeometrySolver.mqh:12",
+      "Status": "UNVERIFIED",
+      "IndependentVector": "onelevelimprovement notallvalidticks/gaps",
+      "TestID": "RANGE-MONOTONICITY",
+      "ProofBoundary": "Helper compares2values, no complete sweep wired",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F40",
+      "Expression": "PartialClose=floor(Budget/lossPerLot); actual recheck",
+      "UnitsAndDomain": "lot",
+      "NormativeSource": "Docs/11:7",
+      "Source": "Include/Scenarios/HSBI_PartialFarTypes.mqh:4",
+      "Status": "UNVERIFIED",
+      "IndependentVector": "B5,loss20,step.1 ->.2lot costs4<=5",
+      "TestID": "PARTIAL-FLOOR",
+      "ProofBoundary": "Only DTO; actualmulti-fillcost/recovery absent",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F41",
+      "Expression": "checked int64 settled arithmetic",
+      "UnitsAndDomain": "minor money units",
+      "NormativeSource": "MQL-DOMAIN proposal",
+      "Source": "ProductionMoneyStateusesdouble",
+      "Status": "UNVERIFIED",
+      "IndependentVector": "2^63-1+1 unsupported; not Pythonintdomain",
+      "TestID": "INT64-OVERFLOW",
+      "ProofBoundary": "No approved settled representation/nativecodec",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F42",
+      "Expression": "F64Z rawbits/zero + T17 scientific17",
+      "UnitsAndDomain": "raw64bytes/not moneyrounding",
+      "NormativeSource": "R0H codecreferenceprofile",
+      "Source": "Tests/Reference/hsbi_02b_r0h_identity_codec.py",
+      "Status": "VERIFIED",
+      "IndependentVector": "literal independentvectors minsubnormal etc",
+      "TestID": "R0H_API",
+      "ProofBoundary": "Reference148PASS only; MQLNOT_RUN",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F43",
+      "Expression": "small spends near1e28 retain exact decrement",
+      "UnitsAndDomain": "money domain",
+      "NormativeSource": "R0D exact proposal",
+      "Source": "moneyfieldsdouble/no actualconsumebackend",
+      "Status": "UNVERIFIED",
+      "IndependentVector": "binary64(1e28)-.01 == binary64(1e28)",
+      "TestID": "MONEY-RESOLUTION",
+      "ProofBoundary": "ExactFraction does not prove nativeMQL settlement",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F44",
+      "Expression": "round(price/tick)*tick",
+      "UnitsAndDomain": "price",
+      "NormativeSource": "Docs/05:16",
+      "Source": "Include/Planning/HSBI_BrokerGrid.mqh:13",
+      "Status": "VERIFIED",
+      "IndependentVector": "tick.25 price100.12 ->100.0",
+      "TestID": "PRICE-GRID",
+      "ProofBoundary": "Bounds/side/freshness revalidation required",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F45",
+      "Expression": "Level=FarReference±(Start+(k-1)*Step)*Point",
+      "UnitsAndDomain": "price/points",
+      "NormativeSource": "Docs/05:19",
+      "Source": "GeometrySnapshotfields only",
+      "Status": "VERIFIED",
+      "IndependentVector": "100+(10+2*5)*.01=100.2",
+      "TestID": "LEVEL-DISTANCE",
+      "ProofBoundary": "Algebra verified, full trigger/planner absent",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F46",
+      "Expression": "BUYcloseBid/SELLcloseAsk",
+      "UnitsAndDomain": "price side",
+      "NormativeSource": "Docs/03:9",
+      "Source": "Include/Money/HSBI_BasketMoneyEvaluator.mqh:9",
+      "Status": "VERIFIED",
+      "IndependentVector": "bid100ask101 ->buy100/sell101",
+      "TestID": "BASKET_STUB_POSITIVE_VALID",
+      "ProofBoundary": "Brokerfill/slippage stillunknown",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F47",
+      "Expression": "Candidate objective minN vsrisk-first",
+      "UnitsAndDomain": "ordered tuple",
+      "NormativeSource": "Docs/14:22 vs Docs/29:3",
+      "Source": "Include/Planning/HSBI_NewFarCandidate.mqh:35",
+      "Status": "CONTRADICTORY",
+      "IndependentVector": "N.2risk10 vsN.3risk5",
+      "TestID": "OBJECTIVE-NON_EQUIVALENCE",
+      "ProofBoundary": "Requiresprecedence/approvedpolicy",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F48",
+      "Expression": "Grid origin0 vs min+n*step",
+      "UnitsAndDomain": "lot/lattice",
+      "NormativeSource": "Docs/04:9 vs Docs/14:9",
+      "Source": "Include/Planning/HSBI_BrokerGrid.mqh:24",
+      "Status": "UNVERIFIED",
+      "IndependentVector": "min.03 step.02: offset.03/.05 vsabsolute.04/.06",
+      "TestID": "GRID-ORIGIN",
+      "ProofBoundary": "Brokerorigin contract mustbepinned; no universalassumption",
+      "ProductionNativeVerified": false
+    },
+    {
+      "FormulaID": "F49",
+      "Expression": "round(sum components) vs sum(round components)",
+      "UnitsAndDomain": "money/minor units",
+      "NormativeSource": "NUM precision policyawaiting",
+      "Source": "No independently verified brokerposted policy",
+      "Status": "UNVERIFIED",
+      "IndependentVector": ".005+.005 digits2 halfEven =>.01 vs0",
+      "TestID": "ROUNDING-POLICY",
+      "ProofBoundary": "Decimal illustrativepolicy not brokerfact",
+      "ProductionNativeVerified": false
+    }
+  ],
+  "StatusCounts": {
+    "VERIFIED": 24,
+    "CONTRADICTORY": 11,
+    "UNVERIFIED": 14
+  },
+  "RawSourceExpressionSites": [
+    {
+      "SourceFile": "Include/Core/HSBI_Context.mqh",
+      "Line": 49,
+      "Source": "if(c.far.role==HSBI_ROLE_FAR)farCount++;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Core/HSBI_Context.mqh",
+      "Line": 50,
+      "Source": "if(c.bigCore.role==HSBI_ROLE_FAR)farCount++;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Core/HSBI_Context.mqh",
+      "Line": 51,
+      "Source": "if(c.bigTrend.role==HSBI_ROLE_FAR)farCount++;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Core/HSBI_Context.mqh",
+      "Line": 52,
+      "Source": "if(c.smallBase.role==HSBI_ROLE_FAR)farCount++;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Core/HSBI_Identifiers.mqh",
+      "Line": 18,
+      "Source": "result=StringSubstr(\"0123456789\",digit,1)+result;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Core/HSBI_Identifiers.mqh",
+      "Line": 23,
+      "Source": "string HSBI_SerializeIdentity(const HSBI_Identity &x){return LongToString(x.accountLogin)+\"|\"+x.symbol+\"|\"+LongToString(x.magic)+\"|\"+HSBI_UlongToString(x.cycleId)+\"|\"+HSBI_UlongToString(x.positionIdentifier)+\"|\"+IntegerToString((int)x.role);}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Core/HSBI_Invariants.mqh",
+      "Line": 5,
+      "Source": "HSBI_ValidationResult HSBI_ExactlyOneFarOrZero(const HSBI_RecoveryContext &c){int n=HSBI_CountFarRoles(c.far,c.bigCore,c.bigTrend,c.smallBase);return HSBI_Result(n<=1,n<=1?HSBI_REASON_OK:HSBI_REASON_DUPLICATE_FAR,\"HSBI-ID-010\",IntegerToString(n));}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Core/HSBI_Invariants.mqh",
+      "Line": 9,
+      "Source": "HSBI_ValidationResult HSBI_StateRevisionMonotonic(const ulong before,const ulong after){bool ok=after>=before;return HSBI_Result(ok,ok?HSBI_REASON_OK:HSBI_REASON_INTERNAL_INVARIANT_FAILED,\"HSBI-FSM-002\",\"\");}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Core/HSBI_Invariants.mqh",
+      "Line": 12,
+      "Source": "HSBI_ValidationResult HSBI_AllocationConservation(const double allocated,const double available){bool ok=allocated<=available+0.0000001;return HSBI_Result(ok,ok?HSBI_REASON_OK:HSBI_REASON_LEDGER_CONSERVATION_FAILED,\"HSBI-MONEY-014\",\"\");}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Core/HSBI_Roles.mqh",
+      "Line": 6,
+      "Source": "bool HSBI_IsKnownRole(const HSBI_Role role){return role>=HSBI_ROLE_INITIAL_BUY&&role<=HSBI_ROLE_NEW_FAR;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Core/HSBI_Roles.mqh",
+      "Line": 10,
+      "Source": "int HSBI_CountFarRoles(const HSBI_PositionDescriptor &a,const HSBI_PositionDescriptor &b,const HSBI_PositionDescriptor &c,const HSBI_PositionDescriptor &d){int n=0;if(a.role==HSBI_ROLE_FAR)n++;if(b.role==HSBI_ROLE_FAR)n++;if(c.role==HSBI_ROLE_FAR)n++;if(d.role==HSBI_ROLE_FAR)n++;return n;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Core/HSBI_StateMachine.mqh",
+      "Line": 6,
+      "Source": "HSBI_StateTransitionResult HSBI_ProposeStateTransition(const HSBI_RecoveryContext &c,const HSBI_State to){HSBI_StateTransitionResult r;r.fromState=c.currentState;r.toState=to;r.allowed=HSBI_IsTransitionAllowed(c.currentState,to);r.proposedRevision=c.stateRevision+(r.allowed?1:0);r.reason=r.allowed?HSBI_REASON_OK:HSBI_REASON_INVALID_STATE_TRANSITION;return r;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Diagnostics/HSBI_PanelModel.mqh",
+      "Line": 5,
+      "Source": "HSBI_PanelModel HSBI_BuildPanelModel(const HSBI_RecoveryContext &c){HSBI_PanelModel p;p.projectName=HSBI_PROJECT_NAME;p.stage=HSBI_STAGE;p.runtimeMode=IntegerToString((int)c.runtimeMode);p.state=IntegerToString((int)c.currentState);p.identity=c.symbol+\"/\"+LongToString(c.magic)+\"/\"+HSBI_UlongToString(c.cycleId);p.noTradeStatus=\"TRADING_IMPLEMENTED=NO\";p.lastReason=HSBI_ReasonToString(c.lastReason);p.moneySummary=DoubleToString(c.realizedCycleNet,2)+\"|\"+DoubleToString(c.finalReserve,2);p.reconciliationSummary=IntegerToString(c.reconciliationStatus);return p;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Execution/HSBI_ActionTypes.mqh",
+      "Line": 6,
+      "Source": "bool HSBI_ValidateActionRecord(const HSBI_ActionRecord &a){return a.actionId>0&&a.planId>0&&a.cycleId>0&&a.stateRevision>0&&a.actionType!=HSBI_ACTION_NONE&&a.expectedVolume>=0.0;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Execution/HSBI_ActionTypes.mqh",
+      "Line": 7,
+      "Source": "string HSBI_SerializeActionIds(const HSBI_ActionRecord &a){return HSBI_UlongToString(a.planId)+\"|\"+HSBI_UlongToString(a.actionId)+\"|\"+HSBI_UlongToString(a.parentActionId)+\"|\"+HSBI_UlongToString(a.cycleId)+\"|\"+HSBI_UlongToString(a.stateRevision)+\"|\"+HSBI_UlongToString(a.expectedTicket)+\"|\"+HSBI_UlongToString(a.expectedIdentifier);}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Execution/HSBI_EventTypes.mqh",
+      "Line": 6,
+      "Source": "bool HSBI_ValidateEventRecord(const HSBI_EventRecord &e){return e.eventId>0&&e.actionId>0&&e.eventType!=HSBI_EVENT_NONE&&e.actualVolume>=0.0;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Execution/HSBI_EventTypes.mqh",
+      "Line": 7,
+      "Source": "string HSBI_SerializeEventIds(const HSBI_EventRecord &e){return HSBI_UlongToString(e.eventId)+\"|\"+HSBI_UlongToString(e.actionId)+\"|\"+HSBI_UlongToString(e.orderTicket)+\"|\"+HSBI_UlongToString(e.dealTicket)+\"|\"+HSBI_UlongToString(e.positionIdentifier);}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Execution/HSBI_ExecutionIntent.mqh",
+      "Line": 17,
+      "Source": "return HSBI_UlongToString(x.intentId)+\"|\"+HSBI_UlongToString(x.planId)+\"|\"+x.planDigest+\"|\"+x.candidateDigest+\"|\"+x.aggregateProofDigest+\"|\"+",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Execution/HSBI_ExecutionIntent.mqh",
+      "Line": 33,
+      "Source": "x.requestedVolume<=0.0||x.normalizedVolume<=0.0||x.controlPrice<=0.0)return false;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Execution/HSBI_ExecutionIntent.mqh",
+      "Line": 39,
+      "Source": "if(x.creationTimestamp<=0||x.expiryTimestamp<=x.creationTimestamp||!HSBI_IsValidIntentStatus(x.status))return false;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Execution/HSBI_ExecutionIntent.mqh",
+      "Line": 42,
+      "Source": "string HSBI_IntentIdempotencyKey(const HSBI_ExecutionIntent &x){return HSBI_UlongToString(x.intentId)+\"|\"+HSBI_UlongToString(x.expectedActionId)+\"|\"+x.planDigest+\"|\"+HSBI_UlongToString(x.stateRevision);}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Execution/HSBI_ExecutionPreflight.mqh",
+      "Line": 33,
+      "Source": "r.status=HSBI_PREFLIGHT_PASS;r.valid=true;r.reason=HSBI_REASON_OK;r.details=\"PASS\";r.digest=x.intent.digest+\"|PREFLIGHT_PASS\";return r;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Execution/HSBI_ExternalOutcome.mqh",
+      "Line": 14,
+      "Source": "{return HSBI_UlongToString(x.actionId)+\"|\"+HSBI_UlongToString(x.eventId)+\"|\"+HSBI_UlongToString(x.dealId)+\"|\"+",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Execution/HSBI_ExternalOutcome.mqh",
+      "Line": 27,
+      "Source": "if(x.outcome.actionId!=x.intent.expectedActionId||x.outcome.eventId<=x.lastAppliedEventId||x.outcome.dealId==0||x.outcome.positionIdentifier!=x.intent.sourcePositionIdentifier||",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Execution/HSBI_ExternalOutcome.mqh",
+      "Line": 31,
+      "Source": "r.valid=true;r.completionAllowed=true;r.targetStatus=HSBI_INTENT_COMPLETED;r.reason=HSBI_REASON_OK;r.details=\"RECONCILIATION_PASSED\";r.digest=x.intent.digest+\"|\"+x.outcome.digest;return r;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+      "Line": 6,
+      "Source": "double HSBI_AllocatedTotal(const HSBI_AllocationLedgerRecord &r){return r.finalReserveAllocated+r.partialFarAllocated+r.transitionAllocated+r.carryAllocated+r.residual;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+      "Line": 7,
+      "Source": "bool HSBI_ValidateAllocationConservation(const HSBI_AllocationLedgerRecord &r){if(!r.valid||r.sourceDealKey==\"\")return false;if(r.sourceDealNet<0.0)return HSBI_AllocatedTotal(r)<=0.0000001;return HSBI_AllocatedTotal(r)<=r.sourceDealNet+0.0000001&&r.consumed<=r.available+0.0000001;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+      "Line": 10,
+      "Source": "bool HSBI_CanConsumeAmount(const HSBI_AllocationLedgerRecord &r,const double amount){return amount>=0.0&&amount<=r.available+0.0000001;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_AllocationPolicyTypes.mqh",
+      "Line": 23,
+      "Source": "return p.reserveShare+p.partialFarShare+p.transitionShare+p.carryShare<=1.0+1e-12;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_AllocationPolicyTypes.mqh",
+      "Line": 27,
+      "Source": "return DoubleToString(p.reserveShare,12)+\"|\"+DoubleToString(p.partialFarShare,12)+\"|\"+",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_BasketMoneyEvaluator.mqh",
+      "Line": 17,
+      "Source": "r.basketNetMoney=r.far.netMoney+r.core.netMoney+r.trend.netMoney+r.small.netMoney;r.recoveryMoney=r.basketNetMoney;r.totalMargin=fm.margin+cm.margin+tm.margin+sm.margin;r.grossExposure=x.farVolume+x.coreVolume+x.trendVolume+x.smallVolume;r.reserveGainMoney=MathMax(0.0,r.core.netMoney+r.trend.netMoney+r.small.netMoney);r.farLossIncreaseMoney=MathMax(0.0,-r.far.netMoney);r.transitionLoss=MathMax(0.0,-r.basketNetMoney);r.safetyBuffer=x.executionSafetyBuffer*4.0;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_BasketMoneyEvaluator.mqh",
+      "Line": 22,
+      "Source": "return IntegerToString((int)r.status)+\"|\"+IntegerToString((int)r.valid)+\"|\"+",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_BrokerMoneyTypes.mqh",
+      "Line": 15,
+      "Source": "if(p.symbol==\"\"||p.digits<0||p.snapshotId==0||p.timestamp<=0)return HSBI_BROKER_PROPERTIES_INVALID;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_BrokerMoneyTypes.mqh",
+      "Line": 17,
+      "Source": "if(p.point<=0.0||p.tickSize<=0.0||p.volumeMin<=0.0||p.volumeMax<p.volumeMin||p.volumeStep<=0.0||p.tickValueProfit<0.0||p.tickValueLoss<0.0)return HSBI_BROKER_PROPERTIES_INVALID;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_CandidateMoneyEvaluator.mqh",
+      "Line": 19,
+      "Source": "for(int i=0;i<r.futureSmallProof.provenDepth;i++) {",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_CandidateMoneyEvaluator.mqh",
+      "Line": 21,
+      "Source": "r.moneyProofDigest+=\"|\"+IntegerToString(i)+\"|\"+DoubleToString(p.projectedRecoveryMoney,8)+\"|\"+IntegerToString((int)p.moneyProofStatus);",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_CandidateMoneyEvaluator.mqh",
+      "Line": 22,
+      "Source": "r.marginProofDigest+=\"|\"+IntegerToString(i)+\"|\"+DoubleToString(p.projectedMargin,8)+\"|\"+IntegerToString((int)p.marginProofStatus);",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_CandidateMoneyEvaluator.mqh",
+      "Line": 23,
+      "Source": "r.riskProofDigest+=\"|\"+IntegerToString(i)+\"|\"+DoubleToString(p.projectedRisk,8)+\"|\"+IntegerToString((int)p.riskProofStatus);",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_CatchUpModel.mqh",
+      "Line": 11,
+      "Source": "if(x.reserveShare<=0.0||x.reserveShare>1.0||x.netBigVolume<=0.0||x.farVolume<=0.0||x.executionSafetyBuffer<0.0)return r;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_CostModel.mqh",
+      "Line": 7,
+      "Source": "if(!c.valid||c.actual!=expectedActual||c.timestamp<=0||c.snapshotId==0)return false;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_CostModel.mqh",
+      "Line": 9,
+      "Source": "return c.slippageBuffer>=0.0&&c.spreadCost>=0.0;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_CostModel.mqh",
+      "Line": 13,
+      "Source": "netMoney=0.0;if(!HSBI_IsFiniteNumber(profit)||!HSBI_ValidateCostSnapshot(c,true))return false;netMoney=profit+c.swap+c.commission+c.fee;return HSBI_IsFiniteNumber(netMoney);",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_CostModel.mqh",
+      "Line": 18,
+      "Source": "netMoney=grossProfit+c.swap+c.commission+c.fee-c.spreadCost-c.slippageBuffer-executionSafetyBuffer;return HSBI_IsFiniteNumber(netMoney);",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "Line": 7,
+      "Source": "string HSBI_BuildSourceDealKey(const HSBI_EconomicLedgerRecord &r){return r.symbol+\"|\"+LongToString(r.magic)+\"|\"+HSBI_UlongToString(r.cycleId)+\"|\"+HSBI_UlongToString(r.dealTicket);}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "Line": 11,
+      "Source": "string HSBI_SerializeEconomicRecord(const HSBI_EconomicLedgerRecord &r){return r.sourceDealKey+\"|\"+DoubleToString(r.volume,8)+\"|\"+DoubleToString(r.price,8)+\"|\"+DoubleToString(r.dealNet,8);}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_MoneyProofIdentity.mqh",
+      "Line": 25,
+      "Source": "return LongToString(x.accountLogin)+\"|\"+x.symbol+\"|\"+LongToString(x.magic)+\"|\"+HSBI_UlongToString(x.cycleId)+\"|\"+",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_MoneyState.mqh",
+      "Line": 5,
+      "Source": "bool HSBI_ValidateMoneyState(const HSBI_MoneyState &s){return s.finalReserve>=0&&s.partialFarBudget>=0&&s.transitionBudget>=0&&s.carry>=0&&s.residual>=0;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_MoneyTypes.mqh",
+      "Line": 9,
+      "Source": "HSBI_RecoveryPLSnapshot HSBI_BuildRecoveryPL(const double realized,const double openNet,const HSBI_FinalCloseThreshold &t){HSBI_RecoveryPLSnapshot r;r.realizedCycleNet=realized;r.openPositionsCloseNowNet=openNet;r.recoveryPLCloseNow=realized+openNet;r.minimumProfit=t.minimumProfit;r.executionBuffer=t.executionBuffer;r.tolerance=t.tolerance;r.threshold=t.threshold;r.allowed=r.recoveryPLCloseNow>=r.threshold;return r;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+      "Line": 18,
+      "Source": "x.sourceDealId==0||x.allocationEventId==0||x.allocationPolicyVersion==0||x.allocatableNet<=0.0)return false;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+      "Line": 23,
+      "Source": "return x.reserveAllocated+x.partialFarAllocated+x.transitionAllocated+x.carryAllocated+x.residualAllocated+x.alreadyConsumed<=x.allocatableNet+1e-10;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+      "Line": 32,
+      "Source": "{return x.sourceDealKey+\"|\"+x.sourceAllocationKey+\"|\"+HSBI_UlongToString(x.sourceDealId)+\"|\"+HSBI_UlongToString(x.allocationEventId)+\"|\"+HSBI_UlongToString(x.allocationPolicyVersion)+\"|\"+DoubleToString(x.allocatableNet,8)+\"|\"+DoubleToString(x.reserveAllocated,8)+\"|\"+DoubleToString(x.partialFarAllocated,8)+\"|\"+DoubleToString(x.transitionAllocated,8)+\"|\"+DoubleToString(x.carryAllocated,8)+\"|\"+DoubleToString(x.residualAllocated,8)+\"|\"+DoubleToString(x.alreadyConsumed,8);}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+      "Line": 34,
+      "Source": "{return x.sourceDealKey+\"|\"+x.sourceAllocationKey+\"|\"+HSBI_UlongToString(x.planId)+\"|\"+HSBI_UlongToString(x.stateRevision)+\"|\"+HSBI_UlongToString(x.consumptionEventId)+\"|\"+x.consumer;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "Line": 70,
+      "Source": "r.reserveGainMoney=x.reserveEligibleMoney*x.allocationPolicy.reserveShare;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "Line": 72,
+      "Source": "if(x.farLossIncreaseMoney<0.0||x.executionSafetyBuffer<0.0||x.netBigVolume<=0.0||x.farVolume<=0.0){r.status=HSBI_CALC_REJECT;r.details=\"INVALID_CATCH_UP_INPUT\";return r;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "Line": 79,
+      "Source": "{return IntegerToString((int)r.status)+\"|\"+IntegerToString((int)r.valid)+\"|\"+DoubleToString(r.reserveShare,12)+\"|\"+",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Persistence/HSBI_ExecutionJournal.mqh",
+      "Line": 13,
+      "Source": "{return HSBI_UlongToString(x.journalEntryId)+\"|\"+HSBI_UlongToString(x.intentId)+\"|\"+HSBI_UlongToString(x.planId)+\"|\"+",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Persistence/HSBI_ExecutionJournal.mqh",
+      "Line": 29,
+      "Source": "return HSBI_ValidateJournalEntry(candidate,expectedPrevious,cycleId,planId,revision)&&candidate.journalEntryId==last.journalEntryId+1&&candidate.eventId>last.eventId?HSBI_JOURNAL_APPENDED:HSBI_JOURNAL_REJECTED;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Persistence/HSBI_ExecutionJournal.mqh",
+      "Line": 34,
+      "Source": "for(int i=0;i<count;i++){",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Persistence/HSBI_ExecutionJournal.mqh",
+      "Line": 37,
+      "Source": "if(i>0&&(e.journalEntryId!=entries[i-1].journalEntryId+1||e.eventId<=entries[i-1].eventId))return false;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh",
+      "Line": 13,
+      "Source": "{return IntegerToString(x.schemaVersion)+\"|\"+IntegerToString(x.snapshotVersion)+\"|\"+LongToString(x.accountLogin)+\"|\"+x.symbol+\"|\"+",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Persistence/HSBI_JournalTypes.mqh",
+      "Line": 7,
+      "Source": "string HSBI_SerializeJournalIds(const HSBI_JournalRecord &r){return HSBI_UlongToString(r.revision)+\"|\"+HSBI_UlongToString(r.cycleId)+\"|\"+HSBI_UlongToString(r.stateRevision)+\"|\"+HSBI_SerializeActionIds(r.action)+\"|\"+HSBI_SerializeEventIds(r.event);}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Persistence/HSBI_SnapshotTypes.mqh",
+      "Line": 9,
+      "Source": "ulong HSBI_TestDigest(const HSBI_SnapshotRecord &s){string v=IntegerToString(s.schemaVersion)+\"|\"+HSBI_UlongToString(s.cycleId)+\"|\"+HSBI_UlongToString(s.stateRevision)+\"|\"+s.candidatePlanDigest;ulong h=2166136261;for(int i=0;i<StringLen(v);i++){h^=(uchar)StringGetCharacter(v,i);h*=16777619;}return h;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Persistence/HSBI_SnapshotTypes.mqh",
+      "Line": 10,
+      "Source": "string HSBI_SerializeSnapshotIds(const HSBI_SnapshotRecord &s){return HSBI_UlongToString(s.cycleId)+\"|\"+HSBI_UlongToString(s.stateRevision)+\"|\"+HSBI_SerializeActionIds(s.pendingAction);}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "Line": 7,
+      "Source": "double HSBI_GridTolerance(const double step){return MathMax(1.0e-10,MathAbs(step)*1.0e-8);}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "Line": 10,
+      "Source": "if(!HSBI_IsFiniteNumber(price)||!HSBI_IsFiniteNumber(tickSize)||price<=0.0||tickSize<=0.0)return false;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "Line": 11,
+      "Source": "double ticks=price/tickSize;return MathAbs(ticks-MathRound(ticks))<=HSBI_GridTolerance(tickSize)/tickSize;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "Line": 15,
+      "Source": "if(!HSBI_IsFiniteNumber(price)||!HSBI_IsFiniteNumber(tickSize)||price<=0.0||tickSize<=0.0)return 0.0;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "Line": 16,
+      "Source": "double ticks=price/tickSize;double units=MathRound(ticks);if(mode==HSBI_GRID_FLOOR)units=MathFloor(ticks+1.0e-12);else if(mode==HSBI_GRID_CEIL)units=MathCeil(ticks-1.0e-12);",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "Line": 17,
+      "Source": "double normalized=units*tickSize;return HSBI_IsPriceOnTickGrid(normalized,tickSize)?normalized:0.0;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "Line": 20,
+      "Source": "double HSBI_PriceDistanceInTicks(const double first,const double second,const double tickSize){if(!HSBI_IsFiniteNumber(first)||!HSBI_IsFiniteNumber(second)||tickSize<=0.0)return 0.0;return MathAbs(second-first)/tickSize;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "Line": 23,
+      "Source": "if(!HSBI_IsFiniteNumber(volume)||!HSBI_IsFiniteNumber(step)||volume<=0.0||step<=0.0)return false;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "Line": 24,
+      "Source": "double units=volume/step;return MathAbs(units-MathRound(units))<=HSBI_GridTolerance(step)/step;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "Line": 26,
+      "Source": "double HSBI_FloorVolumeToStep(const double volume,const double step){if(!HSBI_IsFiniteNumber(volume)||!HSBI_IsFiniteNumber(step)||volume<=0.0||step<=0.0)return 0.0;return MathFloor(volume/step+1.0e-12)*step;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "Line": 27,
+      "Source": "double HSBI_CeilVolumeToStep(const double volume,const double step){if(!HSBI_IsFiniteNumber(volume)||!HSBI_IsFiniteNumber(step)||volume<=0.0||step<=0.0)return 0.0;return MathCeil(volume/step-1.0e-12)*step;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "Line": 36,
+      "Source": "return volume>=p.volumeMin-HSBI_GridTolerance(p.volumeStep)&&volume<=p.volumeMax+HSBI_GridTolerance(p.volumeStep)&&HSBI_IsVolumeOnGrid(volume,p.volumeStep);",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_CandidatePlan.mqh",
+      "Line": 7,
+      "Source": "string HSBI_CandidatePlanFingerprint(const HSBI_CandidatePlan &p){return HSBI_UlongToString(p.planId)+\"|\"+HSBI_UlongToString(p.cycleId)+\"|\"+HSBI_UlongToString(p.stateRevision)+\"|\"+p.positionFingerprint+\"|\"+HSBI_UlongToString(p.marketSnapshotId);}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_ControlPrices.mqh",
+      "Line": 11,
+      "Source": "bool HSBI_IsSnapshotFresh(const HSBI_MarketSnapshot &s,const datetime now){return s.timestamp>0&&s.freshnessSeconds>=0&&(now-s.timestamp)<=s.freshnessSeconds;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_ControlPrices.mqh",
+      "Line": 12,
+      "Source": "double HSBI_NormalizePriceToTick(const double price,const double tickSize){if(tickSize<=0.0)return 0.0;return MathRound(price/tickSize)*tickSize;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_ControlPrices.mqh",
+      "Line": 14,
+      "Source": "HSBI_ValidationResult HSBI_ValidateMarketSnapshot(const HSBI_MarketSnapshot &s){bool ok=s.symbol!=\"\"&&s.bid>0&&s.ask>=s.bid&&s.point>0&&s.tickSize>0&&s.snapshotId>0;return HSBI_Result(ok,ok?HSBI_REASON_OK:HSBI_REASON_STALE_SNAPSHOT,\"HSBI-GEO-005\",\"\");}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_ControlPrices.mqh",
+      "Line": 19,
+      "Source": "if(!HSBI_IsFiniteNumber(p.bid)||!HSBI_IsFiniteNumber(p.ask)||!HSBI_IsFiniteNumber(p.selectedPrice)||p.bid<=0.0||p.ask<p.bid||p.tickSize<=0.0||p.point<=0.0)return false;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+      "Line": 17,
+      "Source": "{return \"AGG|\"+IntegerToString((int)a.selectionPolicy)+\"|\"+IntegerToString(a.levelCount)+\"|\"+DoubleToString(a.minimumRecoveryMoney,8)+\"|\"+",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+      "Line": 29,
+      "Source": "for(int i=0;i<p.provenDepth;i++){",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+      "Line": 30,
+      "Source": "HSBI_FutureSmallLevelProof l=p.levels[i];a.evaluatedLevelCount++;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+      "Line": 31,
+      "Source": "bool complete=l.valid&&l.levelIndex==i+1&&l.moneyIncluded&&l.marginIncluded&&l.riskIncluded&&l.transitionLossIncluded&&",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+      "Line": 47,
+      "Source": "chain+=\"|\"+HSBI_FutureSmallLevelDigest(l);",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 8,
+      "Source": "!HSBI_IsFiniteNumber(step)||f<=0.0||vmin<=0.0||vmin>f||q<=0.0||q>=1.0||step<=0.0) return false;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 9,
+      "Source": "double value=MathLog(vmin/f)/MathLog(q); if(!HSBI_IsFiniteNumber(value)||value<0.0||value>2147483647.0) return false;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 10,
+      "Source": "depth=(int)MathCeil(value); return true;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 15,
+      "Source": "return depth>=2&&q>0.0&&q<1.0&&rounding&&costs&&margin&&risk&&loss&&initialFar>0.0&&observedFar>0.0&&",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 16,
+      "Source": "observedFar<=initialFar*MathPow(q,depth)+1e-10;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 20,
+      "Source": "if(m.levelIndex!=level||!m.valid||!m.fresh||!m.normalized||m.snapshotId==0||m.timestamp<=0||m.symbol!=b.symbol||",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 34,
+      "Source": "if(!p.valid||!p.projected||p.actual||!p.confirmed||p.source==HSBI_FAR_PROJECTION_UNAVAILABLE||p.projectedFar<=0.0||",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 41,
+      "Source": "HSBI_ControlPrice p; ZeroMemory(p); p.symbol=m.symbol;p.bid=m.bid;p.ask=m.ask;p.mid=(m.bid+m.ask)/2.0;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 52,
+      "Source": "x.farProjectionCount<x.maximumDepth||x.currentFar<=0.0||x.volumeStep<=0.0||x.conservativeQ<=0.0||x.conservativeQ>=1.0) return false;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 53,
+      "Source": "if(x.maxNewFarRatio<=0.0||x.maxNewFarRatio>=1.0||x.minimumCompressionLots<=0.0||",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 54,
+      "Source": "x.minimumCompressionRatio<=0.0||x.minimumCompressionRatio>=1.0) return false;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 67,
+      "Source": "r.compressionLots=x.farBefore-r.farAfter;r.compressionRatio=r.compressionLots/x.farBefore;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 89,
+      "Source": "if(r.recoveryMoney<=x.moneyState.recoveryMoney||r.totalMargin>x.marginState.allowedMargin||r.grossExposure>=x.priorGrossExposure||",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 95,
+      "Source": "return IntegerToString(p.levelIndex)+\"|\"+DoubleToString(p.farBefore,8)+\"|\"+DoubleToString(p.farAfter,8)+\"|\"+",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 108,
+      "Source": "string d=\"FS|\"+HSBI_UlongToString(r.planId)+\"|\"+HSBI_UlongToString(r.stateRevision);",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 109,
+      "Source": "for(int i=0;i<r.provenDepth;i++) d+=\"|L|\"+HSBI_FutureSmallLevelDigest(r.levels[i]);",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 110,
+      "Source": "return d+\"|END|\"+IntegerToString((int)r.status)+\"|\"+IntegerToString(r.provenDepth)+\"|\"+",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 120,
+      "Source": "for(int k=0;k<x.maximumDepth;k++) {",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 121,
+      "Source": "HSBI_FutureSmallLevelInput li;ZeroMemory(li);li.runtimeMode=x.runtimeMode;li.levelIndex=k+1;li.farBefore=far;li.coreRatio=x.coreRatio;li.trendRatio=x.trendRatio;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 141,
+      "Source": "r.levels[k]=p;r.provenDepth=k+1;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 144,
+      "Source": "risk.currentRisk=level.riskValue;margin.currentMargin=level.totalMargin;if(far<=x.volumeMin+HSBI_GridTolerance(x.volumeStep)){terminal=true;break;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "Line": 147,
+      "Source": "r.valid=r.provenDepth>=2&&(terminal||bound);r.status=terminal&&r.provenDepth>=2?HSBI_FS_EXACT_PROOF:(bound?HSBI_FS_CONSERVATIVE_BOUND:HSBI_FS_UNPROVEN);",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_GeometrySolver.mqh",
+      "Line": 9,
+      "Source": "if(coreVolume<0.0||trendVolume<0.0||smallVolume<=0.0||farVolume<=0.0)return false;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_GeometrySolver.mqh",
+      "Line": 10,
+      "Source": "slope=coreVolume+trendVolume-smallVolume-farVolume;return HSBI_IsFiniteNumber(slope)&&slope>0.0;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_GeometrySolver.mqh",
+      "Line": 26,
+      "Source": "if(!HSBI_IsFiniteNumber(coreRatio)||!HSBI_IsFiniteNumber(trendRatio)||!HSBI_IsFiniteNumber(smallRatio)||coreRatio<=0.0||trendRatio<0.0||smallRatio<=0.0){r.details=\"INVALID_RATIO\";return r;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_GeometrySolver.mqh",
+      "Line": 28,
+      "Source": "r.rawCoreVolume=farVolume*coreRatio;r.rawTrendVolume=farVolume*trendRatio;r.rawSmallVolume=farVolume*smallRatio;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_GeometrySolver.mqh",
+      "Line": 31,
+      "Source": "r.coreRoundedDown=r.coreVolume<=r.rawCoreVolume+HSBI_GridTolerance(p.volumeStep);r.trendRoundedDown=r.trendVolume<=r.rawTrendVolume+HSBI_GridTolerance(p.volumeStep);r.smallRoundedUp=r.smallVolume+HSBI_GridTolerance(p.volumeStep)>=r.rawSmallVolume;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_GeometrySolver.mqh",
+      "Line": 32,
+      "Source": "bool coreGrid=(r.coreVolume==0.0||(HSBI_IsVolumeOnGrid(r.coreVolume,p.volumeStep)&&r.coreVolume<=p.volumeMax));bool trendGrid=(r.trendVolume==0.0||(HSBI_IsVolumeOnGrid(r.trendVolume,p.volumeStep)&&r.trendVolume<=p.volumeMax));",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_GeometrySolver.mqh",
+      "Line": 34,
+      "Source": "r.netBigVolume=r.coreVolume+r.trendVolume-r.smallVolume;r.slopePassed=HSBI_ValidateRecoverySlope(r.coreVolume,r.trendVolume,r.smallVolume,r.farVolume,r.brokerGridPassed,r.recoverySlopeLots)&&r.recoverySlopeLots>HSBI_GridTolerance(p.volumeStep);",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Line": 37,
+      "Source": "string d=HSBI_AllocationPolicyDigest(f.allocationPolicy)+\"|\"+DoubleToString(f.currentFar,8)+\"|\"+DoubleToString(f.coreRatio,12)+\"|\"+",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Line": 39,
+      "Source": "for(int i=0;i<f.maximumDepth;i++) d+=\"|M\"+IntegerToString(i)+\"|\"+HSBI_UlongToString(f.levelMarketSnapshots[i].snapshotId)+\"|\"+",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Line": 49,
+      "Source": "return LongToString(x.oldFarDescriptor.identity.accountLogin)+\"|\"+x.oldFarDescriptor.identity.symbol+\"|\"+LongToString(x.oldFarDescriptor.identity.magic)+\"|\"+",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Line": 59,
+      "Source": "string HSBI_FinalizeNewFarPlanDigest(const HSBI_NewFarSolverInput &x,const string list){return HSBI_NewFarInputDigest(x)+\"|CANDIDATES|\"+list;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Line": 70,
+      "Source": "x.oldFarDescriptor.direction==x.actualBigCoreResidual.direction||x.actualBigCoreResidual.actualVolume<=0.0||",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Line": 74,
+      "Source": "double HSBI_AllowedTransitionLoss(const HSBI_NewFarSolverInput &x){return MathMin(MathMin(x.absoluteLossCap,x.equityPercentCap),MathMin(x.oldFarRiskCap,x.cumulativeCycleLossCap));}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Line": 86,
+      "Source": "return DoubleToString(c.normalizedVolume,8)+\"|\"+DoubleToString(x.actualBigCoreResidual.actualVolume,8)+\"|\"+DoubleToString(x.oldFarDescriptor.actualVolume,8)+\"|\"+",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Line": 108,
+      "Source": "HSBI_NewFarCandidate safe[];int safeCount=0;double upper=MathMin(x.brokerProperties.volumeMax,x.actualBigCoreResidual.actualVolume);string listDigest=\"\";",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Line": 109,
+      "Source": "for(double n=x.brokerProperties.volumeMin;n<=upper+HSBI_GridTolerance(x.brokerProperties.volumeStep);n+=x.brokerProperties.volumeStep) {",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Line": 111,
+      "Source": "double compression=x.oldFarDescriptor.actualVolume-candidate,ratio=compression/x.oldFarDescriptor.actualVolume;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Line": 112,
+      "Source": "if(!HSBI_ValidateVolume(candidate,x.brokerProperties)||candidate<=0.0||candidate>=x.oldFarDescriptor.actualVolume||candidate>x.maximumNewFarRatio*x.oldFarDescriptor.actualVolume||",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Line": 121,
+      "Source": "HSBI_ReserveCatchUpInput ci;ZeroMemory(ci);ci.runtimeMode=fs.runtimeMode;ci.testOnlySource=false;ci.allocationPolicy=x.allocationPolicy;ci.reserveEligibleMoney=MathMax(0.0,control.reserveSourceProof.netMoney);",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Line": 122,
+      "Source": "ci.reserveEligibleMoneyAlreadyAllocated=x.reserveAllocationSource.reserveAllocated>0.0;ci.farLossIncreaseMoney=MathMax(0.0,-control.farLossProof.netMoney);ci.executionSafetyBuffer=fs.executionSafetyBuffer;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Line": 134,
+      "Source": "gate.moneyAvailable=aggregate.allMoneyProofsValid;gate.snapshotFresh=fs.snapshotsFresh;if(!HSBI_EvaluateNewFarGates(gate).passed){r.rejectedCandidateCount++;continue;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Line": 144,
+      "Source": "c.allocationPolicyDigest=HSBI_AllocationPolicyDigest(x.allocationPolicy);c.controlPriceDigest=cp.futureSmallProofDigest+\"|CONTROL\";",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Line": 145,
+      "Source": "c.costSnapshotDigest=HSBI_FutureSmallTemplateDigest(fs)+\"|COST\";c.candidateDigest=HSBI_CandidateProofDigest(c,x);c.fullDigestValid=c.candidateDigest!=\"\";",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Line": 146,
+      "Source": "if(!HSBI_IsCompleteCandidateProof(c)){r.rejectedCandidateCount++;continue;}listDigest+=c.candidateDigest+\";\";ArrayResize(safe,safeCount+1);safe[safeCount++]=c;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Line": 149,
+      "Source": "int best=0;for(int i=1;i<safeCount;i++)if(HSBI_CompareCandidateTieBreak(safe[i],safe[best])<0)best=i;HSBI_NewFarCandidate selected=safe[best];",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Risk/HSBI_NewFarGateTypes.mqh",
+      "Line": 12,
+      "Source": "r.allowedTransitionLoss=MathMin(MathMin(x.absoluteLossCap,x.equityPercentCap),MathMin(x.oldFarRiskCap,x.cumulativeCycleLossCap));",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Risk/HSBI_NewFarGateTypes.mqh",
+      "Line": 14,
+      "Source": "if(!HSBI_IsFiniteNumber(x.riskNext)||x.riskNext>=x.riskOld-x.riskTolerance||!HSBI_IsFiniteNumber(x.grossExposureNext)||x.grossExposureNext>=x.grossExposureOld){r.failure=HSBI_RECOVERY_SLOPE_FAILED;return r;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh",
+      "Line": 17,
+      "Source": "string HSBI_RuntimeDecisionContextDigest(const HSBI_RuntimeDecisionContext &x){return LongToString(x.accountLogin)+\"|\"+x.symbol+\"|\"+LongToString(x.magic)+\"|\"+HSBI_UlongToString(x.cycleId)+\"|\"+HSBI_UlongToString(x.planId)+\"|\"+HSBI_UlongToString(x.stateRevision)+\"|\"+IntegerToString(x.schemaVersion)+\"|\"+IntegerToString(x.moneyStateVersion)+\"|\"+IntegerToString((int)x.runtimeMode)+\"|\"+IntegerToString((int)x.state)+\"|\"+HSBI_UlongToString(x.eventId)+\"|\"+HSBI_UlongToString(x.actionId)+\"|\"+HSBI_UlongToString(x.actualResidual.identifier)+\"|\"+HSBI_UlongToString(x.actualResidual.ticket)+\"|\"+DoubleToString(x.actualResidual.actualVolume,8)+\"|\"+x.aggregate.aggregateDigest+\"|\"+x.candidate.candidateDigest+\"|\"+HSBI_ReserveCatchUpDigest(x.catchUp)+\"|\"+HSBI_ReserveAllocationSourceDigest(x.allocationSource)+\"|\"+HSBI_ReserveConsumptionKeyDigest(x.consumptionKey)+\"|\"+x.persistence.snapshotDigest;}",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+      "Line": 28,
+      "Source": "HSBI_RuntimeDecisionResult r=HSBI_RuntimeReject(x,HSBI_DECISION_VALID,HSBI_RD_OK,\"HSBI-2D-VALID\");r.valid=true;r.selectedCandidate=x.candidate;r.selectedAggregate=x.aggregate;r.catchUp=x.catchUp;r.allocation=x.allocationSource;r.requiredNextState=HSBI_STATE_RECONCILING;r.pendingActionId=x.actionId;r.outputDigest=x.inputDigest+\"|VALID\";return r;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    },
+    {
+      "SourceFile": "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh",
+      "Line": 17,
+      "Source": "admission.outputDigest=b.context.inputDigest+\"|ADVANCE\";admission.requirementId=\"HSBI-2D-BARRIER\";return admission;",
+      "Status": "LEXICALLY_IDENTIFIED_NOT_SEMANTICALLY_PROVED"
+    }
+  ],
+  "Method": "49 semantic formula/contract families;137 lexical arithmetic/comparison/string-expression sites. Not137 independent financial formulas, not exhaustive atomic-expression proof. Raw sites individually remain UNVERIFIED unless scoped evidence cited.",
+  "NativeVerifiedCount": 0
+}

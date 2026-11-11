@@ -1,0 +1,292 @@
+{
+  "BaseSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "TestedSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "UTC": "2026-11-11T20:15:32.826816+00:00",
+  "RunnerSourceHash": "1d6225fc50b74e7eea2d9ed48cb7f7c1018479d2e5869a46b64120c74b6fb8b9",
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "Rows": [
+    {
+      "TestID": "FINAL-50-16",
+      "Actual": [
+        50,
+        16,
+        true
+      ],
+      "Expected": [
+        50,
+        16,
+        true
+      ],
+      "Result": "PASS",
+      "Derivation": "No adding reserve subset again; 500realized-450openloss=50.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "FAR-ABSOLUTE",
+      "Actual": [
+        50,
+        10,
+        false,
+        true
+      ],
+      "Expected": [
+        50,
+        10,
+        false,
+        true
+      ],
+      "Result": "PASS",
+      "Derivation": "Absolute50 vs increment10 are different coverage obligations.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "CR09-EXTREMA",
+      "Actual": [
+        [
+          9,
+          -11
+        ],
+        1,
+        2,
+        true,
+        false
+      ],
+      "Expected": [
+        [
+          9,
+          -11
+        ],
+        1,
+        2,
+        true,
+        false
+      ],
+      "Result": "PASS",
+      "Derivation": "ArgmaxTransition not argminMargin. Existing policy scope vs proposedalllevel assessment.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "TRANSITION-ABC",
+      "Actual": [
+        0,
+        15,
+        true
+      ],
+      "Expected": [
+        0,
+        15,
+        true
+      ],
+      "Result": "PASS",
+      "Derivation": "Signedfinal loss0,peak15,sticky breachtrue; no chosenproductionpolicy.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "CAP-MIN",
+      "Actual": 12,
+      "Expected": 12,
+      "Result": "PASS",
+      "Derivation": "Four caps same money units; allknownfinite nonnegative required.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "COMPRESSION",
+      "Actual": [
+        "2/5",
+        "2/5",
+        true
+      ],
+      "Expected": [
+        "2/5",
+        "2/5",
+        true
+      ],
+      "Result": "PASS",
+      "Derivation": "Lotdifference anddimensionlessratio distinct.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "MARGIN-LEVEL",
+      "Actual": "1000",
+      "Expected": "1000",
+      "Result": "PASS",
+      "Derivation": "Percent convention; zero margin/actual broker semantics separate.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "DEPTH-CONDITIONAL",
+      "Actual": [
+        true,
+        true
+      ],
+      "Expected": [
+        true,
+        true
+      ],
+      "Result": "PASS",
+      "Derivation": "K21 iff uniformq for allsuccessfultransitions. Does not guarantee price moves or completion.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "PREFIX-NOT-TAIL",
+      "Actual": [
+        true,
+        true
+      ],
+      "Expected": [
+        true,
+        true
+      ],
+      "Result": "PASS",
+      "Derivation": "Observedprefix .8,.64 and continuation.64: endpoint holds, global q-law fails. No wrong-helper oracle.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "RANGE-MONOTONICITY",
+      "Actual": [
+        true,
+        false
+      ],
+      "Expected": [
+        true,
+        false
+      ],
+      "Result": "PASS",
+      "Derivation": "Two control values showing one positive local step does not prove allfutureticks.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "PARTIAL-FLOOR",
+      "Actual": [
+        "1/5",
+        "4",
+        true
+      ],
+      "Expected": [
+        "1/5",
+        "4",
+        true
+      ],
+      "Result": "PASS",
+      "Derivation": "Budget5 loss20/lot step.1 =>.2lot,4money. Actualclose costs must be rechecked.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "INT64-OVERFLOW",
+      "Actual": true,
+      "Expected": true,
+      "Result": "PASS",
+      "Derivation": "Mathematical wider oracle showsunsupported int64 result; do not sum first in native long.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "MONEY-RESOLUTION",
+      "Actual": [
+        true,
+        true
+      ],
+      "Expected": [
+        true,
+        true
+      ],
+      "Result": "PASS",
+      "Derivation": "Finite64 cannot resolve cents at1e28; no complete productionconsume API tested.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "PRICE-GRID",
+      "Actual": "100",
+      "Expected": "100",
+      "Result": "PASS",
+      "Derivation": "Exactprice100.12/tick.25 ->nearest100.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "LEVEL-DISTANCE",
+      "Actual": "501/5",
+      "Expected": "501/5",
+      "Result": "PASS",
+      "Derivation": "Distancepoints converted to price; 100.2.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "OBJECTIVE-NON_EQUIVALENCE",
+      "Actual": [
+        "1/5",
+        "3/10"
+      ],
+      "Expected": [
+        "1/5",
+        "3/10"
+      ],
+      "Result": "PASS",
+      "Derivation": "MinimumN and minimumRisk notgenerallyequivalent without additionalmonotonicproof.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "GRID-ORIGIN",
+      "Actual": [
+        [
+          "3/100",
+          "1/20"
+        ],
+        [
+          "1/25",
+          "3/50"
+        ]
+      ],
+      "Expected": [
+        [
+          "3/100",
+          "1/20"
+        ],
+        [
+          "1/25",
+          "3/50"
+        ]
+      ],
+      "Result": "PASS",
+      "Derivation": "Differentlattices for nonalignedmin/step; no universal brokerorigin assumed.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "ROUNDING-POLICY",
+      "Actual": [
+        "0.00",
+        "0.01"
+      ],
+      "Expected": [
+        "0.00",
+        "0.01"
+      ],
+      "Result": "PASS",
+      "Derivation": "All operands <=3digits, precision32 exact here. Illustration of component/aggregate policies, not brokerposting evidence.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "COST-OVERLAP",
+      "Actual": [
+        9,
+        8
+      ],
+      "Expected": [
+        9,
+        8
+      ],
+      "Result": "PASS",
+      "Derivation": "BUYactualopenAsk101/closeBid110 already executable; extra sameSpread1 undercounts by1. Unknown costbasis =>not safezero.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    },
+    {
+      "TestID": "ACCOUNT-MODE-NETTING",
+      "Actual": 0,
+      "Expected": 0,
+      "Result": "PASS",
+      "Derivation": "In one-position-per-symbol netting model BUY1+SELL1 closes exposure; two independentinitialtickets impossible withoutdifferentarchitecture.",
+      "ProofBoundary": "EXACT_SPECIFICATION_ARITHMETIC_ONLY"
+    }
+  ],
+  "Pass": 20,
+  "Fail": 0,
+  "ExitCode": 0
+}

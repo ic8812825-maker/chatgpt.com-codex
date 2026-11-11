@@ -1,0 +1,39 @@
+{
+  "BaseSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "TestedSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "UTC": "2026-11-11T20:16:08.736814+00:00",
+  "RunnerSourceHash": "00da1eb714020a24e6988ecc51524e1448eb14fe6e35997782f4d4eb56f9a5e9",
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "Rows": [
+    {
+      "TestID": "STATIC-CALL-GRAPH",
+      "Actual": {
+        "MainIncludes": 16,
+        "ProjectFunctions": 13,
+        "HasOnTradeTransaction": false
+      },
+      "Expected": {
+        "MainIncludes": 16,
+        "ProjectFunctions": 13,
+        "HasOnTradeTransaction": false
+      },
+      "Scope": "Conservative lexical graph plus entrysource, not native runtime",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "STATIC-BOUNDS-DIGEST",
+      "Actual": true,
+      "Expected": true,
+      "Scope": "Confirmed unguarded loop before downstream FutureSmall validation; OOB execution NOT_RUN",
+      "Result": "PASS"
+    },
+    {
+      "TestID": "STATIC-DOCUMENTATION-MAP",
+      "Actual": true,
+      "Expected": true,
+      "Scope": "Historical documentary claim located, not current financial acceptance",
+      "Result": "PASS"
+    }
+  ],
+  "StaticEvidenceOnly": true
+}

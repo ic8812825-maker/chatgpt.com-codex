@@ -1,0 +1,5915 @@
+{
+  "BaseSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "TestedSHA": "4185b84f7a6a8847f6a9c5796f07113907be447d",
+  "UTC": "2026-11-11T20:16:08.675810+00:00",
+  "RunnerSourceHash": "9e5144c1096a966272e08bb2be1a2f0865f6e45421d470982420e70d99f88515",
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL",
+  "States": [
+    {
+      "ID": 0,
+      "Name": "HSBI_STATE_DISABLED",
+      "LibraryTopologyReachable": true,
+      "ActualEAReachable": true,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 1,
+      "Name": "HSBI_STATE_IDLE",
+      "LibraryTopologyReachable": true,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 2,
+      "Name": "HSBI_STATE_INITIAL_PLAN_READY",
+      "LibraryTopologyReachable": true,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 3,
+      "Name": "HSBI_STATE_INITIAL_OPENING_BUY",
+      "LibraryTopologyReachable": true,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 4,
+      "Name": "HSBI_STATE_INITIAL_OPENING_SELL",
+      "LibraryTopologyReachable": true,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 5,
+      "Name": "HSBI_STATE_INITIAL_LOCK_ACTIVE",
+      "LibraryTopologyReachable": true,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 6,
+      "Name": "HSBI_STATE_INITIAL_PLUS_CLOSING",
+      "LibraryTopologyReachable": true,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 7,
+      "Name": "HSBI_STATE_FAR_ACTIVE",
+      "LibraryTopologyReachable": true,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 8,
+      "Name": "HSBI_STATE_CANDIDATE_PLANNED",
+      "LibraryTopologyReachable": true,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 9,
+      "Name": "HSBI_STATE_BASKET_OPENING_CORE",
+      "LibraryTopologyReachable": true,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 10,
+      "Name": "HSBI_STATE_BASKET_OPENING_TREND",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 11,
+      "Name": "HSBI_STATE_BASKET_OPENING_SMALL",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 12,
+      "Name": "HSBI_STATE_BASKET_ACTIVE",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 13,
+      "Name": "HSBI_STATE_BIG_HARVEST_PLANNED",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 14,
+      "Name": "HSBI_STATE_BIG_HARVEST_EXECUTING",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 15,
+      "Name": "HSBI_STATE_ALLOCATION_PENDING",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 16,
+      "Name": "HSBI_STATE_FINAL_CLOSE_PLANNED",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 17,
+      "Name": "HSBI_STATE_FINAL_CLOSE_EXECUTING",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 18,
+      "Name": "HSBI_STATE_PARTIAL_FAR_PLANNED",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 19,
+      "Name": "HSBI_STATE_PARTIAL_FAR_EXECUTING",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 20,
+      "Name": "HSBI_STATE_SMALL_TRANSITION_PLANNED",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 21,
+      "Name": "HSBI_STATE_SMALL_CONFIRMING",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 22,
+      "Name": "HSBI_STATE_SMALL_CLOSING",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 23,
+      "Name": "HSBI_STATE_OLD_FAR_CLOSING",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 24,
+      "Name": "HSBI_STATE_BIG_TREND_CLOSING",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 25,
+      "Name": "HSBI_STATE_BIG_CORE_REDUCING",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 26,
+      "Name": "HSBI_STATE_NEW_FAR_VALIDATING",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 27,
+      "Name": "HSBI_STATE_RETRY_PENDING",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 28,
+      "Name": "HSBI_STATE_RECONCILING",
+      "LibraryTopologyReachable": true,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 29,
+      "Name": "HSBI_STATE_EMERGENCY",
+      "LibraryTopologyReachable": true,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 30,
+      "Name": "HSBI_STATE_MANUAL_REVIEW",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 31,
+      "Name": "HSBI_STATE_TERMINAL_SAFE",
+      "LibraryTopologyReachable": true,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    },
+    {
+      "ID": 32,
+      "Name": "HSBI_STATE_CYCLE_CLOSED",
+      "LibraryTopologyReachable": false,
+      "ActualEAReachable": false,
+      "PerStateRoleAndMoneyGuard": "Only partial context/topology checks; not full documented contract"
+    }
+  ],
+  "Edges": [
+    {
+      "From": 0,
+      "To": 0,
+      "Allowed": true
+    },
+    {
+      "From": 0,
+      "To": 1,
+      "Allowed": true
+    },
+    {
+      "From": 0,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 0,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 0,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 0,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 0,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 1,
+      "Allowed": true
+    },
+    {
+      "From": 1,
+      "To": 2,
+      "Allowed": true
+    },
+    {
+      "From": 1,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 1,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 1,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 1,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 1,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 2,
+      "Allowed": true
+    },
+    {
+      "From": 2,
+      "To": 3,
+      "Allowed": true
+    },
+    {
+      "From": 2,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 2,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 2,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 2,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 2,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 3,
+      "Allowed": true
+    },
+    {
+      "From": 3,
+      "To": 4,
+      "Allowed": true
+    },
+    {
+      "From": 3,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 3,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 3,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 3,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 3,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 4,
+      "Allowed": true
+    },
+    {
+      "From": 4,
+      "To": 5,
+      "Allowed": true
+    },
+    {
+      "From": 4,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 4,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 4,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 4,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 4,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 5,
+      "Allowed": true
+    },
+    {
+      "From": 5,
+      "To": 6,
+      "Allowed": true
+    },
+    {
+      "From": 5,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 5,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 5,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 5,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 5,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 6,
+      "Allowed": true
+    },
+    {
+      "From": 6,
+      "To": 7,
+      "Allowed": true
+    },
+    {
+      "From": 6,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 6,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 6,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 6,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 6,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 7,
+      "Allowed": true
+    },
+    {
+      "From": 7,
+      "To": 8,
+      "Allowed": true
+    },
+    {
+      "From": 7,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 7,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 7,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 7,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 7,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 8,
+      "Allowed": true
+    },
+    {
+      "From": 8,
+      "To": 9,
+      "Allowed": true
+    },
+    {
+      "From": 8,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 8,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 8,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 8,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 8,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 9,
+      "Allowed": true
+    },
+    {
+      "From": 9,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 9,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 9,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 9,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 9,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 10,
+      "Allowed": true
+    },
+    {
+      "From": 10,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 10,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 10,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 10,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 10,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 11,
+      "Allowed": true
+    },
+    {
+      "From": 11,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 11,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 11,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 11,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 11,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 12,
+      "Allowed": true
+    },
+    {
+      "From": 12,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 12,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 12,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 12,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 12,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 13,
+      "Allowed": true
+    },
+    {
+      "From": 13,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 13,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 13,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 13,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 13,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 14,
+      "Allowed": true
+    },
+    {
+      "From": 14,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 14,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 14,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 14,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 14,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 15,
+      "Allowed": true
+    },
+    {
+      "From": 15,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 15,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 15,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 15,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 15,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 16,
+      "Allowed": true
+    },
+    {
+      "From": 16,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 16,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 16,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 16,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 16,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 17,
+      "Allowed": true
+    },
+    {
+      "From": 17,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 17,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 17,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 17,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 17,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 18,
+      "Allowed": true
+    },
+    {
+      "From": 18,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 18,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 18,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 18,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 18,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 19,
+      "Allowed": true
+    },
+    {
+      "From": 19,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 19,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 19,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 19,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 19,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 20,
+      "Allowed": true
+    },
+    {
+      "From": 20,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 20,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 20,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 20,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 20,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 21,
+      "Allowed": true
+    },
+    {
+      "From": 21,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 21,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 21,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 21,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 21,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 22,
+      "Allowed": true
+    },
+    {
+      "From": 22,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 22,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 22,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 22,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 22,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 23,
+      "Allowed": true
+    },
+    {
+      "From": 23,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 23,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 23,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 23,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 23,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 24,
+      "Allowed": true
+    },
+    {
+      "From": 24,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 24,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 24,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 24,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 24,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 25,
+      "Allowed": true
+    },
+    {
+      "From": 25,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 25,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 25,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 25,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 25,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 26,
+      "Allowed": true
+    },
+    {
+      "From": 26,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 26,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 26,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 26,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 26,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 27,
+      "Allowed": true
+    },
+    {
+      "From": 27,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 27,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 27,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 27,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 27,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 1,
+      "Allowed": true
+    },
+    {
+      "From": 28,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 7,
+      "Allowed": true
+    },
+    {
+      "From": 28,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 28,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 28,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 28,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 28,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 29,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 29,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 29,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 29,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 30,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 30,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 30,
+      "To": 30,
+      "Allowed": true
+    },
+    {
+      "From": 30,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 30,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 31,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 31,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 31,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 31,
+      "To": 32,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 0,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 1,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 2,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 3,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 4,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 5,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 6,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 7,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 8,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 9,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 10,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 11,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 12,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 13,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 14,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 15,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 16,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 17,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 18,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 19,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 20,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 21,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 22,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 23,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 24,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 25,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 26,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 27,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 28,
+      "Allowed": true
+    },
+    {
+      "From": 32,
+      "To": 29,
+      "Allowed": true
+    },
+    {
+      "From": 32,
+      "To": 30,
+      "Allowed": false
+    },
+    {
+      "From": 32,
+      "To": 31,
+      "Allowed": true
+    },
+    {
+      "From": 32,
+      "To": 32,
+      "Allowed": true
+    }
+  ],
+  "NormalSequence": [
+    {
+      "From": "INITIAL_PLAN_READY",
+      "To": "INITIAL_OPENING_BUY",
+      "LibraryTopologyAllowed": true,
+      "ActualEAExecution": "UNIMPLEMENTED",
+      "InputRequirement": "Independent market/history/ownership/plan, risk/money/broker proof, actual fill+durable settlement before transition",
+      "ExpectedMutation": "Positions/ledger/state only after authoritative action completed; details owner docs",
+      "ReplayRequirement": "Exact verified receipt NO_OP, altered CONFLICT",
+      "RestartRequirement": "Persisted journal+broker reconciliation; NOT_IMPLEMENTED"
+    },
+    {
+      "From": "INITIAL_OPENING_BUY",
+      "To": "INITIAL_OPENING_SELL",
+      "LibraryTopologyAllowed": true,
+      "ActualEAExecution": "UNIMPLEMENTED",
+      "InputRequirement": "Independent market/history/ownership/plan, risk/money/broker proof, actual fill+durable settlement before transition",
+      "ExpectedMutation": "Positions/ledger/state only after authoritative action completed; details owner docs",
+      "ReplayRequirement": "Exact verified receipt NO_OP, altered CONFLICT",
+      "RestartRequirement": "Persisted journal+broker reconciliation; NOT_IMPLEMENTED"
+    },
+    {
+      "From": "INITIAL_OPENING_SELL",
+      "To": "INITIAL_LOCK_ACTIVE",
+      "LibraryTopologyAllowed": true,
+      "ActualEAExecution": "UNIMPLEMENTED",
+      "InputRequirement": "Independent market/history/ownership/plan, risk/money/broker proof, actual fill+durable settlement before transition",
+      "ExpectedMutation": "Positions/ledger/state only after authoritative action completed; details owner docs",
+      "ReplayRequirement": "Exact verified receipt NO_OP, altered CONFLICT",
+      "RestartRequirement": "Persisted journal+broker reconciliation; NOT_IMPLEMENTED"
+    },
+    {
+      "From": "INITIAL_LOCK_ACTIVE",
+      "To": "INITIAL_PLUS_CLOSING",
+      "LibraryTopologyAllowed": true,
+      "ActualEAExecution": "UNIMPLEMENTED",
+      "InputRequirement": "Independent market/history/ownership/plan, risk/money/broker proof, actual fill+durable settlement before transition",
+      "ExpectedMutation": "Positions/ledger/state only after authoritative action completed; details owner docs",
+      "ReplayRequirement": "Exact verified receipt NO_OP, altered CONFLICT",
+      "RestartRequirement": "Persisted journal+broker reconciliation; NOT_IMPLEMENTED"
+    },
+    {
+      "From": "INITIAL_PLUS_CLOSING",
+      "To": "FAR_ACTIVE",
+      "LibraryTopologyAllowed": true,
+      "ActualEAExecution": "UNIMPLEMENTED",
+      "InputRequirement": "Independent market/history/ownership/plan, risk/money/broker proof, actual fill+durable settlement before transition",
+      "ExpectedMutation": "Positions/ledger/state only after authoritative action completed; details owner docs",
+      "ReplayRequirement": "Exact verified receipt NO_OP, altered CONFLICT",
+      "RestartRequirement": "Persisted journal+broker reconciliation; NOT_IMPLEMENTED"
+    },
+    {
+      "From": "FAR_ACTIVE",
+      "To": "CANDIDATE_PLANNED",
+      "LibraryTopologyAllowed": true,
+      "ActualEAExecution": "UNIMPLEMENTED",
+      "InputRequirement": "Independent market/history/ownership/plan, risk/money/broker proof, actual fill+durable settlement before transition",
+      "ExpectedMutation": "Positions/ledger/state only after authoritative action completed; details owner docs",
+      "ReplayRequirement": "Exact verified receipt NO_OP, altered CONFLICT",
+      "RestartRequirement": "Persisted journal+broker reconciliation; NOT_IMPLEMENTED"
+    },
+    {
+      "From": "CANDIDATE_PLANNED",
+      "To": "BASKET_OPENING_CORE",
+      "LibraryTopologyAllowed": true,
+      "ActualEAExecution": "UNIMPLEMENTED",
+      "InputRequirement": "Independent market/history/ownership/plan, risk/money/broker proof, actual fill+durable settlement before transition",
+      "ExpectedMutation": "Positions/ledger/state only after authoritative action completed; details owner docs",
+      "ReplayRequirement": "Exact verified receipt NO_OP, altered CONFLICT",
+      "RestartRequirement": "Persisted journal+broker reconciliation; NOT_IMPLEMENTED"
+    },
+    {
+      "From": "BASKET_OPENING_CORE",
+      "To": "BASKET_OPENING_TREND",
+      "LibraryTopologyAllowed": false,
+      "ActualEAExecution": "UNIMPLEMENTED",
+      "InputRequirement": "Independent market/history/ownership/plan, risk/money/broker proof, actual fill+durable settlement before transition",
+      "ExpectedMutation": "Positions/ledger/state only after authoritative action completed; details owner docs",
+      "ReplayRequirement": "Exact verified receipt NO_OP, altered CONFLICT",
+      "RestartRequirement": "Persisted journal+broker reconciliation; NOT_IMPLEMENTED"
+    },
+    {
+      "From": "BASKET_OPENING_TREND",
+      "To": "BASKET_OPENING_SMALL",
+      "LibraryTopologyAllowed": false,
+      "ActualEAExecution": "UNIMPLEMENTED",
+      "InputRequirement": "Independent market/history/ownership/plan, risk/money/broker proof, actual fill+durable settlement before transition",
+      "ExpectedMutation": "Positions/ledger/state only after authoritative action completed; details owner docs",
+      "ReplayRequirement": "Exact verified receipt NO_OP, altered CONFLICT",
+      "RestartRequirement": "Persisted journal+broker reconciliation; NOT_IMPLEMENTED"
+    },
+    {
+      "From": "BASKET_OPENING_SMALL",
+      "To": "BASKET_ACTIVE",
+      "LibraryTopologyAllowed": false,
+      "ActualEAExecution": "UNIMPLEMENTED",
+      "InputRequirement": "Independent market/history/ownership/plan, risk/money/broker proof, actual fill+durable settlement before transition",
+      "ExpectedMutation": "Positions/ledger/state only after authoritative action completed; details owner docs",
+      "ReplayRequirement": "Exact verified receipt NO_OP, altered CONFLICT",
+      "RestartRequirement": "Persisted journal+broker reconciliation; NOT_IMPLEMENTED"
+    },
+    {
+      "From": "BASKET_ACTIVE",
+      "To": "BIG_HARVEST_PLANNED",
+      "LibraryTopologyAllowed": false,
+      "ActualEAExecution": "UNIMPLEMENTED",
+      "InputRequirement": "Independent market/history/ownership/plan, risk/money/broker proof, actual fill+durable settlement before transition",
+      "ExpectedMutation": "Positions/ledger/state only after authoritative action completed; details owner docs",
+      "ReplayRequirement": "Exact verified receipt NO_OP, altered CONFLICT",
+      "RestartRequirement": "Persisted journal+broker reconciliation; NOT_IMPLEMENTED"
+    },
+    {
+      "From": "BIG_HARVEST_PLANNED",
+      "To": "BIG_HARVEST_EXECUTING",
+      "LibraryTopologyAllowed": false,
+      "ActualEAExecution": "UNIMPLEMENTED",
+      "InputRequirement": "Independent market/history/ownership/plan, risk/money/broker proof, actual fill+durable settlement before transition",
+      "ExpectedMutation": "Positions/ledger/state only after authoritative action completed; details owner docs",
+      "ReplayRequirement": "Exact verified receipt NO_OP, altered CONFLICT",
+      "RestartRequirement": "Persisted journal+broker reconciliation; NOT_IMPLEMENTED"
+    },
+    {
+      "From": "BIG_HARVEST_EXECUTING",
+      "To": "ALLOCATION_PENDING",
+      "LibraryTopologyAllowed": false,
+      "ActualEAExecution": "UNIMPLEMENTED",
+      "InputRequirement": "Independent market/history/ownership/plan, risk/money/broker proof, actual fill+durable settlement before transition",
+      "ExpectedMutation": "Positions/ledger/state only after authoritative action completed; details owner docs",
+      "ReplayRequirement": "Exact verified receipt NO_OP, altered CONFLICT",
+      "RestartRequirement": "Persisted journal+broker reconciliation; NOT_IMPLEMENTED"
+    },
+    {
+      "From": "ALLOCATION_PENDING",
+      "To": "FINAL_CLOSE_PLANNED",
+      "LibraryTopologyAllowed": false,
+      "ActualEAExecution": "UNIMPLEMENTED",
+      "InputRequirement": "Independent market/history/ownership/plan, risk/money/broker proof, actual fill+durable settlement before transition",
+      "ExpectedMutation": "Positions/ledger/state only after authoritative action completed; details owner docs",
+      "ReplayRequirement": "Exact verified receipt NO_OP, altered CONFLICT",
+      "RestartRequirement": "Persisted journal+broker reconciliation; NOT_IMPLEMENTED"
+    },
+    {
+      "From": "FINAL_CLOSE_PLANNED",
+      "To": "FINAL_CLOSE_EXECUTING",
+      "LibraryTopologyAllowed": false,
+      "ActualEAExecution": "UNIMPLEMENTED",
+      "InputRequirement": "Independent market/history/ownership/plan, risk/money/broker proof, actual fill+durable settlement before transition",
+      "ExpectedMutation": "Positions/ledger/state only after authoritative action completed; details owner docs",
+      "ReplayRequirement": "Exact verified receipt NO_OP, altered CONFLICT",
+      "RestartRequirement": "Persisted journal+broker reconciliation; NOT_IMPLEMENTED"
+    },
+    {
+      "From": "FINAL_CLOSE_EXECUTING",
+      "To": "CYCLE_CLOSED",
+      "LibraryTopologyAllowed": false,
+      "ActualEAExecution": "UNIMPLEMENTED",
+      "InputRequirement": "Independent market/history/ownership/plan, risk/money/broker proof, actual fill+durable settlement before transition",
+      "ExpectedMutation": "Positions/ledger/state only after authoritative action completed; details owner docs",
+      "ReplayRequirement": "Exact verified receipt NO_OP, altered CONFLICT",
+      "RestartRequirement": "Persisted journal+broker reconciliation; NOT_IMPLEMENTED"
+    }
+  ],
+  "FailureTransitions": [
+    {
+      "Event": "ACCEPTED/PLACED",
+      "Required": "PENDING notcomplete",
+      "Current": "types+completed barrier only",
+      "Status": "PARTIALLY_VERIFIED"
+    },
+    {
+      "Event": "PARTIAL_FILL",
+      "Required": "block nextrole; accumulate actualdeals",
+      "Current": "barrier rejectsPARTIAL; accumulator absent",
+      "Status": "PARTIALLY_VERIFIED"
+    },
+    {
+      "Event": "REJECT/REQUOTE/PRICE_CHANGE/CANCEL",
+      "Required": "typed noadvance/reconcile",
+      "Current": "no real retcode mapper/request engine",
+      "Status": "UNIMPLEMENTED"
+    },
+    {
+      "Event": "TIMEOUT/UNKNOWN/DISCONNECT",
+      "Required": "neither failure norcomplete; history lookup",
+      "Current": "barrier requiresCompleted; lookup/retryengine absent",
+      "Status": "UNIMPLEMENTED"
+    },
+    {
+      "Event": "DUPLICATE_IDENTICAL",
+      "Required": "verified immutable NO_OP zero delta",
+      "Current": "ledger/journal duplicate helpers incomplete",
+      "Status": "CONTRADICTORY"
+    },
+    {
+      "Event": "ALTERED_REPLAY",
+      "Required": "CONFLICT",
+      "Current": "ledger/journal falseNOOP counterexamples",
+      "Status": "CONTRADICTORY"
+    },
+    {
+      "Event": "OUT_OF_ORDER",
+      "Required": "history idempotent reconciliation",
+      "Current": "eventId freshness blocksadvance; actualreconcile absent",
+      "Status": "UNIMPLEMENTED"
+    },
+    {
+      "Event": "RESTART/CORRUPTION",
+      "Required": "durable validate+history+safe fallback",
+      "Current": "PersistStub fails; DTO validators only",
+      "Status": "UNIMPLEMENTED"
+    },
+    {
+      "Event": "RISK/DUAL_FAR_CONFLICT",
+      "Required": "blockactions/manual/terminalsafe",
+      "Current": "sourcevalidators have NaN/cardinality gaps",
+      "Status": "CONTRADICTORY"
+    },
+    {
+      "Event": "EMERGENCY",
+      "Required": "liquidation separateauthority/noautoresume",
+      "Current": "generic enum/topology; no actual emergency engine",
+      "Status": "UNIMPLEMENTED"
+    }
+  ],
+  "ActualEAStates": [
+    "HSBI_STATE_DISABLED"
+  ],
+  "Method": "All33x33 direct source predicate outputs in C++ adapter, not native/run FSM; actual EA static callbacks never advance state"
+}
