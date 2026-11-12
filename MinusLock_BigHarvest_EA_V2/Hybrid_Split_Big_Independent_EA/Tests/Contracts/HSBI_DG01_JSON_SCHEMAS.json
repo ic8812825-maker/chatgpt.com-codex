@@ -1,0 +1,1652 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "Version": 1,
+  "Schemas": {
+    "Tests/Evidence/HSBI_DG01_BASELINE.json": {
+      "type": "object",
+      "properties": {
+        "BASE_SHA": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "UTC": {
+          "type": "string"
+        },
+        "Branch": {
+          "const": "work"
+        },
+        "RemoteSHA": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "WorktreeInitiallyClean": {
+          "const": true
+        },
+        "FilesCount": {
+          "type": "integer"
+        },
+        "ProductionCount": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "BASE_SHA",
+        "UTC",
+        "Branch",
+        "RemoteSHA",
+        "WorktreeInitiallyClean",
+        "FilesCount",
+        "ProductionCount"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_PRESERVATION.json": {
+      "type": "object",
+      "properties": {
+        "BASE_SHA": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "UTC": {
+          "type": "string"
+        },
+        "Files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Path": {
+                "type": "string"
+              },
+              "BlobID": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{40}$"
+              },
+              "Mode": {
+                "enum": [
+                  "100644",
+                  "100755"
+                ]
+              },
+              "SHA256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "Size": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "Production": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "Path",
+              "BlobID",
+              "Mode",
+              "SHA256",
+              "Size",
+              "Production"
+            ]
+          }
+        },
+        "Method": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "BASE_SHA",
+        "UTC",
+        "Files",
+        "Method"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_FORMATTING_RESULTS.json": {
+      "type": "object",
+      "properties": {
+        "UTC": {
+          "type": "string"
+        },
+        "Rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Source": {
+                "type": "string"
+              },
+              "SourceSHA256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "Output": {
+                "type": "string"
+              },
+              "OutputSHA256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "Replacement": {
+                "type": "string"
+              },
+              "OutputCharacterOffsets": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "TokenCount": {
+                "type": "integer"
+              },
+              "ReversibleByteEquivalent": {
+                "const": true
+              },
+              "ProtectedContentUnchanged": {
+                "const": true
+              }
+            },
+            "required": [
+              "Source",
+              "SourceSHA256",
+              "Output",
+              "OutputSHA256",
+              "Replacement",
+              "OutputCharacterOffsets",
+              "TokenCount",
+              "ReversibleByteEquivalent",
+              "ProtectedContentUnchanged"
+            ]
+          }
+        },
+        "ProofBoundary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "UTC",
+        "Rows",
+        "ProofBoundary"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_AUDIT02_PACKAGE_RECHECK.json": {
+      "type": "object",
+      "properties": {
+        "Command": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ExitCode": {
+          "type": "integer"
+        },
+        "Stdout": {
+          "type": "string"
+        },
+        "Stderr": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Command",
+        "ExitCode",
+        "Stdout",
+        "Stderr"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_AUDIT02_INTEGRITY_RECHECK.json": {
+      "type": "object",
+      "properties": {
+        "Command": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ExitCode": {
+          "type": "integer"
+        },
+        "Stdout": {
+          "type": "string"
+        },
+        "Stderr": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Command",
+        "ExitCode",
+        "Stdout",
+        "Stderr"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_DIFF_CHECK.json": {
+      "type": "object",
+      "properties": {
+        "Command": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ExitCode": {
+          "type": "integer"
+        },
+        "Stdout": {
+          "type": "string"
+        },
+        "Stderr": {
+          "type": "string"
+        },
+        "Applied": {
+          "const": false
+        },
+        "Target": {
+          "type": "string"
+        },
+        "BaseSHA256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "CandidateBodySHA256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "Command",
+        "ExitCode",
+        "Stdout",
+        "Stderr",
+        "Applied",
+        "Target",
+        "BaseSHA256",
+        "CandidateBodySHA256"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_CODEC_GOLDENS.json": {
+      "type": "object",
+      "properties": {
+        "Fields": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "RecordHex": {
+          "type": "string",
+          "pattern": "^[0-9a-f]+$"
+        },
+        "Scalars": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ID": {
+                "type": "string"
+              },
+              "Input": {
+                "type": "string"
+              },
+              "ExpectedBits": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{16}$"
+              },
+              "ExpectedText": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "ID",
+              "Input",
+              "ExpectedBits",
+              "ExpectedText"
+            ]
+          }
+        },
+        "GeneratorSHA256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "ProofBoundary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Fields",
+        "RecordHex",
+        "Scalars",
+        "GeneratorSHA256",
+        "ProofBoundary"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_TEST_RESULTS.json": {
+      "type": "object",
+      "properties": {
+        "BaseSHA": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "StartedUTC": {
+          "type": "string"
+        },
+        "FinishedUTC": {
+          "type": "string"
+        },
+        "Command": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "RunnerSHA256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "Rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "TestID": {
+                "type": "string"
+              },
+              "SubjectSHA256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "RunnerSHA256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "Input": {
+                "type": "string"
+              },
+              "Expected": {
+                "type": "object"
+              },
+              "Actual": {
+                "type": "object"
+              },
+              "Status": {
+                "enum": [
+                  "PASS",
+                  "FAIL",
+                  "INFRASTRUCTURE_ERROR"
+                ]
+              },
+              "ExitCode": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "Environment": {
+                "type": "object"
+              },
+              "ExecutionTimeUTC": {
+                "type": "string"
+              },
+              "ProofBoundary": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "TestID",
+              "SubjectSHA256",
+              "RunnerSHA256",
+              "Input",
+              "Expected",
+              "Actual",
+              "Status",
+              "ExitCode",
+              "Environment",
+              "ExecutionTimeUTC",
+              "ProofBoundary"
+            ]
+          }
+        },
+        "Pass": {
+          "type": "integer"
+        },
+        "Fail": {
+          "type": "integer"
+        },
+        "InfrastructureErrors": {
+          "type": "integer"
+        },
+        "FormattingRows": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "FormattingPass": {
+          "type": "integer"
+        },
+        "ProofBoundary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "BaseSHA",
+        "StartedUTC",
+        "FinishedUTC",
+        "Command",
+        "RunnerSHA256",
+        "Rows",
+        "Pass",
+        "Fail",
+        "InfrastructureErrors",
+        "FormattingRows",
+        "FormattingPass",
+        "ProofBoundary"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_DEVELOPMENT_TEST_RESULTS.json": {
+      "type": "object",
+      "properties": {
+        "BaseSHA": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "StartedUTC": {
+          "type": "string"
+        },
+        "FinishedUTC": {
+          "type": "string"
+        },
+        "Command": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "RunnerSHA256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "Rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "TestID": {
+                "type": "string"
+              },
+              "SubjectSHA256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "RunnerSHA256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "Input": {
+                "type": "string"
+              },
+              "Expected": {
+                "type": "object"
+              },
+              "Actual": {
+                "type": "object"
+              },
+              "Status": {
+                "enum": [
+                  "PASS",
+                  "FAIL",
+                  "INFRASTRUCTURE_ERROR"
+                ]
+              },
+              "ExitCode": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "Environment": {
+                "type": "object"
+              },
+              "ExecutionTimeUTC": {
+                "type": "string"
+              },
+              "ProofBoundary": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "TestID",
+              "SubjectSHA256",
+              "RunnerSHA256",
+              "Input",
+              "Expected",
+              "Actual",
+              "Status",
+              "ExitCode",
+              "Environment",
+              "ExecutionTimeUTC",
+              "ProofBoundary"
+            ]
+          }
+        },
+        "Pass": {
+          "type": "integer"
+        },
+        "Fail": {
+          "type": "integer"
+        },
+        "InfrastructureErrors": {
+          "type": "integer"
+        },
+        "FormattingRows": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "FormattingPass": {
+          "type": "integer"
+        },
+        "ProofBoundary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "BaseSHA",
+        "StartedUTC",
+        "FinishedUTC",
+        "Command",
+        "RunnerSHA256",
+        "Rows",
+        "Pass",
+        "Fail",
+        "InfrastructureErrors",
+        "FormattingRows",
+        "FormattingPass",
+        "ProofBoundary"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_MUTATION_RESULTS.json": {
+      "type": "object",
+      "properties": {
+        "StartedUTC": {
+          "type": "string"
+        },
+        "FinishedUTC": {
+          "type": "string"
+        },
+        "Rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "MutationID": {
+                "type": "string"
+              },
+              "TestID": {
+                "type": "string"
+              },
+              "OriginalSourceSHA256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "RunnerSHA256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "ExactEdit": {
+                "type": "object",
+                "properties": {
+                  "Old": {
+                    "type": "string"
+                  },
+                  "New": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "Old",
+                  "New"
+                ]
+              },
+              "Input": {
+                "type": "string"
+              },
+              "Expected": {
+                "type": "string"
+              },
+              "Environment": {
+                "type": "object"
+              },
+              "ExecutionTimeUTC": {
+                "type": "string"
+              },
+              "ProofBoundary": {
+                "type": "string"
+              },
+              "Status": {
+                "enum": [
+                  "UNSAFE_ACCEPTANCE_KILL",
+                  "STATUS_CONTRACT_KILL",
+                  "MUTATION_SURVIVED",
+                  "INFRASTRUCTURE_ERROR"
+                ]
+              },
+              "ExitCode": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "MutationID",
+              "TestID",
+              "OriginalSourceSHA256",
+              "RunnerSHA256",
+              "ExactEdit",
+              "Input",
+              "Expected",
+              "Environment",
+              "ExecutionTimeUTC",
+              "ProofBoundary",
+              "Status",
+              "ExitCode"
+            ]
+          }
+        },
+        "Killed": {
+          "type": "integer"
+        },
+        "Survived": {
+          "type": "integer"
+        },
+        "InfrastructureErrors": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "StartedUTC",
+        "FinishedUTC",
+        "Rows",
+        "Killed",
+        "Survived",
+        "InfrastructureErrors"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_DEVELOPMENT_MUTATION_RESULTS.json": {
+      "type": "object",
+      "properties": {
+        "StartedUTC": {
+          "type": "string"
+        },
+        "FinishedUTC": {
+          "type": "string"
+        },
+        "Rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "MutationID": {
+                "type": "string"
+              },
+              "TestID": {
+                "type": "string"
+              },
+              "OriginalSourceSHA256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "RunnerSHA256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "ExactEdit": {
+                "type": "object",
+                "properties": {
+                  "Old": {
+                    "type": "string"
+                  },
+                  "New": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "Old",
+                  "New"
+                ]
+              },
+              "Input": {
+                "type": "string"
+              },
+              "Expected": {
+                "type": "string"
+              },
+              "Environment": {
+                "type": "object"
+              },
+              "ExecutionTimeUTC": {
+                "type": "string"
+              },
+              "ProofBoundary": {
+                "type": "string"
+              },
+              "Status": {
+                "enum": [
+                  "UNSAFE_ACCEPTANCE_KILL",
+                  "STATUS_CONTRACT_KILL",
+                  "MUTATION_SURVIVED",
+                  "INFRASTRUCTURE_ERROR"
+                ]
+              },
+              "ExitCode": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "MutationID",
+              "TestID",
+              "OriginalSourceSHA256",
+              "RunnerSHA256",
+              "ExactEdit",
+              "Input",
+              "Expected",
+              "Environment",
+              "ExecutionTimeUTC",
+              "ProofBoundary",
+              "Status",
+              "ExitCode"
+            ]
+          }
+        },
+        "Killed": {
+          "type": "integer"
+        },
+        "Survived": {
+          "type": "integer"
+        },
+        "InfrastructureErrors": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "StartedUTC",
+        "FinishedUTC",
+        "Rows",
+        "Killed",
+        "Survived",
+        "InfrastructureErrors"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_DEVELOPMENT_SOURCES.json": {
+      "type": "object",
+      "properties": {
+        "UTC": {
+          "type": "string"
+        },
+        "Files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Path": {
+                "type": "string"
+              },
+              "SHA256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "Text": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "Path",
+              "SHA256",
+              "Text"
+            ]
+          }
+        },
+        "Reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "UTC",
+        "Files",
+        "Reason"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_SOURCE_REFERENCE_REVIEW.json": {
+      "type": "object",
+      "properties": {
+        "Rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "DefectID": {
+                "type": "string"
+              },
+              "File": {
+                "type": "string"
+              },
+              "Function": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "HistoricalLine": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "DefinitionLines": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "SourceSHA256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "ClassificationUnchanged": {
+                "const": true
+              },
+              "LocatorStatus": {
+                "enum": [
+                  "MATCH",
+                  "NO_FUNCTION_SOURCE_REFERENCE",
+                  "DG01_LOCATOR_CORRECTION_REQUIRED"
+                ]
+              }
+            },
+            "required": [
+              "DefectID",
+              "File",
+              "Function",
+              "HistoricalLine",
+              "DefinitionLines",
+              "SourceSHA256",
+              "ClassificationUnchanged",
+              "LocatorStatus"
+            ]
+          }
+        },
+        "Boundary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Rows",
+        "Boundary"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_BASELINE_REVIEW.json": {
+      "type": "object",
+      "properties": {
+        "UTC": {
+          "type": "string"
+        },
+        "Defects": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "FormulaCount": {
+          "const": 49
+        },
+        "FormulaCounts": {
+          "type": "object",
+          "properties": {
+            "ConditionalMathematics": {
+              "const": 23
+            },
+            "Conflicts": {
+              "const": 11
+            },
+            "Unverified": {
+              "const": 15
+            }
+          },
+          "required": [
+            "ConditionalMathematics",
+            "Conflicts",
+            "Unverified"
+          ]
+        },
+        "OldIntegrityRecheck": {
+          "const": 0
+        },
+        "OldScopeFailure": {
+          "const": 1
+        },
+        "Note": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "UTC",
+        "Defects",
+        "FormulaCount",
+        "FormulaCounts",
+        "OldIntegrityRecheck",
+        "OldScopeFailure",
+        "Note"
+      ]
+    },
+    "Tests/Contracts/HSBI_DG01_DECISION_MATRIX.json": {
+      "type": "object",
+      "properties": {
+        "BaseSHA": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "IDMapping": {
+          "type": "string"
+        },
+        "Rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "DecisionID": {
+                "type": "string"
+              },
+              "DisplayOrdinal": {
+                "type": "string"
+              },
+              "CanonicalIDPreserved": {
+                "const": true
+              },
+              "SourceContract": {
+                "type": "string"
+              },
+              "Conflict": {
+                "type": "string"
+              },
+              "PreferredSemantics": {
+                "type": "string"
+              },
+              "Alternatives": {
+                "type": [
+                  "string",
+                  "array"
+                ]
+              },
+              "MathematicalJustification": {
+                "type": "string"
+              },
+              "Counterexample": {
+                "type": "string"
+              },
+              "DependentDefects": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "ProductionModules": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "RequiredTests": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "RequiredNativeEvidence": {
+                "type": "string"
+              },
+              "MigrationRisk": {
+                "type": "string"
+              },
+              "StopConditions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "ApprovalRequired": {
+                "const": true
+              },
+              "ReadinessStatus": {
+                "enum": [
+                  "READY_FOR_ADMIN_DECISION",
+                  "BLOCKED_BY_DEPENDENCY",
+                  "INSUFFICIENT_EVIDENCE",
+                  "CONTRACT_CONFLICT"
+                ]
+              },
+              "ApprovalStatus": {
+                "const": "AWAITING_ADMIN_APPROVAL"
+              },
+              "AdministratorDecision": {
+                "const": ""
+              },
+              "ShortBallot": {
+                "type": "string"
+              },
+              "ImplementationReadiness": {
+                "const": "NO_PRODUCTION_PERMISSION"
+              }
+            },
+            "required": [
+              "DecisionID",
+              "DisplayOrdinal",
+              "CanonicalIDPreserved",
+              "SourceContract",
+              "Conflict",
+              "PreferredSemantics",
+              "Alternatives",
+              "MathematicalJustification",
+              "Counterexample",
+              "DependentDefects",
+              "ProductionModules",
+              "RequiredTests",
+              "RequiredNativeEvidence",
+              "MigrationRisk",
+              "StopConditions",
+              "ApprovalRequired",
+              "ReadinessStatus",
+              "ApprovalStatus",
+              "AdministratorDecision",
+              "ShortBallot",
+              "ImplementationReadiness"
+            ]
+          }
+        }
+      },
+      "required": [
+        "BaseSHA",
+        "IDMapping",
+        "Rows"
+      ]
+    },
+    "Tests/Contracts/HSBI_DG01_P0_REMEDIATION_MATRIX.json": {
+      "type": "object",
+      "properties": {
+        "Rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "DefectID": {
+                "type": "string"
+              },
+              "ConfirmedFailure": {
+                "type": "string"
+              },
+              "Classification": {
+                "type": "string"
+              },
+              "RootCause": {
+                "type": "string"
+              },
+              "MinimalChangeCandidate": {
+                "type": "string"
+              },
+              "MigrationRisk": {
+                "type": "string"
+              },
+              "RemainingRisk": {
+                "type": "string"
+              },
+              "ProductionScope": {
+                "type": "string"
+              },
+              "ReadinessStatus": {
+                "type": "string"
+              },
+              "CurrentSource": {
+                "type": "object"
+              },
+              "RequiredContract": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "DependencyGraph": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "RequiredNativeTests": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "RequiredRegressionTests": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "ApprovalRequired": {
+                "const": true
+              },
+              "CurrentImplementationAllowed": {
+                "const": false
+              }
+            },
+            "required": [
+              "DefectID",
+              "ConfirmedFailure",
+              "Classification",
+              "RootCause",
+              "MinimalChangeCandidate",
+              "MigrationRisk",
+              "RemainingRisk",
+              "ProductionScope",
+              "ReadinessStatus",
+              "CurrentSource",
+              "RequiredContract",
+              "DependencyGraph",
+              "RequiredNativeTests",
+              "RequiredRegressionTests",
+              "ApprovalRequired",
+              "CurrentImplementationAllowed"
+            ]
+          }
+        },
+        "CompleteLocalFixNotImplied": {
+          "const": true
+        }
+      },
+      "required": [
+        "Rows",
+        "CompleteLocalFixNotImplied"
+      ]
+    },
+    "Tests/Contracts/HSBI_DG01_ACCEPTANCE_MATRIX.json": {
+      "type": "object",
+      "properties": {
+        "BaseSHA": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "Rows": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "Decisions": {
+          "const": 16
+        },
+        "P0Plans": {
+          "const": 10
+        },
+        "NativeRequiredIDs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "OneFileLocalAPIFeasible": {
+          "const": true
+        },
+        "OneFileCompleteRemediationFeasible": {
+          "const": false
+        },
+        "ProductionAllowlistCandidate": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "MandatoryBeforeR1": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "NativeStatus": {
+          "const": "NOT_RUN"
+        },
+        "Approved": {
+          "const": false
+        },
+        "ApprovalGate": {
+          "const": "READY_FOR_ADMIN_DECISION"
+        },
+        "RuntimeGate": {
+          "const": "PARTIAL_NATIVE_PENDING"
+        }
+      },
+      "required": [
+        "BaseSHA",
+        "Rows",
+        "Decisions",
+        "P0Plans",
+        "NativeRequiredIDs",
+        "OneFileLocalAPIFeasible",
+        "OneFileCompleteRemediationFeasible",
+        "ProductionAllowlistCandidate",
+        "MandatoryBeforeR1",
+        "NativeStatus",
+        "Approved",
+        "ApprovalGate",
+        "RuntimeGate"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_NATIVE_RESULTS.json": {
+      "type": "object",
+      "properties": {
+        "BaseSHA": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "UTC": {
+          "type": "string"
+        },
+        "MQL5_COMPILE": {
+          "const": "NOT_RUN"
+        },
+        "MQL5_NATIVE_TESTS": {
+          "const": "NOT_RUN"
+        },
+        "NATIVE_VERIFIED": {
+          "const": false
+        },
+        "PowerShellLauncherExecution": {
+          "const": "NOT_RUN"
+        },
+        "Searches": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Command": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "ExitCode": {
+                "type": "integer"
+              },
+              "Stdout": {
+                "type": "string"
+              },
+              "Stderr": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "Command",
+              "ExitCode",
+              "Stdout",
+              "Stderr"
+            ]
+          }
+        },
+        "Rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "TestID": {
+                "type": "string"
+              },
+              "SubjectSHA256": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                }
+              },
+              "RunnerSHA256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "Input": {
+                "type": "string"
+              },
+              "Expected": {
+                "type": "object"
+              },
+              "Actual": {
+                "type": "null"
+              },
+              "Status": {
+                "const": "NOT_RUN"
+              },
+              "ExitCode": {
+                "type": "null"
+              },
+              "Environment": {
+                "type": "string"
+              },
+              "ExecutionTimeUTC": {
+                "type": "null"
+              },
+              "ProofBoundary": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "TestID",
+              "SubjectSHA256",
+              "RunnerSHA256",
+              "Input",
+              "Expected",
+              "Actual",
+              "Status",
+              "ExitCode",
+              "Environment",
+              "ExecutionTimeUTC",
+              "ProofBoundary"
+            ]
+          }
+        },
+        "CaseCount": {
+          "type": "integer"
+        },
+        "NativePass": {
+          "const": 0
+        },
+        "NativeFail": {
+          "const": 0
+        },
+        "Scope": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "BaseSHA",
+        "UTC",
+        "MQL5_COMPILE",
+        "MQL5_NATIVE_TESTS",
+        "NATIVE_VERIFIED",
+        "PowerShellLauncherExecution",
+        "Searches",
+        "Rows",
+        "CaseCount",
+        "NativePass",
+        "NativeFail",
+        "Scope"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_CALLSITE_REVIEW.json": {
+      "type": "object",
+      "properties": {
+        "Rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "File": {
+                "type": "string"
+              },
+              "Line": {
+                "type": "integer"
+              },
+              "Text": {
+                "type": "string"
+              },
+              "SHA256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            },
+            "required": [
+              "File",
+              "Line",
+              "Text",
+              "SHA256"
+            ]
+          }
+        },
+        "Scope": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Rows",
+        "Scope"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_DEVELOPMENT_LOG.json": {
+      "type": "object",
+      "properties": {
+        "Rows": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "required": [
+        "Rows"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_EXECUTIONS.json": {
+      "type": "object",
+      "properties": {
+        "Rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Command": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "ExitCode": {
+                "type": "integer"
+              },
+              "Stdout": {
+                "type": "string"
+              },
+              "Stderr": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "Command",
+              "ExitCode",
+              "Stdout",
+              "Stderr"
+            ]
+          }
+        },
+        "Boundary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Rows",
+        "Boundary"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_PACKAGE_RESULTS.json": {
+      "type": "object",
+      "properties": {
+        "UTC": {
+          "type": "string"
+        },
+        "PositiveErrors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "NegativeProbes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ProbeID": {
+                "type": "string"
+              },
+              "Status": {
+                "enum": [
+                  "PASS",
+                  "FAIL"
+                ]
+              },
+              "Errors": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "ProbeID",
+              "Status",
+              "Errors"
+            ]
+          }
+        },
+        "Pass": {
+          "type": "integer"
+        },
+        "Fail": {
+          "type": "integer"
+        },
+        "RunnerSHA256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "Boundary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "UTC",
+        "PositiveErrors",
+        "NegativeProbes",
+        "Pass",
+        "Fail",
+        "RunnerSHA256",
+        "Boundary"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_FINAL_INTEGRITY.json": {
+      "type": "object",
+      "properties": {
+        "BaseSHA": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "UTC": {
+          "type": "string"
+        },
+        "Artifacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Path": {
+                "type": "string"
+              },
+              "SHA256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "Size": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "Path",
+              "SHA256",
+              "Size"
+            ]
+          }
+        },
+        "IndependentInventoryVersion": {
+          "const": 1
+        },
+        "Exclusions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Scope": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "BaseSHA",
+        "UTC",
+        "Artifacts",
+        "IndependentInventoryVersion",
+        "Exclusions",
+        "Scope"
+      ]
+    },
+    "Tests/Evidence/HSBI_DG01_PUBLICATION_REVIEW.json": {
+      "type": "object",
+      "properties": {
+        "UTC": {
+          "type": "string"
+        },
+        "SourceChanges": {
+          "const": false
+        },
+        "HistoricalChanges": {
+          "const": false
+        },
+        "NewFilesCount": {
+          "type": "integer"
+        },
+        "SecretPatternHits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Limits": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "UTC",
+        "SourceChanges",
+        "HistoricalChanges",
+        "NewFilesCount",
+        "SecretPatternHits",
+        "Limits"
+      ]
+    },
+    "Tests/Contracts/HSBI_DG01_JSON_SCHEMAS.json": {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "Version": {
+          "const": 1
+        },
+        "Schemas": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "$schema",
+        "Version",
+        "Schemas"
+      ]
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "Rows": [
+    {
+      "ID": "INPUT-VALIDATION-ORDER",
+      "InitialEvidence": "HSBI_DG01_DEVELOPMENT_TEST_RESULTS.json",
+      "Initial": "59 rows:58PASS/1FAIL, bool allocation returned UNAVAILABLE before shape check",
+      "Resolution": "Validate event/allocation/vector shape before missing facts. Expected REJECT unchanged."
+    },
+    {
+      "ID": "VECTOR-MUTATION-FIXTURE",
+      "InitialEvidence": "HSBI_DG01_DEVELOPMENT_MUTATION_RESULTS.json",
+      "Initial": "5kills/1survivor because default facts became UNKNOWN",
+      "Resolution": "Use explicit complete independent fixture and fresh event2; immutable-vector scope isolated from exact event replay guard, expected CONFLICT unchanged."
+    },
+    {
+      "ID": "NATIVE-STATIC-REVIEW",
+      "Initial": "Missing Version include and error-path launcher output-directory ownership risk found before execution",
+      "Resolution": "Add explicit Version header; only write report if newly created output directory. Native/PowerShell remain NOT_RUN."
+    },
+    {
+      "ID": "SOURCE-LOCATOR",
+      "Initial": "FSA024 source_ref string search pointed to text at7, not definition37",
+      "Resolution": "NormalizedDefinitionLines in new matrix; no historical changes. Parser uses horizontal whitespace to avoid blank-line off-by-one."
+    },
+    {
+      "ID": "DEVELOPMENT-EXIT-SCOPE",
+      "Initial": "Archived development rows used ExitCode0 for callable completion, while containing reference/mutation runner failed with exit1",
+      "Resolution": "Raw archived rows retained. Final rows carry containing suite exit and explicit ExitCodeScope; EXECUTIONS contains actual process exits."
+    },
+    {
+      "ID": "ELIGIBILITY-PROFILE",
+      "Initial": "Reference funding profile required explicit closing-entry/source-policy distinction",
+      "Resolution": "OUT/OUT_BY policy1 fixtures supported; opening IN rejected, INOUT/unknown policy UNAVAILABLE. Three literal negative tests added; no production policy approved."
+    },
+    {
+      "ID": "NATIVE-BUFFER-STATIC-REVIEW",
+      "Initial": "ArrayCopy does not imply shrinking a previously extended malformed payload buffer",
+      "Resolution": "Reset disposable bad[] length before each mutation; native execution still NOT_RUN."
+    },
+    {
+      "ID": "SCHEMA-GIT-SHA",
+      "Command": "HSBI_DG01_package.py --seal",
+      "ExitCode": 1,
+      "Initial": "Git commit hashes40 were incorrectly validated with SHA256 pattern64;8 artifact schemas rejected correct baseline",
+      "Resolution": "Separate GitSHA40 and contentSHA25664 schema types; evidence values are not changed."
+    },
+    {
+      "ID": "RUNNER-CAPTURE-PROVENANCE",
+      "Initial": "Early generic process records identified capture module hash as RunnerSHA256",
+      "Resolution": "Final commands identify executed Python entry or inline code separately from CaptureSHA256. Original capture module source archived; relevant process records rerun."
+    }
+  ]
+}

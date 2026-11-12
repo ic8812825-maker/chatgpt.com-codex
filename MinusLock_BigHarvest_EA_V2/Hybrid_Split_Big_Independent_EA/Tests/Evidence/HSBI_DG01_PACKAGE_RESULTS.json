@@ -1,0 +1,89 @@
+{
+  "UTC": "2026-11-12T14:16:43.745021+00:00",
+  "PositiveErrors": [],
+  "NegativeProbes": [
+    {
+      "ProbeID": "COUNTER-BOOL",
+      "Status": "PASS",
+      "Errors": [
+        "schema Tests/Evidence/HSBI_DG01_TEST_RESULTS.json: True is not of type 'integer'"
+      ]
+    },
+    {
+      "ProbeID": "COHERENT-TEST-DELETION",
+      "Status": "PASS",
+      "Errors": [
+        "required reference cases"
+      ]
+    },
+    {
+      "ProbeID": "UNAUTHORIZED-APPROVAL",
+      "Status": "PASS",
+      "Errors": [
+        "schema Tests/Contracts/HSBI_DG01_DECISION_MATRIX.json: 'AWAITING_ADMIN_APPROVAL' was expected"
+      ]
+    },
+    {
+      "ProbeID": "NATIVE-FALSE-PASS",
+      "Status": "PASS",
+      "Errors": [
+        "schema Tests/Evidence/HSBI_DG01_NATIVE_RESULTS.json: True is not of type 'null'; 'NOT_RUN' was expected"
+      ]
+    },
+    {
+      "ProbeID": "FALSE-SOURCE-HASH",
+      "Status": "PASS",
+      "Errors": [
+        "reference provenance L01-HISTORY-MISSING"
+      ]
+    },
+    {
+      "ProbeID": "EMPTY-MUTATIONS",
+      "Status": "PASS",
+      "Errors": [
+        "mutation catalog",
+        "mutation totals"
+      ]
+    },
+    {
+      "ProbeID": "DUPLICATE-JSON",
+      "Status": "PASS",
+      "Errors": [
+        "PACKAGE_ERROR ValueError: duplicate key x"
+      ]
+    },
+    {
+      "ProbeID": "NONFINITE-JSON",
+      "Status": "PASS",
+      "Errors": [
+        "PACKAGE_ERROR ValueError: non-JSON NaN"
+      ]
+    },
+    {
+      "ProbeID": "SEMANTIC-FORMAT-CHANGE",
+      "Status": "PASS",
+      "Errors": [
+        "formatted content Reports/HSBI_DG01_P0_REVERIFICATION_FORMATTED_RU.md",
+        "format provenance Reports/HSBI_DG01_P0_REVERIFICATION_FORMATTED_RU.md"
+      ]
+    },
+    {
+      "ProbeID": "CONTRADICTORY-POLICY",
+      "Status": "PASS",
+      "Errors": [
+        "policy uniqueness BROKER_DISPATCH_ALLOWED"
+      ]
+    },
+    {
+      "ProbeID": "MISSING-P0-MATRIX",
+      "Status": "PASS",
+      "Errors": [
+        "missing required contract P0_REMEDIATION_MATRIX"
+      ]
+    }
+  ],
+  "Pass": 11,
+  "Fail": 0,
+  "RunnerSHA256": "790616865fbc1d58b313ec679fdf6144ab1530908af3183d742e616e5eb854ba",
+  "Boundary": "11 disposable semantic/schema/integrity probes. No exhaustive checker proof; no native compilation."
+}

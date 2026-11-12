@@ -1,0 +1,20 @@
+{
+  "Command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "-c",
+    "import sys;sys.dont_write_bytecode=True;sys.path.insert(0,\"Tests/Static\");import HSBI_FULL_SYSTEM_AUDIT_02_package as p;import json;errors=p.check(p.a.ROOT,baseline=False);print(json.dumps(errors));raise SystemExit(bool(errors))"
+  ],
+  "StartedUTC": "2026-11-12T14:10:01.542379+00:00",
+  "FinishedUTC": "2026-11-12T14:10:01.779823+00:00",
+  "ExitCode": 0,
+  "Stdout": "[]\n",
+  "Stderr": "",
+  "RunnerSHA256": "662af76e12e7eb447712842945d042abeae223fd226e7721b80ac1271cf58e35",
+  "CaptureSHA256": "c851dc9a323a9959030ebd10fd705237c24bad08d414701ced16a8dc311caf73",
+  "InputSHA256": null,
+  "Environment": {
+    "OS": "linux",
+    "Python": "3.12.14"
+  },
+  "ProofBoundary": "Process output; no native claim unless real MQL tool executed"
+}

@@ -1,0 +1,498 @@
+{
+  "UTC": "2026-11-12T14:16:39.757144+00:00",
+  "Defects": [
+    {
+      "DefectID": "FSA-001",
+      "Severity": "P0",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+        "SHA256": "d9bcbef0fa7b6c5da61e7bafa6a6314458601252a2e580aac21396daadf95ed4",
+        "Function": "HSBI_SameEconomicRecord",
+        "Line": 9,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        9
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-002",
+      "Severity": "P0",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+        "SHA256": "b539c3c52089e22c2e5cba5a95b81bdc5267b59402bf0f3662f48e80dc1b155c",
+        "Function": "HSBI_ClassifyAllocationDuplicate",
+        "Line": 8,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        8
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-003",
+      "Severity": "P0",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+        "SHA256": "5d967cf22e7d0fdc3d37aae6077b15c4330526dcef4c5b8eda74340a64ff174d",
+        "Function": "HSBI_EvaluateReserveCatchUp",
+        "Line": 35,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        35
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-004",
+      "Severity": "P0",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+        "SHA256": "5d967cf22e7d0fdc3d37aae6077b15c4330526dcef4c5b8eda74340a64ff174d",
+        "Function": "HSBI_EvaluateReserveCatchUp",
+        "Line": 35,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        35
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-005",
+      "Severity": "P0",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Risk/HSBI_RiskGateResult.mqh",
+        "SHA256": "d0d7072973dac81be9284562046b7227ecfafbe14962c9ad05a3f8e2c73585c8",
+        "Function": "HSBI_ValidateRiskInput",
+        "Line": 6,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        6
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-006",
+      "Severity": "P0",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Execution/HSBI_TransactionTypes.mqh",
+        "SHA256": "1b244dc72cd345f0f032dde14eb89227db20a7333cbc2c72afa2046c4720d8c9",
+        "Function": "HSBI_TransactionBarrierPassed",
+        "Line": 9,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        9
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-007",
+      "Severity": "P0",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+        "SHA256": "b539c3c52089e22c2e5cba5a95b81bdc5267b59402bf0f3662f48e80dc1b155c",
+        "Function": "HSBI_ValidateAllocationConservation",
+        "Line": 7,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        7
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-008",
+      "Severity": "P0",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Money/HSBI_MoneyState.mqh",
+        "SHA256": "0faeebfc6781198ead86e8cffac7e154947f1830e6b38d27d7900d069ac38396",
+        "Function": "HSBI_ValidateMoneyState",
+        "Line": 5,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        5
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-009",
+      "Severity": "P0",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Core/HSBI_Context.mqh",
+        "SHA256": "7ae314b8f7e4183419943297885a6291afbf449a5d63490ca35757f737eb80ef",
+        "Function": "HSBI_ValidateContext",
+        "Line": 33,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        33
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-010",
+      "Severity": "P0",
+      "Classification": "UNIMPLEMENTED",
+      "Source": {
+        "File": "Include/Planning/HSBI_NewFarSolver.mqh",
+        "SHA256": "9dcf60b6edc245a8a5ee3a05f35d4d8d26c12479f570a66aa5e4f0e703497cd2",
+        "Function": "HSBI_SolveNewFar",
+        "Line": 94,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        94
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-011",
+      "Severity": "P1",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Planning/HSBI_GeometrySolver.mqh",
+        "SHA256": "62b3b4a8d7a374e15b96b46a380e3c2f8f0e74aa57ae8749c0261ebab27a11f9",
+        "Function": "HSBI_SolveBigGeometry",
+        "Line": 21,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        21
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-012",
+      "Severity": "P1",
+      "Classification": "UNIMPLEMENTED",
+      "Source": {
+        "File": "Include/Core/HSBI_StateMachine.mqh",
+        "SHA256": "7ec9f9860ce9d72c7f7c119377c1b2bedda25001921b92ef3aa9c7d95a32e403",
+        "Function": "HSBI_IsTransitionAllowed",
+        "Line": 5,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        5
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-013",
+      "Severity": "P1",
+      "Classification": "UNIMPLEMENTED",
+      "Source": {
+        "File": "Include/Persistence/HSBI_PersistenceInterface.mqh",
+        "SHA256": "e72b591500db88e2596c498fcdf7dbfdbe3641eef91ebbee80ce59e3aeddab06",
+        "Function": "HSBI_PersistSnapshotStub",
+        "Line": 7,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        7
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-014",
+      "Severity": "P1",
+      "Classification": "UNIMPLEMENTED",
+      "Source": {
+        "File": "Hybrid_Split_Big_Independent_EA.mq5",
+        "SHA256": "71e511c620df5de7f1f9e0d865664efeaf4cf6edbcbb07f20efaf25c40e9bd62",
+        "Function": "OnTick",
+        "Line": 35,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        35
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-015",
+      "Severity": "P1",
+      "Classification": "CONFIRMED_CONTRACT_CONFLICT",
+      "Source": {
+        "File": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+        "SHA256": "7bea2c75eec23825d5cbcca82fa72022b73f8c1626f5ffbce30ac79d722b03a0",
+        "Function": "HSBI_AggregateFutureSmallProof",
+        "Line": 23,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        23
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-016",
+      "Severity": "P1",
+      "Classification": "CONFIRMED_CONTRACT_CONFLICT",
+      "Source": {
+        "File": "Docs/14_NEW_FAR_SOLVER_SPECIFICATION_RU.md",
+        "SHA256": "cd8e312bc8d98519f42618b2ac3f316be546f178f4cc0b3168577bb365603dc1",
+        "Function": null,
+        "Line": 22
+      },
+      "NormalizedDefinitionLines": [],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-017",
+      "Severity": "P1",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+        "SHA256": "c403bbad6089076500823219dac296e69100bed0e2cb950eb1f248749b868cf6",
+        "Function": "HSBI_EvaluateFutureSmallLevel",
+        "Line": 57,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        57
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-018",
+      "Severity": "P1",
+      "Classification": "CONFIRMED_CONTRACT_CONFLICT",
+      "Source": {
+        "File": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+        "SHA256": "c403bbad6089076500823219dac296e69100bed0e2cb950eb1f248749b868cf6",
+        "Function": "HSBI_ValidateConservativeBound",
+        "Line": 12,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        12
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-019",
+      "Severity": "P1",
+      "Classification": "UNVERIFIED",
+      "Source": {
+        "File": "Include/Money/HSBI_CostModel.mqh",
+        "SHA256": "4f19ebab853118d7946f99a5fed2b9d84cbfd16c83390df9f5721c53c207f590",
+        "Function": "HSBI_TryProjectedNetMoney",
+        "Line": 15,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        15
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-020",
+      "Severity": "P1",
+      "Classification": "UNVERIFIED",
+      "Source": {
+        "File": "Docs/03_FULL_SYSTEM_MANUAL_RU.md",
+        "SHA256": "3d0bd17b2501d61d612d6ec982b215d52dbd92da8b174d4e425f4c477c7484d0",
+        "Function": null,
+        "Line": 9
+      },
+      "NormalizedDefinitionLines": [],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-021",
+      "Severity": "P2",
+      "Classification": "CONFIRMED_CONTRACT_CONFLICT",
+      "Source": {
+        "File": "Include/Planning/HSBI_ControlPrices.mqh",
+        "SHA256": "5bd35f0cc4b7ee1aac1a772b2932f13ba385922e26d5f2649bbda76837256a4b",
+        "Function": "HSBI_IsSnapshotFresh",
+        "Line": 11,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        11
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-022",
+      "Severity": "P2",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Core/HSBI_StateMachine.mqh",
+        "SHA256": "7ec9f9860ce9d72c7f7c119377c1b2bedda25001921b92ef3aa9c7d95a32e403",
+        "Function": "HSBI_ProposeStateTransition",
+        "Line": 6,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        6
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-023",
+      "Severity": "P2",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Planning/HSBI_NewFarSolver.mqh",
+        "SHA256": "9dcf60b6edc245a8a5ee3a05f35d4d8d26c12479f570a66aa5e4f0e703497cd2",
+        "Function": "HSBI_FutureSmallTemplateDigest",
+        "Line": 35,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        35
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-024",
+      "Severity": "P2",
+      "Classification": "CONFIRMED_CONTRACT_CONFLICT",
+      "Source": {
+        "File": "Tests/Static/accept_hsb_2e_r4_r9_r4a_r8.py",
+        "SHA256": "9a7d1d95f220038b4c68ad21518e3f8901b08398215556b59a7e96ffc28fe235",
+        "Function": "run",
+        "Line": 7,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        37
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-025",
+      "Severity": "P2",
+      "Classification": "CONFIRMED_CONTRACT_CONFLICT",
+      "Source": {
+        "File": "Docs/03_FULL_SYSTEM_MANUAL_RU.md",
+        "SHA256": "3d0bd17b2501d61d612d6ec982b215d52dbd92da8b174d4e425f4c477c7484d0",
+        "Function": null,
+        "Line": 50
+      },
+      "NormalizedDefinitionLines": [],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-026",
+      "Severity": "P1",
+      "Classification": "UNVERIFIED",
+      "Source": {
+        "File": "Tests/Reference/hsbi_02b_r0h_native_harness.mq5",
+        "SHA256": "4c4132f1899f9e6c7430c1b61df7c84d33391e2cee875cc3c3b996cec4dec41f",
+        "Function": "OnStart",
+        "Line": 21,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        21
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-027",
+      "Severity": "P1",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Persistence/HSBI_ExecutionJournal.mqh",
+        "SHA256": "aeba6d8813c0079ae4f8e5c7484895e891e6acb91ae7aeacec751977adf1f76f",
+        "Function": "HSBI_ClassifyJournalAppend",
+        "Line": 25,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        25
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-028",
+      "Severity": "P1",
+      "Classification": "CONFIRMED_CONTRACT_CONFLICT",
+      "Source": {
+        "File": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+        "SHA256": "c403bbad6089076500823219dac296e69100bed0e2cb950eb1f248749b868cf6",
+        "Function": "HSBI_SolveFutureSmall",
+        "Line": 113,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        113
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    },
+    {
+      "DefectID": "FSA-029",
+      "Severity": "P1",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Money/HSBI_BasketMoneyEvaluator.mqh",
+        "SHA256": "f2038e34a8cc22d2e98cf870e479e6a3cbfe3d6edee64855ffb8784d1e5007fb",
+        "Function": "HSBI_EvaluateBasketMoney",
+        "Line": 11,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "NormalizedDefinitionLines": [
+        11
+      ],
+      "HistoricalClassificationPreserved": true,
+      "ReviewBoundary": "No new reclassification; original source/hash and formatted presentation checked"
+    }
+  ],
+  "FormulaCount": 49,
+  "FormulaCounts": {
+    "ConditionalMathematics": 23,
+    "Conflicts": 11,
+    "Unverified": 15
+  },
+  "OldIntegrityRecheck": 0,
+  "OldScopeFailure": 1,
+  "Note": "Frozen CLI rejects new DG01 scope, exit1 retained. Unchanged checker API baseline=False validates archived graph only; independent current Git inventory covers all1464 files. No old classification changed."
+}

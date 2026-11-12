@@ -1,0 +1,213 @@
+{
+  "StartedUTC": "2026-11-12T13:37:52.644462+00:00",
+  "FinishedUTC": "2026-11-12T13:37:52.671725+00:00",
+  "Rows": [
+    {
+      "MutationID": "M-AUTH",
+      "TestID": "CAUSAL-M-AUTH",
+      "OriginalSourceSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "3b7441c934053b8e8c7095f758b971579aaec0517686a1d6a9121df2612ef86f",
+      "ExactEdit": {
+        "Old": "if presented!=authority:",
+        "New": "if False:"
+      },
+      "Input": "AUTH",
+      "Expected": "CONFLICT",
+      "Environment": {
+        "OS": "linux"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.649290+00:00",
+      "ProofBoundary": "New reference-model source mutation only; not native or production mutation",
+      "MutantSourceSHA256": "c897f994155daf7995bbf747be021cec15858016c9a8afa8be0e29144613d35c",
+      "OriginalPositive": "FUNDED_IN_MEMORY",
+      "MutantPositive": "FUNDED_IN_MEMORY",
+      "OriginalCausal": {
+        "Status": "CONFLICT",
+        "Before": "{'sources': {}, 'journal': {}}",
+        "After": "{'sources': {}, 'journal': {}}",
+        "StateUnchanged": true
+      },
+      "MutantCausal": {
+        "Status": "FUNDED_IN_MEMORY",
+        "Before": "{'sources': {}, 'journal': {}}",
+        "After": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (5000, 0, 0, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 1, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 5000, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (5000, 0, 0, 0)}, (5000, 0, 0, 0, 0), 101)}}",
+        "StateUnchanged": false
+      },
+      "ExitCode": 0,
+      "Status": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "MutationID": "M-VECTOR",
+      "TestID": "CAUSAL-M-VECTOR",
+      "OriginalSourceSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "3b7441c934053b8e8c7095f758b971579aaec0517686a1d6a9121df2612ef86f",
+      "ExactEdit": {
+        "Old": "return 'NO_OP' if self.sources[k]['immutable']==payload else 'CONFLICT'",
+        "New": "return 'NO_OP'"
+      },
+      "Input": "VECTOR",
+      "Expected": "CONFLICT",
+      "Environment": {
+        "OS": "linux"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.651410+00:00",
+      "ProofBoundary": "New reference-model source mutation only; not native or production mutation",
+      "MutantSourceSHA256": "cea608a16dcce3972326d6e7aba5296ba1dc9fd78f94751aa1f461b5d2dad991",
+      "OriginalPositive": "FUNDED_IN_MEMORY",
+      "MutantPositive": "FUNDED_IN_MEMORY",
+      "OriginalCausal": {
+        "Status": "UNAVAILABLE",
+        "Before": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 1, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 5000, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101)}}",
+        "After": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 1, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 5000, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101)}}",
+        "StateUnchanged": true
+      },
+      "MutantCausal": {
+        "Status": "UNAVAILABLE",
+        "Before": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 1, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 5000, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101)}}",
+        "After": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 1, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 5000, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101)}}",
+        "StateUnchanged": true
+      },
+      "ExitCode": 0,
+      "Status": "MUTATION_SURVIVED"
+    },
+    {
+      "MutationID": "M-SCOPE",
+      "TestID": "CAUSAL-M-SCOPE",
+      "OriginalSourceSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "3b7441c934053b8e8c7095f758b971579aaec0517686a1d6a9121df2612ef86f",
+      "ExactEdit": {
+        "Old": "if context!=(record['account'],record['symbol'],record['cycle']) or allocation!=source['immutable'][2]:",
+        "New": "if allocation!=source['immutable'][2]:"
+      },
+      "Input": "SCOPE",
+      "Expected": "CONFLICT",
+      "Environment": {
+        "OS": "linux"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.653554+00:00",
+      "ProofBoundary": "New reference-model source mutation only; not native or production mutation",
+      "MutantSourceSHA256": "90ee26d7afca7b714e4231fb0cafc301cdf78228b4bd66eb2b5f7fc271cbc2f6",
+      "OriginalPositive": "FUNDED_IN_MEMORY",
+      "MutantPositive": "FUNDED_IN_MEMORY",
+      "OriginalCausal": {
+        "Status": "CONFLICT",
+        "Before": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 1, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 5000, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101)}}",
+        "After": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 1, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 5000, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101)}}",
+        "StateUnchanged": true
+      },
+      "MutantCausal": {
+        "Status": "APPLIED_IN_MEMORY",
+        "Before": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 1, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 5000, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101)}}",
+        "After": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 2, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 100, 'F': 4900, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), ('operation', 1, 10): (('FIXTURE', 'OFFLINE', 1, 11), 101, 'consume', 0, 100, 'A', (2, 'X', 1))}}",
+        "StateUnchanged": false
+      },
+      "ExitCode": 0,
+      "Status": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "MutationID": "M-REV",
+      "TestID": "CAUSAL-M-REV",
+      "OriginalSourceSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "3b7441c934053b8e8c7095f758b971579aaec0517686a1d6a9121df2612ef86f",
+      "ExactEdit": {
+        "Old": "if expected_revision!=source['revision']:return 'CONFLICT'",
+        "New": "if False:return 'CONFLICT'"
+      },
+      "Input": "REV",
+      "Expected": "CONFLICT",
+      "Environment": {
+        "OS": "linux"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.655911+00:00",
+      "ProofBoundary": "New reference-model source mutation only; not native or production mutation",
+      "MutantSourceSHA256": "63f8aeb64fa701dffe35977bbd509f21deec21ec40280587f94ebd8a0a65529a",
+      "OriginalPositive": "FUNDED_IN_MEMORY",
+      "MutantPositive": "FUNDED_IN_MEMORY",
+      "OriginalCausal": {
+        "Status": "CONFLICT",
+        "Before": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 2, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 4900, 'reservations': {'A': 100}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), ('operation', 1, 10): (('FIXTURE', 'OFFLINE', 1, 11), 101, 'reserve', 0, 100, 'A', (1, 'X', 1))}}",
+        "After": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 2, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 4900, 'reservations': {'A': 100}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), ('operation', 1, 10): (('FIXTURE', 'OFFLINE', 1, 11), 101, 'reserve', 0, 100, 'A', (1, 'X', 1))}}",
+        "StateUnchanged": true
+      },
+      "MutantCausal": {
+        "Status": "APPLIED_IN_MEMORY",
+        "Before": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 2, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 4900, 'reservations': {'A': 100}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), ('operation', 1, 10): (('FIXTURE', 'OFFLINE', 1, 11), 101, 'reserve', 0, 100, 'A', (1, 'X', 1))}}",
+        "After": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 3, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 4800, 'reservations': {'A': 100, 'B': 100}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), ('operation', 1, 10): (('FIXTURE', 'OFFLINE', 1, 11), 101, 'reserve', 0, 100, 'A', (1, 'X', 1)), ('operation', 1, 11): (('FIXTURE', 'OFFLINE', 1, 11), 101, 'reserve', 0, 100, 'B', (1, 'X', 1))}}",
+        "StateUnchanged": false
+      },
+      "ExitCode": 0,
+      "Status": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "MutationID": "M-HISTORY",
+      "TestID": "CAUSAL-M-HISTORY",
+      "OriginalSourceSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "3b7441c934053b8e8c7095f758b971579aaec0517686a1d6a9121df2612ef86f",
+      "ExactEdit": {
+        "Old": "if history!='COMPLETE' or k not in self.sources:return 'UNAVAILABLE'",
+        "New": "if k not in self.sources:return 'UNAVAILABLE'"
+      },
+      "Input": "HISTORY",
+      "Expected": "UNAVAILABLE",
+      "Environment": {
+        "OS": "linux"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.658059+00:00",
+      "ProofBoundary": "New reference-model source mutation only; not native or production mutation",
+      "MutantSourceSHA256": "5b6a581d9240be4e992794b745c1b35ba07c38d066b286b71a02b85641cfd520",
+      "OriginalPositive": "FUNDED_IN_MEMORY",
+      "MutantPositive": "FUNDED_IN_MEMORY",
+      "OriginalCausal": {
+        "Status": "UNAVAILABLE",
+        "Before": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 1, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 5000, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101)}}",
+        "After": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 1, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 5000, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101)}}",
+        "StateUnchanged": true
+      },
+      "MutantCausal": {
+        "Status": "APPLIED_IN_MEMORY",
+        "Before": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 1, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 5000, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101)}}",
+        "After": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 2, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 100, 'F': 4900, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), ('operation', 1, 10): (('FIXTURE', 'OFFLINE', 1, 11), 101, 'consume', 0, 100, 'A', (1, 'X', 1))}}",
+        "StateUnchanged": false
+      },
+      "ExitCode": 0,
+      "Status": "UNSAFE_ACCEPTANCE_KILL"
+    },
+    {
+      "MutationID": "M-ACCOUNT",
+      "TestID": "CAUSAL-M-ACCOUNT",
+      "OriginalSourceSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "3b7441c934053b8e8c7095f758b971579aaec0517686a1d6a9121df2612ef86f",
+      "ExactEdit": {
+        "Old": "return (r['broker'],r['server'],r['account'],r['deal'])",
+        "New": "return (r['broker'],r['server'],1,r['deal'])"
+      },
+      "Input": "ACCOUNT",
+      "Expected": "FUNDED_IN_MEMORY",
+      "Environment": {
+        "OS": "linux"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.666548+00:00",
+      "ProofBoundary": "New reference-model source mutation only; not native or production mutation",
+      "MutantSourceSHA256": "624892987d839b9a78e273f1648254b30b681bc32ae187b0904ab4590ca9115d",
+      "OriginalPositive": "FUNDED_IN_MEMORY",
+      "MutantPositive": "FUNDED_IN_MEMORY",
+      "OriginalCausal": {
+        "Status": "FUNDED_IN_MEMORY",
+        "Before": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 1, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 5000, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101)}}",
+        "After": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 1, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 5000, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}, ('FIXTURE', 'OFFLINE', 2, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 2, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 1, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 5000, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), ('fund', 2, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 2, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101)}}",
+        "StateUnchanged": false
+      },
+      "MutantCausal": {
+        "Status": "CONFLICT",
+        "Before": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 1, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 5000, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101)}}",
+        "After": "{'sources': {('FIXTURE', 'OFFLINE', 1, 11): {'immutable': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101), 'revision': 1, 'authority_bound': True, 'buckets': [{'G': 5000, 'C': 0, 'F': 5000, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}, {'G': 0, 'C': 0, 'F': 0, 'reservations': {}}]}}, 'journal': {('fund', 1, 1): ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101)}}",
+        "StateUnchanged": true
+      },
+      "ExitCode": 0,
+      "Status": "STATUS_CONTRACT_KILL"
+    }
+  ],
+  "Killed": 5,
+  "Survived": 1,
+  "InfrastructureErrors": 0
+}

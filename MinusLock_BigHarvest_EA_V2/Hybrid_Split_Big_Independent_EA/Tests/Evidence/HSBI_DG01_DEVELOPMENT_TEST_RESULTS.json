@@ -1,0 +1,1877 @@
+{
+  "BaseSHA": "92a55371299439f2ff33494497cde2aa78013d77",
+  "StartedUTC": "2026-11-12T13:37:52.571456+00:00",
+  "FinishedUTC": "2026-11-12T13:37:52.584538+00:00",
+  "Command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_DG01_reference_tests.py"
+  ],
+  "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+  "Rows": [
+    {
+      "TestID": "L01-HISTORY-MISSING",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, None, (5000, 0, 0, 0, 0), 101, 1), 'Kwargs': {'history': 'COMPLETE', 'costs': True, 'precision': True}}",
+      "Expected": {
+        "Status": "UNAVAILABLE",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "UNAVAILABLE",
+        "Balance": null,
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.571832+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L02-HISTORY-INCOMPLETE",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101, 1), 'Kwargs': {'history': 'INCOMPLETE', 'costs': True, 'precision': True}}",
+      "Expected": {
+        "Status": "UNAVAILABLE",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "UNAVAILABLE",
+        "Balance": null,
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.571942+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L03-COSTS-INCOMPLETE",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101, 1), 'Kwargs': {'history': 'COMPLETE', 'costs': False, 'precision': True}}",
+      "Expected": {
+        "Status": "UNAVAILABLE",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "UNAVAILABLE",
+        "Balance": null,
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.572027+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L04-PRECISION-UNKNOWN",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101, 1), 'Kwargs': {'history': 'COMPLETE', 'costs': True, 'precision': False}}",
+      "Expected": {
+        "Status": "UNAVAILABLE",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "UNAVAILABLE",
+        "Balance": null,
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.572140+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L05-NEW-SOURCE",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101, 1), 'Kwargs': {'history': 'COMPLETE', 'costs': True, 'precision': True}}",
+      "Expected": {
+        "Status": "FUNDED_IN_MEMORY",
+        "Balance": [
+          5000,
+          0,
+          0,
+          5000
+        ],
+        "ZeroDelta": false
+      },
+      "Actual": {
+        "Status": "FUNDED_IN_MEMORY",
+        "Balance": [
+          5000,
+          0,
+          0,
+          5000
+        ],
+        "StateUnchanged": false,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.572281+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L05A-UNKNOWN-DEFAULTS",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101, 1), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "UNAVAILABLE",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "UNAVAILABLE",
+        "Balance": [
+          5000,
+          0,
+          0,
+          5000
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.572409+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L05B-BOOL-CONTEXT",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 4, 'consume', 0, 1, 'A', (True, 'X', True), 1), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          0,
+          0,
+          5000
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.572524+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L05C-BOOL-KEY",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', True, 11), 101, 4, 'consume', 0, 1, 'A', (1, 'X', 1), 1), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          0,
+          0,
+          5000
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.572626+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L06-EXACT-FUND",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101, 1), 'Kwargs': {'history': 'COMPLETE', 'costs': True, 'precision': True}}",
+      "Expected": {
+        "Status": "NO_OP",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "NO_OP",
+        "Balance": [
+          5000,
+          0,
+          0,
+          5000
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.572772+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L07-ALTERED-EQUAL-NET",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (5000, 0, 0, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (5000, 0, 0, 0)}, (5000, 0, 0, 0, 0), 101, 1), 'Kwargs': {'history': 'COMPLETE', 'costs': True, 'precision': True}}",
+      "Expected": {
+        "Status": "CONFLICT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "CONFLICT",
+        "Balance": [
+          5000,
+          0,
+          0,
+          5000
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.572943+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L08-AUTHORITY-MISMATCH",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (5000, 0, 0, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101, 1), 'Kwargs': {'history': 'COMPLETE', 'costs': True, 'precision': True}}",
+      "Expected": {
+        "Status": "CONFLICT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "CONFLICT",
+        "Balance": [
+          5000,
+          0,
+          0,
+          5000
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.573095+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L09-SECOND-ALLOCATION",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 999, 2), 'Kwargs': {'history': 'COMPLETE', 'costs': True, 'precision': True}}",
+      "Expected": {
+        "Status": "CONFLICT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "CONFLICT",
+        "Balance": [
+          5000,
+          0,
+          0,
+          5000
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.573269+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L10-IMMUTABLE-VECTOR",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (0, 5000, 0, 0, 0), 101, 1), 'Kwargs': {'history': 'COMPLETE', 'costs': True, 'precision': True}}",
+      "Expected": {
+        "Status": "CONFLICT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "CONFLICT",
+        "Balance": [
+          5000,
+          0,
+          0,
+          5000
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.573409+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L11-RESERVE",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 10, 'reserve', 0, 4500, 'A', (1, 'X', 1), 1), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "APPLIED_IN_MEMORY",
+        "Balance": [
+          5000,
+          0,
+          4500,
+          500
+        ],
+        "ZeroDelta": false
+      },
+      "Actual": {
+        "Status": "APPLIED_IN_MEMORY",
+        "Balance": [
+          5000,
+          0,
+          4500,
+          500
+        ],
+        "StateUnchanged": false,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.573576+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L12-RESERVED-NOT-FREE",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 11, 'consume', 0, 1000, 'B', (1, 'X', 1), 2), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          0,
+          4500,
+          500
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.573837+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L13-FOREIGN-RESERVATION-OWNER",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 11, 'consume_reserved', 0, 1000, 'B', (1, 'X', 1), 2), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          0,
+          4500,
+          500
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.574000+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L14-STALE-COMPETING-CONSUMER",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 11, 'reserve', 0, 100, 'B', (1, 'X', 1), 1), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "CONFLICT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "CONFLICT",
+        "Balance": [
+          5000,
+          0,
+          4500,
+          500
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.574165+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L15-RELEASE",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 11, 'release', 0, 500, 'A', (1, 'X', 1), 2), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "APPLIED_IN_MEMORY",
+        "Balance": [
+          5000,
+          0,
+          4000,
+          1000
+        ],
+        "ZeroDelta": false
+      },
+      "Actual": {
+        "Status": "APPLIED_IN_MEMORY",
+        "Balance": [
+          5000,
+          0,
+          4000,
+          1000
+        ],
+        "StateUnchanged": false,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.574331+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L16-CONSUME-RESERVED",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 12, 'consume_reserved', 0, 4000, 'A', (1, 'X', 1), 3), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "APPLIED_IN_MEMORY",
+        "Balance": [
+          5000,
+          4000,
+          0,
+          1000
+        ],
+        "ZeroDelta": false
+      },
+      "Actual": {
+        "Status": "APPLIED_IN_MEMORY",
+        "Balance": [
+          5000,
+          4000,
+          0,
+          1000
+        ],
+        "StateUnchanged": false,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.574537+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L17-FOREIGN-ALLOCATION",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 999, 13, 'consume', 0, 100, 'A', (1, 'X', 1), 4), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "CONFLICT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "CONFLICT",
+        "Balance": [
+          5000,
+          4000,
+          0,
+          1000
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.574694+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L18-SCOPE-0",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 13, 'consume', 0, 1, 'A', (2, 'X', 1), 4), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "CONFLICT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "CONFLICT",
+        "Balance": [
+          5000,
+          4000,
+          0,
+          1000
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.574847+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L18-SCOPE-1",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 13, 'consume', 0, 1, 'A', (1, 'Y', 1), 4), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "CONFLICT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "CONFLICT",
+        "Balance": [
+          5000,
+          4000,
+          0,
+          1000
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.575095+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L18-SCOPE-2",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 13, 'consume', 0, 1, 'A', (1, 'X', 2), 4), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "CONFLICT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "CONFLICT",
+        "Balance": [
+          5000,
+          4000,
+          0,
+          1000
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.575247+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L19-CONSUME-FREE",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 13, 'consume', 0, 1000, 'A', (1, 'X', 1), 4), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "APPLIED_IN_MEMORY",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "ZeroDelta": false
+      },
+      "Actual": {
+        "Status": "APPLIED_IN_MEMORY",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": false,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.575427+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L20-EXACT-AFTER-EXHAUSTION",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 13, 'consume', 0, 1000, 'A', (1, 'X', 1), 1), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "NO_OP",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "NO_OP",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.575586+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L21-ALTERED-REPLAY",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 13, 'consume', 0, 999, 'A', (1, 'X', 1), 5), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "CONFLICT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "CONFLICT",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.575745+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L22-EXHAUSTED",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 14, 'consume', 0, 1, 'A', (1, 'X', 1), 5), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.575923+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L23-INCOMPLETE-JOURNAL",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 14, 'consume', 0, 1, 'A', (1, 'X', 1), 5), 'Kwargs': {'history': 'INCOMPLETE'}}",
+      "Expected": {
+        "Status": "UNAVAILABLE",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "UNAVAILABLE",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.576106+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L24-RESTART-REPLAY",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 13, 'consume', 0, 1000, 'A', (1, 'X', 1), 1), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "NO_OP",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "NO_OP",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.576376+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L25-RESTART-FUND",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101, 1), 'Kwargs': {'history': 'COMPLETE', 'costs': True, 'precision': True}}",
+      "Expected": {
+        "Status": "NO_OP",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "NO_OP",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.576578+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L25A-SECOND-SOURCE",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 12, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 12, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 102, 2), 'Kwargs': {'history': 'COMPLETE', 'costs': True, 'precision': True}}",
+      "Expected": {
+        "Status": "FUNDED_IN_MEMORY",
+        "Balance": null,
+        "ZeroDelta": false
+      },
+      "Actual": {
+        "Status": "FUNDED_IN_MEMORY",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": false,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.577549+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L25B-FUND-EVENT-COLLISION",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101, 2), 'Kwargs': {'history': 'COMPLETE', 'costs': True, 'precision': True}}",
+      "Expected": {
+        "Status": "CONFLICT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "CONFLICT",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.577846+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L26-EVENT-0",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, True, 'consume', 0, 1, 'A', (1, 'X', 1), 5), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.578052+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L26-EVENT-1",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, False, 'consume', 0, 1, 'A', (1, 'X', 1), 5), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.578279+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L26-EVENT-2",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 0, 'consume', 0, 1, 'A', (1, 'X', 1), 5), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.578487+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L26-EVENT-3",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, -1, 'consume', 0, 1, 'A', (1, 'X', 1), 5), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.578768+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L26-EVENT-4",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 1.5, 'consume', 0, 1, 'A', (1, 'X', 1), 5), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.578989+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L26-EVENT-5",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, '1', 'consume', 0, 1, 'A', (1, 'X', 1), 5), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.579219+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L26-EVENT-6",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, None, 'consume', 0, 1, 'A', (1, 'X', 1), 5), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.579421+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L26-EVENT-7",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 18446744073709551616, 'consume', 0, 1, 'A', (1, 'X', 1), 5), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.579625+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L27-AMOUNT-0",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 20, 'consume', 0, 0, 'A', (1, 'X', 1), 5), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.579843+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L27-AMOUNT-1",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 20, 'consume', 0, -1, 'A', (1, 'X', 1), 5), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.580052+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L27-AMOUNT-2",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 20, 'consume', 0, True, 'A', (1, 'X', 1), 5), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.580282+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L27-AMOUNT-3",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 20, 'consume', 0, nan, 'A', (1, 'X', 1), 5), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.580488+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L27-AMOUNT-4",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 20, 'consume', 0, inf, 'A', (1, 'X', 1), 5), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.580692+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L27-AMOUNT-5",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 20, 'consume', 0, 9223372036854775808, 'A', (1, 'X', 1), 5), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.580916+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L28-SCHEMA-UNKNOWN",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 2, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 2, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101, 1), 'Kwargs': {'history': 'COMPLETE', 'costs': True, 'precision': True}}",
+      "Expected": {
+        "Status": "UNAVAILABLE",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "UNAVAILABLE",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.581165+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L29-CURRENCY",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'EUR', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'EUR', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101, 1), 'Kwargs': {'history': 'COMPLETE', 'costs': True, 'precision': True}}",
+      "Expected": {
+        "Status": "UNAVAILABLE",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "UNAVAILABLE",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.581414+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L30-PRECISION",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 3, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 3, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101, 1), 'Kwargs': {'history': 'COMPLETE', 'costs': True, 'precision': True}}",
+      "Expected": {
+        "Status": "UNAVAILABLE",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "UNAVAILABLE",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.581645+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L31-PROJECTED",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'PROJECTED', 'components': (6000, 0, -1000, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'PROJECTED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101, 1), 'Kwargs': {'history': 'COMPLETE', 'costs': True, 'precision': True}}",
+      "Expected": {
+        "Status": "UNAVAILABLE",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "UNAVAILABLE",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.581994+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L32-NET-OVERFLOW",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 20, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (9223372036854775807, 0, 1, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 20, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (9223372036854775807, 0, 1, 0)}, (9223372036854775807, 0, 0, 0, 0), 101, 2), 'Kwargs': {'history': 'COMPLETE', 'costs': True, 'precision': True}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.582263+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L33-MAX-SOURCE",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (9223372036854775807, 0, 0, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (9223372036854775807, 0, 0, 0)}, (9223372036854775807, 0, 0, 0, 0), 101, 1), 'Kwargs': {'history': 'COMPLETE', 'costs': True, 'precision': True}}",
+      "Expected": {
+        "Status": "FUNDED_IN_MEMORY",
+        "Balance": [
+          9223372036854775807,
+          0,
+          0,
+          9223372036854775807
+        ],
+        "ZeroDelta": false
+      },
+      "Actual": {
+        "Status": "FUNDED_IN_MEMORY",
+        "Balance": [
+          9223372036854775807,
+          0,
+          0,
+          9223372036854775807
+        ],
+        "StateUnchanged": false,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.582389+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L34-TINY-DEBIT-1",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 100, 'consume', 0, 1, 'A', (1, 'X', 1), 1), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "APPLIED_IN_MEMORY",
+        "Balance": [
+          9223372036854775807,
+          1,
+          0,
+          9223372036854775806
+        ],
+        "ZeroDelta": false
+      },
+      "Actual": {
+        "Status": "APPLIED_IN_MEMORY",
+        "Balance": [
+          9223372036854775807,
+          1,
+          0,
+          9223372036854775806
+        ],
+        "StateUnchanged": false,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.582542+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L35-TINY-DEBIT-2-OUT-OF-ID-ORDER",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 99, 'consume', 0, 1, 'A', (1, 'X', 1), 2), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "APPLIED_IN_MEMORY",
+        "Balance": [
+          9223372036854775807,
+          2,
+          0,
+          9223372036854775805
+        ],
+        "ZeroDelta": false
+      },
+      "Actual": {
+        "Status": "APPLIED_IN_MEMORY",
+        "Balance": [
+          9223372036854775807,
+          2,
+          0,
+          9223372036854775805
+        ],
+        "StateUnchanged": false,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.582826+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L36-OLD-REVISION",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 98, 'consume', 0, 1, 'A', (1, 'X', 1), 1), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "CONFLICT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "CONFLICT",
+        "Balance": [
+          9223372036854775807,
+          2,
+          0,
+          9223372036854775805
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.583118+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L37-REVISION-OVERFLOW",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'operation', 'Args': (('FIXTURE', 'OFFLINE', 1, 11), 101, 98, 'consume', 0, 1, 'A', (1, 'X', 1), 18446744073709551615), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": [
+          9223372036854775807,
+          2,
+          0,
+          9223372036854775805
+        ],
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.583270+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L38-BOOL-ALLOCATION",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), True, 1), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "UNAVAILABLE",
+        "Balance": null,
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "FAIL",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.583354+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L39-MISSING-FIELD",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'BigCore', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101, 1), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": null,
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.583411+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    },
+    {
+      "TestID": "L40-SMALL-NOT-BIG",
+      "SubjectSHA256": "8981627e5711bf50d5323b3027cf04f04395e67ae56de0e3f2ee1448fa84fdd4",
+      "RunnerSHA256": "875c799590b14a8b6ddeb0e84c5c1fd1f133f26014c2a2c832d81019169d98d4",
+      "Input": "{'API': 'fund', 'Args': ({'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'Small', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, {'broker': 'FIXTURE', 'server': 'OFFLINE', 'account': 1, 'deal': 11, 'symbol': 'X', 'magic': 7, 'cycle': 1, 'role': 'Small', 'schema': 1, 'currency': 'USD', 'digits': 2, 'kind': 'RECONCILED', 'components': (6000, 0, -1000, 0)}, (5000, 0, 0, 0, 0), 101, 1), 'Kwargs': {}}",
+      "Expected": {
+        "Status": "REJECT",
+        "Balance": null,
+        "ZeroDelta": true
+      },
+      "Actual": {
+        "Status": "REJECT",
+        "Balance": null,
+        "StateUnchanged": true,
+        "InputUnchanged": true
+      },
+      "Status": "PASS",
+      "Error": null,
+      "ExitCode": 0,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ExecutionTimeUTC": "2026-11-12T13:37:52.583576+00:00",
+      "ProofBoundary": "Proposed in-memory per-source/per-bucket fixture; no provider authenticity, durable storage or real concurrency"
+    }
+  ],
+  "Pass": 58,
+  "Fail": 1,
+  "InfrastructureErrors": 0,
+  "FormattingRows": [
+    {
+      "TestID": "FORMAT-P0_REVERIFICATION",
+      "Expected": "EXACT_NEWLINE_TRANSFORM",
+      "Actual": "EXACT_NEWLINE_TRANSFORM",
+      "Status": "PASS",
+      "SourceSHA256": "92e527ec52aed7073520af84a1760d86aebe70b3a6eeec1379ed2381b45795a4",
+      "OutputSHA256": "2ee0c8bd1a4c621f00266ac6ed9398e48d09fba35bb86e7e0fbd805883306546"
+    },
+    {
+      "TestID": "FORMAT-P1_P2_REVIEW",
+      "Expected": "EXACT_NEWLINE_TRANSFORM",
+      "Actual": "EXACT_NEWLINE_TRANSFORM",
+      "Status": "PASS",
+      "SourceSHA256": "959c2d3d925180a585773c14d06f54328e8abf1d6e59187d724ce0e87aa46dc6",
+      "OutputSHA256": "f3c6530c5e45d1813dc9e607a588563de37da67c55794a97e21ca67d5c548dd2"
+    },
+    {
+      "TestID": "FORMAT-MATH_PROOF_GAPS",
+      "Expected": "EXACT_NEWLINE_TRANSFORM",
+      "Actual": "EXACT_NEWLINE_TRANSFORM",
+      "Status": "PASS",
+      "SourceSHA256": "fc828a16b8c1cb42937defe3f9593df6dcb142c5d898342237a0442dc262ea63",
+      "OutputSHA256": "309a30e7681ee75a24bf2df6030565cbc73fc6081ec454b9edc3d28edd281487"
+    }
+  ],
+  "FormattingPass": 3,
+  "ProofBoundary": "Ledger and formatting counted separately. Restart is trusted snapshot simulation, competing consumers serialized revision test, NOT actual concurrency/durability; incomplete facts never fixture broker evidence."
+}

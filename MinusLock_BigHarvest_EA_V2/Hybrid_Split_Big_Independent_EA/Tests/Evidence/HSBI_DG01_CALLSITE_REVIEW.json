@@ -1,0 +1,41 @@
+{
+  "Rows": [
+    {
+      "File": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "Line": 7,
+      "Text": "string HSBI_BuildSourceDealKey(const HSBI_EconomicLedgerRecord &r){return r.symbol+\"|\"+LongToString(r.magic)+\"|\"+HSBI_UlongToString(r.cycleId)+\"|\"+HSBI_UlongToString(r.dealTicket);}",
+      "SHA256": "d9bcbef0fa7b6c5da61e7bafa6a6314458601252a2e580aac21396daadf95ed4"
+    },
+    {
+      "File": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "Line": 8,
+      "Text": "bool HSBI_ValidateEconomicRecord(const HSBI_EconomicLedgerRecord &r){return r.dealTicket>0&&r.orderTicket>0&&r.positionIdentifier>0&&r.symbol!=\"\"&&r.cycleId>0&&r.actionId>0&&r.eventId>0&&r.volume>0&&r.sourceDealKey!=\"\"&&r.valid;}",
+      "SHA256": "d9bcbef0fa7b6c5da61e7bafa6a6314458601252a2e580aac21396daadf95ed4"
+    },
+    {
+      "File": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "Line": 9,
+      "Text": "bool HSBI_SameEconomicRecord(const HSBI_EconomicLedgerRecord &a,const HSBI_EconomicLedgerRecord &b){return a.sourceDealKey==b.sourceDealKey&&MathAbs(a.dealNet-b.dealNet)<0.0000001&&a.volume==b.volume&&a.price==b.price;}",
+      "SHA256": "d9bcbef0fa7b6c5da61e7bafa6a6314458601252a2e580aac21396daadf95ed4"
+    },
+    {
+      "File": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "Line": 10,
+      "Text": "int HSBI_ClassifyEconomicDuplicate(const HSBI_EconomicLedgerRecord &existing,const HSBI_EconomicLedgerRecord &incoming){if(existing.sourceDealKey!=incoming.sourceDealKey)return 0;return HSBI_SameEconomicRecord(existing,incoming)?1:2;}",
+      "SHA256": "d9bcbef0fa7b6c5da61e7bafa6a6314458601252a2e580aac21396daadf95ed4"
+    },
+    {
+      "File": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "Line": 11,
+      "Text": "string HSBI_SerializeEconomicRecord(const HSBI_EconomicLedgerRecord &r){return r.sourceDealKey+\"|\"+DoubleToString(r.volume,8)+\"|\"+DoubleToString(r.price,8)+\"|\"+DoubleToString(r.dealNet,8);}",
+      "SHA256": "d9bcbef0fa7b6c5da61e7bafa6a6314458601252a2e580aac21396daadf95ed4"
+    },
+    {
+      "File": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "Line": 12,
+      "Text": "bool HSBI_IsHarvestSourceEntry(const HSBI_EconomicLedgerRecord &r){return r.entryType!=0&&r.dealNet>0.0;}",
+      "SHA256": "d9bcbef0fa7b6c5da61e7bafa6a6314458601252a2e580aac21396daadf95ed4"
+    }
+  ],
+  "Scope": "Lexical scan of all74 current production sources; external programs excluded. Current symbols appear only in header; old algorithms remain unsafe if future financial caller uses them."
+}

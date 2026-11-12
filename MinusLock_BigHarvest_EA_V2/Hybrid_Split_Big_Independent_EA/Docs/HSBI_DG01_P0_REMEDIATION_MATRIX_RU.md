@@ -1,0 +1,173 @@
+# DG01 — P0 remediation: только планы
+
+FSA-010 остаётся UNIMPLEMENTED independent authority; full solver bypass не объявлен. Local equality может проверить соответствие supplied expected, но не его происхождение. Обязательный будущий end-to-end тест: independent provider frozen, request+proof согласованно изменены → UNAVAILABLE/CONFLICT без списания; полный caller не обходит provider. Provider отсутствует/неполон → UNAVAILABLE.
+
+## FSA-001
+- **CurrentSource**: {'File': 'Include/Money/HSBI_EconomicLedgerTypes.mqh', 'SHA256': 'd9bcbef0fa7b6c5da61e7bafa6a6314458601252a2e580aac21396daadf95ed4', 'Function': 'HSBI_SameEconomicRecord', 'Line': 9, 'FullSourceReadBoundary': 'STATIC_SOURCE_NOT_NATIVE_RUNTIME'}
+- **ConfirmedFailure**: Сравнение не включает Profit/Swap/Commission/Fee и другие immutable поля.
+- **Classification**: CONFIRMED_SOURCE_DEFECT
+- **RootCause**: Сравнение не включает Profit/Swap/Commission/Fee и другие immutable поля.
+- **RequiredContract**: ['D-02', 'D-08', 'NUM-CODEC', 'MQL-DOMAIN']
+- **MinimalChangeCandidate**: Добавить versioned source-key/full-payload API; старую struct/signatures сохранить. Это local API, не полное remediation.
+- **DependencyGraph**: ['Independent facts/contracts', 'Расширение новой economic record; independent provider; callers', 'Mandatory caller integration', 'Native/regression acceptance']
+- **RequiredNativeTests**: ['E1-EXACT', 'E1-PROFIT', 'E1-SWAP', 'E1-COMMISSION', 'E1-FEE', 'E1-SAME-NET', 'E1-MAGIC-NOT-NEW-SOURCE', 'E1-FOREIGN-AUTHORITY', 'E1-UNKNOWN-PROVENANCE', 'E1-CANONICAL-ZERO', 'E1-NONFINITE']
+- **RequiredRegressionTests**: ['Frozen AUDIT02 source positives/negatives', 'R0/R7 failures retained', 'Local source/key/vector/shape altered input tests', 'Full caller integration after separate scope approval']
+- **MigrationRisk**: Старые записи без Broker/Server/Account/EA-origin не конвертировать автоматически; quarantine.
+- **RemainingRisk**: Старый classifier остаётся unsafe, пока не ограничен diagnostic policy и не мигрированы все financial consumers.
+- **ProductionScope**: Include/Money/HSBI_EconomicLedgerTypes.mqh
+- **ApprovalRequired**: True
+- **ReadinessStatus**: ONE_FILE_LOCAL_API_FEASIBLE
+- **CurrentImplementationAllowed**: False
+
+## FSA-002
+- **CurrentSource**: {'File': 'Include/Money/HSBI_AllocationLedgerTypes.mqh', 'SHA256': 'b539c3c52089e22c2e5cba5a95b81bdc5267b59402bf0f3662f48e80dc1b155c', 'Function': 'HSBI_ClassifyAllocationDuplicate', 'Line': 8, 'FullSourceReadBoundary': 'STATIC_SOURCE_NOT_NATIVE_RUNTIME'}
+- **ConfirmedFailure**: Равенство суммы ошибочно заменяет равенство вектора.
+- **Classification**: CONFIRMED_SOURCE_DEFECT
+- **RootCause**: Равенство суммы ошибочно заменяет равенство вектора.
+- **RequiredContract**: ['D-01', 'D-08']
+- **MinimalChangeCandidate**: Сравнивать полный immutable bucket vector и allocation identity, а не общую сумму; mutable consumed отделить.
+- **DependencyGraph**: ['Independent facts/contracts', 'Локальный comparator + schema/caller contracts', 'Mandatory caller integration', 'Native/regression acceptance']
+- **RequiredNativeTests**: ['E2-VECTOR-EXACT', 'E2-SAME-TOTAL']
+- **RequiredRegressionTests**: ['Frozen AUDIT02 source positives/negatives', 'R0/R7 failures retained', 'Local source/key/vector/shape altered input tests', 'Full caller integration after separate scope approval']
+- **MigrationRisk**: Старый total не восстанавливает утраченное назначение buckets.
+- **RemainingRisk**: Global source allocation sum требует separate source registry; local vector equality этого не доказывает.
+- **ProductionScope**: Include/Money/HSBI_AllocationLedgerTypes.mqh
+- **ApprovalRequired**: True
+- **ReadinessStatus**: LOCAL_AFTER_CONTRACT_APPROVAL
+- **CurrentImplementationAllowed**: False
+
+## FSA-003
+- **CurrentSource**: {'File': 'Include/Money/HSBI_ReserveCatchUpEvaluator.mqh', 'SHA256': '5d967cf22e7d0fdc3d37aae6077b15c4330526dcef4c5b8eda74340a64ff174d', 'Function': 'HSBI_EvaluateReserveCatchUp', 'Line': 35, 'FullSourceReadBoundary': 'STATIC_SOURCE_NOT_NATIVE_RUNTIME'}
+- **ConfirmedFailure**: Consumption key проверен по форме/plan/revision, но не по sourceAllocationKey/sourceDealKey authority.
+- **Classification**: CONFIRMED_SOURCE_DEFECT
+- **RootCause**: Consumption key проверен по форме/plan/revision, но не по sourceAllocationKey/sourceDealKey authority.
+- **RequiredContract**: ['D-07', 'D-08', 'FUNDING-GLOBAL-ATTRIBUTION']
+- **MinimalChangeCandidate**: Сверять consumption sourceDealKey/sourceAllocationKey с authoritative source и его неизменным event/policy.
+- **DependencyGraph**: ['Independent facts/contracts', 'Локальная binding проверка + mandatory caller/provider', 'Mandatory caller integration', 'Native/regression acceptance']
+- **RequiredNativeTests**: ['E2-BOUND-SOURCE', 'E2-FOREIGN-ALLOCATION', 'E2-UNKNOWN-AUTHORITY']
+- **RequiredRegressionTests**: ['Frozen AUDIT02 source positives/negatives', 'R0/R7 failures retained', 'Local source/key/vector/shape altered input tests', 'Full caller integration after separate scope approval']
+- **MigrationRisk**: Legacy keys без namespace нельзя считать подтверждёнными allocation.
+- **RemainingRisk**: Даже согласованные строки caller не доказывают независимую authority; journal/global state обязательны.
+- **ProductionScope**: Include/Money/HSBI_ReserveCatchUpEvaluator.mqh; Include/Money/HSBI_ReserveAllocationTypes.mqh
+- **ApprovalRequired**: True
+- **ReadinessStatus**: LOCAL_GUARD_ONLY_GLOBAL_DEPENDENCY
+- **CurrentImplementationAllowed**: False
+
+## FSA-004
+- **CurrentSource**: {'File': 'Include/Money/HSBI_ReserveCatchUpEvaluator.mqh', 'SHA256': '5d967cf22e7d0fdc3d37aae6077b15c4330526dcef4c5b8eda74340a64ff174d', 'Function': 'HSBI_EvaluateReserveCatchUp', 'Line': 35, 'FullSourceReadBoundary': 'STATIC_SOURCE_NOT_NATIVE_RUNTIME'}
+- **ConfirmedFailure**: В ветке not alreadyAllocated отсутствует вычитание/запрет alreadyConsumed.
+- **Classification**: CONFIRMED_SOURCE_DEFECT
+- **RootCause**: В ветке not alreadyAllocated отсутствует вычитание/запрет alreadyConsumed.
+- **RequiredContract**: ['D-01', 'D-02', 'D-07', 'FUNDING-GLOBAL-ATTRIBUTION']
+- **MinimalChangeCandidate**: В обеих ветках использовать reconciled remaining eligible source; exhausted source не даёт нового grant.
+- **DependencyGraph**: ['Independent facts/contracts', 'Global ledger + persistence/CAS + вызывающий модуль', 'Mandatory caller integration', 'Native/regression acceptance']
+- **RequiredNativeTests**: ['E2-ALREADY-CONSUMED', 'E2-DUPLICATE-CONSUMPTION']
+- **RequiredRegressionTests**: ['Frozen AUDIT02 source positives/negatives', 'R0/R7 failures retained', 'Local source/key/vector/shape altered input tests', 'Full caller integration after separate scope approval']
+- **MigrationRisk**: Пересчитать только из complete history и immutable funding journal, не из текущей projected прибыли.
+- **RemainingRisk**: Локальный alreadyConsumed check устраняет пример, но не duplicate across allocations/restart/concurrency.
+- **ProductionScope**: Include/Money/HSBI_ReserveCatchUpEvaluator.mqh; future global source funding provider (not authorized)
+- **ApprovalRequired**: True
+- **ReadinessStatus**: MULTICOMPONENT_REQUIRED
+- **CurrentImplementationAllowed**: False
+
+## FSA-005
+- **CurrentSource**: {'File': 'Include/Risk/HSBI_RiskGateResult.mqh', 'SHA256': 'd0d7072973dac81be9284562046b7227ecfafbe14962c9ad05a3f8e2c73585c8', 'Function': 'HSBI_ValidateRiskInput', 'Line': 6, 'FullSourceReadBoundary': 'STATIC_SOURCE_NOT_NATIVE_RUNTIME'}
+- **ConfirmedFailure**: Сравнения с NaN ложны; нет finite/domain validation.
+- **Classification**: CONFIRMED_SOURCE_DEFECT
+- **RootCause**: Сравнения с NaN ложны; нет finite/domain validation.
+- **RequiredContract**: ['MQL-DOMAIN']
+- **MinimalChangeCandidate**: Проверять finite/domain всех используемых risk inputs и limits до сравнения. Unlimited/no-margin моделировать явно, не NaN/Infinity.
+- **DependencyGraph**: ['Independent facts/contracts', 'Локальный DTO guard + согласование producers', 'Mandatory caller integration', 'Native/regression acceptance']
+- **RequiredNativeTests**: ['E3-RISK-VALID', 'E3-NAN-MARGIN', 'E3-NEGATIVE-MARGIN']
+- **RequiredRegressionTests**: ['Frozen AUDIT02 source positives/negatives', 'R0/R7 failures retained', 'Local source/key/vector/shape altered input tests', 'Full caller integration after separate scope approval']
+- **MigrationRisk**: Не нормализовать неизвестный risk в0; текущие snapshots переоценивать независимо.
+- **RemainingRisk**: Некорректная risk formula или stale provider не исправляются конечностью чисел.
+- **ProductionScope**: Include/Risk/HSBI_RiskGateResult.mqh; Include/Risk/HSBI_NewFarGateTypes.mqh
+- **ApprovalRequired**: True
+- **ReadinessStatus**: LOCAL_AFTER_DOMAIN_APPROVAL
+- **CurrentImplementationAllowed**: False
+
+## FSA-006
+- **CurrentSource**: {'File': 'Include/Execution/HSBI_TransactionTypes.mqh', 'SHA256': '1b244dc72cd345f0f032dde14eb89227db20a7333cbc2c72afa2046c4720d8c9', 'Function': 'HSBI_TransactionBarrierPassed', 'Line': 9, 'FullSourceReadBoundary': 'STATIC_SOURCE_NOT_NATIVE_RUNTIME'}
+- **ConfirmedFailure**: abs(NaN-expected)>epsilon ложно, completion может пройти.
+- **Classification**: CONFIRMED_SOURCE_DEFECT
+- **RootCause**: abs(NaN-expected)>epsilon ложно, completion может пройти.
+- **RequiredContract**: ['D-08', 'MQL-DOMAIN']
+- **MinimalChangeCandidate**: Finite положительный expectedVolume, finite accumulatedVolume, actual deal/position confirmation; partial не COMPLETE.
+- **DependencyGraph**: ['Independent facts/contracts', 'Локальный barrier + event producer/reconciliation', 'Mandatory caller integration', 'Native/regression acceptance']
+- **RequiredNativeTests**: ['E3-TX-VALID', 'E3-NAN-FILL', 'E3-PARTIAL', 'E3-OWNERSHIP', 'E3-MISSING-CONFIRMATION']
+- **RequiredRegressionTests**: ['Frozen AUDIT02 source positives/negatives', 'R0/R7 failures retained', 'Local source/key/vector/shape altered input tests', 'Full caller integration after separate scope approval']
+- **MigrationRisk**: Старые COMPLETED без actual deals требуют reconciliation, не автоматического повторения.
+- **RemainingRisk**: Out-of-order/partial fills и transaction costs требуют complete history и event engine.
+- **ProductionScope**: Include/Execution/HSBI_TransactionTypes.mqh; Include/Execution/HSBI_ExternalOutcome.mqh
+- **ApprovalRequired**: True
+- **ReadinessStatus**: LOCAL_GUARD_PLUS_CALLERS
+- **CurrentImplementationAllowed**: False
+
+## FSA-007
+- **CurrentSource**: {'File': 'Include/Money/HSBI_AllocationLedgerTypes.mqh', 'SHA256': 'b539c3c52089e22c2e5cba5a95b81bdc5267b59402bf0f3662f48e80dc1b155c', 'Function': 'HSBI_ValidateAllocationConservation', 'Line': 7, 'FullSourceReadBoundary': 'STATIC_SOURCE_NOT_NATIVE_RUNTIME'}
+- **ConfirmedFailure**: Неотрицательность отдельных bucket не проверяется.
+- **Classification**: CONFIRMED_SOURCE_DEFECT
+- **RootCause**: Неотрицательность отдельных bucket не проверяется.
+- **RequiredContract**: ['D-01', 'D-02']
+- **MinimalChangeCandidate**: Nonnegative finite buckets; отдельные PREPARED/COMMITTED инварианты, source<=0 не распределяется как harvest.
+- **DependencyGraph**: ['Independent facts/contracts', 'Локальный validator + phase schema + callers', 'Mandatory caller integration', 'Native/regression acceptance']
+- **RequiredNativeTests**: ['E2-NEGATIVE-BUCKET', 'E2-OVERALLOCATION']
+- **RequiredRegressionTests**: ['Frozen AUDIT02 source positives/negatives', 'R0/R7 failures retained', 'Local source/key/vector/shape altered input tests', 'Full caller integration after separate scope approval']
+- **MigrationRisk**: Legacy Remaining/available не считать Free без Reserved/Consumed/owner mapping.
+- **RemainingRisk**: Локальный sum equality не доказывает global uniqueness/actual source.
+- **ProductionScope**: Include/Money/HSBI_AllocationLedgerTypes.mqh
+- **ApprovalRequired**: True
+- **ReadinessStatus**: LOCAL_AFTER_PHASE_CONTRACT
+- **CurrentImplementationAllowed**: False
+
+## FSA-008
+- **CurrentSource**: {'File': 'Include/Money/HSBI_MoneyState.mqh', 'SHA256': '0faeebfc6781198ead86e8cffac7e154947f1830e6b38d27d7900d069ac38396', 'Function': 'HSBI_ValidateMoneyState', 'Line': 5, 'FullSourceReadBoundary': 'STATIC_SOURCE_NOT_NATIVE_RUNTIME'}
+- **ConfirmedFailure**: Infinity >=0 принимается; valid и revision игнорируются.
+- **Classification**: CONFIRMED_SOURCE_DEFECT
+- **RootCause**: Infinity >=0 принимается; valid и revision игнорируются.
+- **RequiredContract**: ['BALANCE-SCHEMA-MAPPING', 'MQL-DOMAIN']
+- **MinimalChangeCandidate**: Finite денежные компоненты; explicit valid/revision contract для spending. RealizedCycleNet может быть отрицательным; inactive init не spendable.
+- **DependencyGraph**: ['Independent facts/contracts', 'Локальный shape guard + spender mandatory caller', 'Mandatory caller integration', 'Native/regression acceptance']
+- **RequiredNativeTests**: ['E3-INFINITY-MONEY']
+- **RequiredRegressionTests**: ['Frozen AUDIT02 source positives/negatives', 'R0/R7 failures retained', 'Local source/key/vector/shape altered input tests', 'Full caller integration after separate scope approval']
+- **MigrationRisk**: Инициализационный revision0 не превращать в funded state; unknown state UNAVAILABLE.
+- **RemainingRisk**: valid/revision semantics остаются отдельным contract question; Infinity defect подтверждён независимо.
+- **ProductionScope**: Include/Money/HSBI_MoneyState.mqh
+- **ApprovalRequired**: True
+- **ReadinessStatus**: LOCAL_AFTER_SCOPE_CLARIFICATION
+- **CurrentImplementationAllowed**: False
+
+## FSA-009
+- **CurrentSource**: {'File': 'Include/Core/HSBI_Context.mqh', 'SHA256': '7ae314b8f7e4183419943297885a6291afbf449a5d63490ca35757f737eb80ef', 'Function': 'HSBI_ValidateContext', 'Line': 33, 'FullSourceReadBoundary': 'STATIC_SOURCE_NOT_NATIVE_RUNTIME'}
+- **ConfirmedFailure**: FAR-count и проверка role-slot пропускают initialBuy/initialSell/newFarCandidate.
+- **Classification**: CONFIRMED_SOURCE_DEFECT
+- **RootCause**: FAR-count и проверка role-slot пропускают initialBuy/initialSell/newFarCandidate.
+- **RequiredContract**: ['D-08', 'active-role/slot policy']
+- **MinimalChangeCandidate**: Контроль role-slot и уникальных actual FAR identifiers во всех слотах; отличать alias reference от двух различных позиций.
+- **DependencyGraph**: ['Independent facts/contracts', 'Context schema + invariants + диагностические/торговые callers', 'Mandatory caller integration', 'Native/regression acceptance']
+- **RequiredNativeTests**: ['E4-ONE-FAR', 'E4-DISTINCT-FAR-SLOTS', 'E4-ALIAS-OBSERVATION']
+- **RequiredRegressionTests**: ['Frozen AUDIT02 source positives/negatives', 'R0/R7 failures retained', 'Local source/key/vector/shape altered input tests', 'Full caller integration after separate scope approval']
+- **MigrationRisk**: Не угадывать owner/slot по comment. Aliases допустимы только после явного slot contract; не считать candidate реальным Far без fills.
+- **RemainingRisk**: Одна исправленная count-функция не закрывает другие count/slot callpaths.
+- **ProductionScope**: Include/Core/HSBI_Context.mqh; Include/Core/HSBI_Invariants.mqh; Include/Core/HSBI_Roles.mqh; Include/Diagnostics/HSBI_Diagnostics.mqh
+- **ApprovalRequired**: True
+- **ReadinessStatus**: MULTICALLER_REQUIRED
+- **CurrentImplementationAllowed**: False
+
+## FSA-010
+- **CurrentSource**: {'File': 'Include/Planning/HSBI_NewFarSolver.mqh', 'SHA256': '9dcf60b6edc245a8a5ee3a05f35d4d8d26c12479f570a66aa5e4f0e703497cd2', 'Function': 'HSBI_SolveNewFar', 'Line': 94, 'FullSourceReadBoundary': 'STATIC_SOURCE_NOT_NATIVE_RUNTIME'}
+- **ConfirmedFailure**: Caller переписывает proof identity, затем копирует её в expected. Независимый экономический provider отсутствует.
+- **Classification**: UNIMPLEMENTED
+- **RootCause**: Caller переписывает proof identity, затем копирует её в expected. Независимый экономический provider отсутствует.
+- **RequiredContract**: ['D-02', 'D-08', 'NUM-CODEC']
+- **MinimalChangeCandidate**: Сохранить local equality, убрать self-confirmed expected из решения о происхождении; supplied expected должен приходить из independent provider.
+- **DependencyGraph**: ['Independent facts/contracts', 'Independent provider + reconciliation + caller integration', 'Mandatory caller integration', 'Native/regression acceptance']
+- **RequiredNativeTests**: ['E4-INDEPENDENT-EXPECTED', 'E4-COPIED-EXPECTED', 'E4-MISSING-PROVIDER', 'E4-UNKNOWN-SOURCE']
+- **RequiredRegressionTests**: ['Frozen AUDIT02 source positives/negatives', 'R0/R7 failures retained', 'Local source/key/vector/shape altered input tests', 'Full caller integration after separate scope approval']
+- **MigrationRisk**: Старый proof без source receipt не подлежит автоматическому подтверждению.
+- **RemainingRisk**: UNIMPLEMENTED authority boundary; полный NewFar bypass не доказан. Helper acceptance copied expected — наблюдение, не authentication.
+- **ProductionScope**: Include/Planning/HSBI_NewFarSolver.mqh; future independent provider boundary (not authorized)
+- **ApprovalRequired**: True
+- **ReadinessStatus**: BLOCKED_BY_PROVIDER
+- **CurrentImplementationAllowed**: False

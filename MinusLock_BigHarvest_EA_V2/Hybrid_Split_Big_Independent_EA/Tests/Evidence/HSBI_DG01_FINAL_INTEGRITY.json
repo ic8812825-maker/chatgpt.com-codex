@@ -1,0 +1,257 @@
+{
+  "BaseSHA": "92a55371299439f2ff33494497cde2aa78013d77",
+  "UTC": "2026-11-12T14:16:40.791713+00:00",
+  "Artifacts": [
+    {
+      "Path": "Docs/HSBI_DG01_CONTRACT_RESOLUTION_RU.md",
+      "SHA256": "fa50fc789331d09b3488223a54ce33f5d73dbeba746495530f1b90f14f7501fe",
+      "Size": 30734
+    },
+    {
+      "Path": "Docs/HSBI_DG01_DEPENDENCY_GRAPH_RU.md",
+      "SHA256": "eb6b75f17b523498fca5b8000831cdde3454ee51419ff94b47c25b7b3bc62c92",
+      "Size": 1965
+    },
+    {
+      "Path": "Docs/HSBI_DG01_MINIMAL_R1_1_DIFF_PLAN_RU.md",
+      "SHA256": "88f97f223cac82680dbb761b50557b8a3e2ed1e46d9ce0761b0cf873079b6b7c",
+      "Size": 6960
+    },
+    {
+      "Path": "Docs/HSBI_DG01_NATIVE_VERIFICATION_PLAN_RU.md",
+      "SHA256": "b481aad42d4548f6fe751828f7f404e2675f0e7932a2be92c377a30cc92efd5e",
+      "Size": 5626
+    },
+    {
+      "Path": "Docs/HSBI_DG01_P0_REMEDIATION_MATRIX_RU.md",
+      "SHA256": "d8245446eb4c9eedd370de45f3f0d13e62935256a933b12adf74bc0458857eeb",
+      "Size": 19005
+    },
+    {
+      "Path": "Reports/HSBI_DG01_ADMIN_DECISION_BALLOT_RU.md",
+      "SHA256": "87a7e2e06d89a6237bff89fb9667a8cfbf229e56a03e456fdd0c574bccc2adcb",
+      "Size": 8929
+    },
+    {
+      "Path": "Reports/HSBI_DG01_FINAL_VERDICT_RU.md",
+      "SHA256": "075499db2aac4114d17eee79a34de9aa7d2b4e90ecc8245e32dde911effb81ad",
+      "Size": 7309
+    },
+    {
+      "Path": "Reports/HSBI_DG01_MATH_PROOF_GAPS_FORMATTED_RU.md",
+      "SHA256": "309a30e7681ee75a24bf2df6030565cbc73fc6081ec454b9edc3d28edd281487",
+      "Size": 24897
+    },
+    {
+      "Path": "Reports/HSBI_DG01_P0_REVERIFICATION_FORMATTED_RU.md",
+      "SHA256": "2ee0c8bd1a4c621f00266ac6ed9398e48d09fba35bb86e7e0fbd805883306546",
+      "Size": 13483
+    },
+    {
+      "Path": "Reports/HSBI_DG01_P1_P2_REVIEW_FORMATTED_RU.md",
+      "SHA256": "f3c6530c5e45d1813dc9e607a588563de37da67c55794a97e21ca67d5c548dd2",
+      "Size": 24376
+    },
+    {
+      "Path": "Reports/HSBI_DG01_R1_1_APPROVAL_GATE_RU.md",
+      "SHA256": "859368a93f988c26913767f2a376143f3da763bf5265d4b890a1b17725d4b8cc",
+      "Size": 2210
+    },
+    {
+      "Path": "Tests/Contracts/HSBI_DG01_ACCEPTANCE_MATRIX.json",
+      "SHA256": "c5870ed1707ff9b666d1dad2c7eaaaa71352de509365d20d83d7e0a897442fde",
+      "Size": 21783
+    },
+    {
+      "Path": "Tests/Contracts/HSBI_DG01_DECISION_MATRIX.json",
+      "SHA256": "e4eaac62a7f1885236d8b044ad399ffbb943ddf312388b754523b6949fe61930",
+      "Size": 42034
+    },
+    {
+      "Path": "Tests/Contracts/HSBI_DG01_JSON_SCHEMAS.json",
+      "SHA256": "7eb865e187a8dbecac40ea01eedfd85d7c49afd2b1e701f4253ff7b20a17919b",
+      "Size": 39636
+    },
+    {
+      "Path": "Tests/Contracts/HSBI_DG01_P0_REMEDIATION_MATRIX.json",
+      "SHA256": "f361c1c7a764f978c770e88c617fdc0f7b8db51446c772eb309a9c7f1ca90e52",
+      "Size": 21290
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_AUDIT02_INTEGRITY_RECHECK.json",
+      "SHA256": "d83ccab875187a028f39fb000deaabbaaddcde927167b511da013e26487464c3",
+      "Size": 855
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_AUDIT02_PACKAGE_RECHECK.json",
+      "SHA256": "14b91fff64709f5d708b8e84ea9d135d16f68fdad02b6013d9a7dcf93d40a043",
+      "Size": 6867
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_BASELINE.json",
+      "SHA256": "65241b511531d799be2c0197f743405930678bb502a372a196d912eccc33e4cf",
+      "Size": 266
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_BASELINE_REVIEW.json",
+      "SHA256": "30651afb2af8026ec0e37bbd86c1a69633722c8d7740186d50d96f2dd14ad2c6",
+      "Size": 18606
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_CALLSITE_REVIEW.json",
+      "SHA256": "facf694d869c62659f5899bf4a6cf28cab9945d69c1029cf645dd31a4419881d",
+      "Size": 2539
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_CODEC_GOLDENS.json",
+      "SHA256": "0381b850e465d0ac91dbb3ddfe4fdd824f19ea4c478f44168d9edc742e2ed8d8",
+      "Size": 4148
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_DEVELOPMENT_LOG.json",
+      "SHA256": "b8950d0dfb39d503b98f90d26a671881c881142c36d73c3180734148ee2f4cd8",
+      "Size": 2960
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_DEVELOPMENT_MUTATION_RESULTS.json",
+      "SHA256": "99d38edc8baad3bea56880cc9f2afd4712339aba0ab5578d472f48ce1c701253",
+      "Size": 27964
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_DEVELOPMENT_SOURCES.json",
+      "SHA256": "51086d0f7b69032daaf78a903babd3985060e521f2ec8817b8b5c11f0793c84c",
+      "Size": 29499
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_DEVELOPMENT_TEST_RESULTS.json",
+      "SHA256": "7ef4267497a0f1062e362c3d573318e60266c22ff9bc167b94a0431fd1e946ad",
+      "Size": 73700
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_DIFF_CHECK.json",
+      "SHA256": "129abd62212f7c504bbe860c69fdae844576d2a773c44f96c1daa2349375df86",
+      "Size": 1091
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_EXECUTIONS.json",
+      "SHA256": "49a13842fddb49c7255e05f39b37d224885cb264ec296cc41d0bc999cc1b8a36",
+      "Size": 5212
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_FORMATTING_RESULTS.json",
+      "SHA256": "03216f0879d7c96ea45c6a3aae134e6b590f9cd5a4efcdb841d1b90f4b68c5a2",
+      "Size": 11599
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_MUTATION_RESULTS.json",
+      "SHA256": "82108a1ace362e7f76700a0f0d920ef6aee96810b0f107561008ffcb0ad39ad9",
+      "Size": 29600
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_NATIVE_RESULTS.json",
+      "SHA256": "b74e55f1f4523de11de5a20bd53fb204476d8372b050a2f826ee7ba1f752153e",
+      "Size": 156589
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_PRESERVATION.json",
+      "SHA256": "4303d1f354db5ed660cda6fd9f73d4d181678855efdeef70a8de41b7468f0d76",
+      "Size": 431225
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_PUBLICATION_REVIEW.json",
+      "SHA256": "502f7581e7830891bb504f83b9de2b35a2ee6a910691c17abcd9e1958961a556",
+      "Size": 437
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_SOURCE_REFERENCE_REVIEW.json",
+      "SHA256": "944b0d5c7a7c7a3f59425adf0d9c7d6b9bb667b45734152a8d8fa678d436d6f9",
+      "Size": 11132
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_DG01_TEST_RESULTS.json",
+      "SHA256": "a69db9e4279dbb38705b9aecc1b1185b774ec386271191d3297c60293a3c49c7",
+      "Size": 87889
+    },
+    {
+      "Path": "Tests/Native/HSBI_DG01_codec_cases.mqh",
+      "SHA256": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+      "Size": 5279
+    },
+    {
+      "Path": "Tests/Native/HSBI_DG01_compile_isolated.ps1",
+      "SHA256": "3de86bf7baedac93b5082d441ad270e36e4177127e1804da1584ab58e905e28e",
+      "Size": 6507
+    },
+    {
+      "Path": "Tests/Native/HSBI_DG01_goldens.mqh",
+      "SHA256": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+      "Size": 1850
+    },
+    {
+      "Path": "Tests/Native/HSBI_DG01_harness.mq5",
+      "SHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Size": 13159
+    },
+    {
+      "Path": "Tests/Reference/HSBI_DG01_MINIMAL_R1_1_CANDIDATE.patch",
+      "SHA256": "30884eca086f762dd7c78450613da3e5c7edb46898844eebfd60af164e718de3",
+      "Size": 5162
+    },
+    {
+      "Path": "Tests/Reference/HSBI_DG01_identity_candidate.mqh",
+      "SHA256": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+      "Size": 4587
+    },
+    {
+      "Path": "Tests/Reference/HSBI_DG01_ledger.py",
+      "SHA256": "248e58ecf71a9b3fa199da2399ae2cc8c9098d3c4257d909c2820c8fa0ea318c",
+      "Size": 5688
+    },
+    {
+      "Path": "Tests/Static/HSBI_DG01_build.py",
+      "SHA256": "9ce718d608f7e5a38872820936490c862036b5d7b643f13889bddd41f11c18e5",
+      "Size": 48785
+    },
+    {
+      "Path": "Tests/Static/HSBI_DG01_common.py",
+      "SHA256": "c851dc9a323a9959030ebd10fd705237c24bad08d414701ced16a8dc311caf73",
+      "Size": 2529
+    },
+    {
+      "Path": "Tests/Static/HSBI_DG01_diff_check.py",
+      "SHA256": "e7a2992f33a780fa1f522df17a68906e1abef99cae5a49173a1b9f208a6bb1f3",
+      "Size": 1080
+    },
+    {
+      "Path": "Tests/Static/HSBI_DG01_goldens.py",
+      "SHA256": "4004efbc31c4ba0d266d9793795f498cab2c0f1dba0d5d9e2f6be595d77afe5b",
+      "Size": 2510
+    },
+    {
+      "Path": "Tests/Static/HSBI_DG01_mutations.py",
+      "SHA256": "3c656f380a6d6229948979bf2765c39ff10d93b6b77cc2503018a53854001e55",
+      "Size": 4571
+    },
+    {
+      "Path": "Tests/Static/HSBI_DG01_package.py",
+      "SHA256": "790616865fbc1d58b313ec679fdf6144ab1530908af3183d742e616e5eb854ba",
+      "Size": 15077
+    },
+    {
+      "Path": "Tests/Static/HSBI_DG01_reference_tests.py",
+      "SHA256": "53afbde22ddb6d3eb34c42b27302724ddff83e8ca754f8c10a8342554c6f4b6e",
+      "Size": 10137
+    },
+    {
+      "Path": "Tests/Static/HSBI_DG01_schemas.py",
+      "SHA256": "c0e458e7255bddb111a150527521662c4c6b0017b5d9e137ce437bebb7cda3c4",
+      "Size": 7009
+    }
+  ],
+  "IndependentInventoryVersion": 1,
+  "Exclusions": [
+    "FINAL_INTEGRITY itself: no self-referential hash",
+    "PACKAGE_RESULTS: independently recomputed by checker/probes"
+  ],
+  "Scope": "Preparation/native-pending package integrity only; no system/trading approval"
+}

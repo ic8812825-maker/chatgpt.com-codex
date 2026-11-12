@@ -1,0 +1,2642 @@
+{
+  "BaseSHA": "92a55371299439f2ff33494497cde2aa78013d77",
+  "UTC": "2026-11-12T14:16:39.868739+00:00",
+  "MQL5_COMPILE": "NOT_RUN",
+  "MQL5_NATIVE_TESTS": "NOT_RUN",
+  "NATIVE_VERIFIED": false,
+  "PowerShellLauncherExecution": "NOT_RUN",
+  "Searches": [
+    {
+      "Command": [
+        "which",
+        "metaeditor64"
+      ],
+      "StartedUTC": "2026-11-12T14:16:39.759413+00:00",
+      "FinishedUTC": "2026-11-12T14:16:39.761892+00:00",
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": "",
+      "RunnerSHA256": "9ce718d608f7e5a38872820936490c862036b5d7b643f13889bddd41f11c18e5",
+      "CaptureSHA256": "c851dc9a323a9959030ebd10fd705237c24bad08d414701ced16a8dc311caf73",
+      "InputSHA256": null,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ProofBoundary": "Process output; no native claim unless real MQL tool executed"
+    },
+    {
+      "Command": [
+        "which",
+        "metaeditor"
+      ],
+      "StartedUTC": "2026-11-12T14:16:39.761921+00:00",
+      "FinishedUTC": "2026-11-12T14:16:39.763584+00:00",
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": "",
+      "RunnerSHA256": "9ce718d608f7e5a38872820936490c862036b5d7b643f13889bddd41f11c18e5",
+      "CaptureSHA256": "c851dc9a323a9959030ebd10fd705237c24bad08d414701ced16a8dc311caf73",
+      "InputSHA256": null,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ProofBoundary": "Process output; no native claim unless real MQL tool executed"
+    },
+    {
+      "Command": [
+        "which",
+        "MetaEditor64.exe"
+      ],
+      "StartedUTC": "2026-11-12T14:16:39.763607+00:00",
+      "FinishedUTC": "2026-11-12T14:16:39.765980+00:00",
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": "",
+      "RunnerSHA256": "9ce718d608f7e5a38872820936490c862036b5d7b643f13889bddd41f11c18e5",
+      "CaptureSHA256": "c851dc9a323a9959030ebd10fd705237c24bad08d414701ced16a8dc311caf73",
+      "InputSHA256": null,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ProofBoundary": "Process output; no native claim unless real MQL tool executed"
+    },
+    {
+      "Command": [
+        "which",
+        "terminal64"
+      ],
+      "StartedUTC": "2026-11-12T14:16:39.766003+00:00",
+      "FinishedUTC": "2026-11-12T14:16:39.767592+00:00",
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": "",
+      "RunnerSHA256": "9ce718d608f7e5a38872820936490c862036b5d7b643f13889bddd41f11c18e5",
+      "CaptureSHA256": "c851dc9a323a9959030ebd10fd705237c24bad08d414701ced16a8dc311caf73",
+      "InputSHA256": null,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ProofBoundary": "Process output; no native claim unless real MQL tool executed"
+    },
+    {
+      "Command": [
+        "which",
+        "wine"
+      ],
+      "StartedUTC": "2026-11-12T14:16:39.767614+00:00",
+      "FinishedUTC": "2026-11-12T14:16:39.769702+00:00",
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": "",
+      "RunnerSHA256": "9ce718d608f7e5a38872820936490c862036b5d7b643f13889bddd41f11c18e5",
+      "CaptureSHA256": "c851dc9a323a9959030ebd10fd705237c24bad08d414701ced16a8dc311caf73",
+      "InputSHA256": null,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ProofBoundary": "Process output; no native claim unless real MQL tool executed"
+    },
+    {
+      "Command": [
+        "which",
+        "pwsh"
+      ],
+      "StartedUTC": "2026-11-12T14:16:39.769728+00:00",
+      "FinishedUTC": "2026-11-12T14:16:39.771388+00:00",
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": "",
+      "RunnerSHA256": "9ce718d608f7e5a38872820936490c862036b5d7b643f13889bddd41f11c18e5",
+      "CaptureSHA256": "c851dc9a323a9959030ebd10fd705237c24bad08d414701ced16a8dc311caf73",
+      "InputSHA256": null,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ProofBoundary": "Process output; no native claim unless real MQL tool executed"
+    },
+    {
+      "Command": [
+        "rg",
+        "--files",
+        "/opt",
+        "/workspace",
+        "/usr/local/bin",
+        "-g",
+        "*[Mm]eta[Ee]ditor*",
+        "-g",
+        "*terminal64*"
+      ],
+      "StartedUTC": "2026-11-12T14:16:39.771413+00:00",
+      "FinishedUTC": "2026-11-12T14:16:39.865800+00:00",
+      "ExitCode": 0,
+      "Stdout": "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Scripts/compile_metaeditor_windows.ps1\n",
+      "Stderr": "",
+      "RunnerSHA256": "9ce718d608f7e5a38872820936490c862036b5d7b643f13889bddd41f11c18e5",
+      "CaptureSHA256": "c851dc9a323a9959030ebd10fd705237c24bad08d414701ced16a8dc311caf73",
+      "InputSHA256": null,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ProofBoundary": "Process output; no native claim unless real MQL tool executed"
+    }
+  ],
+  "Rows": [
+    {
+      "TestID": "E1-CANONICAL-ZERO",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-COMMISSION",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-EXACT",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FEE",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-AccountLogin",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-ActionID",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-Broker",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-Commission",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-Currency",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-CycleID",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-DealNet",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-DealTicket",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-DealType",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-EntryType",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-EventID",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-Fee",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-Magic",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-OrderTicket",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-PositionIdentifier",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-Precision",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-Price",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-Profit",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-Role",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-SchemaVersion",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-Server",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-SourcePlan",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-SourcePlanApplicable",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-SourcePolicyApplicable",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-SourcePolicyVersion",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-Swap",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-Symbol",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-TimestampMsc",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FIELD-Volume",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-FOREIGN-AUTHORITY",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-LONG-MAX-ACCOUNT",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-MAGIC-NOT-NEW-SOURCE",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-NEW-OBSERVATION",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-NONFINITE",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-PROFIT",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-SAME-NET",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-SWAP",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-ULONG-MAX-DEAL",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-UNKNOWN-FACTS",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-UNKNOWN-PROVENANCE",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-UNKNOWN-REGISTRY",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E1-UNKNOWN-SCHEMA",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E2-ALREADY-CONSUMED",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E2-BOUND-SOURCE",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E2-DUPLICATE-CONSUMPTION",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E2-FOREIGN-ALLOCATION",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E2-NEGATIVE-BUCKET",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E2-OVERALLOCATION",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E2-SAME-TOTAL",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E2-UNKNOWN-AUTHORITY",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E2-VECTOR-EXACT",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E3-INFINITY-MONEY",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E3-MISSING-CONFIRMATION",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E3-NAN-FILL",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E3-NAN-MARGIN",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E3-NEGATIVE-MARGIN",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E3-OWNERSHIP",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E3-PARTIAL",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E3-RISK-VALID",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E3-TX-VALID",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E4-ALIAS-OBSERVATION",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E4-COPIED-EXPECTED",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E4-DISTINCT-FAR-SLOTS",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E4-INDEPENDENT-EXPECTED",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E4-MISSING-PROVIDER",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E4-ONE-FAR",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E4-UNKNOWN-SOURCE",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-DUPLICATE-FIELD",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-ENCODE",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-GOLDEN-RECORD",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-INF-WIRE",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-LONG-MAX",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-LONG-MIN",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-NAN-WIRE",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-NONCANONICAL-ZERO-WIRE",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-OVERSIZED-LENGTH",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-ROUNDTRIP",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-TRAILING",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-TRUNCATED",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-ULONG-MAX",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-ULONG-NO-DOUBLE",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-UNKNOWN-CODEC",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-UNKNOWN-SCHEMA",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-UTF8-LENGTH",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-WRONG-FIELD-TYPE",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-max-finite-T17-probe",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-max-finite-bits",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-max-finite-roundtrip",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-min-normal-T17-probe",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-min-normal-bits",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-min-normal-roundtrip",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-min-subnormal-T17-probe",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-min-subnormal-bits",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-min-subnormal-roundtrip",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-negative-five-T17-probe",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-negative-five-bits",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-negative-five-roundtrip",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-negative-zero-T17-probe",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-negative-zero-bits",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-negative-zero-roundtrip",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-one-T17-probe",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-one-bits",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-one-roundtrip",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-tenth-T17-probe",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-tenth-bits",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-tenth-roundtrip",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-zero-T17-probe",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-zero-bits",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    },
+    {
+      "TestID": "E5-zero-roundtrip",
+      "SubjectSHA256": {
+        "Tests/Native/HSBI_DG01_harness.mq5": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+        "Tests/Native/HSBI_DG01_goldens.mqh": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+        "Tests/Native/HSBI_DG01_codec_cases.mqh": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+        "Tests/Reference/HSBI_DG01_identity_candidate.mqh": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+        "Tests/Reference/hsbi_02b_r0h_native_codec.mqh": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+      },
+      "RunnerSHA256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+      "Input": "Literal native fixture in harness/codec_cases; generated independent scalar/record goldens for E5",
+      "Expected": {
+        "AssertionTrue": true,
+        "Scope": "Literal native predicate; current source defects/proposed API/codec probe separately labelled in source"
+      },
+      "Actual": null,
+      "Status": "NOT_RUN",
+      "ExitCode": null,
+      "Environment": "No MetaEditor/MT5/Wine/pwsh found in PATH/searched directories",
+      "ExecutionTimeUTC": null,
+      "ProofBoundary": "Prepared native cases; no compile or runtime result"
+    }
+  ],
+  "CaseCount": 113,
+  "NativePass": 0,
+  "NativeFail": 0,
+  "Scope": "Generators GEN-NAN/GEN-INF must be independently confirmed at runtime; fixture-generation failure is infrastructure error, not risk-gate kill."
+}

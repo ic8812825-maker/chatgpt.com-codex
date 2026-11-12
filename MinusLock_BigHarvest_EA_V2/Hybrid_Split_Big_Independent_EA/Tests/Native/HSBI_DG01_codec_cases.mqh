@@ -1,0 +1,26 @@
+#ifndef HSBI_DG01_CODEC_CASES
+#define HSBI_DG01_CODEC_CASES
+#include "HSBI_DG01_goldens.mqh"
+int DGNibble(ushort c){if(c>=48&&c<=57)return (int)c-48;if(c>=97&&c<=102)return (int)c-87;return -1;}
+bool DGUnhex(string s,uchar &b[]){if(StringLen(s)%2!=0)return false;ArrayResize(b,StringLen(s)/2);for(int j=0;j<ArraySize(b);j++){int hi=DGNibble(StringGetCharacter(s,2*j)),lo=DGNibble(StringGetCharacter(s,2*j+1));if(hi<0||lo<0)return false;b[j]=(uchar)(16*hi+lo);}return true;}
+ulong DGHex64(string s){ulong u=0;for(int j=0;j<StringLen(s);j++)u=(u<<4)|(ulong)DGNibble(StringGetCharacter(s,j));return u;}
+string DGHex(const uchar &b[]){string s="";for(int i=0;i<ArraySize(b);i++)s+=StringFormat("%02x",b[i]);return s;}
+string DGT17(double x){if(x==0)x=0.0;string s=DoubleToString(x,-16);int e=StringFind(s,"e");if(e<0)e=StringFind(s,"E");if(e<0)return "UNSUPPORTED_FORMAT";int power=(int)StringToInteger(StringSubstr(s,e+1));return StringSubstr(s,0,e)+"e"+(power<0?"-":"+")+StringFormat("%03d",(int)MathAbs(power));}
+void DGScalar(const string id,double x,int index){ulong bits=0;DGCheck(id+"-bits",R0H_Bits(x,bits)&&bits==DGHex64(DGGoldenBits[index]),"F64Z_NATIVE_SUBJECT_GOLDEN");double back=1;DGCheck(id+"-roundtrip",R0H_Unbits(bits,back)&&back==x,"F64Z_NATIVE_SUBJECT_ROUNDTRIP");DGCheck(id+"-T17-probe",DGT17(x)==DGGoldenText[index],"T17_NATIVE_COMPATIBILITY_PROBE_NOT_APPROVAL");}
+void DGCodecTests(){
+ R0H_Record r;
+ for(int i=0;i<29;i++)R0H_U(r.f[i],1);
+ R0H_S(r.f[1],"B1");R0H_S(r.f[2],"S1");R0H_S(r.f[4],"EURUSD");R0H_U(r.f[5],7);R0H_U(r.f[7],11);R0H_U(r.f[8],12);R0H_U(r.f[9],13);R0H_U(r.f[11],31);R0H_S(r.f[12],"BigCore");R0H_S(r.f[13],"OUT");R0H_S(r.f[14],"SELL");R0H_U(r.f[15],100000);R0H_D(r.f[16],1);R0H_D(r.f[17],1.25);R0H_D(r.f[18],60);R0H_D(r.f[19],-2);R0H_D(r.f[20],-7);R0H_D(r.f[21],-1);R0H_D(r.f[22],50);R0H_S(r.f[23],"USD");R0H_U(r.f[24],2);R0H_B(r.f[25],true);R0H_B(r.f[27],true);
+ uchar b[];DGCheck("E5-ENCODE",R0H_Encode(r,"HSBI-F64Z-1",b)==R0H_NO_OP,"F64Z_FROZEN_TEST_SUBJECT");DGCheck("E5-GOLDEN-RECORD",DGHex(b)==DGGoldenRecordHex,"INDEPENDENT_FIELD_ORDER_GOLDEN");ArrayResize(b,0);if(!DGUnhex(DGGoldenRecordHex,b)){dg_infra++;Print("DG01|GEN-GOLDEN|INFRASTRUCTURE_ERROR|independent wire fixture invalid");return;}R0H_Record out=r;DGCheck("E5-ROUNDTRIP",R0H_Decode(b,"HSBI-F64Z-1",out)==R0H_NO_OP&&R0H_Equal(r,out),"F64Z");
+ uchar bad[];ArrayResize(bad,0);ArrayCopy(bad,b);ArrayResize(bad,ArraySize(bad)-1);out=r;DGCheck("E5-TRUNCATED",R0H_Decode(bad,"HSBI-F64Z-1",out)==R0H_REJECT&&R0H_Equal(out,r),"MALFORMED_ZERO_OUTPUT_DELTA");ArrayResize(bad,0);ArrayCopy(bad,b);R0H_Push(bad,0);out=r;DGCheck("E5-TRAILING",R0H_Decode(bad,"HSBI-F64Z-1",out)==R0H_REJECT&&R0H_Equal(out,r),"MALFORMED_ZERO_OUTPUT_DELTA");out=r;DGCheck("E5-UNKNOWN-CODEC",R0H_Decode(b,"future",out)==R0H_UNAVAILABLE&&R0H_Equal(out,r),"UNSUPPORTED_ZERO_OUTPUT_DELTA");
+ ArrayResize(bad,0);ArrayCopy(bad,b);bad[38]=2;out=r;DGCheck("E5-UNKNOWN-SCHEMA",R0H_Decode(bad,"HSBI-F64Z-1",out)==R0H_UNAVAILABLE&&R0H_Equal(out,r),"UNSUPPORTED_SCHEMA_ZERO_DELTA");
+ ArrayResize(bad,0);ArrayCopy(bad,b);bad[13]=255;bad[14]=255;bad[15]=255;bad[16]=255;out=r;DGCheck("E5-OVERSIZED-LENGTH",R0H_Decode(bad,"HSBI-F64Z-1",out)==R0H_UNAVAILABLE&&R0H_Equal(out,r),"UNSUPPORTED_LENGTH_ZERO_DELTA");
+ R0H_Record wrong=r;R0H_B(wrong.f[18],true);DGCheck("E5-WRONG-FIELD-TYPE",R0H_Validate(wrong)==R0H_REJECT,"WIRE_KIND_NOT_NUMERIC_BOOL");
+ ArrayResize(bad,0);ArrayCopy(bad,b);for(int i=0;i<ArraySize(bad)-6;i++){if(bad[i]==83&&bad[i+1]==121&&bad[i+2]==109&&bad[i+3]==98&&bad[i+4]==111&&bad[i+5]==108){bad[i]=66;bad[i+1]=114;bad[i+2]=111;bad[i+3]=107;bad[i+4]=101;bad[i+5]=114;break;}}
+ out=r;DGCheck("E5-DUPLICATE-FIELD",R0H_Decode(bad,"HSBI-F64Z-1",out)==R0H_REJECT&&R0H_Equal(out,r),"CANONICAL_FIELD_ORDER_ZERO_DELTA");
+ DGScalar("E5-zero",0.0,0);DGScalar("E5-negative-zero",-0.0,1);DGScalar("E5-one",1.0,2);DGScalar("E5-negative-five",-5.0,3);DGScalar("E5-tenth",0.1,4);DGScalar("E5-min-normal",2.2250738585072014e-308,5);DGScalar("E5-min-subnormal",4.9406564584124654e-324,6);DGScalar("E5-max-finite",1.7976931348623157e308,7);
+ double v=1;DGCheck("E5-NONCANONICAL-ZERO-WIRE",!R0H_Unbits(DGHex64("8000000000000000"),v),"F64Z_REJECT_NONCANONICAL");DGCheck("E5-NAN-WIRE",!R0H_Unbits(DGHex64("7ff8000000000000"),v),"F64Z_REJECT_NONFINITE");DGCheck("E5-INF-WIRE",!R0H_Unbits(DGHex64("7ff0000000000000"),v),"F64Z_REJECT_NONFINITE");
+ R0H_Value bound;uchar boundBytes[];long low=-9223372036854775807;low-=1;bound.kind=105;bound.i=low;DGCheck("E5-LONG-MIN",R0H_Token(bound,boundBytes)&&DGHex(boundBytes)=="698000000000000000","SIGNED_INTEGER_WIRE");ArrayResize(boundBytes,0);R0H_U(bound,9223372036854775807);DGCheck("E5-LONG-MAX",R0H_Token(bound,boundBytes)&&DGHex(boundBytes)=="757fffffffffffffff","POSITIVE_INTEGER_WIRE");ArrayResize(boundBytes,0);R0H_U(bound,18446744073709551615);DGCheck("E5-ULONG-MAX",R0H_Token(bound,boundBytes)&&DGHex(boundBytes)=="75ffffffffffffffff","UNSIGNED_INTEGER_WIRE");
+ R0H_Value item;R0H_U(item,9007199254740993);uchar bytes[];DGCheck("E5-ULONG-NO-DOUBLE",R0H_Token(item,bytes)&&DGHex(bytes)=="750020000000000001","EXACT_INTEGER_WIRE");ArrayResize(bytes,0);R0H_S(item,"Б");DGCheck("E5-UTF8-LENGTH",R0H_Token(item,bytes)&&DGHex(bytes)=="7300000002d091","UTF8_BYTE_LENGTH");
+}
+#endif

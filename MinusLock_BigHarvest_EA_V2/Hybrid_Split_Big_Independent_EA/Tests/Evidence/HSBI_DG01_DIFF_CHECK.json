@@ -1,0 +1,28 @@
+{
+  "Command": [
+    "git",
+    "apply",
+    "--check",
+    "-"
+  ],
+  "StartedUTC": "2026-11-12T14:16:39.543962+00:00",
+  "FinishedUTC": "2026-11-12T14:16:39.547048+00:00",
+  "ExitCode": 0,
+  "Stdout": "",
+  "Stderr": "",
+  "RunnerSHA256": "e7a2992f33a780fa1f522df17a68906e1abef99cae5a49173a1b9f208a6bb1f3",
+  "CaptureSHA256": "c851dc9a323a9959030ebd10fd705237c24bad08d414701ced16a8dc311caf73",
+  "InputSHA256": "30884eca086f762dd7c78450613da3e5c7edb46898844eebfd60af164e718de3",
+  "Environment": {
+    "OS": "linux",
+    "Python": "3.12.14"
+  },
+  "ProofBoundary": "Parse/applicability only. No apply, no native compiler.",
+  "TestID": "DIFF-CHECK-ONLY",
+  "Applied": false,
+  "Target": "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Include/Money/HSBI_EconomicLedgerTypes.mqh",
+  "BaseSHA256": "d9bcbef0fa7b6c5da61e7bafa6a6314458601252a2e580aac21396daadf95ed4",
+  "CandidateBodySHA256": "aa182fd47367d4b446ac6bc51f1c2869079b6605c0e82a79dd7db5359514d936",
+  "SubjectSHA256": "30884eca086f762dd7c78450613da3e5c7edb46898844eebfd60af164e718de3",
+  "SourceBytesUnchanged": true
+}

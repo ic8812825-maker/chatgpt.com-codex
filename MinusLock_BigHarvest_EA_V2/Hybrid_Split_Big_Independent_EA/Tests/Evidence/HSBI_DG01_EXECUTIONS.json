@@ -1,0 +1,119 @@
+{
+  "Rows": [
+    {
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_DG01_diff_check.py"
+      ],
+      "StartedUTC": "2026-11-12T14:16:39.510294+00:00",
+      "FinishedUTC": "2026-11-12T14:16:39.553784+00:00",
+      "ExitCode": 0,
+      "Stdout": "DIFF_CHECK 0 UNCHANGED True\n",
+      "Stderr": "",
+      "RunnerSHA256": "e7a2992f33a780fa1f522df17a68906e1abef99cae5a49173a1b9f208a6bb1f3",
+      "CaptureSHA256": "c851dc9a323a9959030ebd10fd705237c24bad08d414701ced16a8dc311caf73",
+      "InputSHA256": null,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ProofBoundary": "Process output; no native claim unless real MQL tool executed"
+    },
+    {
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_DG01_goldens.py"
+      ],
+      "StartedUTC": "2026-11-12T14:16:39.553870+00:00",
+      "FinishedUTC": "2026-11-12T14:16:39.599014+00:00",
+      "ExitCode": 0,
+      "Stdout": "",
+      "Stderr": "",
+      "RunnerSHA256": "4004efbc31c4ba0d266d9793795f498cab2c0f1dba0d5d9e2f6be595d77afe5b",
+      "CaptureSHA256": "c851dc9a323a9959030ebd10fd705237c24bad08d414701ced16a8dc311caf73",
+      "InputSHA256": null,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ProofBoundary": "Process output; no native claim unless real MQL tool executed"
+    },
+    {
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_DG01_reference_tests.py"
+      ],
+      "StartedUTC": "2026-11-12T14:16:39.599128+00:00",
+      "FinishedUTC": "2026-11-12T14:16:39.661214+00:00",
+      "ExitCode": 0,
+      "Stdout": "REFERENCE 62 62 0 INFRA 0 FORMAT 3\n",
+      "Stderr": "",
+      "RunnerSHA256": "53afbde22ddb6d3eb34c42b27302724ddff83e8ca754f8c10a8342554c6f4b6e",
+      "CaptureSHA256": "c851dc9a323a9959030ebd10fd705237c24bad08d414701ced16a8dc311caf73",
+      "InputSHA256": null,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ProofBoundary": "Process output; no native claim unless real MQL tool executed"
+    },
+    {
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_DG01_mutations.py"
+      ],
+      "StartedUTC": "2026-11-12T14:16:39.661330+00:00",
+      "FinishedUTC": "2026-11-12T14:16:39.720711+00:00",
+      "ExitCode": 0,
+      "Stdout": "MUTATIONS 6 0 0\n",
+      "Stderr": "",
+      "RunnerSHA256": "3c656f380a6d6229948979bf2765c39ff10d93b6b77cc2503018a53854001e55",
+      "CaptureSHA256": "c851dc9a323a9959030ebd10fd705237c24bad08d414701ced16a8dc311caf73",
+      "InputSHA256": null,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ProofBoundary": "Process output; no native claim unless real MQL tool executed"
+    },
+    {
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_DG01_build.py"
+      ],
+      "StartedUTC": "2026-11-12T14:16:39.720813+00:00",
+      "FinishedUTC": "2026-11-12T14:16:40.227981+00:00",
+      "ExitCode": 0,
+      "Stdout": "DG01 BUILD 29 defects 16 decisions 10 plans native prepared 113\n",
+      "Stderr": "",
+      "RunnerSHA256": "9ce718d608f7e5a38872820936490c862036b5d7b643f13889bddd41f11c18e5",
+      "CaptureSHA256": "c851dc9a323a9959030ebd10fd705237c24bad08d414701ced16a8dc311caf73",
+      "InputSHA256": null,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ProofBoundary": "Process output; no native claim unless real MQL tool executed"
+    },
+    {
+      "Command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_DG01_schemas.py"
+      ],
+      "StartedUTC": "2026-11-12T14:16:40.228137+00:00",
+      "FinishedUTC": "2026-11-12T14:16:40.282044+00:00",
+      "ExitCode": 0,
+      "Stdout": "",
+      "Stderr": "",
+      "RunnerSHA256": "c0e458e7255bddb111a150527521662c4c6b0017b5d9e137ce437bebb7cda3c4",
+      "CaptureSHA256": "c851dc9a323a9959030ebd10fd705237c24bad08d414701ced16a8dc311caf73",
+      "InputSHA256": null,
+      "Environment": {
+        "OS": "linux",
+        "Python": "3.12.14"
+      },
+      "ProofBoundary": "Process output; no native claim unless real MQL tool executed"
+    }
+  ],
+  "Boundary": "Final actual processes and executed entry/capture hashes. Reference62, formatting3, mutations6 and native113 planned are separate. No MQL5 or PowerShell execution."
+}
