@@ -1,0 +1,917 @@
+{
+  "BaseSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+  "Rows": [
+    {
+      "ID": "FSA-001",
+      "Severity": "P0",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+        "SHA256": "d9bcbef0fa7b6c5da61e7bafa6a6314458601252a2e580aac21396daadf95ed4",
+        "Function": "HSBI_SameEconomicRecord",
+        "Line": 9,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/08:6,9,15; D08; L01",
+      "Actual": "Сравнение не включает Profit/Swap/Commission/Fee и другие immutable поля.",
+      "Expected": "Сопоставлять полный утверждённый immutable payload.",
+      "Counterexample": "P50/C0 против P70/C-20, Net50. Компоненты различны при неизменном ключе.",
+      "FreshTest": {
+        "TestID": "FSA001_COMPONENTS",
+        "Actual": false,
+        "Expected": true,
+        "Result": "FAIL",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "TestID": "FSA001_COMPONENTS",
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS_EXTENDED.json",
+      "RequiredDecision": "D-08, NUM-CODEC, MQL-DOMAIN",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-002",
+      "Severity": "P0",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+        "SHA256": "b539c3c52089e22c2e5cba5a95b81bdc5267b59402bf0f3662f48e80dc1b155c",
+        "Function": "HSBI_ClassifyAllocationDuplicate",
+        "Line": 8,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/08:12,15; L02",
+      "Actual": "Равенство суммы ошибочно заменяет равенство вектора.",
+      "Expected": "Тот же allocation event, изменённый bucket vector → CONFLICT.",
+      "Counterexample": "Reserve50/PF0 против Reserve0/PF50.",
+      "FreshTest": {
+        "TestID": "FSA002_VECTOR",
+        "Actual": false,
+        "Expected": true,
+        "Result": "FAIL",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "TestID": "FSA002_VECTOR",
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS_EXTENDED.json",
+      "RequiredDecision": "D-01, D-08",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-003",
+      "Severity": "P0",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+        "SHA256": "5d967cf22e7d0fdc3d37aae6077b15c4330526dcef4c5b8eda74340a64ff174d",
+        "Function": "HSBI_EvaluateReserveCatchUp",
+        "Line": 35,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/08:15; Docs/32:7; M01",
+      "Actual": "Consumption key проверен по форме/plan/revision, но не по sourceAllocationKey/sourceDealKey authority.",
+      "Expected": "Сверять оба namespace с независимой allocation.",
+      "Counterexample": "Источник TEST-D101/ALLOC-A, consumption OTHER-ACCOUNT/OTHER-ALLOC.",
+      "FreshTest": {
+        "TestID": "FSA003_FOREIGN_ALLOCATION",
+        "Actual": false,
+        "Expected": true,
+        "Result": "FAIL",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "TestID": "FSA003_FOREIGN_ALLOCATION",
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS_EXTENDED.json",
+      "RequiredDecision": "D-07, D-08",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-004",
+      "Severity": "P0",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+        "SHA256": "5d967cf22e7d0fdc3d37aae6077b15c4330526dcef4c5b8eda74340a64ff174d",
+        "Function": "HSBI_EvaluateReserveCatchUp",
+        "Line": 35,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/08:24; Docs/32:3-7; reserve consumption",
+      "Actual": "В ветке not alreadyAllocated отсутствует вычитание/запрет alreadyConsumed.",
+      "Expected": "Исчерпанный source не создаёт новый grant; global uniqueness требует реестра.",
+      "Counterexample": "Allocatable50, consumed50, reserveAllocated0, eligible50, share.8 → gain40.",
+      "FreshTest": {
+        "TestID": "FSA004_EXHAUSTED",
+        "Actual": false,
+        "Expected": true,
+        "Result": "FAIL",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "TestID": "FSA004_EXHAUSTED",
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS_EXTENDED.json",
+      "RequiredDecision": "FUNDING-GLOBAL-ATTRIBUTION",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-005",
+      "Severity": "P0",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Risk/HSBI_RiskGateResult.mqh",
+        "SHA256": "d0d7072973dac81be9284562046b7227ecfafbe14962c9ad05a3f8e2c73585c8",
+        "Function": "HSBI_ValidateRiskInput",
+        "Line": 6,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/15:6,9; Docs/24:11",
+      "Actual": "Сравнения с NaN ложны; нет finite/domain validation.",
+      "Expected": "Malformed/nonfinite не даёт passed. Отрицательная projected margin требует явного domain.",
+      "Counterexample": "projectedMargin=NaN либо -1 при согласованных остальных gates.",
+      "FreshTest": {
+        "TestID": "FSA005_NAN",
+        "Actual": false,
+        "Expected": true,
+        "Result": "FAIL",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "TestID": "FSA005_NAN",
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS_EXTENDED.json",
+      "RequiredDecision": "MQL-DOMAIN",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-006",
+      "Severity": "P0",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Execution/HSBI_TransactionTypes.mqh",
+        "SHA256": "1b244dc72cd345f0f032dde14eb89227db20a7333cbc2c72afa2046c4720d8c9",
+        "Function": "HSBI_TransactionBarrierPassed",
+        "Line": 9,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/07:15,21; actual fill validation",
+      "Actual": "abs(NaN-expected)>epsilon ложно, completion может пройти.",
+      "Expected": "Конечный положительный объём и подтверждённые факты до completion.",
+      "Counterexample": "expected1, accumulatedNaN, COMPLETED, ownership=true.",
+      "FreshTest": {
+        "TestID": "FSA006_NAN",
+        "Actual": false,
+        "Expected": true,
+        "Result": "FAIL",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "TestID": "FSA006_NAN",
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS_EXTENDED.json",
+      "RequiredDecision": "D-08, MQL-DOMAIN",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-007",
+      "Severity": "P0",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+        "SHA256": "b539c3c52089e22c2e5cba5a95b81bdc5267b59402bf0f3662f48e80dc1b155c",
+        "Function": "HSBI_ValidateAllocationConservation",
+        "Line": 7,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/08:12,24; D01",
+      "Actual": "Неотрицательность отдельных bucket не проверяется.",
+      "Expected": "Каждая grant component >=0. Полное COMMITTED равенство отдельно pending D-01.",
+      "Counterexample": "Reserve-50/PF100 при source50; сумма50.",
+      "FreshTest": {
+        "TestID": "FSA007_NEGATIVE_BUCKET",
+        "Actual": false,
+        "Expected": true,
+        "Result": "FAIL",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "TestID": "FSA007_NEGATIVE_BUCKET",
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS_EXTENDED.json",
+      "RequiredDecision": "D-01",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-008",
+      "Severity": "P0",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Money/HSBI_MoneyState.mqh",
+        "SHA256": "0faeebfc6781198ead86e8cffac7e154947f1830e6b38d27d7900d069ac38396",
+        "Function": "HSBI_ValidateMoneyState",
+        "Line": 5,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/08:12,24; fail-closed money state",
+      "Actual": "Infinity >=0 принимается; valid и revision игнорируются.",
+      "Expected": "Finite domain обязателен; правила valid/revision отдельно сформулировать.",
+      "Counterexample": "finalReserve=+Infinity. Дополнительно valid=false/revision0.",
+      "FreshTest": {
+        "TestID": "MONEY_INF",
+        "Actual": false,
+        "Expected": true,
+        "Result": "FAIL",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "TestID": "MONEY_INF",
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS_EXTENDED.json",
+      "RequiredDecision": "BALANCE-SCHEMA-MAPPING, MQL-DOMAIN",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-009",
+      "Severity": "P0",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Core/HSBI_Context.mqh",
+        "SHA256": "7ae314b8f7e4183419943297885a6291afbf449a5d63490ca35757f737eb80ef",
+        "Function": "HSBI_ValidateContext",
+        "Line": 33,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/00:12; Docs/02:25; exactly-oneFar",
+      "Actual": "FAR-count и проверка role-slot пропускают initialBuy/initialSell/newFarCandidate.",
+      "Expected": "Считать реальные активные FAR во всех слотах; отличать alias от двух позиций.",
+      "Counterexample": "farID100 и initialBuyID101 оба FAR, одинаковый owner.",
+      "FreshTest": {
+        "TestID": "FSA009_INITIAL_SLOT",
+        "Actual": false,
+        "Expected": true,
+        "Result": "FAIL",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "TestID": "FSA009_INITIAL_SLOT",
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS_EXTENDED.json",
+      "RequiredDecision": "D-08, active-role schema",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-010",
+      "Severity": "P0",
+      "Classification": "UNIMPLEMENTED",
+      "Source": {
+        "File": "Include/Planning/HSBI_NewFarSolver.mqh",
+        "SHA256": "9dcf60b6edc245a8a5ee3a05f35d4d8d26c12479f570a66aa5e4f0e703497cd2",
+        "Function": "HSBI_SolveNewFar",
+        "Line": 94,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/31:3-7; D08; M02",
+      "Actual": "Caller переписывает proof identity, затем копирует её в expected. Независимый экономический provider отсутствует.",
+      "Expected": "Helper equality локально корректен; весь NewFar independent provenance не доказан.",
+      "Counterexample": "Helper отвергает чужой proof при независимом expected, принимает при copied expected.",
+      "FreshTest": {
+        "TestID": "FSA010_INDEPENDENT_EXPECTED",
+        "Actual": true,
+        "Expected": true,
+        "Result": "PASS",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "TestID": "FSA010_INDEPENDENT_EXPECTED",
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS_EXTENDED.json",
+      "RequiredDecision": "D-02, D-08, provider reconciliation",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-011",
+      "Severity": "P1",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Planning/HSBI_GeometrySolver.mqh",
+        "SHA256": "62b3b4a8d7a374e15b96b46a380e3c2f8f0e74aa57ae8749c0261ebab27a11f9",
+        "Function": "HSBI_SolveBigGeometry",
+        "Line": 21,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/04:9; Docs/25:5; zeroCore",
+      "Actual": "coreGrid разрешает Core=0 и не требует Core>=volumeMin.",
+      "Expected": "Обязательный Core положителен и на broker grid/min/max.",
+      "Counterexample": "Far.1 Rc.01 Rt3 Rs.1: rawCore.001→0.",
+      "FreshTest": {
+        "TestID": "FSA011_ZERO_CORE",
+        "Actual": false,
+        "Expected": true,
+        "Result": "FAIL",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "TestID": "FSA011_ZERO_CORE",
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS_EXTENDED.json",
+      "RequiredDecision": "Active-leg schema",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-012",
+      "Severity": "P1",
+      "Classification": "UNIMPLEMENTED",
+      "Source": {
+        "File": "Include/Core/HSBI_StateMachine.mqh",
+        "SHA256": "7ec9f9860ce9d72c7f7c119377c1b2bedda25001921b92ef3aa9c7d95a32e403",
+        "Function": "HSBI_IsTransitionAllowed",
+        "Line": 5,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/06 full transition lifecycle",
+      "Actual": "Таблица нормального пути обрывается после открытия Core; event orchestrator отсутствует.",
+      "Expected": "Полный event FSM и запрет auto-resume требуют orchestration/authority.",
+      "Counterexample": "CoreOpening→TrendOpening отсутствует; reconcile-путь не имеет admin resume аргумента.",
+      "FreshTest": {
+        "TestID": "FSA012_CORE_TO_TREND",
+        "Actual": false,
+        "Expected": true,
+        "Result": "FAIL",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "TestID": "FSA012_CORE_TO_TREND",
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS_EXTENDED.json",
+      "RequiredDecision": "Lifecycle approval",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-013",
+      "Severity": "P1",
+      "Classification": "UNIMPLEMENTED",
+      "Source": {
+        "File": "Include/Persistence/HSBI_PersistenceInterface.mqh",
+        "SHA256": "e72b591500db88e2596c498fcdf7dbfdbe3641eef91ebbee80ce59e3aeddab06",
+        "Function": "HSBI_PersistSnapshotStub",
+        "Line": 7,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/16:6,12,15",
+      "Actual": "Stub возвращает success=false; production SHA256=false.",
+      "Expected": "Durable commit/lock/CAS нельзя доказать stub.",
+      "Counterexample": "Restart без journal backend не восстанавливает подтверждённый funding.",
+      "FreshTest": null,
+      "TestID": null,
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "STATIC_SOURCE_AND_EXPLICIT_MATHEMATICAL_ARGUMENT; no fresh end-to-end execution",
+      "RequiredDecision": "D-07",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-014",
+      "Severity": "P1",
+      "Classification": "UNIMPLEMENTED",
+      "Source": {
+        "File": "Hybrid_Split_Big_Independent_EA.mq5",
+        "SHA256": "71e511c620df5de7f1f9e0d865664efeaf4cf6edbcbb07f20efaf25c40e9bd62",
+        "Function": "OnTick",
+        "Line": 35,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/03:6,39; Docs/18:29",
+      "Actual": "EA вызывает только SubmitActionStub; OnTradeTransaction отсутствует.",
+      "Expected": "Полный lifecycle не реализован. Это не дефект работающего dispatch.",
+      "Counterexample": "Tick не запускает Harvest/PartialFar/NewFar.",
+      "FreshTest": null,
+      "TestID": null,
+      "Reachability": "OnTick reachable: execution stub only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "STATIC_SOURCE_AND_EXPLICIT_MATHEMATICAL_ARGUMENT; no fresh end-to-end execution",
+      "RequiredDecision": "Separate production task",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-015",
+      "Severity": "P1",
+      "Classification": "CONFIRMED_CONTRACT_CONFLICT",
+      "Source": {
+        "File": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+        "SHA256": "7bea2c75eec23825d5cbcca82fa72022b73f8c1626f5ffbce30ac79d722b03a0",
+        "Function": "HSBI_AggregateFutureSmallProof",
+        "Line": 23,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/30:5 vs proposed CR09/D04",
+      "Actual": "WORST_CASE выбирает worstTransitionLossLevel вместо minimum CatchUpMargin.",
+      "Expected": "ALL_LEVEL требует min margin>0; SINGLE_LEVEL должен иметь отдельный scope.",
+      "Counterexample": "T1=10,M1=9; T2=5,M2=-11. Выбран1.",
+      "FreshTest": {
+        "TestID": "FSA015_MIN_MARGIN_LEVEL",
+        "Actual": false,
+        "Expected": true,
+        "Result": "FAIL",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "TestID": "FSA015_MIN_MARGIN_LEVEL",
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS_EXTENDED.json",
+      "RequiredDecision": "CR-09",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-016",
+      "Severity": "P1",
+      "Classification": "CONFIRMED_CONTRACT_CONFLICT",
+      "Source": {
+        "File": "Docs/14_NEW_FAR_SOLVER_SPECIFICATION_RU.md",
+        "SHA256": "cd8e312bc8d98519f42618b2ac3f316be546f178f4cc0b3168577bb365603dc1",
+        "Function": null,
+        "Line": 22
+      },
+      "Contract": "Docs/03:21; Docs/14:22 vs Docs/29:3",
+      "Actual": "Разные документы требуют minimum-safe-volume и risk-first ordering.",
+      "Expected": "Владелец выбирает lexicographic objective; тест не утверждает экономическую цель.",
+      "Counterexample": "Безопасный N.1 risk9 и N.2 risk1 дают разные optimum.",
+      "FreshTest": null,
+      "TestID": null,
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "STATIC_SOURCE_AND_EXPLICIT_MATHEMATICAL_ARGUMENT; no fresh end-to-end execution",
+      "RequiredDecision": "NewFar objective policy",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-017",
+      "Severity": "P1",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+        "SHA256": "c403bbad6089076500823219dac296e69100bed0e2cb950eb1f248749b868cf6",
+        "Function": "HSBI_EvaluateFutureSmallLevel",
+        "Line": 57,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/04:21 NextBigGross<OldBigGross",
+      "Actual": "netBigVolume сравнивается с priorBigGross, затем priorBig тоже хранит net.",
+      "Expected": "Сравнивать одинаковые gross величины; прочие gates независимы.",
+      "Counterexample": "Old gross4/net2; new gross8/net0 проходит одну net-проверку. Не весь solver.",
+      "FreshTest": null,
+      "TestID": null,
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "STATIC_SOURCE_AND_EXPLICIT_MATHEMATICAL_ARGUMENT; no fresh end-to-end execution",
+      "RequiredDecision": "Gross schema",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-018",
+      "Severity": "P1",
+      "Classification": "CONFIRMED_CONTRACT_CONFLICT",
+      "Source": {
+        "File": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+        "SHA256": "c403bbad6089076500823219dac296e69100bed0e2cb950eb1f248749b868cf6",
+        "Function": "HSBI_ValidateConservativeBound",
+        "Line": 12,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/04:33,36; Docs/27:5",
+      "Actual": "Функция endpoint-bound не доказывает единый закон будущих переходов.",
+      "Expected": "Нужна предпосылка Fnext<=qF на каждом переходе; helper не ошибочен внутри scope.",
+      "Counterexample": "F=1,.8,.64 затем .64; первые два шага не задают третий.",
+      "FreshTest": null,
+      "TestID": null,
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "STATIC_SOURCE_AND_EXPLICIT_MATHEMATICAL_ARGUMENT; no fresh end-to-end execution",
+      "RequiredDecision": "Tail/terminal contract",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-019",
+      "Severity": "P1",
+      "Classification": "UNVERIFIED",
+      "Source": {
+        "File": "Include/Money/HSBI_CostModel.mqh",
+        "SHA256": "4f19ebab853118d7946f99a5fed2b9d84cbfd16c83390df9f5721c53c207f590",
+        "Function": "HSBI_TryProjectedNetMoney",
+        "Line": 15,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "D06; Docs/04:18; Docs/24:7",
+      "Actual": "Нет независимого basis/window/coverage для spread/buffer.",
+      "Expected": "Нельзя объявить любой spread двойным: provider basis неизвестен.",
+      "Counterexample": "BUY Ask101→Bid110 уже даёт9; вычет того же spread1 даёт8 только при доказанном overlap.",
+      "FreshTest": null,
+      "TestID": null,
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "STATIC_SOURCE_AND_EXPLICIT_MATHEMATICAL_ARGUMENT; no fresh end-to-end execution",
+      "RequiredDecision": "D-06",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-020",
+      "Severity": "P1",
+      "Classification": "UNVERIFIED",
+      "Source": {
+        "File": "Docs/03_FULL_SYSTEM_MANUAL_RU.md",
+        "SHA256": "3d0bd17b2501d61d612d6ec982b215d52dbd92da8b174d4e425f4c477c7484d0",
+        "Function": null,
+        "Line": 9
+      },
+      "Contract": "Supported account/broker model admission",
+      "Actual": "Режим hedging/netting не закреплён независимым account admission.",
+      "Expected": "Нужен hedging contract либо виртуальный netting ledger; broker evidence отсутствует.",
+      "Counterexample": "BUY1+SELL1: hedging две позиции; netting net0.",
+      "FreshTest": null,
+      "TestID": null,
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "STATIC_SOURCE_AND_EXPLICIT_MATHEMATICAL_ARGUMENT; no fresh end-to-end execution",
+      "RequiredDecision": "Account mode",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-021",
+      "Severity": "P2",
+      "Classification": "CONFIRMED_CONTRACT_CONFLICT",
+      "Source": {
+        "File": "Include/Planning/HSBI_ControlPrices.mqh",
+        "SHA256": "5bd35f0cc4b7ee1aac1a772b2932f13ba385922e26d5f2649bbda76837256a4b",
+        "Function": "HSBI_IsSnapshotFresh",
+        "Line": 11,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/05:6,13; freshness clock contract",
+      "Actual": "Нет нижней границы age; future timestamp принят.",
+      "Expected": "Для zero-skew fixture reject; универсальный clock skew требует выбора.",
+      "Counterexample": "now100,ts1000,maxAge10.",
+      "FreshTest": {
+        "TestID": "FSA021_FUTURE_TIME_ZERO_SKEW",
+        "Actual": false,
+        "Expected": true,
+        "Result": "FAIL",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "TestID": "FSA021_FUTURE_TIME_ZERO_SKEW",
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS_EXTENDED.json",
+      "RequiredDecision": "Clock-domain policy",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-022",
+      "Severity": "P2",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Core/HSBI_StateMachine.mqh",
+        "SHA256": "7ec9f9860ce9d72c7f7c119377c1b2bedda25001921b92ef3aa9c7d95a32e403",
+        "Function": "HSBI_ProposeStateTransition",
+        "Line": 6,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/01 StateRevision commit monotonicity",
+      "Actual": "Revision+1 не проверяет ULONG_MAX.",
+      "Expected": "Остановить переход до overflow; не обнулять revision.",
+      "Counterexample": "IDLE/revision 2^64-1→InitialPlanReady. C++ unsigned wrap; native NOT_RUN.",
+      "FreshTest": {
+        "TestID": "FSA022_OVERFLOW",
+        "Actual": false,
+        "Expected": true,
+        "Result": "FAIL",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "TestID": "FSA022_OVERFLOW",
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS_EXTENDED.json",
+      "RequiredDecision": "MQL-DOMAIN",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-023",
+      "Severity": "P2",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Planning/HSBI_NewFarSolver.mqh",
+        "SHA256": "9dcf60b6edc245a8a5ee3a05f35d4d8d26c12479f570a66aa5e4f0e703497cd2",
+        "Function": "HSBI_FutureSmallTemplateDigest",
+        "Line": 35,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Array128/domain/proof digest",
+      "Actual": "Digest индексирует maximumDepth до downstream проверки <=128.",
+      "Expected": "Проверять shape/domain до digest. Нужен native checked test.",
+      "Counterexample": "maximumDepth129 при ранних валидных полях; static potential OOB, не исполнялся.",
+      "FreshTest": null,
+      "TestID": null,
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "STATIC_SOURCE_AND_EXPLICIT_MATHEMATICAL_ARGUMENT; no fresh end-to-end execution",
+      "RequiredDecision": "DTO/domain",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-024",
+      "Severity": "P2",
+      "Classification": "CONFIRMED_CONTRACT_CONFLICT",
+      "Source": {
+        "File": "Tests/Static/accept_hsb_2e_r4_r9_r4a_r8.py",
+        "SHA256": "9a7d1d95f220038b4c68ad21518e3f8901b08398215556b59a7e96ffc28fe235",
+        "Function": "run",
+        "Line": 7,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Historical frozen scope vs explicitly permitted R0H test harness",
+      "Actual": "Исторический scope запрещает MQL-файлы даже в разрешённых test harness.",
+      "Expected": "Разделить test-only MQL и production; frozen checker не менять.",
+      "Counterexample": "Три R0H .mq5/.mqh в Tests; свежие findings сохранены.",
+      "FreshTest": null,
+      "TestID": null,
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "STATIC_SOURCE_AND_EXPLICIT_MATHEMATICAL_ARGUMENT; no fresh end-to-end execution",
+      "RequiredDecision": "Test scope",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-025",
+      "Severity": "P2",
+      "Classification": "CONFIRMED_CONTRACT_CONFLICT",
+      "Source": {
+        "File": "Docs/03_FULL_SYSTEM_MANUAL_RU.md",
+        "SHA256": "3d0bd17b2501d61d612d6ec982b215d52dbd92da8b174d4e425f4c477c7484d0",
+        "Function": null,
+        "Line": 50
+      },
+      "Contract": "Current evidence cannot inherit oldOPEN_P0=0",
+      "Actual": "Исторические closure/readiness statements не означают текущего source approval.",
+      "Expected": "Readiness версионировать по SHA/scope; исторические статусы не переписывать.",
+      "Counterexample": "OPEN_P0=0 прежнего этапа и новые source defects существуют одновременно.",
+      "FreshTest": null,
+      "TestID": null,
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "STATIC_SOURCE_AND_EXPLICIT_MATHEMATICAL_ARGUMENT; no fresh end-to-end execution",
+      "RequiredDecision": "Normative hierarchy",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-026",
+      "Severity": "P1",
+      "Classification": "UNVERIFIED",
+      "Source": {
+        "File": "Tests/Reference/hsbi_02b_r0h_native_harness.mq5",
+        "SHA256": "4c4132f1899f9e6c7430c1b61df7c84d33391e2cee875cc3c3b996cec4dec41f",
+        "Function": "OnStart",
+        "Line": 21,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Native acceptance R0G/R0H; MQL production readiness",
+      "Actual": "Native harness есть, выполнения MetaEditor/MT5 в этой среде нет.",
+      "Expected": "NOT_RUN; отсутствие evidence не является runtime bug.",
+      "Counterexample": "Python/C++ успешен без подтверждённых MQL compiler diagnostics.",
+      "FreshTest": null,
+      "TestID": null,
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "STATIC_SOURCE_AND_EXPLICIT_MATHEMATICAL_ARGUMENT; no fresh end-to-end execution",
+      "RequiredDecision": "Native toolchain",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-027",
+      "Severity": "P1",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Persistence/HSBI_ExecutionJournal.mqh",
+        "SHA256": "aeba6d8813c0079ae4f8e5c7484895e891e6acb91ae7aeacec751977adf1f76f",
+        "Function": "HSBI_ClassifyJournalAppend",
+        "Line": 25,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/16:append-only immutablejournal; Docs/17:14",
+      "Actual": "Duplicate lookup предшествует проверке digest/body candidate.",
+      "Expected": "Проверять immutable body binding до exact replay; durable backend отсутствует.",
+      "Counterexample": "payload A→ALTERED, currentEntryDigest оставлен старым → NO_OP.",
+      "FreshTest": {
+        "TestID": "FSA027_ALTERED_BODY",
+        "Actual": false,
+        "Expected": true,
+        "Result": "FAIL",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "TestID": "FSA027_ALTERED_BODY",
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS_EXTENDED.json",
+      "RequiredDecision": "D-07, D-08",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-028",
+      "Severity": "P1",
+      "Classification": "CONFIRMED_CONTRACT_CONFLICT",
+      "Source": {
+        "File": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+        "SHA256": "c403bbad6089076500823219dac296e69100bed0e2cb950eb1f248749b868cf6",
+        "Function": "HSBI_SolveFutureSmall",
+        "Line": 113,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/04:36 operationalterminalclose; Docs/27:5",
+      "Actual": "finiteSequence при Far<=volumeMin не означает full close; terminalRouteAllowed не используется.",
+      "Expected": "Отдельный терминальный маршрут, стоимость и фактическое закрытие.",
+      "Counterexample": "Far=.01>0, разрешение terminal route не проверено.",
+      "FreshTest": null,
+      "TestID": null,
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "STATIC_SOURCE_AND_EXPLICIT_MATHEMATICAL_ARGUMENT; no fresh end-to-end execution",
+      "RequiredDecision": "Terminal policy",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    },
+    {
+      "ID": "FSA-029",
+      "Severity": "P1",
+      "Classification": "CONFIRMED_SOURCE_DEFECT",
+      "Source": {
+        "File": "Include/Money/HSBI_BasketMoneyEvaluator.mqh",
+        "SHA256": "f2038e34a8cc22d2e98cf870e479e6a3cbfe3d6edee64855ffb8784d1e5007fb",
+        "Function": "HSBI_EvaluateBasketMoney",
+        "Line": 11,
+        "FullSourceReadBoundary": "STATIC_SOURCE_NOT_NATIVE_RUNTIME"
+      },
+      "Contract": "Docs/04:9 Rt>=0; optional Trend",
+      "Actual": "Geometry разрешает Trend0, money/margin вызываются для четырёх положительных leg.",
+      "Expected": "Явный optional-leg contract; Core нельзя пропускать.",
+      "Counterexample": "Core=.3,Trend0,Small.01,Far.1; geometry valid, projected leg Trend0 invalid.",
+      "FreshTest": null,
+      "TestID": null,
+      "Reachability": "NOT_REACHED_FROM_CURRENT_EA_EVENTS; source library only",
+      "FutureConsequence": "Подключение этого модуля без устранения предпосылок может дать неверное решение/учёт; это не доказанный реальный ордер.",
+      "Evidence": "STATIC_SOURCE_AND_EXPLICIT_MATHEMATICAL_ARGUMENT; no fresh end-to-end execution",
+      "RequiredDecision": "Active-leg schema",
+      "RemediationScope": "PLAN_ONLY; no production changes",
+      "Dependencies": [
+        "Separate admin approval",
+        "Native MQL acceptance",
+        "Independent provider/complete registry where applicable"
+      ]
+    }
+  ],
+  "Counts": {
+    "CONFIRMED_CONTRACT_CONFLICT": 7,
+    "CONFIRMED_SOURCE_DEFECT": 15,
+    "UNIMPLEMENTED": 4,
+    "UNVERIFIED": 3
+  },
+  "Boundary": "29 individually classified; not 29 exploitable runtime defects"
+}

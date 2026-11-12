@@ -1,0 +1,85 @@
+{
+  "Rows": [
+    {
+      "ID": "R7",
+      "ExitCode": 1,
+      "Pass": 57,
+      "Fail": 5,
+      "Classification": "EXPECTED_HISTORICAL_FAILURE",
+      "Boundary": "Runner own counts; reference contexts are executions, not independent scenarios"
+    },
+    {
+      "ID": "R0",
+      "ExitCode": 1,
+      "Pass": 35,
+      "Fail": 46,
+      "Classification": "EXPECTED_HISTORICAL_FAILURE",
+      "Boundary": "Runner own counts; reference contexts are executions, not independent scenarios"
+    },
+    {
+      "ID": "R8",
+      "ExitCode": 1,
+      "Pass": null,
+      "Fail": null,
+      "Classification": "SCOPE_POLICY_FAILURE_REVIEW_DETAILS",
+      "Boundary": "Runner own counts; reference contexts are executions, not independent scenarios"
+    },
+    {
+      "ID": "R10",
+      "ExitCode": 1,
+      "Pass": null,
+      "Fail": null,
+      "Classification": "SCOPE_POLICY_FAILURE_REVIEW_DETAILS",
+      "Boundary": "Runner own counts; reference contexts are executions, not independent scenarios"
+    },
+    {
+      "ID": "C1",
+      "ExitCode": 0,
+      "Pass": 840,
+      "Fail": 0,
+      "Classification": "PASS",
+      "Boundary": "Runner own counts; reference contexts are executions, not independent scenarios"
+    },
+    {
+      "ID": "C2",
+      "ExitCode": 0,
+      "Pass": 1264,
+      "Fail": 0,
+      "Classification": "PASS",
+      "Boundary": "Runner own counts; reference contexts are executions, not independent scenarios"
+    },
+    {
+      "ID": "R0F",
+      "ExitCode": 0,
+      "Pass": 116,
+      "Fail": 0,
+      "Classification": "PASS",
+      "Boundary": "Runner own counts; reference contexts are executions, not independent scenarios"
+    },
+    {
+      "ID": "R0G",
+      "ExitCode": 0,
+      "Pass": 128,
+      "Fail": 0,
+      "Classification": "PASS",
+      "Boundary": "Runner own counts; reference contexts are executions, not independent scenarios"
+    },
+    {
+      "ID": "R0H",
+      "ExitCode": 0,
+      "Pass": 148,
+      "Fail": 0,
+      "Classification": "PASS",
+      "Boundary": "Runner own counts; reference contexts are executions, not independent scenarios"
+    }
+  ],
+  "R7FailIDs": [
+    "S040B",
+    "S040C",
+    "S044A",
+    "S044B",
+    "S045"
+  ],
+  "R8R10": "Only SCOPE findings for3 R0H test MQL files; expected executed48/67, no missing cases. Existing audit02 untracked harness is not part of their tracked-history scope comparison.",
+  "Note": "R7 includes stale status-key/marker/manifest checks; static acceptance FAIL is not independently a runtime defect. R0 extracted tests not native despite historical NATIVE label."
+}

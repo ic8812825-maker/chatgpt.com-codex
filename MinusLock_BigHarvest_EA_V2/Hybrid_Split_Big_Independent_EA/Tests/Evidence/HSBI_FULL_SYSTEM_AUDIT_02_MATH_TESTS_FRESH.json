@@ -1,0 +1,180 @@
+{
+  "Rows": [
+    {
+      "TestID": "SIGNED_NET",
+      "Actual": "50",
+      "Expected": "50",
+      "Result": "PASS",
+      "ProofBoundary": "Signed components; no broker authenticity"
+    },
+    {
+      "TestID": "BALANCE_IDENTITY",
+      "Actual": "50",
+      "Expected": "50",
+      "Result": "PASS",
+      "ProofBoundary": "G=C+R+F"
+    },
+    {
+      "TestID": "REMAINING_GROSS",
+      "Actual": "40",
+      "Expected": "40",
+      "Result": "PASS",
+      "ProofBoundary": "R+F, not OriginalGrant"
+    },
+    {
+      "TestID": "NEGATIVE_BUCKET_OFFSET",
+      "Actual": "50",
+      "Expected": "50",
+      "Result": "PASS",
+      "ProofBoundary": "Sum alone cannot prove component domain"
+    },
+    {
+      "TestID": "HARVEST_POSITIVE_CYCLE_NEGATIVE",
+      "Actual": "-41/25",
+      "Expected": "-41/25",
+      "Result": "PASS",
+      "ProofBoundary": "Hedging unit-value fixture, opening costs included once"
+    },
+    {
+      "TestID": "BALANCE_UP_EQUITY_DOWN",
+      "Actual": "49923/50",
+      "Expected": "49923/50",
+      "Result": "PASS",
+      "ProofBoundary": "Independent fixture"
+    },
+    {
+      "TestID": "SMALL_POSITIVE_BIG_NEGATIVE",
+      "Actual": "-10",
+      "Expected": "-10",
+      "Result": "PASS",
+      "ProofBoundary": "Small10 not Big Reserve10"
+    },
+    {
+      "TestID": "BIG_POSITIVE_SMALL_NEGATIVE",
+      "Actual": "-10",
+      "Expected": "-10",
+      "Result": "PASS",
+      "ProofBoundary": "Positive Big not cycle positive"
+    },
+    {
+      "TestID": "COMMISSION_SWAP_SIGN",
+      "Actual": "-1",
+      "Expected": "-1",
+      "Result": "PASS",
+      "ProofBoundary": "Profit2,commission-2,swap-1"
+    },
+    {
+      "TestID": "ABSOLUTE_V_INCREMENTAL",
+      "Actual": "-20",
+      "Expected": "-20",
+      "Result": "PASS",
+      "ProofBoundary": "Incremental10 cannot cover absolute50"
+    },
+    {
+      "TestID": "ALL_LEVEL_NEGATIVE",
+      "Actual": "-11",
+      "Expected": "-11",
+      "Result": "PASS",
+      "ProofBoundary": "Control on max transition10 can hide level2"
+    },
+    {
+      "TestID": "REUSED_RESERVE",
+      "Actual": "-10",
+      "Expected": "-10",
+      "Result": "PASS",
+      "ProofBoundary": "Two sequential30 spends cannot use same50"
+    },
+    {
+      "TestID": "GROSS_UP_NET_DOWN",
+      "Actual": "(Fraction(8, 1), Fraction(0, 1))",
+      "Expected": "(Fraction(8, 1), Fraction(0, 1))",
+      "Result": "PASS",
+      "ProofBoundary": "Old C3,T0,S1 gross4 net2; newC4,S4 gross8 net0"
+    },
+    {
+      "TestID": "PARTIAL_FAR_SLOPE",
+      "Actual": "9/10",
+      "Expected": "9/10",
+      "Result": "PASS",
+      "ProofBoundary": "ClosingFar.2 improves fixed-basket slope; rebuilding changes assumptions"
+    },
+    {
+      "TestID": "GAP_TWO_LEVELS",
+      "Actual": "2",
+      "Expected": "2",
+      "Result": "PASS",
+      "ProofBoundary": "Price gap cannot imply two actual fills"
+    },
+    {
+      "TestID": "SMALL_DEBITS_BIG_RESERVE",
+      "Actual": "499999999999999999999999999999/50",
+      "Expected": "499999999999999999999999999999/50",
+      "Result": "PASS",
+      "ProofBoundary": "Exact reference rational; not binary64 guarantee"
+    },
+    {
+      "TestID": "INT64_MAX",
+      "Actual": "9223372036854775808",
+      "Expected": "9223372036854775808",
+      "Result": "PASS",
+      "ProofBoundary": "Exact math exceeds settled signed64 domain; reject needed"
+    },
+    {
+      "TestID": "TRANSITION_CURRENT",
+      "Actual": "0",
+      "Expected": "0",
+      "Result": "PASS",
+      "ProofBoundary": "Current signed loss after2"
+    },
+    {
+      "TestID": "TRANSITION_PEAK",
+      "Actual": "15",
+      "Expected": "15",
+      "Result": "PASS",
+      "ProofBoundary": "Peak >cap12; sticky breach true"
+    },
+    {
+      "TestID": "PREFIX_NOT_TAIL",
+      "Actual": "False",
+      "Expected": "False",
+      "Result": "PASS",
+      "ProofBoundary": "Firsttwo contractions do not constrain step3"
+    },
+    {
+      "TestID": "TERMINAL_NONZERO",
+      "Actual": "True",
+      "Expected": "True",
+      "Result": "PASS",
+      "ProofBoundary": "Lot floor is not actual fullclose"
+    },
+    {
+      "TestID": "UNHEDGED_LOSS_GROWTH",
+      "Actual": "True",
+      "Expected": "True",
+      "Result": "PASS",
+      "ProofBoundary": "SELL unit loss tends -infinity as unrestricted price increases"
+    },
+    {
+      "TestID": "ROUNDING_NONCOMMUTES",
+      "Actual": "1/50",
+      "Expected": "1/50",
+      "Result": "PASS",
+      "ProofBoundary": "Two .005 round-up components vs roundedtotal .01 differs; choice requires policy"
+    }
+  ],
+  "Pass": 23,
+  "Fail": 0,
+  "Representation": "Exact rational literal calculations; examples disprove implications, do not prove production semantics or profitability",
+  "ExecutionMetadata": {
+    "Command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_FULL_SYSTEM_AUDIT_02_verify.py",
+      "--run",
+      "--extended"
+    ],
+    "StartedUtc": "2026-11-12T12:33:29.863159+00:00",
+    "FinishedUtc": "2026-11-12T12:33:44.354467+00:00",
+    "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419",
+    "BaseSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412"
+  }
+}

@@ -1,0 +1,11 @@
+// Additional audit02 vectors; inserted into main after first-attempt tests. No old expected changes.
+HSBI_BrokerProperties bp{};bp.symbol="TEST";bp.point=bp.tickSize=1;bp.volumeMin=bp.volumeStep=.01;bp.volumeMax=100;bp.tickValueProfit=bp.tickValueLoss=1;bp.valid=bp.fresh=true;bp.snapshotId=6;bp.timestamp=200;
+auto geom=HSBI_SolveBigGeometry(.1,.01,3,.1,bp,true,true);check("FSA011_ZERO_CORE",!geom.valid,true);
+HSBI_MarketSnapshot ms{};ms.timestamp=1000;ms.freshnessSeconds=10;check("FSA021_FUTURE_TIME_ZERO_SKEW",!HSBI_IsSnapshotFresh(ms,100),true);
+check("FSA012_CORE_TO_TREND",HSBI_IsTransitionAllowed(HSBI_STATE_BASKET_OPENING_CORE,HSBI_STATE_BASKET_OPENING_TREND),true);
+c.currentState=HSBI_STATE_IDLE;c.stateRevision=std::numeric_limits<ulong>::max();check("FSA022_OVERFLOW",!HSBI_ProposeStateTransition(c,HSBI_STATE_INITIAL_PLAN_READY).allowed,true);
+HSBI_ExecutionJournalEntry je{};je.journalEntryId=je.intentId=je.actionId=je.eventId=je.planId=je.cycleId=je.stateRevision=1;je.timestamp=200;je.accountLogin=11;je.symbol="TEST";je.magic=71;je.payloadDigest="A";je.currentEntryDigest=HSBI_ExecutionJournalEntryDigest(je);auto jf=je;check("JOURNAL_REPLAY",HSBI_ClassifyJournalAppend(jf,je,"",1,1,1)==HSBI_JOURNAL_NO_OP,true);jf.payloadDigest="ALTERED";check("FSA027_ALTERED_BODY",HSBI_ClassifyJournalAppend(jf,je,"",1,1,1)!=HSBI_JOURNAL_NO_OP,true);
+HSBI_FutureSmallResult pr{};pr.valid=true;pr.provenDepth=2;pr.status=HSBI_FS_EXACT_PROOF;
+for(int j=0;j<2;j++){auto &l=pr.levels[j];l.levelIndex=j+1;l.valid=l.moneyIncluded=l.marginIncluded=l.riskIncluded=l.transitionLossIncluded=l.controlSnapshotValid=l.costSnapshotValid=l.farProjectionValid=l.runtimeConfirmed=true;l.moneyProofStatus=l.marginProofStatus=l.riskProofStatus=l.transitionLossProofStatus=HSBI_CALC_PASS;l.proofStatus=HSBI_FS_EXACT_PROOF;l.farAfter=.1;l.compressionLots=.1;l.compressionRatio=.1;l.transitionLoss=(j==0?10:5);l.projectedRecoveryMoney=1;}
+auto agg=HSBI_AggregateFutureSmallProof(pr,HSBI_PROOF_POLICY_WORST_CASE,0);check("AGGREGATOR_VALID",agg.valid,true);check("FSA015_MIN_MARGIN_LEVEL",agg.catchUpControlLevel==2,true);
+// This last expected assumes explicit all-level Catch-Up policy: independent margins are +9 and -11.

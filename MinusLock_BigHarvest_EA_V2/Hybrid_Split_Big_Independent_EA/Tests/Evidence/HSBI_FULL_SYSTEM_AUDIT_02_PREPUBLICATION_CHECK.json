@@ -1,0 +1,11 @@
+{
+  "UTC": "2026-11-12T12:37:53.954931+00:00",
+  "NewFileCount": 48,
+  "SecretPatternHits": [],
+  "SecretScanScope": "Known GitHub/AWS/private-key token patterns; no universal proof of absence. Test identities synthetic; no account provider used.",
+  "BaselineFilesRechecked": 1416,
+  "ProductionCount": 74,
+  "Publication": "NOT_YET",
+  "ProductionChanges": false,
+  "HistoricalChanges": false
+}

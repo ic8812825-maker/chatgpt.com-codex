@@ -1,0 +1,698 @@
+{
+  "BaseSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+  "FirstAttempt": {
+    "Pass": 17,
+    "Fail": 13
+  },
+  "FreshOriginal": {
+    "Pass": 17,
+    "Fail": 13,
+    "Scenarios": 30
+  },
+  "FreshExtended": {
+    "Pass": 19,
+    "Fail": 19,
+    "Scenarios": 38
+  },
+  "Rational": {
+    "Pass": 23,
+    "Fail": 0
+  },
+  "Ledger": {
+    "Command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_FULL_SYSTEM_AUDIT_02_ledger_tests.py"
+    ],
+    "StartedUtc": "2026-11-12T12:33:44.416205+00:00",
+    "FinishedUtc": "2026-11-12T12:33:44.417482+00:00",
+    "BaseSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+    "Rows": [
+      {
+        "TestID": "HISTORY_UNKNOWN",
+        "Expected": "UNAVAILABLE",
+        "Actual": "UNAVAILABLE",
+        "ExpectedBalance": null,
+        "Before": "{'sources': {}, 'events': {}, 'rev': 0}",
+        "After": "{'sources': {}, 'events': {}, 'rev': 0}",
+        "ZeroDeltaRequired": true,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "FUND",
+        "Expected": "FUNDED_IN_MEMORY",
+        "Actual": "FUNDED_IN_MEMORY",
+        "ExpectedBalance": [
+          5000,
+          0,
+          0,
+          5000
+        ],
+        "Before": "{'sources': {}, 'events': {}, 'rev': 0}",
+        "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+        "ZeroDeltaRequired": false,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "EXACT_FUND",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "ExpectedBalance": null,
+        "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+        "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+        "ZeroDeltaRequired": true,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "CHANGED_COMPONENTS_EQUAL_NET",
+        "Expected": "CONFLICT",
+        "Actual": "CONFLICT",
+        "ExpectedBalance": null,
+        "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+        "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+        "ZeroDeltaRequired": true,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "CHANGED_VECTOR_EQUAL_NET",
+        "Expected": "CONFLICT",
+        "Actual": "CONFLICT",
+        "ExpectedBalance": null,
+        "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+        "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+        "ZeroDeltaRequired": true,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "NEGATIVE_BUCKET",
+        "Expected": "REJECT",
+        "Actual": "REJECT",
+        "ExpectedBalance": null,
+        "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+        "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+        "ZeroDeltaRequired": true,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "UNKNOWN_CURRENCY",
+        "Expected": "UNAVAILABLE",
+        "Actual": "UNAVAILABLE",
+        "ExpectedBalance": null,
+        "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+        "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+        "ZeroDeltaRequired": true,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "UNKNOWN_PRECISION",
+        "Expected": "UNAVAILABLE",
+        "Actual": "UNAVAILABLE",
+        "ExpectedBalance": null,
+        "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+        "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+        "ZeroDeltaRequired": true,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "BOOL_EVENT",
+        "Expected": "REJECT",
+        "Actual": "REJECT",
+        "ExpectedBalance": null,
+        "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+        "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+        "ZeroDeltaRequired": true,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "RESERVE",
+        "Expected": "APPLIED_IN_MEMORY",
+        "Actual": "APPLIED_IN_MEMORY",
+        "ExpectedBalance": [
+          5000,
+          0,
+          4500,
+          500
+        ],
+        "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+        "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 4500, 'F': 500, 'owner': 'A'}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A')}, 'rev': 2}",
+        "ZeroDeltaRequired": false,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "RESERVED_CANNOT_SPEND_FREE",
+        "Expected": "REJECT",
+        "Actual": "REJECT",
+        "ExpectedBalance": null,
+        "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 4500, 'F': 500, 'owner': 'A'}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A')}, 'rev': 2}",
+        "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 4500, 'F': 500, 'owner': 'A'}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A')}, 'rev': 2}",
+        "ZeroDeltaRequired": true,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "FOREIGN_OWNER",
+        "Expected": "REJECT",
+        "Actual": "REJECT",
+        "ExpectedBalance": null,
+        "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 4500, 'F': 500, 'owner': 'A'}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A')}, 'rev': 2}",
+        "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 4500, 'F': 500, 'owner': 'A'}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A')}, 'rev': 2}",
+        "ZeroDeltaRequired": true,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "RELEASE",
+        "Expected": "APPLIED_IN_MEMORY",
+        "Actual": "APPLIED_IN_MEMORY",
+        "ExpectedBalance": [
+          5000,
+          0,
+          4000,
+          1000
+        ],
+        "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 4500, 'F': 500, 'owner': 'A'}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A')}, 'rev': 2}",
+        "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 4000, 'F': 1000, 'owner': 'A'}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A')}, 'rev': 3}",
+        "ZeroDeltaRequired": false,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "CONSUME_RESERVED",
+        "Expected": "APPLIED_IN_MEMORY",
+        "Actual": "APPLIED_IN_MEMORY",
+        "ExpectedBalance": [
+          5000,
+          4000,
+          0,
+          1000
+        ],
+        "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 4000, 'F': 1000, 'owner': 'A'}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A')}, 'rev': 3}",
+        "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 4000, 'R': 0, 'F': 1000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A')}, 'rev': 4}",
+        "ZeroDeltaRequired": false,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "CONSUME_FREE",
+        "Expected": "APPLIED_IN_MEMORY",
+        "Actual": "APPLIED_IN_MEMORY",
+        "ExpectedBalance": [
+          5000,
+          5000,
+          0,
+          0
+        ],
+        "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 4000, 'R': 0, 'F': 1000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A')}, 'rev': 4}",
+        "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 5000, 'R': 0, 'F': 0, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A'), ('C', 13): (('fixture-broker', 'fixture-server', 1, 101), 'consume', 1000, 'A')}, 'rev': 5}",
+        "ZeroDeltaRequired": false,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "EXACT_CONSUMPTION",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "ExpectedBalance": null,
+        "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 5000, 'R': 0, 'F': 0, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A'), ('C', 13): (('fixture-broker', 'fixture-server', 1, 101), 'consume', 1000, 'A')}, 'rev': 5}",
+        "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 5000, 'R': 0, 'F': 0, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A'), ('C', 13): (('fixture-broker', 'fixture-server', 1, 101), 'consume', 1000, 'A')}, 'rev': 5}",
+        "ZeroDeltaRequired": true,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "ALTERED_REPLAY",
+        "Expected": "CONFLICT",
+        "Actual": "CONFLICT",
+        "ExpectedBalance": null,
+        "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 5000, 'R': 0, 'F': 0, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A'), ('C', 13): (('fixture-broker', 'fixture-server', 1, 101), 'consume', 1000, 'A')}, 'rev': 5}",
+        "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 5000, 'R': 0, 'F': 0, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A'), ('C', 13): (('fixture-broker', 'fixture-server', 1, 101), 'consume', 1000, 'A')}, 'rev': 5}",
+        "ZeroDeltaRequired": true,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "EXHAUSTED",
+        "Expected": "REJECT",
+        "Actual": "REJECT",
+        "ExpectedBalance": null,
+        "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 5000, 'R': 0, 'F': 0, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A'), ('C', 13): (('fixture-broker', 'fixture-server', 1, 101), 'consume', 1000, 'A')}, 'rev': 5}",
+        "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 5000, 'R': 0, 'F': 0, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A'), ('C', 13): (('fixture-broker', 'fixture-server', 1, 101), 'consume', 1000, 'A')}, 'rev': 5}",
+        "ZeroDeltaRequired": true,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "INCOMPLETE_JOURNAL",
+        "Expected": "UNAVAILABLE",
+        "Actual": "UNAVAILABLE",
+        "ExpectedBalance": null,
+        "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 5000, 'R': 0, 'F': 0, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A'), ('C', 13): (('fixture-broker', 'fixture-server', 1, 101), 'consume', 1000, 'A')}, 'rev': 5}",
+        "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 5000, 'R': 0, 'F': 0, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A'), ('C', 13): (('fixture-broker', 'fixture-server', 1, 101), 'consume', 1000, 'A')}, 'rev': 5}",
+        "ZeroDeltaRequired": true,
+        "Result": "PASS"
+      },
+      {
+        "TestID": "RECONSTRUCTION_ONLY",
+        "Expected": "ACCOUNTING_RECONSTRUCTED_ONLY",
+        "Actual": "ACCOUNTING_RECONSTRUCTED_ONLY",
+        "Result": "PASS",
+        "Scope": "No historical reauthorization/durable authenticity"
+      },
+      {
+        "TestID": "POST_RESTART_EXACT_FUND",
+        "Expected": "NO_OP",
+        "Actual": "NO_OP",
+        "Result": "PASS",
+        "Scope": "Complete trusted in-memory snapshot supplied; NOT real restart/crash test"
+      },
+      {
+        "TestID": "ACCOUNT_NAMESPACE",
+        "Expected": "FUNDED_IN_MEMORY",
+        "Actual": "FUNDED_IN_MEMORY",
+        "Result": "PASS",
+        "Scope": "Independent fixture source in another account, not cross-account spending"
+      }
+    ],
+    "Pass": 22,
+    "Fail": 0,
+    "SubjectSHA256": "90581c8bd6524c60f14bbcc6f5e3a28584877ecf7e957de88cfe9b685d55c629",
+    "RunnerSHA256": "00b3d700e527c4f457ed2007785a75c0c6cbe518982ebb7fef97ddd90ac3938e",
+    "Boundary": "Proposed integer-minor-unit specification only. Does NOT prove production global funding, durable restart, concurrent double-spend or provider authenticity."
+  },
+  "SourceMutations": {
+    "Killed": 6,
+    "Survived": 0,
+    "InfrastructureErrors": 0,
+    "Cases": [
+      {
+        "MutationID": "ECON_PRICE",
+        "ExactEdit": [
+          "&&a.price==b.price",
+          ""
+        ],
+        "OriginalSourceHash": "bae4bc4ded2115c46f4e1a3e52c25e592924c73db6fe7b061abc121aa8a1f9b9",
+        "MutantSourceHash": "1ad84e162551e6ef8b4f2826c25ecbb2aa3c85fe4c83a36fbf23d8be418a8467",
+        "CausalTestID": "PRICE_CONFLICT",
+        "PositiveTestID": "ECON_REPLAY",
+        "OriginalNegative": {
+          "TestID": "PRICE_CONFLICT",
+          "Actual": true,
+          "Expected": true,
+          "Result": "PASS",
+          "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+        },
+        "MutantPositive": [
+          "1",
+          "1"
+        ],
+        "MutantNegative": [
+          "0",
+          "1"
+        ],
+        "Verdict": "MUTATION_KILLED",
+        "Compile": {
+          "Command": [
+            "g++",
+            "-std=c++17",
+            "-O0",
+            "-fno-fast-math",
+            "/tmp/hsbi-audit02-63d1s6xe/source.cpp",
+            "-o",
+            "/tmp/hsbi-audit02-63d1s6xe/source"
+          ],
+          "StartedUtc": "2026-11-12T12:33:15.897645+00:00",
+          "FinishedUtc": "2026-11-12T12:33:18.296048+00:00",
+          "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+          "ExitCode": 0,
+          "Stdout": "",
+          "Stderr": "",
+          "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+        },
+        "Run": {
+          "Command": [
+            "/tmp/hsbi-audit02-63d1s6xe/source"
+          ],
+          "StartedUtc": "2026-11-12T12:33:18.298822+00:00",
+          "FinishedUtc": "2026-11-12T12:33:18.301300+00:00",
+          "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+          "ExitCode": 0,
+          "Stdout": "T|ECON_REPLAY|1|1\nT|FSA001_COMPONENTS|0|1\nT|PRICE_CONFLICT|0|1\nT|VOLUME_CONFLICT|1|1\nT|MAGIC_SAME_PHYSICAL_SOURCE|0|1\nT|ALLOC_REPLAY|1|1\nT|FSA002_VECTOR|0|1\nT|OTHER_ALLOC_EVENT_NEW|1|1\nT|ALLOC_DOMAIN_POSITIVE|1|1\nT|FSA007_NEGATIVE_BUCKET|0|1\nT|RESERVE_BOUND|1|1\nT|FSA003_FOREIGN_ALLOCATION|0|1\nT|FSA004_EXHAUSTED|0|1\nV|EXHAUSTED_GAIN|40\nT|FSA010_INDEPENDENT_EXPECTED|1|1\nT|FSA010_COPIED_EXPECTED_OBSERVATION|1|1\nT|RISK_VALID|1|1\nT|FSA005_NAN|0|1\nT|RISK_NEGATIVE_MARGIN|0|1\nT|TX_VALID|1|1\nT|FOREIGN_OWNERSHIP|1|1\nT|OTHER_ACTION|1|1\nT|FSA006_NAN|0|1\nT|TX_PARTIAL|1|1\nT|MONEY_VALID|1|1\nT|NEGATIVE_MONEY|1|1\nT|FSA008_INVALID_FLAG|0|1\nT|MONEY_INF|0|1\nT|CONTEXT_ONE_FAR|1|1\nT|FSA009_INITIAL_SLOT|0|1\nT|NO_DUAL_ALL_SLOTS|0|1\n",
+          "Stderr": "",
+          "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+        }
+      },
+      {
+        "MutationID": "ECON_VOLUME",
+        "ExactEdit": [
+          "&&a.volume==b.volume",
+          ""
+        ],
+        "OriginalSourceHash": "bae4bc4ded2115c46f4e1a3e52c25e592924c73db6fe7b061abc121aa8a1f9b9",
+        "MutantSourceHash": "b1d2c477ac49f1244825f6014ead9d93a83ee5d535c793487aca3bee9d05ef8b",
+        "CausalTestID": "VOLUME_CONFLICT",
+        "PositiveTestID": "ECON_REPLAY",
+        "OriginalNegative": {
+          "TestID": "VOLUME_CONFLICT",
+          "Actual": true,
+          "Expected": true,
+          "Result": "PASS",
+          "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+        },
+        "MutantPositive": [
+          "1",
+          "1"
+        ],
+        "MutantNegative": [
+          "0",
+          "1"
+        ],
+        "Verdict": "MUTATION_KILLED",
+        "Compile": {
+          "Command": [
+            "g++",
+            "-std=c++17",
+            "-O0",
+            "-fno-fast-math",
+            "/tmp/hsbi-audit02-63d1s6xe/source.cpp",
+            "-o",
+            "/tmp/hsbi-audit02-63d1s6xe/source"
+          ],
+          "StartedUtc": "2026-11-12T12:33:18.304368+00:00",
+          "FinishedUtc": "2026-11-12T12:33:20.743725+00:00",
+          "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+          "ExitCode": 0,
+          "Stdout": "",
+          "Stderr": "",
+          "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+        },
+        "Run": {
+          "Command": [
+            "/tmp/hsbi-audit02-63d1s6xe/source"
+          ],
+          "StartedUtc": "2026-11-12T12:33:20.747000+00:00",
+          "FinishedUtc": "2026-11-12T12:33:20.750191+00:00",
+          "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+          "ExitCode": 0,
+          "Stdout": "T|ECON_REPLAY|1|1\nT|FSA001_COMPONENTS|0|1\nT|PRICE_CONFLICT|1|1\nT|VOLUME_CONFLICT|0|1\nT|MAGIC_SAME_PHYSICAL_SOURCE|0|1\nT|ALLOC_REPLAY|1|1\nT|FSA002_VECTOR|0|1\nT|OTHER_ALLOC_EVENT_NEW|1|1\nT|ALLOC_DOMAIN_POSITIVE|1|1\nT|FSA007_NEGATIVE_BUCKET|0|1\nT|RESERVE_BOUND|1|1\nT|FSA003_FOREIGN_ALLOCATION|0|1\nT|FSA004_EXHAUSTED|0|1\nV|EXHAUSTED_GAIN|40\nT|FSA010_INDEPENDENT_EXPECTED|1|1\nT|FSA010_COPIED_EXPECTED_OBSERVATION|1|1\nT|RISK_VALID|1|1\nT|FSA005_NAN|0|1\nT|RISK_NEGATIVE_MARGIN|0|1\nT|TX_VALID|1|1\nT|FOREIGN_OWNERSHIP|1|1\nT|OTHER_ACTION|1|1\nT|FSA006_NAN|0|1\nT|TX_PARTIAL|1|1\nT|MONEY_VALID|1|1\nT|NEGATIVE_MONEY|1|1\nT|FSA008_INVALID_FLAG|0|1\nT|MONEY_INF|0|1\nT|CONTEXT_ONE_FAR|1|1\nT|FSA009_INITIAL_SLOT|0|1\nT|NO_DUAL_ALL_SLOTS|0|1\n",
+          "Stderr": "",
+          "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+        }
+      },
+      {
+        "MutationID": "ALLOC_EVENT",
+        "ExactEdit": [
+          "||a.allocationEventId!=b.allocationEventId",
+          ""
+        ],
+        "OriginalSourceHash": "bae4bc4ded2115c46f4e1a3e52c25e592924c73db6fe7b061abc121aa8a1f9b9",
+        "MutantSourceHash": "6b6828bc2c55bec85fd38914a9672639a0a7f8f514c84d929e4b8c698bbd7fb6",
+        "CausalTestID": "OTHER_ALLOC_EVENT_NEW",
+        "PositiveTestID": "ALLOC_REPLAY",
+        "OriginalNegative": {
+          "TestID": "OTHER_ALLOC_EVENT_NEW",
+          "Actual": true,
+          "Expected": true,
+          "Result": "PASS",
+          "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+        },
+        "MutantPositive": [
+          "1",
+          "1"
+        ],
+        "MutantNegative": [
+          "0",
+          "1"
+        ],
+        "Verdict": "MUTATION_KILLED",
+        "Compile": {
+          "Command": [
+            "g++",
+            "-std=c++17",
+            "-O0",
+            "-fno-fast-math",
+            "/tmp/hsbi-audit02-63d1s6xe/source.cpp",
+            "-o",
+            "/tmp/hsbi-audit02-63d1s6xe/source"
+          ],
+          "StartedUtc": "2026-11-12T12:33:20.753146+00:00",
+          "FinishedUtc": "2026-11-12T12:33:23.146427+00:00",
+          "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+          "ExitCode": 0,
+          "Stdout": "",
+          "Stderr": "",
+          "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+        },
+        "Run": {
+          "Command": [
+            "/tmp/hsbi-audit02-63d1s6xe/source"
+          ],
+          "StartedUtc": "2026-11-12T12:33:23.149341+00:00",
+          "FinishedUtc": "2026-11-12T12:33:23.154301+00:00",
+          "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+          "ExitCode": 0,
+          "Stdout": "T|ECON_REPLAY|1|1\nT|FSA001_COMPONENTS|0|1\nT|PRICE_CONFLICT|1|1\nT|VOLUME_CONFLICT|1|1\nT|MAGIC_SAME_PHYSICAL_SOURCE|0|1\nT|ALLOC_REPLAY|1|1\nT|FSA002_VECTOR|0|1\nT|OTHER_ALLOC_EVENT_NEW|0|1\nT|ALLOC_DOMAIN_POSITIVE|1|1\nT|FSA007_NEGATIVE_BUCKET|0|1\nT|RESERVE_BOUND|1|1\nT|FSA003_FOREIGN_ALLOCATION|0|1\nT|FSA004_EXHAUSTED|0|1\nV|EXHAUSTED_GAIN|40\nT|FSA010_INDEPENDENT_EXPECTED|1|1\nT|FSA010_COPIED_EXPECTED_OBSERVATION|1|1\nT|RISK_VALID|1|1\nT|FSA005_NAN|0|1\nT|RISK_NEGATIVE_MARGIN|0|1\nT|TX_VALID|1|1\nT|FOREIGN_OWNERSHIP|1|1\nT|OTHER_ACTION|1|1\nT|FSA006_NAN|0|1\nT|TX_PARTIAL|1|1\nT|MONEY_VALID|1|1\nT|NEGATIVE_MONEY|1|1\nT|FSA008_INVALID_FLAG|0|1\nT|MONEY_INF|0|1\nT|CONTEXT_ONE_FAR|1|1\nT|FSA009_INITIAL_SLOT|0|1\nT|NO_DUAL_ALL_SLOTS|0|1\n",
+          "Stderr": "",
+          "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+        }
+      },
+      {
+        "MutationID": "TX_OWNERSHIP",
+        "ExactEdit": [
+          "||!x.ownershipConfirmed",
+          ""
+        ],
+        "OriginalSourceHash": "bae4bc4ded2115c46f4e1a3e52c25e592924c73db6fe7b061abc121aa8a1f9b9",
+        "MutantSourceHash": "5a03e7a050b2351cc006acd0b85165cdb4c47a992443559934d175e21fa0a2d2",
+        "CausalTestID": "FOREIGN_OWNERSHIP",
+        "PositiveTestID": "TX_VALID",
+        "OriginalNegative": {
+          "TestID": "FOREIGN_OWNERSHIP",
+          "Actual": true,
+          "Expected": true,
+          "Result": "PASS",
+          "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+        },
+        "MutantPositive": [
+          "1",
+          "1"
+        ],
+        "MutantNegative": [
+          "0",
+          "1"
+        ],
+        "Verdict": "MUTATION_KILLED",
+        "Compile": {
+          "Command": [
+            "g++",
+            "-std=c++17",
+            "-O0",
+            "-fno-fast-math",
+            "/tmp/hsbi-audit02-63d1s6xe/source.cpp",
+            "-o",
+            "/tmp/hsbi-audit02-63d1s6xe/source"
+          ],
+          "StartedUtc": "2026-11-12T12:33:23.158448+00:00",
+          "FinishedUtc": "2026-11-12T12:33:25.294638+00:00",
+          "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+          "ExitCode": 0,
+          "Stdout": "",
+          "Stderr": "",
+          "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+        },
+        "Run": {
+          "Command": [
+            "/tmp/hsbi-audit02-63d1s6xe/source"
+          ],
+          "StartedUtc": "2026-11-12T12:33:25.297709+00:00",
+          "FinishedUtc": "2026-11-12T12:33:25.300678+00:00",
+          "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+          "ExitCode": 0,
+          "Stdout": "T|ECON_REPLAY|1|1\nT|FSA001_COMPONENTS|0|1\nT|PRICE_CONFLICT|1|1\nT|VOLUME_CONFLICT|1|1\nT|MAGIC_SAME_PHYSICAL_SOURCE|0|1\nT|ALLOC_REPLAY|1|1\nT|FSA002_VECTOR|0|1\nT|OTHER_ALLOC_EVENT_NEW|1|1\nT|ALLOC_DOMAIN_POSITIVE|1|1\nT|FSA007_NEGATIVE_BUCKET|0|1\nT|RESERVE_BOUND|1|1\nT|FSA003_FOREIGN_ALLOCATION|0|1\nT|FSA004_EXHAUSTED|0|1\nV|EXHAUSTED_GAIN|40\nT|FSA010_INDEPENDENT_EXPECTED|1|1\nT|FSA010_COPIED_EXPECTED_OBSERVATION|1|1\nT|RISK_VALID|1|1\nT|FSA005_NAN|0|1\nT|RISK_NEGATIVE_MARGIN|0|1\nT|TX_VALID|1|1\nT|FOREIGN_OWNERSHIP|0|1\nT|OTHER_ACTION|1|1\nT|FSA006_NAN|0|1\nT|TX_PARTIAL|1|1\nT|MONEY_VALID|1|1\nT|NEGATIVE_MONEY|1|1\nT|FSA008_INVALID_FLAG|0|1\nT|MONEY_INF|0|1\nT|CONTEXT_ONE_FAR|1|1\nT|FSA009_INITIAL_SLOT|0|1\nT|NO_DUAL_ALL_SLOTS|0|1\n",
+          "Stderr": "",
+          "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+        }
+      },
+      {
+        "MutationID": "TX_ACTION",
+        "ExactEdit": [
+          "x.transaction.actionId!=x.expectedActionId",
+          "false"
+        ],
+        "OriginalSourceHash": "bae4bc4ded2115c46f4e1a3e52c25e592924c73db6fe7b061abc121aa8a1f9b9",
+        "MutantSourceHash": "621f02b6068684d017737a16eecfb04428f094bc7361782e7187e7686f2e04af",
+        "CausalTestID": "OTHER_ACTION",
+        "PositiveTestID": "TX_VALID",
+        "OriginalNegative": {
+          "TestID": "OTHER_ACTION",
+          "Actual": true,
+          "Expected": true,
+          "Result": "PASS",
+          "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+        },
+        "MutantPositive": [
+          "1",
+          "1"
+        ],
+        "MutantNegative": [
+          "0",
+          "1"
+        ],
+        "Verdict": "MUTATION_KILLED",
+        "Compile": {
+          "Command": [
+            "g++",
+            "-std=c++17",
+            "-O0",
+            "-fno-fast-math",
+            "/tmp/hsbi-audit02-63d1s6xe/source.cpp",
+            "-o",
+            "/tmp/hsbi-audit02-63d1s6xe/source"
+          ],
+          "StartedUtc": "2026-11-12T12:33:25.303750+00:00",
+          "FinishedUtc": "2026-11-12T12:33:27.481176+00:00",
+          "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+          "ExitCode": 0,
+          "Stdout": "",
+          "Stderr": "",
+          "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+        },
+        "Run": {
+          "Command": [
+            "/tmp/hsbi-audit02-63d1s6xe/source"
+          ],
+          "StartedUtc": "2026-11-12T12:33:27.483723+00:00",
+          "FinishedUtc": "2026-11-12T12:33:27.487207+00:00",
+          "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+          "ExitCode": 0,
+          "Stdout": "T|ECON_REPLAY|1|1\nT|FSA001_COMPONENTS|0|1\nT|PRICE_CONFLICT|1|1\nT|VOLUME_CONFLICT|1|1\nT|MAGIC_SAME_PHYSICAL_SOURCE|0|1\nT|ALLOC_REPLAY|1|1\nT|FSA002_VECTOR|0|1\nT|OTHER_ALLOC_EVENT_NEW|1|1\nT|ALLOC_DOMAIN_POSITIVE|1|1\nT|FSA007_NEGATIVE_BUCKET|0|1\nT|RESERVE_BOUND|1|1\nT|FSA003_FOREIGN_ALLOCATION|0|1\nT|FSA004_EXHAUSTED|0|1\nV|EXHAUSTED_GAIN|40\nT|FSA010_INDEPENDENT_EXPECTED|1|1\nT|FSA010_COPIED_EXPECTED_OBSERVATION|1|1\nT|RISK_VALID|1|1\nT|FSA005_NAN|0|1\nT|RISK_NEGATIVE_MARGIN|0|1\nT|TX_VALID|1|1\nT|FOREIGN_OWNERSHIP|1|1\nT|OTHER_ACTION|0|1\nT|FSA006_NAN|0|1\nT|TX_PARTIAL|1|1\nT|MONEY_VALID|1|1\nT|NEGATIVE_MONEY|1|1\nT|FSA008_INVALID_FLAG|0|1\nT|MONEY_INF|0|1\nT|CONTEXT_ONE_FAR|1|1\nT|FSA009_INITIAL_SLOT|0|1\nT|NO_DUAL_ALL_SLOTS|0|1\n",
+          "Stderr": "",
+          "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+        }
+      },
+      {
+        "MutationID": "MONEY_NEGATIVE",
+        "ExactEdit": [
+          "s.finalReserve>=0",
+          "true"
+        ],
+        "OriginalSourceHash": "bae4bc4ded2115c46f4e1a3e52c25e592924c73db6fe7b061abc121aa8a1f9b9",
+        "MutantSourceHash": "430a345bdc5a364e3570764694b215c2593bb49ab8a7fb12928ed1609bf8213e",
+        "CausalTestID": "NEGATIVE_MONEY",
+        "PositiveTestID": "MONEY_VALID",
+        "OriginalNegative": {
+          "TestID": "NEGATIVE_MONEY",
+          "Actual": true,
+          "Expected": true,
+          "Result": "PASS",
+          "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+        },
+        "MutantPositive": [
+          "1",
+          "1"
+        ],
+        "MutantNegative": [
+          "0",
+          "1"
+        ],
+        "Verdict": "MUTATION_KILLED",
+        "Compile": {
+          "Command": [
+            "g++",
+            "-std=c++17",
+            "-O0",
+            "-fno-fast-math",
+            "/tmp/hsbi-audit02-63d1s6xe/source.cpp",
+            "-o",
+            "/tmp/hsbi-audit02-63d1s6xe/source"
+          ],
+          "StartedUtc": "2026-11-12T12:33:27.490363+00:00",
+          "FinishedUtc": "2026-11-12T12:33:29.446492+00:00",
+          "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+          "ExitCode": 0,
+          "Stdout": "",
+          "Stderr": "",
+          "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+        },
+        "Run": {
+          "Command": [
+            "/tmp/hsbi-audit02-63d1s6xe/source"
+          ],
+          "StartedUtc": "2026-11-12T12:33:29.453303+00:00",
+          "FinishedUtc": "2026-11-12T12:33:29.455760+00:00",
+          "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+          "ExitCode": 0,
+          "Stdout": "T|ECON_REPLAY|1|1\nT|FSA001_COMPONENTS|0|1\nT|PRICE_CONFLICT|1|1\nT|VOLUME_CONFLICT|1|1\nT|MAGIC_SAME_PHYSICAL_SOURCE|0|1\nT|ALLOC_REPLAY|1|1\nT|FSA002_VECTOR|0|1\nT|OTHER_ALLOC_EVENT_NEW|1|1\nT|ALLOC_DOMAIN_POSITIVE|1|1\nT|FSA007_NEGATIVE_BUCKET|0|1\nT|RESERVE_BOUND|1|1\nT|FSA003_FOREIGN_ALLOCATION|0|1\nT|FSA004_EXHAUSTED|0|1\nV|EXHAUSTED_GAIN|40\nT|FSA010_INDEPENDENT_EXPECTED|1|1\nT|FSA010_COPIED_EXPECTED_OBSERVATION|1|1\nT|RISK_VALID|1|1\nT|FSA005_NAN|0|1\nT|RISK_NEGATIVE_MARGIN|0|1\nT|TX_VALID|1|1\nT|FOREIGN_OWNERSHIP|1|1\nT|OTHER_ACTION|1|1\nT|FSA006_NAN|0|1\nT|TX_PARTIAL|1|1\nT|MONEY_VALID|1|1\nT|NEGATIVE_MONEY|0|1\nT|FSA008_INVALID_FLAG|0|1\nT|MONEY_INF|0|1\nT|CONTEXT_ONE_FAR|1|1\nT|FSA009_INITIAL_SLOT|0|1\nT|NO_DUAL_ALL_SLOTS|0|1\n",
+          "Stderr": "",
+          "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+        }
+      }
+    ]
+  },
+  "Regressions": [
+    {
+      "ID": "R7",
+      "ExitCode": 1,
+      "Pass": 57,
+      "Fail": 5,
+      "Classification": "EXPECTED_HISTORICAL_FAILURE",
+      "Boundary": "Runner own counts; reference contexts are executions, not independent scenarios"
+    },
+    {
+      "ID": "R0",
+      "ExitCode": 1,
+      "Pass": 35,
+      "Fail": 46,
+      "Classification": "EXPECTED_HISTORICAL_FAILURE",
+      "Boundary": "Runner own counts; reference contexts are executions, not independent scenarios"
+    },
+    {
+      "ID": "R8",
+      "ExitCode": 1,
+      "Pass": null,
+      "Fail": null,
+      "Classification": "SCOPE_POLICY_FAILURE_REVIEW_DETAILS",
+      "Boundary": "Runner own counts; reference contexts are executions, not independent scenarios"
+    },
+    {
+      "ID": "R10",
+      "ExitCode": 1,
+      "Pass": null,
+      "Fail": null,
+      "Classification": "SCOPE_POLICY_FAILURE_REVIEW_DETAILS",
+      "Boundary": "Runner own counts; reference contexts are executions, not independent scenarios"
+    },
+    {
+      "ID": "C1",
+      "ExitCode": 0,
+      "Pass": 840,
+      "Fail": 0,
+      "Classification": "PASS",
+      "Boundary": "Runner own counts; reference contexts are executions, not independent scenarios"
+    },
+    {
+      "ID": "C2",
+      "ExitCode": 0,
+      "Pass": 1264,
+      "Fail": 0,
+      "Classification": "PASS",
+      "Boundary": "Runner own counts; reference contexts are executions, not independent scenarios"
+    },
+    {
+      "ID": "R0F",
+      "ExitCode": 0,
+      "Pass": 116,
+      "Fail": 0,
+      "Classification": "PASS",
+      "Boundary": "Runner own counts; reference contexts are executions, not independent scenarios"
+    },
+    {
+      "ID": "R0G",
+      "ExitCode": 0,
+      "Pass": 128,
+      "Fail": 0,
+      "Classification": "PASS",
+      "Boundary": "Runner own counts; reference contexts are executions, not independent scenarios"
+    },
+    {
+      "ID": "R0H",
+      "ExitCode": 0,
+      "Pass": 148,
+      "Fail": 0,
+      "Classification": "PASS",
+      "Boundary": "Runner own counts; reference contexts are executions, not independent scenarios"
+    }
+  ],
+  "InfrastructureErrorsNotHidden": true,
+  "Scope": "Fresh original and extended tests overlap30 vectors; DO NOT SUM as68 independent scenarios. 6 mutations repeated on each build, not12 distinct. No MQL5 native evidence."
+}

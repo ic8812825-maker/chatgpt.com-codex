@@ -1,0 +1,71 @@
+{
+  "UTC": "2026-11-12T12:41:47.939443+00:00",
+  "RunnerSHA256": "a9ac8f4c3cdf93c70714ac29e0a443b4e04061b468038284f9ca50fa4e354c55",
+  "PositiveErrors": [],
+  "NegativeProbes": [
+    {
+      "ProbeID": "EMPTY_MUTATIONS",
+      "Errors": [
+        "mutation catalog SOURCE_TESTS_FRESH"
+      ],
+      "Result": "PASS",
+      "ArtifactHashUpdated": true
+    },
+    {
+      "ProbeID": "FALSE_TOTAL",
+      "Errors": [
+        "test totals SOURCE_TESTS_FRESH"
+      ],
+      "Result": "PASS",
+      "ArtifactHashUpdated": true
+    },
+    {
+      "ProbeID": "FALSE_SOURCE_HASH",
+      "Errors": [
+        "regression source hash Hybrid_Split_Big_Independent_EA.mq5"
+      ],
+      "Result": "PASS",
+      "ArtifactHashUpdated": true
+    },
+    {
+      "ProbeID": "DELETE_FAILURE",
+      "Errors": [
+        "fail classification completeness",
+        "failure traceability"
+      ],
+      "Result": "PASS",
+      "ArtifactHashUpdated": true
+    },
+    {
+      "ProbeID": "DUPLICATE_KEY",
+      "Errors": [
+        "PACKAGE_ERROR ValueError: Duplicate JSON key Result"
+      ],
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "NAN",
+      "Errors": [
+        "PACKAGE_ERROR ValueError: NaN"
+      ],
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "CONTRADICTORY_POLICY",
+      "Errors": [
+        "status uniqueness BROKER_DISPATCH_ALLOWED"
+      ],
+      "Result": "PASS"
+    },
+    {
+      "ProbeID": "MISSING_REQUIRED",
+      "Errors": [
+        "missing contract R1_1_ACCEPTANCE"
+      ],
+      "Result": "PASS"
+    }
+  ],
+  "Pass": 8,
+  "Fail": 0,
+  "Boundary": "8 explicit probes only; no exhaustive package-checker correctness proof"
+}

@@ -1,0 +1,13 @@
+{
+  "Command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_FULL_SYSTEM_AUDIT_02_build.py"
+  ],
+  "StartedUtc": "2026-11-12T12:41:45.404535+00:00",
+  "FinishedUtc": "2026-11-12T12:41:45.582267+00:00",
+  "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+  "ExitCode": 0,
+  "Stdout": "BUILD 29 defects 49 formulas 16 decisions\n",
+  "Stderr": "",
+  "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+}

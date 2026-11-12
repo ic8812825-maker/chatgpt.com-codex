@@ -1,0 +1,252 @@
+{
+  "Command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_FULL_SYSTEM_AUDIT_02_ledger_tests.py"
+  ],
+  "StartedUtc": "2026-11-12T12:33:44.416205+00:00",
+  "FinishedUtc": "2026-11-12T12:33:44.417482+00:00",
+  "BaseSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+  "Rows": [
+    {
+      "TestID": "HISTORY_UNKNOWN",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "ExpectedBalance": null,
+      "Before": "{'sources': {}, 'events': {}, 'rev': 0}",
+      "After": "{'sources': {}, 'events': {}, 'rev': 0}",
+      "ZeroDeltaRequired": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "FUND",
+      "Expected": "FUNDED_IN_MEMORY",
+      "Actual": "FUNDED_IN_MEMORY",
+      "ExpectedBalance": [
+        5000,
+        0,
+        0,
+        5000
+      ],
+      "Before": "{'sources': {}, 'events': {}, 'rev': 0}",
+      "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+      "ZeroDeltaRequired": false,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "EXACT_FUND",
+      "Expected": "NO_OP",
+      "Actual": "NO_OP",
+      "ExpectedBalance": null,
+      "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+      "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+      "ZeroDeltaRequired": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "CHANGED_COMPONENTS_EQUAL_NET",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "ExpectedBalance": null,
+      "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+      "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+      "ZeroDeltaRequired": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "CHANGED_VECTOR_EQUAL_NET",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "ExpectedBalance": null,
+      "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+      "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+      "ZeroDeltaRequired": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "NEGATIVE_BUCKET",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "ExpectedBalance": null,
+      "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+      "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+      "ZeroDeltaRequired": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "UNKNOWN_CURRENCY",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "ExpectedBalance": null,
+      "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+      "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+      "ZeroDeltaRequired": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "UNKNOWN_PRECISION",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "ExpectedBalance": null,
+      "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+      "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+      "ZeroDeltaRequired": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "BOOL_EVENT",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "ExpectedBalance": null,
+      "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+      "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+      "ZeroDeltaRequired": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "RESERVE",
+      "Expected": "APPLIED_IN_MEMORY",
+      "Actual": "APPLIED_IN_MEMORY",
+      "ExpectedBalance": [
+        5000,
+        0,
+        4500,
+        500
+      ],
+      "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 0, 'F': 5000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2))}, 'rev': 1}",
+      "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 4500, 'F': 500, 'owner': 'A'}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A')}, 'rev': 2}",
+      "ZeroDeltaRequired": false,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "RESERVED_CANNOT_SPEND_FREE",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "ExpectedBalance": null,
+      "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 4500, 'F': 500, 'owner': 'A'}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A')}, 'rev': 2}",
+      "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 4500, 'F': 500, 'owner': 'A'}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A')}, 'rev': 2}",
+      "ZeroDeltaRequired": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "FOREIGN_OWNER",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "ExpectedBalance": null,
+      "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 4500, 'F': 500, 'owner': 'A'}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A')}, 'rev': 2}",
+      "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 4500, 'F': 500, 'owner': 'A'}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A')}, 'rev': 2}",
+      "ZeroDeltaRequired": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "RELEASE",
+      "Expected": "APPLIED_IN_MEMORY",
+      "Actual": "APPLIED_IN_MEMORY",
+      "ExpectedBalance": [
+        5000,
+        0,
+        4000,
+        1000
+      ],
+      "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 4500, 'F': 500, 'owner': 'A'}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A')}, 'rev': 2}",
+      "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 4000, 'F': 1000, 'owner': 'A'}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A')}, 'rev': 3}",
+      "ZeroDeltaRequired": false,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "CONSUME_RESERVED",
+      "Expected": "APPLIED_IN_MEMORY",
+      "Actual": "APPLIED_IN_MEMORY",
+      "ExpectedBalance": [
+        5000,
+        4000,
+        0,
+        1000
+      ],
+      "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 0, 'R': 4000, 'F': 1000, 'owner': 'A'}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A')}, 'rev': 3}",
+      "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 4000, 'R': 0, 'F': 1000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A')}, 'rev': 4}",
+      "ZeroDeltaRequired": false,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "CONSUME_FREE",
+      "Expected": "APPLIED_IN_MEMORY",
+      "Actual": "APPLIED_IN_MEMORY",
+      "ExpectedBalance": [
+        5000,
+        5000,
+        0,
+        0
+      ],
+      "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 4000, 'R': 0, 'F': 1000, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A')}, 'rev': 4}",
+      "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 5000, 'R': 0, 'F': 0, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A'), ('C', 13): (('fixture-broker', 'fixture-server', 1, 101), 'consume', 1000, 'A')}, 'rev': 5}",
+      "ZeroDeltaRequired": false,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "EXACT_CONSUMPTION",
+      "Expected": "NO_OP",
+      "Actual": "NO_OP",
+      "ExpectedBalance": null,
+      "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 5000, 'R': 0, 'F': 0, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A'), ('C', 13): (('fixture-broker', 'fixture-server', 1, 101), 'consume', 1000, 'A')}, 'rev': 5}",
+      "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 5000, 'R': 0, 'F': 0, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A'), ('C', 13): (('fixture-broker', 'fixture-server', 1, 101), 'consume', 1000, 'A')}, 'rev': 5}",
+      "ZeroDeltaRequired": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "ALTERED_REPLAY",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "ExpectedBalance": null,
+      "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 5000, 'R': 0, 'F': 0, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A'), ('C', 13): (('fixture-broker', 'fixture-server', 1, 101), 'consume', 1000, 'A')}, 'rev': 5}",
+      "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 5000, 'R': 0, 'F': 0, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A'), ('C', 13): (('fixture-broker', 'fixture-server', 1, 101), 'consume', 1000, 'A')}, 'rev': 5}",
+      "ZeroDeltaRequired": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "EXHAUSTED",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "ExpectedBalance": null,
+      "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 5000, 'R': 0, 'F': 0, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A'), ('C', 13): (('fixture-broker', 'fixture-server', 1, 101), 'consume', 1000, 'A')}, 'rev': 5}",
+      "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 5000, 'R': 0, 'F': 0, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A'), ('C', 13): (('fixture-broker', 'fixture-server', 1, 101), 'consume', 1000, 'A')}, 'rev': 5}",
+      "ZeroDeltaRequired": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "INCOMPLETE_JOURNAL",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "ExpectedBalance": null,
+      "Before": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 5000, 'R': 0, 'F': 0, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A'), ('C', 13): (('fixture-broker', 'fixture-server', 1, 101), 'consume', 1000, 'A')}, 'rev': 5}",
+      "After": "{'sources': {('fixture-broker', 'fixture-server', 1, 101): {'payload': ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2), 'G': 5000, 'C': 5000, 'R': 0, 'F': 0, 'owner': None}}, 'events': {('F', 1): (('fixture-broker', 'fixture-server', 1, 101), ((6000, 0, -1000, 0), (3000, 2000), 'USD', 2)), ('C', 10): (('fixture-broker', 'fixture-server', 1, 101), 'reserve', 4500, 'A'), ('C', 11): (('fixture-broker', 'fixture-server', 1, 101), 'release', 500, 'A'), ('C', 12): (('fixture-broker', 'fixture-server', 1, 101), 'consume_reserved', 4000, 'A'), ('C', 13): (('fixture-broker', 'fixture-server', 1, 101), 'consume', 1000, 'A')}, 'rev': 5}",
+      "ZeroDeltaRequired": true,
+      "Result": "PASS"
+    },
+    {
+      "TestID": "RECONSTRUCTION_ONLY",
+      "Expected": "ACCOUNTING_RECONSTRUCTED_ONLY",
+      "Actual": "ACCOUNTING_RECONSTRUCTED_ONLY",
+      "Result": "PASS",
+      "Scope": "No historical reauthorization/durable authenticity"
+    },
+    {
+      "TestID": "POST_RESTART_EXACT_FUND",
+      "Expected": "NO_OP",
+      "Actual": "NO_OP",
+      "Result": "PASS",
+      "Scope": "Complete trusted in-memory snapshot supplied; NOT real restart/crash test"
+    },
+    {
+      "TestID": "ACCOUNT_NAMESPACE",
+      "Expected": "FUNDED_IN_MEMORY",
+      "Actual": "FUNDED_IN_MEMORY",
+      "Result": "PASS",
+      "Scope": "Independent fixture source in another account, not cross-account spending"
+    }
+  ],
+  "Pass": 22,
+  "Fail": 0,
+  "SubjectSHA256": "90581c8bd6524c60f14bbcc6f5e3a28584877ecf7e957de88cfe9b685d55c629",
+  "RunnerSHA256": "00b3d700e527c4f457ed2007785a75c0c6cbe518982ebb7fef97ddd90ac3938e",
+  "Boundary": "Proposed integer-minor-unit specification only. Does NOT prove production global funding, durable restart, concurrent double-spend or provider authenticity."
+}

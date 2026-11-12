@@ -1,0 +1,93 @@
+{
+  "Searches": [
+    {
+      "Command": [
+        "which",
+        "metaeditor64"
+      ],
+      "StartedUtc": "2026-11-12T11:47:02.098360+00:00",
+      "FinishedUtc": "2026-11-12T11:47:02.100788+00:00",
+      "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": "",
+      "RunnerSHA256": "17e2101e39ac27a70aec7ac71d654567848133631043d61849b2f0d795ab1486"
+    },
+    {
+      "Command": [
+        "which",
+        "metaeditor"
+      ],
+      "StartedUtc": "2026-11-12T11:47:02.103505+00:00",
+      "FinishedUtc": "2026-11-12T11:47:02.106133+00:00",
+      "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": "",
+      "RunnerSHA256": "17e2101e39ac27a70aec7ac71d654567848133631043d61849b2f0d795ab1486"
+    },
+    {
+      "Command": [
+        "which",
+        "MetaEditor64.exe"
+      ],
+      "StartedUtc": "2026-11-12T11:47:02.109368+00:00",
+      "FinishedUtc": "2026-11-12T11:47:02.111277+00:00",
+      "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": "",
+      "RunnerSHA256": "17e2101e39ac27a70aec7ac71d654567848133631043d61849b2f0d795ab1486"
+    },
+    {
+      "Command": [
+        "which",
+        "terminal64"
+      ],
+      "StartedUtc": "2026-11-12T11:47:02.113522+00:00",
+      "FinishedUtc": "2026-11-12T11:47:02.115075+00:00",
+      "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": "",
+      "RunnerSHA256": "17e2101e39ac27a70aec7ac71d654567848133631043d61849b2f0d795ab1486"
+    },
+    {
+      "Command": [
+        "which",
+        "wine"
+      ],
+      "StartedUtc": "2026-11-12T11:47:02.117763+00:00",
+      "FinishedUtc": "2026-11-12T11:47:02.119497+00:00",
+      "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+      "ExitCode": 1,
+      "Stdout": "",
+      "Stderr": "",
+      "RunnerSHA256": "17e2101e39ac27a70aec7ac71d654567848133631043d61849b2f0d795ab1486"
+    },
+    {
+      "Command": [
+        "rg",
+        "--files",
+        "/opt",
+        "/workspace",
+        "/usr/local/bin",
+        "-g",
+        "*[Mm]eta[Ee]ditor*",
+        "-g",
+        "*terminal64*"
+      ],
+      "StartedUtc": "2026-11-12T11:47:02.121787+00:00",
+      "FinishedUtc": "2026-11-12T11:47:02.357218+00:00",
+      "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+      "ExitCode": 0,
+      "Stdout": "/workspace/chatgpt.com-codex/MinusLock_BigHarvest_EA_V2/Scripts/compile_metaeditor_windows.ps1\n",
+      "Stderr": "",
+      "RunnerSHA256": "17e2101e39ac27a70aec7ac71d654567848133631043d61849b2f0d795ab1486"
+    }
+  ],
+  "MQL5_COMPILE": "NOT_RUN",
+  "MQL5_NATIVE_TESTS": "NOT_RUN",
+  "Harness": "Tests/Reference/HSBI_FULL_SYSTEM_AUDIT_02_native.mq5",
+  "Scope": "PATH + /opt /workspace /usr/local/bin search only; no unbounded filesystem claim. No native execution performed."
+}

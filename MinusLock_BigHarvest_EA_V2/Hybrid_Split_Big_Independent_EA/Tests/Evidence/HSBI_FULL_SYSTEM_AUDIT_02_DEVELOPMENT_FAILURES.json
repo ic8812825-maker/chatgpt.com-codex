@@ -1,0 +1,24 @@
+{
+  "Rows": [
+    {
+      "ID": "RECOVERY-ARCHIVE-UTF8",
+      "Error": "UnicodeDecodeError reading ignored .pyc as text",
+      "Fix": "Base64 byte archive, no original removal",
+      "Outcome": "RECOVERY_ARCHIVE saved"
+    },
+    {
+      "ID": "BUILD-SOURCE-LOCATOR",
+      "UTC": "2026-11-12T12:32:42.902119+00:00",
+      "SourceHash": "406748646eee8c0e63c10ad618fba87e8308432facff489bef10290c8758b959",
+      "Error": "ValueError unpacking Source without line delimiter",
+      "Fix": "Typed optional locator; missing file gets null source hash, not fabricated path",
+      "Outcome": "rerun required"
+    },
+    {
+      "ID": "DIFF-WHITESPACE",
+      "Error": "git diff --cached --check exit2: blank EOF lines and trailing whitespace in new files",
+      "Fix": "Only new Audit02 builder/formatter whitespace normalized",
+      "Outcome": "Final diff check rerun required"
+    }
+  ]
+}

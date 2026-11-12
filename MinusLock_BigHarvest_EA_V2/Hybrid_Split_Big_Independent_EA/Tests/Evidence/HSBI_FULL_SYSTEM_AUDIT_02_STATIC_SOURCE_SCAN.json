@@ -1,0 +1,489 @@
+{
+  "UTC": "2026-11-12T12:36:33.260259+00:00",
+  "Rows": [
+    {
+      "File": "Hybrid_Split_Big_Independent_EA.mq5",
+      "SHA256": "71e511c620df5de7f1f9e0d865664efeaf4cf6edbcbb07f20efaf25c40e9bd62",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Core/HSBI_Context.mqh",
+      "SHA256": "7ae314b8f7e4183419943297885a6291afbf449a5d63490ca35757f737eb80ef",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Core/HSBI_Enums.mqh",
+      "SHA256": "69b0ded8187af3f69a4058188c206f11b881e4f7d9c092d7bafe1bb9111d29f6",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Core/HSBI_Identifiers.mqh",
+      "SHA256": "a6421afab5dc291df0d17cfa4e1d39f5cc96bd87aa9cd9602129e240d0a8dd9e",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Core/HSBI_Invariants.mqh",
+      "SHA256": "4c4a742a62a60361fb63e907888f4bc936591c00326ebe2812ba2fa668133981",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Core/HSBI_ReasonCodes.mqh",
+      "SHA256": "62aef3906bc933cee98a136fd8ed983be36f23ef01da50a6c2572551bce2abe2",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Core/HSBI_Roles.mqh",
+      "SHA256": "836970966be820261b031717bab2f81482ab76c57e06ee63269c368012a3399d",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Core/HSBI_RuntimeMode.mqh",
+      "SHA256": "f47526eddac1c7007ebddfd5c32d95848600ba6751086442e8032ed6ce9878f2",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Core/HSBI_RuntimePolicy.mqh",
+      "SHA256": "1fa087dda8d81f182c8c6d8fd2dab4c4712b973c8f95ad15c0bfdf115b01d337",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Core/HSBI_StateMachine.mqh",
+      "SHA256": "7ec9f9860ce9d72c7f7c119377c1b2bedda25001921b92ef3aa9c7d95a32e403",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Core/HSBI_StateValidator.mqh",
+      "SHA256": "145d73d6d69baf1ef58958237b6c375bef23e2cd9004d1f50c9fe694c24077f6",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Core/HSBI_Types.mqh",
+      "SHA256": "61e08fbfc9e97df1931ae6c825a5ff64e25f1fd4502f90e71f8b2a4c2857c3cc",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Core/HSBI_Version.mqh",
+      "SHA256": "b9432e5d966e99a8383ea9d6308e48c62725e431dd80e4a070020e9aa63359a9",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Diagnostics/HSBI_Diagnostics.mqh",
+      "SHA256": "ca3590969d6b9392a5c69dc3b95878c439d316505a7e08647523a5d69e425c46",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Diagnostics/HSBI_Logger.mqh",
+      "SHA256": "dc56e40d37909411f11dba454ec893e66315c92c68c85c1b4a9e3234daddc388",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Diagnostics/HSBI_PanelModel.mqh",
+      "SHA256": "ba0d4470c5ba0dd0f39ab6fe47e026efac4808fc74a7c2e2bc0e658726ee560c",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Execution/HSBI_ActionTypes.mqh",
+      "SHA256": "f8c4c8238052aa2999b797de7cee3e39c39435bf7e42068b4d6d76994d505f01",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Execution/HSBI_EventTypes.mqh",
+      "SHA256": "d588c6721e7a5af9e48bad54bdbe3cf3fc90688956353c3a04380ae0181f7c13",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Execution/HSBI_ExecutionIntent.mqh",
+      "SHA256": "67d9381fd0f2d170efc22a07bf4b391c9e86b1685d697d1e6201b713adb4d4f2",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Execution/HSBI_ExecutionPreflight.mqh",
+      "SHA256": "7af97449654913e8488e8dccc44c3fcf2f08b79c14ec3aea5d0388604fb5c9c0",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Execution/HSBI_ExternalOutcome.mqh",
+      "SHA256": "01eb91c904e73d2f3973c21c37e3973b2c72cb73e295621939e132b965b65c88",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Execution/HSBI_NoTradeExecution.mqh",
+      "SHA256": "d3264d4a3a8a6aef1a0cc69420f6d26b6aa16f25ec19e43f46151e6cbb242084",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Execution/HSBI_OwnershipGuardTypes.mqh",
+      "SHA256": "842a28c0fa460d00c443dc9ddda2a1d5314300e3adbfb155f1876457a38f4ac7",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Execution/HSBI_TransactionTypes.mqh",
+      "SHA256": "1b244dc72cd345f0f032dde14eb89227db20a7333cbc2c72afa2046c4720d8c9",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+      "SHA256": "b539c3c52089e22c2e5cba5a95b81bdc5267b59402bf0f3662f48e80dc1b155c",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Money/HSBI_AllocationPolicyTypes.mqh",
+      "SHA256": "f92a56ef4016231d435840b360ad8310eaa227657fddaf59dec1a3fb7001f3c0",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Money/HSBI_BasketMoneyEvaluator.mqh",
+      "SHA256": "f2038e34a8cc22d2e98cf870e479e6a3cbfe3d6edee64855ffb8784d1e5007fb",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Money/HSBI_BrokerMarginModel.mqh",
+      "SHA256": "6d9734df01ff3717a537e59dfea8a345443ee558585d2e08313428e652a8e345",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Money/HSBI_BrokerMoneyModel.mqh",
+      "SHA256": "66b0389135f3438acb712d8cf694db4de24f6b7e80a4b6dad1ac249e879ab068",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Money/HSBI_BrokerMoneyTypes.mqh",
+      "SHA256": "276e9ff6308b575be208f4cc23663d7a0489d9bcce8ec67a1a9472f437a092a4",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Money/HSBI_CandidateMoneyEvaluator.mqh",
+      "SHA256": "1a50a1d0c4078049c6723d4db1c7ba1409dff6fca244d10a8e7f955eee21f945",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Money/HSBI_CatchUpModel.mqh",
+      "SHA256": "daab1f3d7fa18de44dea6ac293b09cd33bcc3263e691b6f3f7a5fc1dcc10b83c",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Money/HSBI_CatchUpTypes.mqh",
+      "SHA256": "2d54a0ac9b149a89d3f35c2b72abad97820f7ef73d2b86118389db59bd4a142a",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Money/HSBI_CostModel.mqh",
+      "SHA256": "4f19ebab853118d7946f99a5fed2b9d84cbfd16c83390df9f5721c53c207f590",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "SHA256": "d9bcbef0fa7b6c5da61e7bafa6a6314458601252a2e580aac21396daadf95ed4",
+      "EconomicSymbolOccurrences": [
+        {
+          "Symbol": "HSBI_BuildSourceDealKey",
+          "Line": 7,
+          "Text": "string HSBI_BuildSourceDealKey(const HSBI_EconomicLedgerRecord &r){return r.symbol+\"|\"+LongToString(r.magic)+\"|\"+HSBI_UlongToString(r.cycleId)+\"|\"+HSBI_UlongToString(r.dealTicket);}"
+        },
+        {
+          "Symbol": "HSBI_ValidateEconomicRecord",
+          "Line": 8,
+          "Text": "bool HSBI_ValidateEconomicRecord(const HSBI_EconomicLedgerRecord &r){return r.dealTicket>0&&r.orderTicket>0&&r.positionIdentifier>0&&r.symbol!=\"\"&&r.cycleId>0&&r.actionId>0&&r.eventId>0&&r.volume>0&&r.sourceDealKey!=\"\"&&r.valid;}"
+        },
+        {
+          "Symbol": "HSBI_SameEconomicRecord",
+          "Line": 9,
+          "Text": "bool HSBI_SameEconomicRecord(const HSBI_EconomicLedgerRecord &a,const HSBI_EconomicLedgerRecord &b){return a.sourceDealKey==b.sourceDealKey&&MathAbs(a.dealNet-b.dealNet)<0.0000001&&a.volume==b.volume&&a.price==b.price;}"
+        },
+        {
+          "Symbol": "HSBI_SameEconomicRecord",
+          "Line": 10,
+          "Text": "int HSBI_ClassifyEconomicDuplicate(const HSBI_EconomicLedgerRecord &existing,const HSBI_EconomicLedgerRecord &incoming){if(existing.sourceDealKey!=incoming.sourceDealKey)return 0;return HSBI_SameEconomicRecord(existing,incoming)?1:2;}"
+        },
+        {
+          "Symbol": "HSBI_ClassifyEconomicDuplicate",
+          "Line": 10,
+          "Text": "int HSBI_ClassifyEconomicDuplicate(const HSBI_EconomicLedgerRecord &existing,const HSBI_EconomicLedgerRecord &incoming){if(existing.sourceDealKey!=incoming.sourceDealKey)return 0;return HSBI_SameEconomicRecord(existing,incoming)?1:2;}"
+        },
+        {
+          "Symbol": "HSBI_SerializeEconomicRecord",
+          "Line": 11,
+          "Text": "string HSBI_SerializeEconomicRecord(const HSBI_EconomicLedgerRecord &r){return r.sourceDealKey+\"|\"+DoubleToString(r.volume,8)+\"|\"+DoubleToString(r.price,8)+\"|\"+DoubleToString(r.dealNet,8);}"
+        },
+        {
+          "Symbol": "HSBI_IsHarvestSourceEntry",
+          "Line": 12,
+          "Text": "bool HSBI_IsHarvestSourceEntry(const HSBI_EconomicLedgerRecord &r){return r.entryType!=0&&r.dealNet>0.0;}"
+        }
+      ],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Money/HSBI_LevelMarginEvaluator.mqh",
+      "SHA256": "11e0a67346fb7ca7334d59507c44daee2c0517acee9786a251d03752f8dc774f",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Money/HSBI_LevelMoneyEvaluator.mqh",
+      "SHA256": "cbe8d9c662250eaad105987f1540c00e56932cf9546c1bff29ca000e604a19b6",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Money/HSBI_MoneyProofIdentity.mqh",
+      "SHA256": "f36029a3f62cf3d245962ea18d408555d507851e9a5e9e1e9d11c5868a28f17d",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Money/HSBI_MoneyState.mqh",
+      "SHA256": "0faeebfc6781198ead86e8cffac7e154947f1830e6b38d27d7900d069ac38396",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Money/HSBI_MoneyTypes.mqh",
+      "SHA256": "d7d00aa5a139ec82730e84ab18748ba49f12a339d0716255517b3377a4f94d70",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+      "SHA256": "18a3318d954d2f2426ec715441fc159fca364cdb1b65011b449e94d0671dd00f",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "SHA256": "5d967cf22e7d0fdc3d37aae6077b15c4330526dcef4c5b8eda74340a64ff174d",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Persistence/HSBI_ExecutionJournal.mqh",
+      "SHA256": "aeba6d8813c0079ae4f8e5c7484895e891e6acb91ae7aeacec751977adf1f76f",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh",
+      "SHA256": "e228f6b8e2e2d0bc2aeaa8cbab6c7656412465a9f887fa8fe6b152d463e3d971",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Persistence/HSBI_JournalTypes.mqh",
+      "SHA256": "800b8610c306a6d197df37b99ad93da09278f09a68049543578577d2348d80c8",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Persistence/HSBI_PersistenceInterface.mqh",
+      "SHA256": "e72b591500db88e2596c498fcdf7dbfdbe3641eef91ebbee80ce59e3aeddab06",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Persistence/HSBI_ReconciliationTypes.mqh",
+      "SHA256": "dc7260cd56d8392664ebecfb9fd3790cfe768f1a1ab9d428ed6bf83c14679c0d",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Persistence/HSBI_SnapshotTypes.mqh",
+      "SHA256": "d40945509150276d1e8ca60de173cf64af3a6ddff91f5ac1361c8533d41a5b9e",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "SHA256": "4cb955469a6c502456d9db146cb5fd80568807cc23abcdcdd9bcf5e4f4dd110c",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Planning/HSBI_CandidatePlan.mqh",
+      "SHA256": "3643a4a741e24e293656674b3681a74a5ef448610428f28a07dbf355533ac856",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Planning/HSBI_ControlPrices.mqh",
+      "SHA256": "5bd35f0cc4b7ee1aac1a772b2932f13ba385922e26d5f2649bbda76837256a4b",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Planning/HSBI_DecisionResult.mqh",
+      "SHA256": "cb5f7cd0c719ca81ad35547d49af8ba827d94d3bb41dbb88c0451eebf306849d",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+      "SHA256": "7bea2c75eec23825d5cbcca82fa72022b73f8c1626f5ffbce30ac79d722b03a0",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "SHA256": "c403bbad6089076500823219dac296e69100bed0e2cb950eb1f248749b868cf6",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Planning/HSBI_FutureSmallTypes.mqh",
+      "SHA256": "16fcecb00c05f2e03b90f81823bdf1c2aac4a7b6263713b29ad9feb18b218325",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Planning/HSBI_GeometrySolver.mqh",
+      "SHA256": "62b3b4a8d7a374e15b96b46a380e3c2f8f0e74aa57ae8749c0261ebab27a11f9",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Planning/HSBI_GeometryTypes.mqh",
+      "SHA256": "3126ecc200269b885bf2b5b46b8e72356f61e176b829ab0f40ee307e5b4e8b49",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Planning/HSBI_NewFarCandidate.mqh",
+      "SHA256": "9e09da3a5d22579807375be836931a11ecf666e79108dde2c9724f60f1cd2bf1",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Planning/HSBI_NewFarSolver.mqh",
+      "SHA256": "9dcf60b6edc245a8a5ee3a05f35d4d8d26c12479f570a66aa5e4f0e703497cd2",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Risk/HSBI_CalculationGateTypes.mqh",
+      "SHA256": "64791ac97362dfd8a5bcf5e5b294b1b71f8d984acc10a41853d27e20328e0900",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Risk/HSBI_FutureSmallRiskEvaluator.mqh",
+      "SHA256": "8ffa044f6819186aac145df165c80a32c0d7225142b28d3ef413326518277f7b",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Risk/HSBI_NewFarGateTypes.mqh",
+      "SHA256": "d82738006b15bb85990171b96cf65662a2699b6b890501fdd6cf31e73c1e9272",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Risk/HSBI_RiskGateResult.mqh",
+      "SHA256": "d0d7072973dac81be9284562046b7227ecfafbe14962c9ad05a3f8e2c73585c8",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Risk/HSBI_RiskTypes.mqh",
+      "SHA256": "327b2b000c136c19340ebcdca287341b7866da9bd209aac713ae393700c6bf4d",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh",
+      "SHA256": "cacba88273d9d85bd34f09d978178fc89fdceb672b3651cba683aea1679110f4",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+      "SHA256": "0332a192d4b9a5389f377d252111fb0317f074bc9ff7b51658a9e8de2d5fbd9b",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Runtime/HSBI_RuntimeRestartValidator.mqh",
+      "SHA256": "ec27d83911b89a77c31a6d7347a700e31e8bf631268aaaddfe4eedf976b5cbe7",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh",
+      "SHA256": "0e04217f0bd873a784ab65cc87514c7deb65c149b8b23fa7218d885b5cf30f1a",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Scenarios/HSBI_BigHarvestTypes.mqh",
+      "SHA256": "0516b1ec1b5720265df3072d28035719d3ed369f29c8bb28177b94a98873f483",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Scenarios/HSBI_FinalCloseTypes.mqh",
+      "SHA256": "3adfe776abae340a17b8ae8977c848f15c3b89cc2216085e71a9bf59ae6c53cd",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Scenarios/HSBI_InitialLockTypes.mqh",
+      "SHA256": "f67baeae393cc58d4d584eb9b22819991ba281f7986f7273d1672a1def634262",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Scenarios/HSBI_PartialFarTypes.mqh",
+      "SHA256": "ea862ce2f05239cc7aef8a94a256f4eaa50534c37f55d3d6c59d5ea6cf545fc5",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Scenarios/HSBI_ScenarioTypes.mqh",
+      "SHA256": "7cc05c0455d372ef7219b3ac4b86e9b8f2753131bcd8a5ea2819bd8a90dff1f3",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    },
+    {
+      "File": "Include/Scenarios/HSBI_SmallTransitionTypes.mqh",
+      "SHA256": "abf62239594b699449646178cfffaf4e15b6317eec9728088fcd98a76531cef1",
+      "EconomicSymbolOccurrences": [],
+      "TradingTokenOccurrences": []
+    }
+  ],
+  "Scope": "Lexical token occurrences across74 sources, not runtime proof or complete external call graph",
+  "MainSHA256": "71e511c620df5de7f1f9e0d865664efeaf4cf6edbcbb07f20efaf25c40e9bd62",
+  "RuntimePolicy": "#ifndef HSBI_RUNTIME_POLICY_MQH\n#define HSBI_RUNTIME_POLICY_MQH\n#include \"HSBI_Enums.mqh\"\n// HSB.2C-R1-P1 is orchestration-only: dispatch is unconditionally disabled.\nstruct HSBI_RuntimePolicy\n{\n   HSBI_RuntimeMode mode;\n   bool diagnosticsAllowed,staticCalculationAllowed,injectedFixtureAllowed;\n   bool productionPreflightAllowed,persistenceAllowed,terminalCompletionAllowed,brokerDispatchAllowed;\n   bool valid;\n};\nHSBI_RuntimePolicy HSBI_BuildRuntimePolicy(const HSBI_RuntimeMode mode)\n{\n   HSBI_RuntimePolicy p;ZeroMemory(p);p.mode=mode;\n   if(mode==HSBI_RUNTIME_UNSPECIFIED)return p;\n   if(mode==HSBI_RUNTIME_DISABLED){p.diagnosticsAllowed=true;p.valid=true;return p;}\n   if(mode==HSBI_RUNTIME_UNIT_TEST){p.diagnosticsAllowed=true;p.staticCalculationAllowed=true;p.injectedFixtureAllowed=true;p.valid=true;return p;}\n   if(mode==HSBI_RUNTIME_STRATEGY_TESTER_DRY_RUN||mode==HSBI_RUNTIME_DEMO_DRY_RUN){p.diagnosticsAllowed=true;p.staticCalculationAllowed=true;p.persistenceAllowed=true;p.valid=true;return p;}\n   if(mode==HSBI_RUNTIME_SHADOW){p.diagnosticsAllowed=true;p.staticCalculationAllowed=true;p.productionPreflightAllowed=true;p.persistenceAllowed=true;p.valid=true;return p;}\n   if(mode==HSBI_RUNTIME_PRODUCTION||mode==HSBI_RUNTIME_ADMIN_VERIFICATION){p.diagnosticsAllowed=true;p.staticCalculationAllowed=true;p.productionPreflightAllowed=true;p.persistenceAllowed=true;p.terminalCompletionAllowed=true;p.valid=true;return p;}\n   return p; // legacy real modes are fail-closed at this stage\n}\nbool HSBI_IsInjectedProofAllowed(const HSBI_RuntimeMode mode){return HSBI_BuildRuntimePolicy(mode).injectedFixtureAllowed;}\nbool HSBI_IsProductionPreflightAllowed(const HSBI_RuntimeMode mode){return HSBI_BuildRuntimePolicy(mode).productionPreflightAllowed;}\nbool HSBI_IsBrokerDispatchAllowed(const HSBI_RuntimeMode mode){return false;}\nbool HSBI_IsStaticCalculationAllowed(const HSBI_RuntimeMode mode){return HSBI_BuildRuntimePolicy(mode).staticCalculationAllowed;}\n// Source zero is the typed RUNTIME_TERMINAL source; all fake/unverified sources are non-zero.\nbool HSBI_IsCompletionSourceAllowed(const HSBI_RuntimeMode mode,const int source)\n{return HSBI_BuildRuntimePolicy(mode).terminalCompletionAllowed&&source==0;}\n#endif\n",
+  "NoTradeExecution": "#ifndef HSBI_NO_TRADE_EXECUTION_MQH\n#define HSBI_NO_TRADE_EXECUTION_MQH\n#include \"../Core/HSBI_ReasonCodes.mqh\"\nstruct HSBI_NoTradeResult{bool success;HSBI_ReasonCode reason;};\nHSBI_NoTradeResult HSBI_SubmitActionStub(){HSBI_NoTradeResult r;r.success=false;r.reason=HSBI_REASON_TRADING_NOT_IMPLEMENTED;return r;}\nHSBI_NoTradeResult HSBI_OpenPositionStub(){return HSBI_SubmitActionStub();}\nHSBI_NoTradeResult HSBI_ClosePositionStub(){return HSBI_SubmitActionStub();}\nHSBI_NoTradeResult HSBI_PartialCloseStub(){return HSBI_SubmitActionStub();}\n#endif"
+}

@@ -1,0 +1,76 @@
+{
+  "Baseline": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+  "ProductionAllowlist": [
+    "Include/Money/HSBI_EconomicLedgerTypes.mqh"
+  ],
+  "Status": "PROPOSED_AWAITING_ADMIN_APPROVAL",
+  "SourceKey": [
+    "Broker",
+    "Server",
+    "AccountLogin",
+    "DealTicket"
+  ],
+  "PayloadFields": [
+    "SchemaVersion",
+    "Broker",
+    "Server",
+    "AccountLogin",
+    "Symbol",
+    "Magic",
+    "CycleID",
+    "DealTicket",
+    "OrderTicket",
+    "PositionIdentifier",
+    "ActionID",
+    "EventID",
+    "Role",
+    "EntryType",
+    "DealType",
+    "TimestampMsc",
+    "Volume",
+    "Price",
+    "Profit",
+    "Swap",
+    "Commission",
+    "Fee",
+    "DealNet",
+    "Currency",
+    "Precision",
+    "SourcePlanApplicable",
+    "SourcePlan",
+    "SourcePolicyApplicable",
+    "SourcePolicyVersion"
+  ],
+  "Statuses": [
+    "NEW",
+    "NO_OP",
+    "CONFLICT",
+    "REJECT",
+    "UNAVAILABLE"
+  ],
+  "NativeAcceptance": "MetaEditor strict compile complete EA and isolated no-trade harness; diagnostics, warnings and per-field goldens required. NOT_RUN now.",
+  "Acceptance": [
+    "Same key exact full immutable payload NO_OP with zero state delta",
+    "Same Net but changed signed components CONFLICT",
+    "Magic/Cycle/Symbol change under same broker account deal CONFLICT, never new profit",
+    "Unknown namespace/history/origin/registry completeness UNAVAILABLE, never NEW",
+    "Malformed nonfinite/range/schema rejected without mutation",
+    "Different independently confirmed source can be NEW_IDENTITY only, never spending permission",
+    "29-field equality roundtrip, UTF8/int64/uint64/binary64 goldens with exact zero policy",
+    "Unknown legacy quarantine, no fabricated current account or origin data",
+    "Legacy diagnostic-only semantics explicitly approved; caller static scan before integrating",
+    "One-file diff only; no new production helper, provider/backend/funding/dispatch",
+    "Full immutable source tests, checked double domain, exact allowed codec approved by owner"
+  ],
+  "Compatibility": "Additive V2 surface may fit one header; this does not fix old financial equality by itself. Old names diagnostic-only only after explicit owner agreement and caller audit.",
+  "Rollback": "Single remediation commit reversible; no on-disk migration writes in Minimal R1.1. Preserve original bytes and immutable schema; quarantine unknown legacy.",
+  "OneFileFeasibility": "STATIC_CONDITIONAL; data structs/pure equality/status helpers fit one header. Provider authenticity, persistence/CAS and active callers cannot be remedied in this scope.",
+  "StopConditions": [
+    "Unapproved codec/schema/domain",
+    "New callsite or helper needed outside allowlist",
+    "MetaEditor compile/native fails or unavailable at acceptance",
+    "Any trading/persistence/provider operations introduced",
+    "Remote baseline changed"
+  ],
+  "StartAllowed": false
+}

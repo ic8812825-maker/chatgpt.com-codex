@@ -1,0 +1,110 @@
+{
+  "UTC": "2026-11-12T12:23:38.001453+00:00",
+  "Files": [
+    {
+      "Path": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_C1_REGRESSION.json",
+      "Size": 2325867,
+      "SHA256": "c50177d743c671fc7d1bd63510889e6d2767415447576c8732c3f424b6e126f3",
+      "MtimeUtc": "2026-11-12T11:46:44.985978+00:00",
+      "Classification": "COMPLETE_SYNTAX_ONLY",
+      "Note": "Syntax validity is not semantic completeness"
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_C2_REGRESSION.json",
+      "Size": 4394536,
+      "SHA256": "52a7ce7eb5ff3224502fde714b379363565996888b31fe6c94189b43fe62f0af",
+      "MtimeUtc": "2026-11-12T11:46:58.103037+00:00",
+      "Classification": "COMPLETE_SYNTAX_ONLY",
+      "Note": "Syntax validity is not semantic completeness"
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_MATH_TESTS.json",
+      "Size": 4714,
+      "SHA256": "2852973171f74b312efe9dee427f18db2ed477cf495296a75a1adf126f95d30e",
+      "MtimeUtc": "2026-11-12T11:46:04.690505+00:00",
+      "Classification": "COMPLETE_SYNTAX_ONLY",
+      "Note": "Syntax validity is not semantic completeness"
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_NATIVE_ENVIRONMENT.json",
+      "Size": 2950,
+      "SHA256": "ee454e254c4e32ccc8af4065689f741951cb272ffd21acbac3ad24d07e910cc0",
+      "MtimeUtc": "2026-11-12T11:47:02.359564+00:00",
+      "Classification": "COMPLETE_SYNTAX_ONLY",
+      "Note": "Syntax validity is not semantic completeness"
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_PRESERVATION.json",
+      "Size": 389383,
+      "SHA256": "cb51e25029777624f1e04081397f641b0f826dd1dd816241d40d6836ef4b37e2",
+      "MtimeUtc": "2026-11-12T11:45:50.835503+00:00",
+      "Classification": "COMPLETE_SYNTAX_ONLY",
+      "Note": "Syntax validity is not semantic completeness"
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_R0_REGRESSION.json",
+      "Size": 39059,
+      "SHA256": "1bd3fff2dac37489eddc5bf02d2badfc44e8796325fd3719d974a48d871b1300",
+      "MtimeUtc": "2026-11-12T11:46:37.734233+00:00",
+      "Classification": "COMPLETE_SYNTAX_ONLY",
+      "Note": "Syntax validity is not semantic completeness"
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_REGRESSIONS.json",
+      "Size": 218466,
+      "SHA256": "92279a4e90607c0c89691ffa31b5d75632d9a97c6b1aa98f21cc32f74ffe0d8b",
+      "MtimeUtc": "2026-11-12T11:46:58.784140+00:00",
+      "Classification": "COMPLETE_SYNTAX_ONLY",
+      "Note": "Syntax validity is not semantic completeness"
+    },
+    {
+      "Path": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS.json",
+      "Size": 29922,
+      "SHA256": "ad64deed3264709bd44445900c25b0c96fd6f8ee68f8f3e4b4608eec4355e29b",
+      "MtimeUtc": "2026-11-12T11:46:04.689844+00:00",
+      "Classification": "COMPLETE_SYNTAX_ONLY",
+      "Note": "Syntax validity is not semantic completeness"
+    },
+    {
+      "Path": "Tests/Reference/HSBI_FULL_SYSTEM_AUDIT_02_native.mq5",
+      "Size": 1573,
+      "SHA256": "0f524463df6e0c8d4dea882b32dcf318a050670f98335bfe24e2b35bd83a8a8f",
+      "MtimeUtc": "2026-11-12T11:47:02.050862+00:00",
+      "Classification": "COMPLETE_SYNTAX_ONLY",
+      "Note": "Syntax validity is not semantic completeness"
+    },
+    {
+      "Path": "Tests/Reference/HSBI_FULL_SYSTEM_AUDIT_02_source_cases.cpp",
+      "Size": 7075,
+      "SHA256": "28181d746efb6fe8196eb9ced3f2913ed8003989b4b1a6afe8b980168133ce9a",
+      "MtimeUtc": "2026-11-12T11:45:50.122344+00:00",
+      "Classification": "COMPLETE_SYNTAX_ONLY",
+      "Note": "Syntax validity is not semantic completeness"
+    },
+    {
+      "Path": "Tests/Static/HSBI_FULL_SYSTEM_AUDIT_02_regressions.py",
+      "Size": 2845,
+      "SHA256": "1247e1d988769489dd351bc83110ee0d9f346c7914f6341cb54a8d2375355760",
+      "MtimeUtc": "2026-11-12T11:46:28.346967+00:00",
+      "Classification": "COMPLETE_SYNTAX_ONLY",
+      "Note": "Syntax validity is not semantic completeness"
+    },
+    {
+      "Path": "Tests/Static/HSBI_FULL_SYSTEM_AUDIT_02_verify.py",
+      "Size": 9164,
+      "SHA256": "17e2101e39ac27a70aec7ac71d654567848133631043d61849b2f0d795ab1486",
+      "MtimeUtc": "2026-11-12T11:45:03.564414+00:00",
+      "Classification": "COMPLETE_SYNTAX_ONLY",
+      "Note": "Syntax validity is not semantic completeness"
+    },
+    {
+      "Path": "Tests/Static/__pycache__/HSBI_FULL_SYSTEM_AUDIT_02_verify.cpython-312.pyc",
+      "Size": 20237,
+      "SHA256": "32008a6598b786b2940905b9cb26dc136c7f9a272cc36c3aa820df0d23d36a0a",
+      "MtimeUtc": "2026-11-12T11:47:02.083018+00:00",
+      "Classification": "COMPLETE_SYNTAX_ONLY",
+      "Note": "Syntax validity is not semantic completeness"
+    }
+  ],
+  "PreviousWorkspaceRecovered": true
+}

@@ -1,0 +1,243 @@
+# AUDIT 02 — 16 решений владельца (все AWAITING_ADMIN_APPROVAL)
+
+Исходные R0F строки являются proposed material, не действующей новой нормой. Указанные математические аргументы не заменяют runtime/broker evidence.
+
+## D-01
+- **CurrentContract**: Docs08/legacy Remaining и C3 Gross naming conflict.
+- **Conflict**: Bare Gross смешивает исходный grant и неиспользованный остаток.
+- **RecommendedChoice**: Названия OriginalGrant=C+R+F, RemainingGross=R+F; Available=F лишь после проверки authority/journal.
+- **AlternativeChoice**: Сохранить legacy RemainingGross как отдельную read-only view, без переименования в Free.
+- **MathematicalJustification**: G50 C10 R15 F25: 50=10+15+25; RemainingGross40=15+25; 10+15+40=65 — двойной учёт.
+- **Counterexample**: G50 C10 R15 F25: 50=10+15+25; RemainingGross40=15+25; 10+15+40=65 — двойной учёт.
+- **ProductionImpact**: После отдельного задания: Economic/Allocation/Proof consumers согласно dependency graph; production в R0F не меняется.
+- **MigrationImpact**: Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.
+- **RequiredEvidence**: Независимые provider/history/posted/cost facts по scope; native MetaEditor/golden checks для MQL implementation; durable/CAS/concurrency отдельный backend. Семантический выбор не подтверждает реализацию.
+- **Dependencies**: ['D-02']
+- **ShortApprovalStatement**: Утвердить явные имена и версионированный адаптер; ни один bare Gross не использовать в money API.
+- **ApprovalStatus**: AWAITING_ADMIN_APPROVAL
+AdministratorDecision: (не заполнено)
+
+## D-02
+- **CurrentContract**: Docs08 actual deals; C3 disjoint money types.
+- **Conflict**: Одинаковые числа и kind-флаги не подтверждают actual или spendable ресурс.
+- **RecommendedChoice**: Разделить ProjectedBasketNet, ProjectedCloseNowNet, ActualRealizedDealNet, ReconciledEconomicNet, EligibleSourceGrant, AvailableReserve; переходы только по independent receipts.
+- **AlternativeChoice**: Оставить прогнозные view только в planning, с явным запретом funding/consumption.
+- **MathematicalJustification**: Projected100 без подтверждённых закрытий не даёт grant; complete-empty history может доказывать0, incomplete history даёт UNAVAILABLE.
+- **Counterexample**: Projected100 без подтверждённых закрытий не даёт grant; complete-empty history может доказывать0, incomplete history даёт UNAVAILABLE.
+- **ProductionImpact**: После отдельного задания: Economic/Allocation/Proof consumers согласно dependency graph; production в R0F не меняется.
+- **MigrationImpact**: Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.
+- **RequiredEvidence**: Независимые provider/history/posted/cost facts по scope; native MetaEditor/golden checks для MQL implementation; durable/CAS/concurrency отдельный backend. Семантический выбор не подтверждает реализацию.
+- **Dependencies**: ['D-08']
+- **ShortApprovalStatement**: Утвердить запрет неявных преобразований и independent reconciliation как обязательный переход.
+- **ApprovalStatus**: AWAITING_ADMIN_APPROVAL
+AdministratorDecision: (не заполнено)
+
+## D-03
+- **CurrentContract**: Docs31 роли BigCore/BigTrend; production LevelMoney reserveGain включает Small.
+- **Conflict**: Small-only profit может ошибочно получить Big Reserve назначение.
+- **RecommendedChoice**: Small positive остаётся ResidualHeld; opening costs учитываются economic, без harvest grants.
+- **AlternativeChoice**: Отдельный подтверждённый transfer contract с debit+credit, новым event и policy; сейчас отсутствует.
+- **MathematicalJustification**: Core0 Trend0 Small10 =>BigReserve0, SmallResidualHeld10. Переименование роли не создаёт второй источник.
+- **Counterexample**: Core0 Trend0 Small10 =>BigReserve0, SmallResidualHeld10. Переименование роли не создаёт второй источник.
+- **ProductionImpact**: После отдельного задания: HSBI_LevelMoneyEvaluator.mqh reserveGain source attribution, ReserveAllocation и CatchUp; формулу сейчас не менять.
+- **MigrationImpact**: Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.
+- **RequiredEvidence**: Независимые provider/history/posted/cost facts по scope; native MetaEditor/golden checks для MQL implementation; durable/CAS/concurrency отдельный backend. Семантический выбор не подтверждает реализацию.
+- **Dependencies**: ['D-01', 'D-08']
+- **ShortApprovalStatement**: Рекомендуется A. B не активируется до отдельного утверждения transfer contract.
+- **ApprovalStatus**: AWAITING_ADMIN_APPROVAL
+AdministratorDecision: (не заполнено)
+
+## D-04
+- **CurrentContract**: Far loss absolute/incremental proposals; historical baseline lineage не реализован.
+- **Conflict**: Incremental10 ошибочно покрывается Reserve30 при absolute50.
+- **RecommendedChoice**: AbsoluteFarLoss=max(0,-ProjectedCloseNowFarNet); incremental только diagnostic с полным basis.
+- **AlternativeChoice**: Самостоятельная incremental risk model после утверждения baseline/volume/restart lineage.
+- **MathematicalJustification**: Absolute50 baseline40 incremental10; Reserve30 покрывает10, но не50. BUY закрывается Bid, SELL Ask.
+- **Counterexample**: Absolute50 baseline40 incremental10; Reserve30 покрывает10, но не50. BUY закрывается Bid, SELL Ask.
+- **ProductionImpact**: После отдельного задания: Economic/Allocation/Proof consumers согласно dependency graph; production в R0F не меняется.
+- **MigrationImpact**: Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.
+- **RequiredEvidence**: Независимые provider/history/posted/cost facts по scope; native MetaEditor/golden checks для MQL implementation; durable/CAS/concurrency отдельный backend. Семантический выбор не подтверждает реализацию.
+- **Dependencies**: ['D-02']
+- **ShortApprovalStatement**: Утвердить A как рабочую projected risk metric; не выдавать её за actual settlement loss.
+- **ApprovalStatus**: AWAITING_ADMIN_APPROVAL
+AdministratorDecision: (не заполнено)
+
+## D-05
+- **CurrentContract**: Docs08 signed closing net; C2/C3 текущий batch assessment, без sticky журнала.
+- **Conflict**: Current final loss, историческое breach и peak loss неэквивалентны.
+- **RecommendedChoice**: НЕ ВЫБРАНО: явный выбор A/B/C обязателен
+- **AlternativeChoice**: A: max(0,-cumulative signed net) на текущем подтверждённом префиксе.; B: sticky breach до approved reset; C: max historical cumulative loss. Полные формулы/reset/restart в MONEY_CONTRACT.
+- **MathematicalJustification**: Fills -15,+100 Cap12: current15→0; sticky false→true и остаётся true; peak15→15. A cap gate восстанавливается, B/C нет.
+- **Counterexample**: Fills -15,+100 Cap12: current15→0; sticky false→true и остаётся true; peak15→15. A cap gate восстанавливается, B/C нет.
+- **ProductionImpact**: После отдельного задания: Batch provider/reconciliation/transition caps и independent ordered fills; не dispatch.
+- **MigrationImpact**: Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.
+- **RequiredEvidence**: Независимые provider/history/posted/cost facts по scope; native MetaEditor/golden checks для MQL implementation; durable/CAS/concurrency отдельный backend. Семантический выбор не подтверждает реализацию.
+- **Dependencies**: ['D-02', 'D-08']
+- **ShortApprovalStatement**: ПОЛИТИКА НЕ ВЫБРАНА. Администратор должен явно выбрать A/B/C и reset rules; до этого production-допуск UNAVAILABLE.
+- **ApprovalStatus**: AWAITING_ADMIN_APPROVAL
+AdministratorDecision: (не заполнено)
+
+## D-06
+- **CurrentContract**: Signed Profit/Swap/Commission/Fee и independent cost coverage; buffer headroom не actual debit.
+- **Conflict**: Неизвестное пересечение basis/window может дать двойное вычитание или скрытый ноль.
+- **RecommendedChoice**: Полный независимый CostID inventory с applicability, amount, currency, basis/window, inclusion и deduction ровно один раз.
+- **AlternativeChoice**: Сводный buffer только с доказанной coverage map; размер и overlap подтверждаются отдельно.
+- **MathematicalJustification**: Commission -2 уже в net50 нельзя ещё раз вычитать до48. Unknown slippage не0; RequiredBalance10.5 не означает debit10.5.
+- **Counterexample**: Commission -2 уже в net50 нельзя ещё раз вычитать до48. Unknown slippage не0; RequiredBalance10.5 не означает debit10.5.
+- **ProductionImpact**: После отдельного задания: Economic/Allocation/Proof consumers согласно dependency graph; production в R0F не меняется.
+- **MigrationImpact**: Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.
+- **RequiredEvidence**: Независимые provider/history/posted/cost facts по scope; native MetaEditor/golden checks для MQL implementation; durable/CAS/concurrency отдельный backend. Семантический выбор не подтверждает реализацию.
+- **Dependencies**: ['D-02', 'D-08']
+- **ShortApprovalStatement**: Утвердить правило ровно одного учёта; конкретный inventory/amounts требуют внешних данных, не угадываются.
+- **ApprovalStatus**: AWAITING_ADMIN_APPROVAL
+AdministratorDecision: (не заполнено)
+
+## D-07
+- **CurrentContract**: Docs08 exact NO_OP/changed CONFLICT; C3 in-memory != durable/concurrent.
+- **Conflict**: Replay ordering, durable commit и отсутствие истории смешивались.
+- **RecommendedChoice**: Conflict-first immutable source reconciliation, complete journal, затем exact stored receipt NO_OP.
+- **AlternativeChoice**: Authenticated receipt-first policy с отдельно утверждённым поведением unavailable source/history.
+- **MathematicalJustification**: Grant50 debit10 event1 =>40; exact event1 остаётся40; changed event1 amount11 =>CONFLICT. Restart без journal не доказывает отсутствие event.
+- **Counterexample**: Grant50 debit10 event1 =>40; exact event1 остаётся40; changed event1 amount11 =>CONFLICT. Restart без journal не доказывает отсутствие event.
+- **ProductionImpact**: После отдельного задания: Economic/Allocation/Proof consumers согласно dependency graph; production в R0F не меняется.
+- **MigrationImpact**: Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.
+- **RequiredEvidence**: Независимые provider/history/posted/cost facts по scope; native MetaEditor/golden checks для MQL implementation; durable/CAS/concurrency отдельный backend. Семантический выбор не подтверждает реализацию.
+- **Dependencies**: ['D-08']
+- **ShortApprovalStatement**: Рекомендуется A как явно названный профиль, без заявления durable/concurrent exactly-once.
+- **ApprovalStatus**: AWAITING_ADMIN_APPROVAL
+AdministratorDecision: (не заполнено)
+
+## D-08
+- **CurrentContract**: Docs08/31/32 independent source; production source key без Account/Broker/Server.
+- **Conflict**: Expected из proof и key по symbol/magic/cycle/deal допускают самоподтверждение и namespace collisions.
+- **RecommendedChoice**: Logical key=(Broker,Server,AccountLogin,DealTicket), immutable payload всех raw/EA-origin полей; typed independent provider.
+- **AlternativeChoice**: Independent signed/verified adapter receipt того же payload digest; не self-copy.
+- **MathematicalJustification**: Два accounts с Deal11 различны. Profit60/Commission-10 и70/-20 при net50 — same source, changed payload =>CONFLICT.
+- **Counterexample**: Два accounts с Deal11 различны. Profit60/Commission-10 и70/-20 при net50 — same source, changed payload =>CONFLICT.
+- **ProductionImpact**: После отдельного задания: HSBI_EconomicLedgerTypes.mqh key/equality/schema; NewFar expected identity отдельно позже.
+- **MigrationImpact**: Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.
+- **RequiredEvidence**: Независимые provider/history/posted/cost facts по scope; native MetaEditor/golden checks для MQL implementation; durable/CAS/concurrency отдельный backend. Семантический выбор не подтверждает реализацию.
+- **Dependencies**: []
+- **ShortApprovalStatement**: Утвердить A, разделив raw identity, EA-origin association и текущий consumption context; B может быть provider boundary.
+- **ApprovalStatus**: AWAITING_ADMIN_APPROVAL
+AdministratorDecision: (не заполнено)
+
+## CR-09
+- **CurrentContract**: Production worstTransitionLossLevel; C3 A all-level/B single-level.
+- **Conflict**: MaxTransition level не гарантирует минимальный CatchUpMargin; прогноз не actual resource.
+- **RecommendedChoice**: ALL_REQUIRED_FORECAST: min_i(EligibleReserve_i-AbsoluteFarLoss_i-Safety_i)>0 и все required gates/lineage.
+- **AlternativeChoice**: SINGLE_LEVEL assessment отдельно, никогда не повышается до all-level или dispatch authorization.
+- **MathematicalJustification**: L1 margin79 transition50, L2 margin-6 transition1: B positive L1, all-level обязан отклонить L2.
+- **Counterexample**: L1 margin79 transition50, L2 margin-6 transition1: B positive L1, all-level обязан отклонить L2.
+- **ProductionImpact**: После отдельного задания: Economic/Allocation/Proof consumers согласно dependency graph; production в R0F не меняется.
+- **MigrationImpact**: Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.
+- **RequiredEvidence**: Независимые provider/history/posted/cost facts по scope; native MetaEditor/golden checks для MQL implementation; durable/CAS/concurrency отдельный backend. Семантический выбор не подтверждает реализацию.
+- **Dependencies**: ['D-01', 'D-02', 'D-04', 'D-06', 'SNAP-FIXTURE-1', 'FUNDING-GLOBAL-ATTRIBUTION']
+- **ShortApprovalStatement**: Рекомендуется A; полный реальный допуск блокирован до данных о reserve, snapshots, risk/margin и sequential consumption.
+- **ApprovalStatus**: AWAITING_ADMIN_APPROVAL
+AdministratorDecision: (не заполнено)
+
+## NUM-EXACT-1
+- **CurrentContract**: R0D Fraction reference; raw double внешняя граница и неподтверждённый MQL domain.
+- **Conflict**: Округление projected потерь и потеря малых дебетов могут менять знак proof.
+- **RecommendedChoice**: Settled posted/grants/balances в integer minor units; raw observation отдельно; projected scale отдельно.
+- **AlternativeChoice**: Fixed-point/checked rational production domain с доказанными intermediate bounds.
+- **MathematicalJustification**: 1e28-.010-(1e28-.005)=-.005. INT64_MAX minor units после двух debit1 равен INT64_MAX-2.
+- **Counterexample**: 1e28-.010-(1e28-.005)=-.005. INT64_MAX minor units после двух debit1 равен INT64_MAX-2.
+- **ProductionImpact**: После отдельного задания: Economic/Allocation/Proof consumers согласно dependency graph; production в R0F не меняется.
+- **MigrationImpact**: Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.
+- **RequiredEvidence**: Независимые provider/history/posted/cost facts по scope; native MetaEditor/golden checks для MQL implementation; durable/CAS/concurrency отдельный backend. Семантический выбор не подтверждает реализацию.
+- **Dependencies**: ['D-02']
+- **ShortApprovalStatement**: Рекомендуется A для settled; reference exact rational не переносится автоматически в MQL5.
+- **ApprovalStatus**: AWAITING_ADMIN_APPROVAL
+AdministratorDecision: (не заполнено)
+
+## NUM-DOMAIN-1
+- **CurrentContract**: R0D lattice10^-64 abs<10^65; fixture money digits0..8.
+- **Conflict**: Reference-domain существенно шире int64 minor units и broker precision facts.
+- **RecommendedChoice**: Явный bounded MQL domain с checked overflow и UNAVAILABLE за границей.
+- **AlternativeChoice**: Более широкий multiword/fixed-point domain после доказательства всех intermediates.
+- **MathematicalJustification**: 1e28 dollars =>1e30 cents вне int64; MAX+MAX-MAX-MAX final0 всё равно требует wide accumulator либо отдельного domain refusal.
+- **Counterexample**: 1e28 dollars =>1e30 cents вне int64; MAX+MAX-MAX-MAX final0 всё равно требует wide accumulator либо отдельного domain refusal.
+- **ProductionImpact**: После отдельного задания: Economic/Allocation/Proof consumers согласно dependency graph; production в R0F не меняется.
+- **MigrationImpact**: Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.
+- **RequiredEvidence**: Независимые provider/history/posted/cost facts по scope; native MetaEditor/golden checks для MQL implementation; durable/CAS/concurrency отдельный backend. Семантический выбор не подтверждает реализацию.
+- **Dependencies**: ['NUM-EXACT-1', 'MQL-DOMAIN']
+- **ShortApprovalStatement**: Не выбирать production bounds из тестовых чисел. Сначала native arithmetic/receipt-domain evidence.
+- **ApprovalStatus**: AWAITING_ADMIN_APPROVAL
+AdministratorDecision: (не заполнено)
+
+## NUM-CODEC
+- **CurrentContract**: R0D fixture typed codec, R1 raw64/NFC proposal, C3 native codec не проверен.
+- **Conflict**: Wire identity и financial rounding смешивались; MQL compatibility не доказана.
+- **RecommendedChoice**: Рассмотреть B для raw source; A/B не выбраны до native evidence и администратора
+- **AlternativeChoice**: HSBI-T17Z-1: typed length-prefixed UTF8 + canonical scientific17 raw doubles, explicit zero equivalence.; HSBI-F64Z-1: typed length-prefixed binary fields + finite64 raw bits, reconstructed arithmetic.
+- **MathematicalJustification**: Raw .1 имеет bits3fb999999999999a и text1.0000000000000001e-001; str1/int1/bool1 не должны совпасть.
+- **Counterexample**: Raw .1 имеет bits3fb999999999999a и text1.0000000000000001e-001; str1/int1/bool1 не должны совпасть.
+- **ProductionImpact**: После отдельного задания: Raw serialization/namespace inside approved R1.1 scope or separately allowed helper; no money credit.
+- **MigrationImpact**: Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.
+- **RequiredEvidence**: Независимые provider/history/posted/cost facts по scope; native MetaEditor/golden checks для MQL implementation; durable/CAS/concurrency отдельный backend. Семантический выбор не подтверждает реализацию.
+- **Dependencies**: ['NUM-EXACT-1']
+- **ShortApprovalStatement**: Оба варианта подготовлены. Рекомендуется рассмотреть B для raw source; НЕ ВЫБРАН без administrator/native golden validation.
+- **ApprovalStatus**: AWAITING_ADMIN_APPROVAL
+AdministratorDecision: (не заполнено)
+
+## SNAP-FIXTURE-1
+- **CurrentContract**: R0D content receipt; C2 ID/fresh только provider fixture assertion.
+- **Conflict**: ID999+fresh не доказывают content/freshness полного snapshot.
+- **RecommendedChoice**: Versioned independent snapshot object + immutable content receipt and clock/units policy.
+- **AlternativeChoice**: ID-only provider attestation исключительно с ограниченным scope, не full proof.
+- **MathematicalJustification**: Один ID3 с изменённым fingerprint должен быть CONFLICT; обновлённый receipt из самого altered object не independent proof.
+- **Counterexample**: Один ID3 с изменённым fingerprint должен быть CONFLICT; обновлённый receipt из самого altered object не independent proof.
+- **ProductionImpact**: После отдельного задания: Economic/Allocation/Proof consumers согласно dependency graph; production в R0F не меняется.
+- **MigrationImpact**: Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.
+- **RequiredEvidence**: Независимые provider/history/posted/cost facts по scope; native MetaEditor/golden checks для MQL implementation; durable/CAS/concurrency отдельный backend. Семантический выбор не подтверждает реализацию.
+- **Dependencies**: ['D-08']
+- **ShortApprovalStatement**: Рекомендуется A для полного proof, B — только явно ограниченный helper; unknown clock/receipt UNAVAILABLE.
+- **ApprovalStatus**: AWAITING_ADMIN_APPROVAL
+AdministratorDecision: (не заполнено)
+
+## FUNDING-GLOBAL-ATTRIBUTION
+- **CurrentContract**: C3 source-local cap доказан, глобальные account debit/credit и concurrency UNPROVEN.
+- **Conflict**: Сумма grants одного источника не равна доказанному свободному капиталу всего счёта.
+- **RecommendedChoice**: Global economic attribution с complete account history, all roles/manual deals, independent reconciliation и durable ownership.
+- **AlternativeChoice**: Явно ограничить все текущие утверждения source-local fixture scope, без production available.
+- **MathematicalJustification**: Source50 allocations40+20 запрещены. Source50 плюс unaccounted account debit30 не доказывает account free50.
+- **Counterexample**: Source50 allocations40+20 запрещены. Source50 плюс unaccounted account debit30 не доказывает account free50.
+- **ProductionImpact**: После отдельного задания: Economic/Allocation/Proof consumers согласно dependency graph; production в R0F не меняется.
+- **MigrationImpact**: Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.
+- **RequiredEvidence**: Независимые provider/history/posted/cost facts по scope; native MetaEditor/golden checks для MQL implementation; durable/CAS/concurrency отдельный backend. Семантический выбор не подтверждает реализацию.
+- **Dependencies**: ['D-01', 'D-02', 'D-07', 'D-08']
+- **ShortApprovalStatement**: B — текущая граница. A требует отдельных данных и backend; R1.1 этим не реализуется.
+- **ApprovalStatus**: AWAITING_ADMIN_APPROVAL
+AdministratorDecision: (не заполнено)
+
+## MQL-DOMAIN
+- **CurrentContract**: C3 Python signed64 simulation и g++ subset; MetaEditor NOT_RUN.
+- **Conflict**: Математическая проверка не доказывает нативные ulong/long/double/UTF8 conversions.
+- **RecommendedChoice**: Checked long minor units и отдельный raw double adapter; exact field ranges/limits.
+- **AlternativeChoice**: Wider fixed-point/multiword adapter, исключительно после native tests.
+- **MathematicalJustification**: INT64_MIN*(-1) и MAX+1 недопустимы. TimestampMsc signed long не должен наследовать весь ulong range.
+- **Counterexample**: INT64_MIN*(-1) и MAX+1 недопустимы. TimestampMsc signed long не должен наследовать весь ulong range.
+- **ProductionImpact**: После отдельного задания: Economic/Allocation/Proof consumers согласно dependency graph; production в R0F не меняется.
+- **MigrationImpact**: Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.
+- **RequiredEvidence**: Независимые provider/history/posted/cost facts по scope; native MetaEditor/golden checks для MQL implementation; durable/CAS/concurrency отдельный backend. Семантический выбор не подтверждает реализацию.
+- **Dependencies**: []
+- **ShortApprovalStatement**: Требуются compile main+harness и native vectors; actual MQL acceptance не READY.
+- **ApprovalStatus**: AWAITING_ADMIN_APPROVAL
+AdministratorDecision: (не заполнено)
+
+## BALANCE-SCHEMA-MAPPING
+- **CurrentContract**: Legacy RemainingGross и новый Free profile.
+- **Conflict**: Silent rename возвращает reserved/consumed ресурс в available.
+- **RecommendedChoice**: Versioned adapter: Free=RemainingGross-Reserved, Grant=Consumed+RemainingGross, complete owners/units.
+- **AlternativeChoice**: Сохранить legacy read-only и выполнять append-only migration только по independent receipts.
+- **MathematicalJustification**: G50 C10 Remaining40 Reserved15 =>Free25. Unknown currency/precision/owner =>UNAVAILABLE, неFree40.
+- **Counterexample**: G50 C10 Remaining40 Reserved15 =>Free25. Unknown currency/precision/owner =>UNAVAILABLE, неFree40.
+- **ProductionImpact**: После отдельного задания: Economic/Allocation/Proof consumers согласно dependency graph; production в R0F не меняется.
+- **MigrationImpact**: Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.
+- **RequiredEvidence**: Независимые provider/history/posted/cost facts по scope; native MetaEditor/golden checks для MQL implementation; durable/CAS/concurrency отдельный backend. Семантический выбор не подтверждает реализацию.
+- **Dependencies**: ['D-01', 'D-02', 'D-08']
+- **ShortApprovalStatement**: A только при достаточных данных; иначе B/quarantine. Нет текущего ACCOUNT_LOGIN fallback.
+- **ApprovalStatus**: AWAITING_ADMIN_APPROVAL
+AdministratorDecision: (не заполнено)

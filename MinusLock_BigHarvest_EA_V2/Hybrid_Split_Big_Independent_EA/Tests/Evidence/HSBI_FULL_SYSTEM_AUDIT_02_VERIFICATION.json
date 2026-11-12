@@ -1,0 +1,242 @@
+{
+  "BaseSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+  "UTC": "2026-11-12T12:41:45.704972+00:00",
+  "Artifacts": [
+    {
+      "File": "Docs/HSBI_FULL_SYSTEM_AUDIT_02_ECONOMIC_CONSERVATION_RU.md",
+      "SHA256": "afc9e6e4d9cc9dfd47c4511d2100bd10c602a33d197e3692c3489888b131abbe",
+      "Bytes": 4225
+    },
+    {
+      "File": "Docs/HSBI_FULL_SYSTEM_AUDIT_02_FSM_COMPARISON_RU.md",
+      "SHA256": "de89504042ab5a264987b9ab94c7f762d8c5842777969669d4b42a5df1f5f022",
+      "Bytes": 2772
+    },
+    {
+      "File": "Reports/HSBI_FULL_SYSTEM_AUDIT_02_ADMIN_DECISIONS_RU.md",
+      "SHA256": "7ecd5726b3230f55c32b5d81b9b57a86c07bc22cd02ce1a777abb068375fe515",
+      "Bytes": 30398
+    },
+    {
+      "File": "Reports/HSBI_FULL_SYSTEM_AUDIT_02_EXECUTION_SUMMARY_RU.md",
+      "SHA256": "809fb65efdb92e173cbb06cdf30d5a98320d82800e69497054114c8e9288ed4d",
+      "Bytes": 3658
+    },
+    {
+      "File": "Reports/HSBI_FULL_SYSTEM_AUDIT_02_FINAL_VERDICT_RU.md",
+      "SHA256": "76f16ec32db09fe9d26f581b68655e4388f71f9be67c4766f5cde785c5d917d0",
+      "Bytes": 9419
+    },
+    {
+      "File": "Reports/HSBI_FULL_SYSTEM_AUDIT_02_MATH_PROOF_GAPS_RU.md",
+      "SHA256": "fc828a16b8c1cb42937defe3f9593df6dcb142c5d898342237a0442dc262ea63",
+      "Bytes": 25200
+    },
+    {
+      "File": "Reports/HSBI_FULL_SYSTEM_AUDIT_02_NATIVE_READINESS_RU.md",
+      "SHA256": "6853e84339e7eba85b29f96167dfc6b53c3255c391bab2efcbbad617df9531c3",
+      "Bytes": 3008
+    },
+    {
+      "File": "Reports/HSBI_FULL_SYSTEM_AUDIT_02_P0_REVERIFICATION_RU.md",
+      "SHA256": "92e527ec52aed7073520af84a1760d86aebe70b3a6eeec1379ed2381b45795a4",
+      "Bytes": 13615
+    },
+    {
+      "File": "Reports/HSBI_FULL_SYSTEM_AUDIT_02_P1_P2_REVIEW_RU.md",
+      "SHA256": "959c2d3d925180a585773c14d06f54328e8abf1d6e59187d724ce0e87aa46dc6",
+      "Bytes": 24624
+    },
+    {
+      "File": "Reports/HSBI_FULL_SYSTEM_AUDIT_02_R1_1_READINESS_RU.md",
+      "SHA256": "8306ded33e4bc46cc3c1436ad890020fb44ba2c41f3f43388fa339b69072becd",
+      "Bytes": 4432
+    },
+    {
+      "File": "Tests/Contracts/HSBI_FULL_SYSTEM_AUDIT_02_DECISION_MATRIX.json",
+      "SHA256": "1f5ecb0e11d3601fd35ffe59d8411e613bb9fcb8eb8e4d958707b9b6b1b74392",
+      "Bytes": 39865
+    },
+    {
+      "File": "Tests/Contracts/HSBI_FULL_SYSTEM_AUDIT_02_DEFECT_MATRIX.json",
+      "SHA256": "2f55169c2732ff36c67ab341ee7b1283c3124f4252c5a03b9da290e6481066e1",
+      "Bytes": 48098
+    },
+    {
+      "File": "Tests/Contracts/HSBI_FULL_SYSTEM_AUDIT_02_FORMULA_REVIEW.json",
+      "SHA256": "3c17c6f13889deb5bbaeffde1345c9dcefab2252b61c9477e423613c559685d8",
+      "Bytes": 63731
+    },
+    {
+      "File": "Tests/Contracts/HSBI_FULL_SYSTEM_AUDIT_02_FSM_MATRIX.json",
+      "SHA256": "477b953019203e2bb2a039f9e19951c5c87abd3b8c8411b3306342a4d8a6e2ff",
+      "Bytes": 471459
+    },
+    {
+      "File": "Tests/Contracts/HSBI_FULL_SYSTEM_AUDIT_02_R1_1_ACCEPTANCE.json",
+      "SHA256": "25381c7d1ac11f4b6d43bd33b0bf4808ccdcc22f2c426eeb38afebefb3e8597b",
+      "Bytes": 2876
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_BUILD_EXECUTION.json",
+      "SHA256": "f874708735bf38206eaa23d667129145650de0142ffc9371285ebeb98bd1de55",
+      "Bytes": 587
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_C1_REGRESSION.json",
+      "SHA256": "de2e7a0ba0944f70f57c0f1e8176c1cce693253b940936a3a3d7a8683c28a685",
+      "Bytes": 2325867
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_C2_REGRESSION.json",
+      "SHA256": "a1d8ee7c19bfceb977314d2abb2e721254dd2d2b2b2c4c31a07f4e7a6d0410cb",
+      "Bytes": 4394536
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_DEVELOPMENT_FAILURES.json",
+      "SHA256": "969a52c53f7ec22eb3fec70c5c7928812657f9d1cab4dd5455c679d97c3c3843",
+      "Bytes": 891
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_FAIL_CLASSIFICATION.json",
+      "SHA256": "fa1c54f0ecf2b565759018a6c3d00e7bfd9299cc392494caf6d115a1602a868b",
+      "Bytes": 22226
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_LEDGER_TESTS.json",
+      "SHA256": "4401a11a71d61e832b1da0286a2da53c8e328851823ee40029fa722cf87a01d6",
+      "Bytes": 21141
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_MATH_TESTS.json",
+      "SHA256": "2852973171f74b312efe9dee427f18db2ed477cf495296a75a1adf126f95d30e",
+      "Bytes": 4714
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_MATH_TESTS_FRESH.json",
+      "SHA256": "07bd9c4f5b5aacad3bc150e1197f245ffecf89b300de2679f8aa73ab23400afb",
+      "Bytes": 5256
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_NATIVE_ENVIRONMENT.json",
+      "SHA256": "ee454e254c4e32ccc8af4065689f741951cb272ffd21acbac3ad24d07e910cc0",
+      "Bytes": 2950
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_NATIVE_ENVIRONMENT_FRESH.json",
+      "SHA256": "1fce0b112fb5d633a84c01dfa76cd0775925f661a05d1a97f2f393bbd5b860e5",
+      "Bytes": 2824
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_PREPUBLICATION_CHECK.json",
+      "SHA256": "b0a2e4fb062d0ff595ccf095a77c468a6a913e462013d65e29975e9e6f9cbed6",
+      "Bytes": 397
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_PRESERVATION.json",
+      "SHA256": "580bdf821ae0e9188a30b94efd7f7b0eb9ba218ed533aa43a1fee349b9aef224",
+      "Bytes": 389383
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_R0_REGRESSION.json",
+      "SHA256": "1f21da77332db98ecc1ad55e4949168907df9cd6a63b09d832ee83edb31496d5",
+      "Bytes": 39059
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_RECOVERY_ARCHIVE.json",
+      "SHA256": "a578f63100521f109490a4c2e5515e14f2b9efcc6108e52998ab77859c009a17",
+      "Bytes": 9928891
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_RECOVERY_INVENTORY.json",
+      "SHA256": "2eec7c7d81206ba9b99b7edf6d57da392abc671888e9980a8d9e53a965fe1486",
+      "Bytes": 4744
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_REGRESSIONS.json",
+      "SHA256": "2b8c19f7c2106a2f703ec763387d96836a7241c1a40446d463789652d7b6f574",
+      "Bytes": 218466
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_REGRESSION_CLASSIFICATION.json",
+      "SHA256": "fb5a232fa87f7430917806d9650e6ade0fc4b4e6c9f906eee8852519743dd684",
+      "Bytes": 2586
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS.json",
+      "SHA256": "cb90dc281d78e013d2e1e2afc2c36ae832cd158a6a957da57cb323230c106353",
+      "Bytes": 29922
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS_EXTENDED.json",
+      "SHA256": "93e4408f248c22da36094827bad00af8282832cb28916d5897664025dbbf6d77",
+      "Bytes": 33375
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_SOURCE_TESTS_FRESH.json",
+      "SHA256": "ae60f8e43e81194ea581317ccc851c528d0c4a87f8218364d178183d0abee352",
+      "Bytes": 30471
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_STATIC_SOURCE_SCAN.json",
+      "SHA256": "1c422e5b62e59191696d19a33dcdbf41ada4b18ca28f35ca3dd00aec63c44703",
+      "Bytes": 22340
+    },
+    {
+      "File": "Tests/Evidence/HSBI_FULL_SYSTEM_AUDIT_02_TEST_RESULTS.json",
+      "SHA256": "8267ff2605eb19976cb04109474a1bdf0c3d74d36f68c290c73d294c2a4fea0e",
+      "Bytes": 40358
+    },
+    {
+      "File": "Tests/Reference/HSBI_FULL_SYSTEM_AUDIT_02_extension.cpp",
+      "SHA256": "4f715ee65194eaa0ba06cee3fa25b730764b9f38a4d83859f0c4ca472e87fee6",
+      "Bytes": 2210
+    },
+    {
+      "File": "Tests/Reference/HSBI_FULL_SYSTEM_AUDIT_02_ledger.py",
+      "SHA256": "90581c8bd6524c60f14bbcc6f5e3a28584877ecf7e957de88cfe9b685d55c629",
+      "Bytes": 2890
+    },
+    {
+      "File": "Tests/Reference/HSBI_FULL_SYSTEM_AUDIT_02_native.mq5",
+      "SHA256": "0f524463df6e0c8d4dea882b32dcf318a050670f98335bfe24e2b35bd83a8a8f",
+      "Bytes": 1573
+    },
+    {
+      "File": "Tests/Reference/HSBI_FULL_SYSTEM_AUDIT_02_source_cases.cpp",
+      "SHA256": "28181d746efb6fe8196eb9ced3f2913ed8003989b4b1a6afe8b980168133ce9a",
+      "Bytes": 7075
+    },
+    {
+      "File": "Tests/Static/HSBI_FULL_SYSTEM_AUDIT_02_build.py",
+      "SHA256": "910f2ec88d41b26d92b8da9b73cdc6eed9699bf0f7658298ceda001af94b3dc8",
+      "Bytes": 60004
+    },
+    {
+      "File": "Tests/Static/HSBI_FULL_SYSTEM_AUDIT_02_ledger_tests.py",
+      "SHA256": "00b3d700e527c4f457ed2007785a75c0c6cbe518982ebb7fef97ddd90ac3938e",
+      "Bytes": 4333
+    },
+    {
+      "File": "Tests/Static/HSBI_FULL_SYSTEM_AUDIT_02_package.py",
+      "SHA256": "a9ac8f4c3cdf93c70714ac29e0a443b4e04061b468038284f9ca50fa4e354c55",
+      "Bytes": 10717
+    },
+    {
+      "File": "Tests/Static/HSBI_FULL_SYSTEM_AUDIT_02_regressions.py",
+      "SHA256": "1247e1d988769489dd351bc83110ee0d9f346c7914f6341cb54a8d2375355760",
+      "Bytes": 2845
+    },
+    {
+      "File": "Tests/Static/HSBI_FULL_SYSTEM_AUDIT_02_verify.py",
+      "SHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419",
+      "Bytes": 9824
+    }
+  ],
+  "Exclusions": [
+    "VERIFICATION itself: no self-referential hash",
+    "PACKAGE_RESULTS: independently re-executed positive/negative probes"
+  ],
+  "Scope": "Integrity of partial audit package, not system correctness",
+  "ApprovalStatus": "AWAITING_ADMIN_APPROVAL"
+}

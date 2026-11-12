@@ -1,0 +1,809 @@
+{
+  "Runs": [
+    {
+      "Command": [
+        "g++",
+        "-std=c++17",
+        "-O0",
+        "-fno-fast-math",
+        "/tmp/hsbi-audit02-63d1s6xe/source.cpp",
+        "-o",
+        "/tmp/hsbi-audit02-63d1s6xe/source"
+      ],
+      "StartedUtc": "2026-11-12T12:33:12.364922+00:00",
+      "FinishedUtc": "2026-11-12T12:33:15.888251+00:00",
+      "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+      "ExitCode": 0,
+      "Stdout": "",
+      "Stderr": "",
+      "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+    },
+    {
+      "Command": [
+        "/tmp/hsbi-audit02-63d1s6xe/source"
+      ],
+      "StartedUtc": "2026-11-12T12:33:15.891803+00:00",
+      "FinishedUtc": "2026-11-12T12:33:15.895138+00:00",
+      "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+      "ExitCode": 0,
+      "Stdout": "T|ECON_REPLAY|1|1\nT|FSA001_COMPONENTS|0|1\nT|PRICE_CONFLICT|1|1\nT|VOLUME_CONFLICT|1|1\nT|MAGIC_SAME_PHYSICAL_SOURCE|0|1\nT|ALLOC_REPLAY|1|1\nT|FSA002_VECTOR|0|1\nT|OTHER_ALLOC_EVENT_NEW|1|1\nT|ALLOC_DOMAIN_POSITIVE|1|1\nT|FSA007_NEGATIVE_BUCKET|0|1\nT|RESERVE_BOUND|1|1\nT|FSA003_FOREIGN_ALLOCATION|0|1\nT|FSA004_EXHAUSTED|0|1\nV|EXHAUSTED_GAIN|40\nT|FSA010_INDEPENDENT_EXPECTED|1|1\nT|FSA010_COPIED_EXPECTED_OBSERVATION|1|1\nT|RISK_VALID|1|1\nT|FSA005_NAN|0|1\nT|RISK_NEGATIVE_MARGIN|0|1\nT|TX_VALID|1|1\nT|FOREIGN_OWNERSHIP|1|1\nT|OTHER_ACTION|1|1\nT|FSA006_NAN|0|1\nT|TX_PARTIAL|1|1\nT|MONEY_VALID|1|1\nT|NEGATIVE_MONEY|1|1\nT|FSA008_INVALID_FLAG|0|1\nT|MONEY_INF|0|1\nT|CONTEXT_ONE_FAR|1|1\nT|FSA009_INITIAL_SLOT|0|1\nT|NO_DUAL_ALL_SLOTS|0|1\n",
+      "Stderr": "",
+      "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+    }
+  ],
+  "Rows": [
+    {
+      "TestID": "ECON_REPLAY",
+      "Actual": true,
+      "Expected": true,
+      "Result": "PASS",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "FSA001_COMPONENTS",
+      "Actual": false,
+      "Expected": true,
+      "Result": "FAIL",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "PRICE_CONFLICT",
+      "Actual": true,
+      "Expected": true,
+      "Result": "PASS",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "VOLUME_CONFLICT",
+      "Actual": true,
+      "Expected": true,
+      "Result": "PASS",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "MAGIC_SAME_PHYSICAL_SOURCE",
+      "Actual": false,
+      "Expected": true,
+      "Result": "FAIL",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "ALLOC_REPLAY",
+      "Actual": true,
+      "Expected": true,
+      "Result": "PASS",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "FSA002_VECTOR",
+      "Actual": false,
+      "Expected": true,
+      "Result": "FAIL",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "OTHER_ALLOC_EVENT_NEW",
+      "Actual": true,
+      "Expected": true,
+      "Result": "PASS",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "ALLOC_DOMAIN_POSITIVE",
+      "Actual": true,
+      "Expected": true,
+      "Result": "PASS",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "FSA007_NEGATIVE_BUCKET",
+      "Actual": false,
+      "Expected": true,
+      "Result": "FAIL",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "RESERVE_BOUND",
+      "Actual": true,
+      "Expected": true,
+      "Result": "PASS",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "FSA003_FOREIGN_ALLOCATION",
+      "Actual": false,
+      "Expected": true,
+      "Result": "FAIL",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "FSA004_EXHAUSTED",
+      "Actual": false,
+      "Expected": true,
+      "Result": "FAIL",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "FSA010_INDEPENDENT_EXPECTED",
+      "Actual": true,
+      "Expected": true,
+      "Result": "PASS",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "FSA010_COPIED_EXPECTED_OBSERVATION",
+      "Actual": true,
+      "Expected": true,
+      "Result": "PASS",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "RISK_VALID",
+      "Actual": true,
+      "Expected": true,
+      "Result": "PASS",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "FSA005_NAN",
+      "Actual": false,
+      "Expected": true,
+      "Result": "FAIL",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "RISK_NEGATIVE_MARGIN",
+      "Actual": false,
+      "Expected": true,
+      "Result": "FAIL",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "TX_VALID",
+      "Actual": true,
+      "Expected": true,
+      "Result": "PASS",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "FOREIGN_OWNERSHIP",
+      "Actual": true,
+      "Expected": true,
+      "Result": "PASS",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "OTHER_ACTION",
+      "Actual": true,
+      "Expected": true,
+      "Result": "PASS",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "FSA006_NAN",
+      "Actual": false,
+      "Expected": true,
+      "Result": "FAIL",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "TX_PARTIAL",
+      "Actual": true,
+      "Expected": true,
+      "Result": "PASS",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "MONEY_VALID",
+      "Actual": true,
+      "Expected": true,
+      "Result": "PASS",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "NEGATIVE_MONEY",
+      "Actual": true,
+      "Expected": true,
+      "Result": "PASS",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "FSA008_INVALID_FLAG",
+      "Actual": false,
+      "Expected": true,
+      "Result": "FAIL",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "MONEY_INF",
+      "Actual": false,
+      "Expected": true,
+      "Result": "FAIL",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "CONTEXT_ONE_FAR",
+      "Actual": true,
+      "Expected": true,
+      "Result": "PASS",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "FSA009_INITIAL_SLOT",
+      "Actual": false,
+      "Expected": true,
+      "Result": "FAIL",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    },
+    {
+      "TestID": "NO_DUAL_ALL_SLOTS",
+      "Actual": false,
+      "Expected": true,
+      "Result": "FAIL",
+      "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+    }
+  ],
+  "Pass": 17,
+  "Fail": 13,
+  "Sources": [
+    {
+      "File": "Include/Core/HSBI_Version.mqh",
+      "SHA256": "b9432e5d966e99a8383ea9d6308e48c62725e431dd80e4a070020e9aa63359a9"
+    },
+    {
+      "File": "Include/Core/HSBI_Enums.mqh",
+      "SHA256": "69b0ded8187af3f69a4058188c206f11b881e4f7d9c092d7bafe1bb9111d29f6"
+    },
+    {
+      "File": "Include/Core/HSBI_ReasonCodes.mqh",
+      "SHA256": "62aef3906bc933cee98a136fd8ed983be36f23ef01da50a6c2572551bce2abe2"
+    },
+    {
+      "File": "Include/Core/HSBI_Types.mqh",
+      "SHA256": "61e08fbfc9e97df1931ae6c825a5ff64e25f1fd4502f90e71f8b2a4c2857c3cc"
+    },
+    {
+      "File": "Include/Core/HSBI_Identifiers.mqh",
+      "SHA256": "a6421afab5dc291df0d17cfa4e1d39f5cc96bd87aa9cd9602129e240d0a8dd9e"
+    },
+    {
+      "File": "Include/Core/HSBI_RuntimePolicy.mqh",
+      "SHA256": "1fa087dda8d81f182c8c6d8fd2dab4c4712b973c8f95ad15c0bfdf115b01d337"
+    },
+    {
+      "File": "Include/Core/HSBI_RuntimeMode.mqh",
+      "SHA256": "f47526eddac1c7007ebddfd5c32d95848600ba6751086442e8032ed6ce9878f2"
+    },
+    {
+      "File": "Include/Core/HSBI_Roles.mqh",
+      "SHA256": "836970966be820261b031717bab2f81482ab76c57e06ee63269c368012a3399d"
+    },
+    {
+      "File": "Include/Core/HSBI_Context.mqh",
+      "SHA256": "7ae314b8f7e4183419943297885a6291afbf449a5d63490ca35757f737eb80ef"
+    },
+    {
+      "File": "Include/Core/HSBI_StateMachine.mqh",
+      "SHA256": "7ec9f9860ce9d72c7f7c119377c1b2bedda25001921b92ef3aa9c7d95a32e403"
+    },
+    {
+      "File": "Include/Core/HSBI_StateValidator.mqh",
+      "SHA256": "145d73d6d69baf1ef58958237b6c375bef23e2cd9004d1f50c9fe694c24077f6"
+    },
+    {
+      "File": "Include/Core/HSBI_Invariants.mqh",
+      "SHA256": "4c4a742a62a60361fb63e907888f4bc936591c00326ebe2812ba2fa668133981"
+    },
+    {
+      "File": "Include/Execution/HSBI_ActionTypes.mqh",
+      "SHA256": "f8c4c8238052aa2999b797de7cee3e39c39435bf7e42068b4d6d76994d505f01"
+    },
+    {
+      "File": "Include/Execution/HSBI_EventTypes.mqh",
+      "SHA256": "d588c6721e7a5af9e48bad54bdbe3cf3fc90688956353c3a04380ae0181f7c13"
+    },
+    {
+      "File": "Include/Execution/HSBI_TransactionTypes.mqh",
+      "SHA256": "1b244dc72cd345f0f032dde14eb89227db20a7333cbc2c72afa2046c4720d8c9"
+    },
+    {
+      "File": "Include/Execution/HSBI_OwnershipGuardTypes.mqh",
+      "SHA256": "842a28c0fa460d00c443dc9ddda2a1d5314300e3adbfb155f1876457a38f4ac7"
+    },
+    {
+      "File": "Include/Money/HSBI_MoneyTypes.mqh",
+      "SHA256": "d7d00aa5a139ec82730e84ab18748ba49f12a339d0716255517b3377a4f94d70"
+    },
+    {
+      "File": "Include/Money/HSBI_MoneyState.mqh",
+      "SHA256": "0faeebfc6781198ead86e8cffac7e154947f1830e6b38d27d7900d069ac38396"
+    },
+    {
+      "File": "Include/Money/HSBI_BrokerMoneyTypes.mqh",
+      "SHA256": "276e9ff6308b575be208f4cc23663d7a0489d9bcce8ec67a1a9472f437a092a4"
+    },
+    {
+      "File": "Include/Planning/HSBI_BrokerGrid.mqh",
+      "SHA256": "4cb955469a6c502456d9db146cb5fd80568807cc23abcdcdd9bcf5e4f4dd110c"
+    },
+    {
+      "File": "Include/Planning/HSBI_ControlPrices.mqh",
+      "SHA256": "5bd35f0cc4b7ee1aac1a772b2932f13ba385922e26d5f2649bbda76837256a4b"
+    },
+    {
+      "File": "Include/Planning/HSBI_GeometryTypes.mqh",
+      "SHA256": "3126ecc200269b885bf2b5b46b8e72356f61e176b829ab0f40ee307e5b4e8b49"
+    },
+    {
+      "File": "Include/Planning/HSBI_GeometrySolver.mqh",
+      "SHA256": "62b3b4a8d7a374e15b96b46a380e3c2f8f0e74aa57ae8749c0261ebab27a11f9"
+    },
+    {
+      "File": "Include/Money/HSBI_CostModel.mqh",
+      "SHA256": "4f19ebab853118d7946f99a5fed2b9d84cbfd16c83390df9f5721c53c207f590"
+    },
+    {
+      "File": "Include/Money/HSBI_BrokerMoneyModel.mqh",
+      "SHA256": "66b0389135f3438acb712d8cf694db4de24f6b7e80a4b6dad1ac249e879ab068"
+    },
+    {
+      "File": "Include/Money/HSBI_BrokerMarginModel.mqh",
+      "SHA256": "6d9734df01ff3717a537e59dfea8a345443ee558585d2e08313428e652a8e345"
+    },
+    {
+      "File": "Include/Money/HSBI_MoneyProofIdentity.mqh",
+      "SHA256": "f36029a3f62cf3d245962ea18d408555d507851e9a5e9e1e9d11c5868a28f17d"
+    },
+    {
+      "File": "Include/Money/HSBI_LevelMoneyEvaluator.mqh",
+      "SHA256": "cbe8d9c662250eaad105987f1540c00e56932cf9546c1bff29ca000e604a19b6"
+    },
+    {
+      "File": "Include/Money/HSBI_LevelMarginEvaluator.mqh",
+      "SHA256": "11e0a67346fb7ca7334d59507c44daee2c0517acee9786a251d03752f8dc774f"
+    },
+    {
+      "File": "Include/Money/HSBI_BasketMoneyEvaluator.mqh",
+      "SHA256": "f2038e34a8cc22d2e98cf870e479e6a3cbfe3d6edee64855ffb8784d1e5007fb"
+    },
+    {
+      "File": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "SHA256": "d9bcbef0fa7b6c5da61e7bafa6a6314458601252a2e580aac21396daadf95ed4"
+    },
+    {
+      "File": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+      "SHA256": "b539c3c52089e22c2e5cba5a95b81bdc5267b59402bf0f3662f48e80dc1b155c"
+    },
+    {
+      "File": "Include/Money/HSBI_AllocationPolicyTypes.mqh",
+      "SHA256": "f92a56ef4016231d435840b360ad8310eaa227657fddaf59dec1a3fb7001f3c0"
+    },
+    {
+      "File": "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+      "SHA256": "18a3318d954d2f2426ec715441fc159fca364cdb1b65011b449e94d0671dd00f"
+    },
+    {
+      "File": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "SHA256": "5d967cf22e7d0fdc3d37aae6077b15c4330526dcef4c5b8eda74340a64ff174d"
+    },
+    {
+      "File": "Include/Money/HSBI_CatchUpTypes.mqh",
+      "SHA256": "2d54a0ac9b149a89d3f35c2b72abad97820f7ef73d2b86118389db59bd4a142a"
+    },
+    {
+      "File": "Include/Money/HSBI_CatchUpModel.mqh",
+      "SHA256": "daab1f3d7fa18de44dea6ac293b09cd33bcc3263e691b6f3f7a5fc1dcc10b83c"
+    },
+    {
+      "File": "Include/Risk/HSBI_RiskTypes.mqh",
+      "SHA256": "327b2b000c136c19340ebcdca287341b7866da9bd209aac713ae393700c6bf4d"
+    },
+    {
+      "File": "Include/Risk/HSBI_RiskGateResult.mqh",
+      "SHA256": "d0d7072973dac81be9284562046b7227ecfafbe14962c9ad05a3f8e2c73585c8"
+    },
+    {
+      "File": "Include/Risk/HSBI_CalculationGateTypes.mqh",
+      "SHA256": "64791ac97362dfd8a5bcf5e5b294b1b71f8d984acc10a41853d27e20328e0900"
+    },
+    {
+      "File": "Include/Risk/HSBI_NewFarGateTypes.mqh",
+      "SHA256": "d82738006b15bb85990171b96cf65662a2699b6b890501fdd6cf31e73c1e9272"
+    },
+    {
+      "File": "Include/Risk/HSBI_FutureSmallRiskEvaluator.mqh",
+      "SHA256": "8ffa044f6819186aac145df165c80a32c0d7225142b28d3ef413326518277f7b"
+    },
+    {
+      "File": "Include/Planning/HSBI_NewFarCandidate.mqh",
+      "SHA256": "9e09da3a5d22579807375be836931a11ecf666e79108dde2c9724f60f1cd2bf1"
+    },
+    {
+      "File": "Include/Planning/HSBI_FutureSmallTypes.mqh",
+      "SHA256": "16fcecb00c05f2e03b90f81823bdf1c2aac4a7b6263713b29ad9feb18b218325"
+    },
+    {
+      "File": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+      "SHA256": "c403bbad6089076500823219dac296e69100bed0e2cb950eb1f248749b868cf6"
+    },
+    {
+      "File": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+      "SHA256": "7bea2c75eec23825d5cbcca82fa72022b73f8c1626f5ffbce30ac79d722b03a0"
+    },
+    {
+      "File": "Include/Execution/HSBI_ExecutionIntent.mqh",
+      "SHA256": "67d9381fd0f2d170efc22a07bf4b391c9e86b1685d697d1e6201b713adb4d4f2"
+    },
+    {
+      "File": "Include/Persistence/HSBI_ExecutionJournal.mqh",
+      "SHA256": "aeba6d8813c0079ae4f8e5c7484895e891e6acb91ae7aeacec751977adf1f76f"
+    },
+    {
+      "File": "Include/Execution/HSBI_ExecutionPreflight.mqh",
+      "SHA256": "7af97449654913e8488e8dccc44c3fcf2f08b79c14ec3aea5d0388604fb5c9c0"
+    },
+    {
+      "File": "Include/Execution/HSBI_ExternalOutcome.mqh",
+      "SHA256": "01eb91c904e73d2f3973c21c37e3973b2c72cb73e295621939e132b965b65c88"
+    }
+  ],
+  "FixtureSHA256": "28181d746efb6fe8196eb9ced3f2913ed8003989b4b1a6afe8b980168133ce9a",
+  "ExtensionSHA256": null,
+  "SharedAdapterSHA256": "80aa4352baa4ebf5406ccd087a458738e443607db7d4c11ba7a03e8403d20aa3",
+  "Mutations": [
+    {
+      "MutationID": "ECON_PRICE",
+      "ExactEdit": [
+        "&&a.price==b.price",
+        ""
+      ],
+      "OriginalSourceHash": "bae4bc4ded2115c46f4e1a3e52c25e592924c73db6fe7b061abc121aa8a1f9b9",
+      "MutantSourceHash": "1ad84e162551e6ef8b4f2826c25ecbb2aa3c85fe4c83a36fbf23d8be418a8467",
+      "CausalTestID": "PRICE_CONFLICT",
+      "PositiveTestID": "ECON_REPLAY",
+      "OriginalNegative": {
+        "TestID": "PRICE_CONFLICT",
+        "Actual": true,
+        "Expected": true,
+        "Result": "PASS",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "MutantPositive": [
+        "1",
+        "1"
+      ],
+      "MutantNegative": [
+        "0",
+        "1"
+      ],
+      "Verdict": "MUTATION_KILLED",
+      "Compile": {
+        "Command": [
+          "g++",
+          "-std=c++17",
+          "-O0",
+          "-fno-fast-math",
+          "/tmp/hsbi-audit02-63d1s6xe/source.cpp",
+          "-o",
+          "/tmp/hsbi-audit02-63d1s6xe/source"
+        ],
+        "StartedUtc": "2026-11-12T12:33:15.897645+00:00",
+        "FinishedUtc": "2026-11-12T12:33:18.296048+00:00",
+        "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+        "ExitCode": 0,
+        "Stdout": "",
+        "Stderr": "",
+        "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+      },
+      "Run": {
+        "Command": [
+          "/tmp/hsbi-audit02-63d1s6xe/source"
+        ],
+        "StartedUtc": "2026-11-12T12:33:18.298822+00:00",
+        "FinishedUtc": "2026-11-12T12:33:18.301300+00:00",
+        "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+        "ExitCode": 0,
+        "Stdout": "T|ECON_REPLAY|1|1\nT|FSA001_COMPONENTS|0|1\nT|PRICE_CONFLICT|0|1\nT|VOLUME_CONFLICT|1|1\nT|MAGIC_SAME_PHYSICAL_SOURCE|0|1\nT|ALLOC_REPLAY|1|1\nT|FSA002_VECTOR|0|1\nT|OTHER_ALLOC_EVENT_NEW|1|1\nT|ALLOC_DOMAIN_POSITIVE|1|1\nT|FSA007_NEGATIVE_BUCKET|0|1\nT|RESERVE_BOUND|1|1\nT|FSA003_FOREIGN_ALLOCATION|0|1\nT|FSA004_EXHAUSTED|0|1\nV|EXHAUSTED_GAIN|40\nT|FSA010_INDEPENDENT_EXPECTED|1|1\nT|FSA010_COPIED_EXPECTED_OBSERVATION|1|1\nT|RISK_VALID|1|1\nT|FSA005_NAN|0|1\nT|RISK_NEGATIVE_MARGIN|0|1\nT|TX_VALID|1|1\nT|FOREIGN_OWNERSHIP|1|1\nT|OTHER_ACTION|1|1\nT|FSA006_NAN|0|1\nT|TX_PARTIAL|1|1\nT|MONEY_VALID|1|1\nT|NEGATIVE_MONEY|1|1\nT|FSA008_INVALID_FLAG|0|1\nT|MONEY_INF|0|1\nT|CONTEXT_ONE_FAR|1|1\nT|FSA009_INITIAL_SLOT|0|1\nT|NO_DUAL_ALL_SLOTS|0|1\n",
+        "Stderr": "",
+        "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+      }
+    },
+    {
+      "MutationID": "ECON_VOLUME",
+      "ExactEdit": [
+        "&&a.volume==b.volume",
+        ""
+      ],
+      "OriginalSourceHash": "bae4bc4ded2115c46f4e1a3e52c25e592924c73db6fe7b061abc121aa8a1f9b9",
+      "MutantSourceHash": "b1d2c477ac49f1244825f6014ead9d93a83ee5d535c793487aca3bee9d05ef8b",
+      "CausalTestID": "VOLUME_CONFLICT",
+      "PositiveTestID": "ECON_REPLAY",
+      "OriginalNegative": {
+        "TestID": "VOLUME_CONFLICT",
+        "Actual": true,
+        "Expected": true,
+        "Result": "PASS",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "MutantPositive": [
+        "1",
+        "1"
+      ],
+      "MutantNegative": [
+        "0",
+        "1"
+      ],
+      "Verdict": "MUTATION_KILLED",
+      "Compile": {
+        "Command": [
+          "g++",
+          "-std=c++17",
+          "-O0",
+          "-fno-fast-math",
+          "/tmp/hsbi-audit02-63d1s6xe/source.cpp",
+          "-o",
+          "/tmp/hsbi-audit02-63d1s6xe/source"
+        ],
+        "StartedUtc": "2026-11-12T12:33:18.304368+00:00",
+        "FinishedUtc": "2026-11-12T12:33:20.743725+00:00",
+        "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+        "ExitCode": 0,
+        "Stdout": "",
+        "Stderr": "",
+        "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+      },
+      "Run": {
+        "Command": [
+          "/tmp/hsbi-audit02-63d1s6xe/source"
+        ],
+        "StartedUtc": "2026-11-12T12:33:20.747000+00:00",
+        "FinishedUtc": "2026-11-12T12:33:20.750191+00:00",
+        "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+        "ExitCode": 0,
+        "Stdout": "T|ECON_REPLAY|1|1\nT|FSA001_COMPONENTS|0|1\nT|PRICE_CONFLICT|1|1\nT|VOLUME_CONFLICT|0|1\nT|MAGIC_SAME_PHYSICAL_SOURCE|0|1\nT|ALLOC_REPLAY|1|1\nT|FSA002_VECTOR|0|1\nT|OTHER_ALLOC_EVENT_NEW|1|1\nT|ALLOC_DOMAIN_POSITIVE|1|1\nT|FSA007_NEGATIVE_BUCKET|0|1\nT|RESERVE_BOUND|1|1\nT|FSA003_FOREIGN_ALLOCATION|0|1\nT|FSA004_EXHAUSTED|0|1\nV|EXHAUSTED_GAIN|40\nT|FSA010_INDEPENDENT_EXPECTED|1|1\nT|FSA010_COPIED_EXPECTED_OBSERVATION|1|1\nT|RISK_VALID|1|1\nT|FSA005_NAN|0|1\nT|RISK_NEGATIVE_MARGIN|0|1\nT|TX_VALID|1|1\nT|FOREIGN_OWNERSHIP|1|1\nT|OTHER_ACTION|1|1\nT|FSA006_NAN|0|1\nT|TX_PARTIAL|1|1\nT|MONEY_VALID|1|1\nT|NEGATIVE_MONEY|1|1\nT|FSA008_INVALID_FLAG|0|1\nT|MONEY_INF|0|1\nT|CONTEXT_ONE_FAR|1|1\nT|FSA009_INITIAL_SLOT|0|1\nT|NO_DUAL_ALL_SLOTS|0|1\n",
+        "Stderr": "",
+        "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+      }
+    },
+    {
+      "MutationID": "ALLOC_EVENT",
+      "ExactEdit": [
+        "||a.allocationEventId!=b.allocationEventId",
+        ""
+      ],
+      "OriginalSourceHash": "bae4bc4ded2115c46f4e1a3e52c25e592924c73db6fe7b061abc121aa8a1f9b9",
+      "MutantSourceHash": "6b6828bc2c55bec85fd38914a9672639a0a7f8f514c84d929e4b8c698bbd7fb6",
+      "CausalTestID": "OTHER_ALLOC_EVENT_NEW",
+      "PositiveTestID": "ALLOC_REPLAY",
+      "OriginalNegative": {
+        "TestID": "OTHER_ALLOC_EVENT_NEW",
+        "Actual": true,
+        "Expected": true,
+        "Result": "PASS",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "MutantPositive": [
+        "1",
+        "1"
+      ],
+      "MutantNegative": [
+        "0",
+        "1"
+      ],
+      "Verdict": "MUTATION_KILLED",
+      "Compile": {
+        "Command": [
+          "g++",
+          "-std=c++17",
+          "-O0",
+          "-fno-fast-math",
+          "/tmp/hsbi-audit02-63d1s6xe/source.cpp",
+          "-o",
+          "/tmp/hsbi-audit02-63d1s6xe/source"
+        ],
+        "StartedUtc": "2026-11-12T12:33:20.753146+00:00",
+        "FinishedUtc": "2026-11-12T12:33:23.146427+00:00",
+        "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+        "ExitCode": 0,
+        "Stdout": "",
+        "Stderr": "",
+        "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+      },
+      "Run": {
+        "Command": [
+          "/tmp/hsbi-audit02-63d1s6xe/source"
+        ],
+        "StartedUtc": "2026-11-12T12:33:23.149341+00:00",
+        "FinishedUtc": "2026-11-12T12:33:23.154301+00:00",
+        "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+        "ExitCode": 0,
+        "Stdout": "T|ECON_REPLAY|1|1\nT|FSA001_COMPONENTS|0|1\nT|PRICE_CONFLICT|1|1\nT|VOLUME_CONFLICT|1|1\nT|MAGIC_SAME_PHYSICAL_SOURCE|0|1\nT|ALLOC_REPLAY|1|1\nT|FSA002_VECTOR|0|1\nT|OTHER_ALLOC_EVENT_NEW|0|1\nT|ALLOC_DOMAIN_POSITIVE|1|1\nT|FSA007_NEGATIVE_BUCKET|0|1\nT|RESERVE_BOUND|1|1\nT|FSA003_FOREIGN_ALLOCATION|0|1\nT|FSA004_EXHAUSTED|0|1\nV|EXHAUSTED_GAIN|40\nT|FSA010_INDEPENDENT_EXPECTED|1|1\nT|FSA010_COPIED_EXPECTED_OBSERVATION|1|1\nT|RISK_VALID|1|1\nT|FSA005_NAN|0|1\nT|RISK_NEGATIVE_MARGIN|0|1\nT|TX_VALID|1|1\nT|FOREIGN_OWNERSHIP|1|1\nT|OTHER_ACTION|1|1\nT|FSA006_NAN|0|1\nT|TX_PARTIAL|1|1\nT|MONEY_VALID|1|1\nT|NEGATIVE_MONEY|1|1\nT|FSA008_INVALID_FLAG|0|1\nT|MONEY_INF|0|1\nT|CONTEXT_ONE_FAR|1|1\nT|FSA009_INITIAL_SLOT|0|1\nT|NO_DUAL_ALL_SLOTS|0|1\n",
+        "Stderr": "",
+        "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+      }
+    },
+    {
+      "MutationID": "TX_OWNERSHIP",
+      "ExactEdit": [
+        "||!x.ownershipConfirmed",
+        ""
+      ],
+      "OriginalSourceHash": "bae4bc4ded2115c46f4e1a3e52c25e592924c73db6fe7b061abc121aa8a1f9b9",
+      "MutantSourceHash": "5a03e7a050b2351cc006acd0b85165cdb4c47a992443559934d175e21fa0a2d2",
+      "CausalTestID": "FOREIGN_OWNERSHIP",
+      "PositiveTestID": "TX_VALID",
+      "OriginalNegative": {
+        "TestID": "FOREIGN_OWNERSHIP",
+        "Actual": true,
+        "Expected": true,
+        "Result": "PASS",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "MutantPositive": [
+        "1",
+        "1"
+      ],
+      "MutantNegative": [
+        "0",
+        "1"
+      ],
+      "Verdict": "MUTATION_KILLED",
+      "Compile": {
+        "Command": [
+          "g++",
+          "-std=c++17",
+          "-O0",
+          "-fno-fast-math",
+          "/tmp/hsbi-audit02-63d1s6xe/source.cpp",
+          "-o",
+          "/tmp/hsbi-audit02-63d1s6xe/source"
+        ],
+        "StartedUtc": "2026-11-12T12:33:23.158448+00:00",
+        "FinishedUtc": "2026-11-12T12:33:25.294638+00:00",
+        "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+        "ExitCode": 0,
+        "Stdout": "",
+        "Stderr": "",
+        "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+      },
+      "Run": {
+        "Command": [
+          "/tmp/hsbi-audit02-63d1s6xe/source"
+        ],
+        "StartedUtc": "2026-11-12T12:33:25.297709+00:00",
+        "FinishedUtc": "2026-11-12T12:33:25.300678+00:00",
+        "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+        "ExitCode": 0,
+        "Stdout": "T|ECON_REPLAY|1|1\nT|FSA001_COMPONENTS|0|1\nT|PRICE_CONFLICT|1|1\nT|VOLUME_CONFLICT|1|1\nT|MAGIC_SAME_PHYSICAL_SOURCE|0|1\nT|ALLOC_REPLAY|1|1\nT|FSA002_VECTOR|0|1\nT|OTHER_ALLOC_EVENT_NEW|1|1\nT|ALLOC_DOMAIN_POSITIVE|1|1\nT|FSA007_NEGATIVE_BUCKET|0|1\nT|RESERVE_BOUND|1|1\nT|FSA003_FOREIGN_ALLOCATION|0|1\nT|FSA004_EXHAUSTED|0|1\nV|EXHAUSTED_GAIN|40\nT|FSA010_INDEPENDENT_EXPECTED|1|1\nT|FSA010_COPIED_EXPECTED_OBSERVATION|1|1\nT|RISK_VALID|1|1\nT|FSA005_NAN|0|1\nT|RISK_NEGATIVE_MARGIN|0|1\nT|TX_VALID|1|1\nT|FOREIGN_OWNERSHIP|0|1\nT|OTHER_ACTION|1|1\nT|FSA006_NAN|0|1\nT|TX_PARTIAL|1|1\nT|MONEY_VALID|1|1\nT|NEGATIVE_MONEY|1|1\nT|FSA008_INVALID_FLAG|0|1\nT|MONEY_INF|0|1\nT|CONTEXT_ONE_FAR|1|1\nT|FSA009_INITIAL_SLOT|0|1\nT|NO_DUAL_ALL_SLOTS|0|1\n",
+        "Stderr": "",
+        "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+      }
+    },
+    {
+      "MutationID": "TX_ACTION",
+      "ExactEdit": [
+        "x.transaction.actionId!=x.expectedActionId",
+        "false"
+      ],
+      "OriginalSourceHash": "bae4bc4ded2115c46f4e1a3e52c25e592924c73db6fe7b061abc121aa8a1f9b9",
+      "MutantSourceHash": "621f02b6068684d017737a16eecfb04428f094bc7361782e7187e7686f2e04af",
+      "CausalTestID": "OTHER_ACTION",
+      "PositiveTestID": "TX_VALID",
+      "OriginalNegative": {
+        "TestID": "OTHER_ACTION",
+        "Actual": true,
+        "Expected": true,
+        "Result": "PASS",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "MutantPositive": [
+        "1",
+        "1"
+      ],
+      "MutantNegative": [
+        "0",
+        "1"
+      ],
+      "Verdict": "MUTATION_KILLED",
+      "Compile": {
+        "Command": [
+          "g++",
+          "-std=c++17",
+          "-O0",
+          "-fno-fast-math",
+          "/tmp/hsbi-audit02-63d1s6xe/source.cpp",
+          "-o",
+          "/tmp/hsbi-audit02-63d1s6xe/source"
+        ],
+        "StartedUtc": "2026-11-12T12:33:25.303750+00:00",
+        "FinishedUtc": "2026-11-12T12:33:27.481176+00:00",
+        "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+        "ExitCode": 0,
+        "Stdout": "",
+        "Stderr": "",
+        "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+      },
+      "Run": {
+        "Command": [
+          "/tmp/hsbi-audit02-63d1s6xe/source"
+        ],
+        "StartedUtc": "2026-11-12T12:33:27.483723+00:00",
+        "FinishedUtc": "2026-11-12T12:33:27.487207+00:00",
+        "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+        "ExitCode": 0,
+        "Stdout": "T|ECON_REPLAY|1|1\nT|FSA001_COMPONENTS|0|1\nT|PRICE_CONFLICT|1|1\nT|VOLUME_CONFLICT|1|1\nT|MAGIC_SAME_PHYSICAL_SOURCE|0|1\nT|ALLOC_REPLAY|1|1\nT|FSA002_VECTOR|0|1\nT|OTHER_ALLOC_EVENT_NEW|1|1\nT|ALLOC_DOMAIN_POSITIVE|1|1\nT|FSA007_NEGATIVE_BUCKET|0|1\nT|RESERVE_BOUND|1|1\nT|FSA003_FOREIGN_ALLOCATION|0|1\nT|FSA004_EXHAUSTED|0|1\nV|EXHAUSTED_GAIN|40\nT|FSA010_INDEPENDENT_EXPECTED|1|1\nT|FSA010_COPIED_EXPECTED_OBSERVATION|1|1\nT|RISK_VALID|1|1\nT|FSA005_NAN|0|1\nT|RISK_NEGATIVE_MARGIN|0|1\nT|TX_VALID|1|1\nT|FOREIGN_OWNERSHIP|1|1\nT|OTHER_ACTION|0|1\nT|FSA006_NAN|0|1\nT|TX_PARTIAL|1|1\nT|MONEY_VALID|1|1\nT|NEGATIVE_MONEY|1|1\nT|FSA008_INVALID_FLAG|0|1\nT|MONEY_INF|0|1\nT|CONTEXT_ONE_FAR|1|1\nT|FSA009_INITIAL_SLOT|0|1\nT|NO_DUAL_ALL_SLOTS|0|1\n",
+        "Stderr": "",
+        "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+      }
+    },
+    {
+      "MutationID": "MONEY_NEGATIVE",
+      "ExactEdit": [
+        "s.finalReserve>=0",
+        "true"
+      ],
+      "OriginalSourceHash": "bae4bc4ded2115c46f4e1a3e52c25e592924c73db6fe7b061abc121aa8a1f9b9",
+      "MutantSourceHash": "430a345bdc5a364e3570764694b215c2593bb49ab8a7fb12928ed1609bf8213e",
+      "CausalTestID": "NEGATIVE_MONEY",
+      "PositiveTestID": "MONEY_VALID",
+      "OriginalNegative": {
+        "TestID": "NEGATIVE_MONEY",
+        "Actual": true,
+        "Expected": true,
+        "Result": "PASS",
+        "Scope": "EXTRACTED_CPP_NOT_NATIVE"
+      },
+      "MutantPositive": [
+        "1",
+        "1"
+      ],
+      "MutantNegative": [
+        "0",
+        "1"
+      ],
+      "Verdict": "MUTATION_KILLED",
+      "Compile": {
+        "Command": [
+          "g++",
+          "-std=c++17",
+          "-O0",
+          "-fno-fast-math",
+          "/tmp/hsbi-audit02-63d1s6xe/source.cpp",
+          "-o",
+          "/tmp/hsbi-audit02-63d1s6xe/source"
+        ],
+        "StartedUtc": "2026-11-12T12:33:27.490363+00:00",
+        "FinishedUtc": "2026-11-12T12:33:29.446492+00:00",
+        "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+        "ExitCode": 0,
+        "Stdout": "",
+        "Stderr": "",
+        "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+      },
+      "Run": {
+        "Command": [
+          "/tmp/hsbi-audit02-63d1s6xe/source"
+        ],
+        "StartedUtc": "2026-11-12T12:33:29.453303+00:00",
+        "FinishedUtc": "2026-11-12T12:33:29.455760+00:00",
+        "TestedSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412",
+        "ExitCode": 0,
+        "Stdout": "T|ECON_REPLAY|1|1\nT|FSA001_COMPONENTS|0|1\nT|PRICE_CONFLICT|1|1\nT|VOLUME_CONFLICT|1|1\nT|MAGIC_SAME_PHYSICAL_SOURCE|0|1\nT|ALLOC_REPLAY|1|1\nT|FSA002_VECTOR|0|1\nT|OTHER_ALLOC_EVENT_NEW|1|1\nT|ALLOC_DOMAIN_POSITIVE|1|1\nT|FSA007_NEGATIVE_BUCKET|0|1\nT|RESERVE_BOUND|1|1\nT|FSA003_FOREIGN_ALLOCATION|0|1\nT|FSA004_EXHAUSTED|0|1\nV|EXHAUSTED_GAIN|40\nT|FSA010_INDEPENDENT_EXPECTED|1|1\nT|FSA010_COPIED_EXPECTED_OBSERVATION|1|1\nT|RISK_VALID|1|1\nT|FSA005_NAN|0|1\nT|RISK_NEGATIVE_MARGIN|0|1\nT|TX_VALID|1|1\nT|FOREIGN_OWNERSHIP|1|1\nT|OTHER_ACTION|1|1\nT|FSA006_NAN|0|1\nT|TX_PARTIAL|1|1\nT|MONEY_VALID|1|1\nT|NEGATIVE_MONEY|0|1\nT|FSA008_INVALID_FLAG|0|1\nT|MONEY_INF|0|1\nT|CONTEXT_ONE_FAR|1|1\nT|FSA009_INITIAL_SLOT|0|1\nT|NO_DUAL_ALL_SLOTS|0|1\n",
+        "Stderr": "",
+        "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419"
+      }
+    }
+  ],
+  "Boundary": "Unchanged selected production bodies, new fixtures. Shared C++ LP64 adapter is not independent native semantics; NaN rejection expectations from finite domain, not old evaluator. FSA010 solver not fully executed.",
+  "ExecutionMetadata": {
+    "Command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Static/HSBI_FULL_SYSTEM_AUDIT_02_verify.py",
+      "--run"
+    ],
+    "StartedUtc": "2026-11-12T12:33:12.356460+00:00",
+    "FinishedUtc": "2026-11-12T12:33:29.459589+00:00",
+    "RunnerSHA256": "44c681d2cd47169bf84d0eb61e94140fba007674644ea1418d78b54c14be2419",
+    "BaseSHA": "707f51d82217b13613c5d56d9d51d10bac5a2412"
+  }
+}
