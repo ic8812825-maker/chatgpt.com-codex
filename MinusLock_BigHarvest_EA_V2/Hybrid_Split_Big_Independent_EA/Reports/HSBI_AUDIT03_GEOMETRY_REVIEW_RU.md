@@ -66,3 +66,12 @@ F001–F004 и F044–F049 дают раздельные размерности.
 При строго уменьшающемся объёме на дискретной сетке число успешных уменьшений ограничено числом доступных lot states. Это не bound времени и не доказательство существования следующего шага. Vmin>0 — ещё открытая позиция. F037/F038/F058 разделяют условную индукцию, неверное prefix⇒tail и operational terminal closure; ERR-021/031/032, IMP-013.
 
 GEOMETRY_VERIFIED=NO для всей системы. Локальная алгебра signed slopes и зеркальности проверена условно; обязательные normative/API/admission/prefix/terminal gaps остаются OPEN.
+
+
+## COVERAGE-COMPLETION — распространение ERR-020 и ERR-046
+
+ERR-020 нужно искать не только по имени BigGross. Production `HSBI_FutureSmallSolver.mqh` сравнивает netBigVolume в relation к priorBigGross; источники Docs/04:21 и Docs/27_FUTURE_SMALL_SOLVER_RU.md требуют уменьшения BigGross. BigGross=C+T, а не C+T+S; последнее вместе с Far относится к другому total. Все списки candidate/previews обязаны сохранять название и состав одной и той же метрики. Report Audit01 F29 уже называл эту проблему; повтор в AUDIT03 не отдельная новая ошибка.
+
+ERR-046: Docs/03_FULL_SYSTEM_MANUAL_RU.md:12, Docs/05_GEOMETRY_MODEL_RU.md:22 и Docs/26_GEOMETRY_ENGINE_SPECIFICATION_RU.md:7 необходимо читать с единой благоприятной координатой. `HSBI_EvaluateRecoveryMoneyDirection` сам цену не строит; поэтому нельзя приписать ему автоматический неверный BUY price step. Сводные формулы R0A–R0H и Docs/HSB_2E_FORMULA_CONTRACTS* не отменяют primary ambiguity без approval. Полное лексическое доказательство отсутствия иных повторов в каждом историческом Report/машинном oracle ещё не закончено; current coverage это явно учитывает.
+
+Параметрический counterexample для min/Core: F=.1,Rc=.01,Rt=3,Rs=.1,step=.01,Vmin=.01 даёт C0,T.3,S.01,D.19; положительный D не восстанавливает отсутствующую Core. Для случая C=.01,Vmin=.05 потребуются иные допустимые broker inputs с корректным admitted origin; одного on-grid не достаточно. Для убывания Net без убывания BigGross: oldBigGross1, nextC.7,T.5,S1 ⇒ nextBigGross1.2>1, NetBig.2<1. Отдельный slope может отказать; это не доказательство соблюдения именно Gross-контракта.

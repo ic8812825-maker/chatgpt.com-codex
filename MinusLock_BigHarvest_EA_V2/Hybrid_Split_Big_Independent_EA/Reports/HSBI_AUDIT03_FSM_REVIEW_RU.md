@@ -109,3 +109,16 @@ Restart reconstruction проверяет accounting/bindings в своей об
 HSB.2E `HSB_2E_FSM_TRANSITION_TABLE_RU.md:5-20` использует другую naming/proposal модель BOOTSTRAP→...→CYCLE_COMPLETED и future simulation phases. Нельзя молча выдать её enum за уже существующий `HSBI_State`. Primary manual states, historical orchestration proposals и фактическая topology — разные слои. Ошибки/рекомендации объединены в ERR-016/028, IMP-008/017; новый approval не сделан.
 
 FSM_SPECIFICATION_VERIFIED=NO, FULL_TRADING_CYCLE_VERIFIED=NO. Нет доказанного действующего финансового обхода через текущий неторговый main; отсутствуют реализованные handlers и proof их будущей композиции.
+
+
+## COVERAGE-COMPLETION — приоритет actual события и остановки
+
+Для каждой строки фазовой таблицы обязательны три раздельных момента: PREPARED request, OBSERVED partial/complete broker fact, RECONCILED state+money commit. Нельзя считать успешный первый момент третьим. Unique event identity проверяется вместе с immutable payload; exact replay возвращает прежний outcome без increment revision, changed replay блокирует расход и продолжение. Events out-of-order требуют полного ordering/provider контракта; D-05 current/peak/sticky по-разному зависит от префикса.
+
+Если ownership/revision/freshness отсутствует до действия — действие не разрешено. Если неизвестность возникла **после** необратимого fill, предыдущие позиции не восстанавливаются; дальше RECONCILING, сохранение полученных фактов, без нового dispatch. Timeout означает неизвестный результат до independent history. Crash после fill до local commit требует durable reconciliation, а не повторной отправки по пустому journal. При critical conflict автоматическое восстановление FAR_ACTIVE не считается разрешённым просто потому, что topology helper допускает эту дугу.
+
+Фактический `HSBI_IsTransitionAllowed` находится в `Include/Core/HSBI_StateMachine.mqh:5`, а не в несуществующем HSBI_FSM.mqh. Самопереход topology helper допустим и может инкрементировать revision при pure apply; это не API exact event replay и не доказательство его нарушения без соответствующего caller. Для финансового event NO_OP требуется отдельный once/journal guard.
+
+Историческая HSB.2E таблица имеет собственные BOOTSTRAP/SIMULATION_DISPATCHED/FULL_FILL_OBSERVED naming и scope. Она прочитана целиком, но её дуги не подменяют enum существующего EA. Подробная матрица всех state/event/partial/timeout/restart комбинаций и проверка каждого исторического normative event ещё не завершены. Поэтому FULL_FSM_VERIFIED=NO и AUDIT_COMPLETENESS=PARTIAL; нормативная фазовая карта выше — полезная основа, а не full proof.
+
+Для полного концептуального SELL/BUY цикла, отсутствия safe NewFar, Emergency и prefix money/risk/margin см. новое дополнение [полного цикла](HSBI_AUDIT03_FULL_CYCLE_REVIEW_RU.md). Никакого actual handler или исполнимого теста этим дополнением не создано.

@@ -65,3 +65,14 @@ FinalClose `Docs/12:7-15`: Economic/RecoveryPL gate, отдельный coverage
 Рационалы сохраняют малые increments на фоне10^28; это свойство exact чисел, не допустимый production money bound. Signed int64 max+1 вне domain; пересечение money scale/currency/volume types явно проверяется. Округление компонентов до суммы не коммутирует с округлением суммы: .004+.004 при digits2 half-up даёт.01 вместо0. Broker raw, posted и local rounding policy различаются. NUM/SNAP остаются proposed; кодек не создаёт authority.
 
 MONEY_MODEL_VERIFIED=NO. Абстрактные partition-invariants выведены условно; MONEY_CONSERVATION_PROVEN=NO для сквозной production-системы; GLOBAL_FUNDING_PROVEN=NO. Durable/concurrent enforcement, подлинность history и фактический trading cycle остаются NOT_ESTABLISHED. Новых тестов или fresh regression-результатов нет.
+
+
+## COVERAGE-COMPLETION — независимые суммы, authority и версия
+
+Новый ERR-048 отделяет full-value binding от проверки shape identity: корректный sourceProof10 и scalar eligible100 не один денежный факт. В текущем NewFar caller scalars выводятся из proofs, поэтому вывод ограничен публичным evaluator, а не всем solver. D-02/D-04 обязаны определить базис, после чего guard связывает сумму, currency, precision, window и source. При allocated branch нельзя требовать повторного умножения allocation на reserveShare; это уже иная денежная стадия.
+
+SourceKey ранних R0A/R0B включает schemaVersion и NFC-нормализацию; поздние R0F/R0G отделяют logical source от representation и не допускают guessed normalization. Нельзя молча объединять opaque broker names, равно как нельзя повторно funding того же источника при смене schema. Требуется approved versioned reconciliation/migration boundary, unknown legacy quarantined. Все16 решений остаются AWAITING_ADMIN_APPROVAL.
+
+Для int64 minor units M=9223372036854775807: M−1=9223372036854775806, следующий debit1 даёт9223372036854775805 при точной арифметике и допустимых preconditions. M+1 и −(−9223372036854775808) вне signed64 domain. Это ручные равенства, не выполненный arithmetic test. Near10^28 одна cent не разрешается binary64; raw codec точного захваченного double не делает settled balance точным. Рounding расходов и переводы валют нужны до определения grant, неизвестная политика не безопасный zero.
+
+Сохранность одного источника не доказывает account-wide free capital: source50 плюс неучтённый debit30 не даёт доступных50. Local sequential conservation, source registry conservation, global portfolio solvency и broker actuality — четыре отдельных proof scopes. GLOBAL_MONEY_CONSERVATION_PROVEN=NO.

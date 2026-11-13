@@ -1,5 +1,7 @@
 # AUDIT03 — единый реестр ошибок и незакрытых обязательств
 
+**Текущий срез COVERAGE-COMPLETION:** 50 записей, P0=14/P1=31/P2=5; ERR-048/049 — новые локальные SOURCE_DEFECT, ERR-050 — AMBIGUOUS_SPECIFICATION. Первоначальные47 карточек и их ID сохранены; старые сводки ниже являются историческими. Окончательная переоценка и снятая transitionShare-гипотеза — в конце файла.
+
 База: `6231bfbe94d39fbbb469b90a93e01426a83756bb`. Метод: ручная алгебра и статическое чтение, **без запуска кода системы, тестов и компиляции**. Каждый статус ниже относится к указанному scope. P0 означает блокирующий риск будущего включения/денежного контракта; это не заявление об отправке ордеров текущим EA. Основной EA остаётся DISABLED и вызывает неторговый stub.
 
 Классификации SOURCE_DEFECT — статическое нарушение локального предиката, CONTRADICTION — несовместимость требований, UNPROVEN_CLAIM — отсутствие полного доказательства. Неполнота интеграции не называется действующим эксплуатационным обходом. Все записи OPEN. Новизна считается только относительно 29 FSA IDs: отсутствие прямого соответствия не означает первое обнаружение в истории D/NUM/R0.
@@ -675,3 +677,66 @@ ERRORS_PROVEN считается как SOURCE_DEFECT + PROVEN_ERROR; это с�
 | HSBI-A03-ERR-045 | P1 | NEW_FAR | NewFar commit boundary | Include/Planning/HSBI_NewFarSolver.mqh | 108-113,149-151 | AMBIGUOUS_SPECIFICATION | HSBI-A03-IMP-011 |
 | HSBI-A03-ERR-046 | P1 | BUY_SELL_DIRECTION | Both directions | Docs/03_FULL_SYSTEM_MANUAL_RU.md | 12 | CONTRADICTION | HSBI-A03-IMP-007 |
 | HSBI-A03-ERR-047 | P1 | MONEY_ACCOUNTING | Big/Small attribution | Include/Money/HSBI_BasketMoneyEvaluator.mqh | 17 | AMBIGUOUS_SPECIFICATION | HSBI-A03-IMP-004 |
+
+## COVERAGE-COMPLETION — переоценка прежних карточек (IDs неизменны)
+
+ERR-002: Docs/NEXT_STAGE_02B_R0A_CONTRACT_FREEZE_CANDIDATE_RU.md:67,118 и R0B proposal:79 включали SchemaVersion/NFC в canonical namespace; R0F identity:10 и R0G identity:11 отделяют logical source от codec/schema и запрещают guessed NFC/casefold. Нельзя автоматически выбрать один вариант. Logical source lifetime и допустимая cross-schema equivalence — D-08/NUM-CODEC administrator choice; версия представления не должна создавать новую прибыль. Это уточнение прежней root cause, не новый ID.
+
+ERR-003: дополнительные места неполного content binding: CandidatePlan.mqh:7–8 fingerprint не включает coreLots/trendLots/smallLots/geometry/money/risk proofs; BasketMoneyEvaluator.mqh:20–27 digest не содержит reserveGainMoney/farLossIncreaseMoney/safetyBuffer; NewFarSolver.mqh:47–57 не включает все compression/risk cap values, обещанные Docs29:5. Изменение coreLots1→2 при прежних positionFingerprint/IDs не меняет SameCandidatePlan; изменение risk cap при прежних snapshot IDs требует независимого full-content receipt. Snapshot ID/диагностическая строка не заменяют весь payload. Уровень POTENTIAL_RISK сохранён: полный commit caller, использующий эти строки как единственную authority, не доказан. Исправление IMP-002/IMP-011 требует явного назначения identity versus content fingerprint.
+
+**СНЯТАЯ РАБОЧАЯ ГИПОТЕЗА; см. исправление ниже.** ERR-005: обнаружен ещё один независимый causal clause того же nonnegative-components инварианта. AllocationPolicyTypes.mqh:19–23 проверяет transitionShare на finite, но не на >=0. reserveShare=1,partialFarShare=1,transitionShare=-1,carryShare=0 дают sum1 и проходят range/sum predicate. Ожидается отказ отрицательной share. Это source-level acceptance локального policy, не доказанный actual allocation200%. IMP-003 и IMP-005 должны охватывать каждую share отдельно. Не изменяет старое доказательство отрицательных bucket сумм.
+
+ERR-010: тот же finite/domain gap присутствует в OwnershipGuardTypes.mqh:8 и ExternalOutcome.mqh:25–30. При finite expectedVolume1 и actualVolumeNaN ordered abs-comparison не устанавливает равенства. При volumeToleranceNaN даже finite volumes1/2 не отличаются по предикату. ExternalOutcome проверяет только intent digest, не его Structure: согласованные intent/outcome volumes-1 дают abs difference0; обязательность ранее validated immutable intent должна быть доказана caller либо проверяться entry point. Нельзя называть full transaction completion доказанным по этим bool. На текущем main отсутствует financial execution path. Новые native тесты не выполнялись; IMP-005/008 охватывают все соответствующие consumers.
+
+ERR-013: RuntimeTransactionBarrier.mqh:7 и RuntimeRestartValidator.mqh:16 передают текущий context и его же account/symbol/magic как expected. Это локальная согласованность DTO, а не independent namespace provider. RuntimeDecisionValidator.mqh:22–23 проверяет shape money/risk identity, но не связывает все поля с независимой expected identity; marginIdentity не проходит аналогичный full equality. Полная provenance-chain остаётся MISSING_CONTRACT; сквозной NewFar bypass не повышен до PROVEN.
+
+ERR-017: ReconciliationTypes.mqh:7 различает empty digests как CLEAN_START до identity/economic checks и сравнивает economicLedgerDigest с allocationLedgerDigest на буквальное равенство. Empty history token не доказывает complete-empty account history; два разнородных ledger roots обычно не обязаны совпадать. Если это два common reconciliation roots, такой контракт должен быть назван явно. Функция всегда сохраняет newTradingAllowed=false и не выдаёт RECONCILED, поэтому это ограниченный placeholder, не доказанный restart re-funding. Persistence schema Docs/HSB_2E_PERSISTENCE_SCHEMA_RU.md:8–16 предлагает общие имена temp/data: namespace/path-lock и crash model ещё надо доказать до backend. Не утверждается, что FileFlush/FileMove гарантируют atomic durability.
+
+ERR-024: будущий timestamp creation у ExecutionPreflight.mqh:23 тоже не исключается одним expiry gate. Время observation/cost/market должно иметь один provider window; fresh flag и совпадающая цена сами по себе не доказывают contemporaneous snapshots. Предложенный zero-skew fixture не утверждён для broker.
+
+ERR-028: generic READINESS/ADMIN_ACCEPTED исторических отчётов не является approval16 нынешних решений. Отдельный лист DG01 различает readiness и пустое AdministratorDecision. Новый статус этих решений по-прежнему AWAITING_ADMIN_APPROVAL.
+
+## HSBI-A03-ERR-048 — Money amounts не связаны с предъявленными proofs на публичной границе
+
+**OPEN; P0; RESERVE; SOURCE_DEFECT (локальная публичная функция).** Источники: Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:24–33,61–74; Include/Planning/HSBI_NewFarSolver.mqh:121–127; Docs/NEXT_STAGE_02_MONEY_AUDIT_RU.md:224; Docs/31_MONEY_PROOF_IDENTITY_RU.md:3–7. Историческая связь: M-01/M-02 смежные, но эта причина — amount binding, а не identity key или spent-source.
+
+Функция HSBI_EvaluateReserveCatchUp проверяет source-proof shape/identity и независимые scalar поля, но не equalities reserveEligibleMoney=sourceProof.netMoney и FarLoss=max(0,-farProof.netMoney). Положительный согласованный контроль: proof Reserve50,eligible50,share.8,FarProof-20,Loss20,buffer1 даёт положительный margin19. Ручная разность gain40-loss20-buffer1=19. Остальные policy/source/lot/current flags должны быть корректны; ни один runtime вызов здесь не сделан.
+
+Причинный отрицательный пример1: сохранить proof source10,allocation allocatable10,reserveAllocated0,alreadyConsumed0,share.8; изменить только eligible10→100. Gain становится80, хотя proof/source cap10. При Loss20/buffer1 margin59; lot gate .8*3>1 может быть удовлетворён. Пример2: согласованные proof source50/eligible50,FarProof-50,Loss50,buffer1 не проходят (margin-11); изменить только scalar Loss50→0 — formula39>0, хотя proof loss50. Требуется отказ inconsistency до численной положительности.
+
+Current NewFar caller явно выводит эти scalars из control proofs, поэтому его именно эта инъекция не обходит. Публичный evaluator и другие будущие callers не имеют enforced typed validated amount constructor. Это не реальное списание, создание денег или доказанный solver exploit. Влияние: недостоверный local money proof, будущий Catch-Up eligibility. Исправление: IMP-004/IMP-010, обязательные source-value/currency/basis bindings либо ограниченный внутренний helper с непроходимой полной внешней границей. Выбор loss basis D-04 и money type D-02 требует владельца. Будущее подтверждение — original/control, mismatch каждого scalar, direct/public caller и zero deltas; сейчас REQUIRES_FUTURE_TEST.
+
+## HSBI-A03-ERR-049 — Непустой enum принимается вместо известного направления/роли
+
+**OPEN; P1; IDENTITY; SOURCE_DEFECT.** Include/Execution/HSBI_ExecutionIntent.mqh:28–40, Include/Execution/HSBI_ActionTypes.mqh:6,EventTypes.mqh:6,Include/Money/HSBI_AllocationLedgerTypes.mqh:9. Контракт: Docs/02_SYSTEM_ROLES_AND_IDENTITY_RU.md:23–32; Docs/04_MATHEMATICAL_MODEL_RU.md:42. Функция HSBI_ValidateExecutionIntentStructure.
+
+Контроль — корректный BUY/BID/BigCore intent. Изменить только direction на cast99, digest пересчитать для изоляции shape: direction!=NONE остаётся true; обе ветви BUY/SELL side mismatch не срабатывают. При остальных корректных полях Structure возвращает true статически. Аналогично role99 не NONE. Это не требование принимать недопустимый MQL literal без cast: внешняя wire/data corruption может дать integral enum value, а cast не доказывает membership. Bucket helper допускает unknown enum, если это не запрещённый FinalReserve-for-partial. Простые action/event validators проверяют !=NONE, не exhaustive membership.
+
+Нужен closed enum validator до финансового использования и связь intent direction с typed control price. Mandatory full caller не доказан; main не отправляет ордеров. IMP-005/007/008; техническое уточнение domain, без выбора новой экономики. Native/caller integration остаётся будущим отдельным evidence.
+
+## HSBI-A03-ERR-050 — completedActionCount не связан с содержимым snapshot
+
+**OPEN; P1; PERSISTENCE; AMBIGUOUS_SPECIFICATION.** Include/Persistence/HSBI_ExecutionStateSnapshot.mqh:27–40,HSBI_ValidateExecutionStateSnapshot; контракт Docs/HSB.2C_Journal_Persistence_Reconciliation.md:5 и Docs/16_PERSISTENCE_AND_RESTART_RU.md:12–15.
+
+Контроль: fully shaped completedIntent,statusCOMPLETED,completedActionCount1,pending absent,correct snapshot digest. Изменить только count1→0 и пересчитать snapshot digest (не nested intent); bounds допускают0, completedExists проверяет status, но нет (count==1)==completedExists. Предикат сохраняет acceptance. Обратное count1 при отсутствии completedIntent также не исключается. activeIntentCount имеет явный existence binding, completedActionCount его не имеет.
+
+Это inconsistency reconstruction DTO, а не доказанный double commit/restart spending. Нужна explicit count/body/lastConfirmedAction/Event linkage к независимому journal; исторический processing count иной семантики должен называться иначе. IMP-009; schema/recovery scope уточняет D-07/SNAP, не утверждается автоматически. No actual snapshot IO performed, никаких deltas текущим аудитом нет.
+
+## Исправление рабочей гипотезы ERR-005 при повторном чтении
+
+Повторное посимвольное чтение `Include/Money/HSBI_AllocationPolicyTypes.mqh:21–23` установило: условие `p.transitionShare<0.0` **присутствует** на строке22. Приведённый выше рабочий пример shares(1,1,-1,0) отвергается этим guard. Утверждение о пропущенной transitionShare nonnegativity — ошибка чтения аудитора, **NOT_CONFIRMED / WITHDRAWN**. Это не новый дефект и не результат выполненного теста. Старое доказательство ERR-005 о отрицательных buckets в другом validator (`HSBI_ValidateAllocationConservation`) сохраняется. Новый ERR-ID не присваивается. Проверка отдельных shares остаётся будущим критерием regression, но не исправлением отсутствующего guard.
+
+### Уточнение доказательного статуса ERR-050
+
+Acceptance несогласованных count/body следует из текста предиката. Но первичный норматив не определяет, является completedActionCount cardinality предъявленного объекта или отдельным историческим счётчиком. Поэтому итоговая классификация **AMBIGUOUS_SPECIFICATION**, а нарушение cardinality-контракта — условный вывод, не безусловно подтверждённый production SOURCE_DEFECT. F066 сохраняет UNDEFINED. Нужен владелец snapshot schema; ни historical recovery, ни double-spend этим не доказаны.
+
+## Текущий итог COVERAGE-COMPLETION (исторические таблицы выше сохранены)
+
+50 карточек с уникальными IDs ERR-001…050. P0=14, P1=31, P2=5, P3=0. SOURCE_DEFECT=18, CONTRADICTION=3, AMBIGUOUS_SPECIFICATION=10, MISSING_CONTRACT=9, UNPROVEN_CLAIM=8, POTENTIAL_RISK=2. Из новых: ERR-048/049 — локальные source defects, ERR-050 — неопределённость snapshot-контракта. Старые47 IDs не удалены и не переназначены. Снятая гипотеза transitionShare не входит в число дефектов.
+
+
+| Новый ID | Severity | Scope | Итоговая классификация | Связанные предложения |
+|---|---|---|---|---|
+| HSBI-A03-ERR-048 | P0 | ReserveCatchUp public value bindings | SOURCE_DEFECT | IMP-004/010 |
+| HSBI-A03-ERR-049 | P1 | Closed enums intent/action/event/bucket | SOURCE_DEFECT | IMP-005/007/008 |
+| HSBI-A03-ERR-050 | P1 | completedActionCount schema semantics | AMBIGUOUS_SPECIFICATION | IMP-009 |

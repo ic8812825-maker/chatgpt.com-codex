@@ -1,5 +1,7 @@
 # AUDIT03 — каталог формул и зависимостей
 
+**Текущий каталог: 66 семейств.** Исходные60 сохранены ниже; F061–066 и актуальный непересекающийся счёт — в дополнении COVERAGE-COMPLETION. Каталог пока не объявляется исчерпывающим по всем482 документам.
+
 60 семантических семейств. F01–F49 — независимая переоценка исторического индекса, без наследования PASS; F50–F60 — дополнительные явные выводы. Исторические ID относятся к `Tests/Contracts/HSBI_FULL_SYSTEM_AUDIT_01_FORMULA_MATRIX.json`, прочитанному как индекс, не как oracle. Краткие IDs Fnn ниже означают HSBI-A03-F-nnn. Проверка исключительно ручная, без исполнения примеров.
 
 ## Общий словарь и границы
@@ -676,3 +678,54 @@ F=объём Far; C/T/S=Core/Trend/Small; N=кандидат или actual resid
 CONTRADICTORY=3, INVALID=1, NOT_IMPLEMENTED=1, UNDEFINED=6, UNVERIFIED=6, VERIFIED_UNDER_ASSUMPTIONS=43.
 
 UNVERIFIED в итоговом машинном блоке включает UNVERIFIED+UNDEFINED+NOT_IMPLEMENTED, чтобы сумма категорий равнялась FORMULAS_TOTAL. Production mapping — независимая ось: условно верная алгебра может иметь MISMATCH в исходнике. Наличие этих 60 семейств не доказывает, что все формулы всех исторических приложений обнаружены: документальное покрытие PARTIAL.
+
+
+## COVERAGE-COMPLETION — новые отношения и уточнение классификации
+
+Исходные F001–F060 и их исторические статусы сохранены выше. Современные имена статусов: VERIFIED_UNDER_ASSUMPTIONS → MATHEMATICALLY_VALID_UNDER_ASSUMPTIONS; CONTRADICTORY → NORMATIVE_CONTRADICTION; INVALID → MATHEMATICALLY_FALSE. SOURCE_CONTRADICTION — отдельная ось соответствия реализации, а не дополнительная формула в сумме. UNDEFINED означает отсутствующий выбор нормы, UNVERIFIED — отсутствующее доказательство сформулированного свойства. NOT_IMPLEMENTED не заменяется PASS корректной алгебры.
+
+### HSBI-A03-F-061 — Мгновенный объём не равен обороту за время
+
+**Источник:** Docs/02_SYSTEM_ROLES_AND_IDENTITY_RU.md:6–20; Docs/15_RISK_AND_MARGIN_CONTRACT_RU.md:6–24; Include/Core/HSBI_Context.mqh:19–24,48–53. **Статус:** MATHEMATICALLY_VALID_UNDER_ASSUMPTIONS. **Production mapping:** PARTIALLY_IMPLEMENTED / ERR-012.
+
+Пусть в один момент существует не более четырёх уникальных собственных позиций, каждая объёмом не более Vmax. Тогда TotalGross(t)=Σ|Vj(t)|≤4Vmax. Это lot, не money. Необходимы один symbol/учёт виртуальных legs, отсутствие pending overfill, глобальный position inventory и применимость broker max к каждой позиции. Для обоих направлений модуль одинаков. Grid уменьшает множество допустимых объёмов, но сам не ограничивает число повторных открытий. При каждом из n повторов открыть и закрыть v>0 lot оборот уже 2nv; при n→∞ он неограничен, даже если мгновенный Gross≤4Vmax. Costs и частичные fills учитываются по actual обороту. Нельзя из ограничения мгновенного объёма вывести ограничение суммарных комиссий, убытка или времени. Связи F030/F052/F058/F059; ERR-032/038/042; IMP-013/021. Не доказано, что current source гарантирует все перечисленные предусловия.
+
+### HSBI-A03-F-062 — Учёт fills и точное завершение
+
+**Источник:** Tests/Contracts/HSB_2E_R4_R9_R4A_R12A_NORMATIVE_DECISIONS.md:27–31. **Статус:** MATHEMATICALLY_VALID_UNDER_ASSUMPTIONS. **Область:** исторический static qualification contract, не production settlement. **Production:** Include/Execution/HSBI_TransactionTypes.mqh:15 / неполная интеграция.
+
+Для одного intent I: Filled(I)=Σ уникальных подтверждённых, принадлежащих I и ticket сделок; Remaining(I)=Requested(I)−Filled(I), 0≤Filled≤Requested. Объёмы lot, Requested>0 finite, каждый fill>0 на объявленной step-сетке, membership/history complete. BUY/SELL меняют денежный результат, не равенство объёмов. Zero remaining обязателен для полного исполнения, но не для PARTIAL. Deal ID uniqueness без полного immutable equality недостаточна; неизвестная history не даёт Remaining=0. Bid/Ask, комиссия и slippage требуют отдельной фактической денежной сверки, а не усреднения плановой цены. Связи F007/F024/F036/F057; ERR-010/017/030; IMP-005/008/009.
+
+### HSBI-A03-F-063 — Равенство множеств intent IDs не доказывает полного fill
+
+**Источник:** тот же R12A документ:19–31. **Статус:** MATHEMATICALLY_FALSE для импликации SetEquality⇒ExactSettlement. **Production mapping:** соответствующая полноценная связанная интеграция NOT_VERIFIED.
+
+Пусть expected IDs={I1}, Requested(I1)=1 lot, observed deal D1 принадлежит I1, confirmed, volume=.4. Тогда observed IDs={I1}, множества равны, но Remaining=.6. Это ручной контрпример для BUY и SELL; step=.1, все объёмы on-grid. Расходы не устраняют недостающий объём. Строка31 прямо требует exact settlement; поэтому полный норматив читается как conjunction: set/batch/confirmation/uniqueness И ∀I Filled(I)=Requested(I). Нельзя объявить весь документ противоречивым только по изолированной строке25; нельзя также исполнить только её set equality. Связи F062/F057; ERR-010/016/028, IMP-008/017. Проверка всех исторических evaluator callers этого conjunction ещё не завершена; автоматический новый SOURCE_DEFECT не присвоен.
+
+### HSBI-A03-F-064 — Целочисленное распределение с остатком
+
+**Источник:** Docs/08_MONEY_LEDGER_SPECIFICATION_RU.md:12–24; Include/Money/HSBI_AllocationPolicyTypes.mqh:16–23; Include/Money/HSBI_AllocationLedgerTypes.mqh:6–10. **Статус:** MATHEMATICALLY_VALID_UNDER_ASSUMPTIONS. **Production mapping:** SOURCE_CONTRADICTION для negative buckets, не для policy transitionShare.
+
+Пусть N≥0 — settled minor units, 0≤si≤1, Σsi≤1. Выдать bi=floor(Nsi), а residual=N−Σbi. Тогда каждый bi≥0, residual≥0, Σbi+residual=N. Направления/lot grid неприменимы непосредственно: деньги имеют собственную currency/scale lattice. Нужны точные произведения/checked intermediates; округление каждого bi вверх может нарушить бюджет: N=1, shares .5/.5, ceil даёт2. Signed broker components сначала сверяются по утверждённой posting policy; нельзя делить projected или отрицательный DealNet как положительный grant. На N=0 гранты0. Costs уже в N не вычитаются повторно; partial fills создают факты лишь после reconciliation. Связи F007/F012–016/F049, ERR-005/006/022, IMP-002/003. Policy validator уже проверяет transitionShare≥0; снятая гипотеза отмечена в реестре.
+
+### HSBI-A03-F-065 — Проверка revision не является атомарным commit
+
+**Источник:** Docs/16_PERSISTENCE_AND_RESTART_RU.md:6–21; Docs/HSB.2C_Journal_Persistence_Reconciliation.md:3–7; Include/Core/HSBI_StateMachine.mqh:6–7; Include/Persistence/HSBI_ExecutionJournal.mqh:21–29. **Статус:** MATHEMATICALLY_VALID_UNDER_ASSUMPTIONS для необходимости единой сериализации competing transitions; production durable/concurrent enforcement NOT_IMPLEMENTED.
+
+Free=50, revision=r. A и B независимо читают эти же значения и запрашивают30. Оба локальных условия30≤50 истинны. Два разрешения не доказывают, что60≤50; требуется атомарное сравнение revision и запись balances+receipts либо эквивалентная сериализуемая транзакция. При CAS один commit делает Free20,r+1; второй получает conflict и zero delta. Даже корректная in-memory последовательная функция не доказывает crash durability или multi-process ordering. Денежные единицы едины; r безразмерный ограниченный ID с проверкой переполнения. BUY/SELL, grid и costs не заменяют backend ordering; actual debit определяется отдельно. Связи F013–019/F053–057; ERR-017/025/030/033; IMP-004/009. Это аналитическая интерливинг-схема, конкурентный тест не запускался.
+
+### HSBI-A03-F-066 — Связь счётчика snapshot и наличия объекта
+
+**Источник:** Include/Persistence/HSBI_ExecutionStateSnapshot.mqh:27–40; Docs/HSB.2C_Journal_Persistence_Reconciliation.md:5. **Статус:** UNDEFINED для нормативного смысла completedActionCount; SOURCE_CONTRADICTION условно, если count означает количество предъявленных completed actions.
+
+При capacity1 этот смысл требует (count=1)⇔(completedIntent.intentId>0), а completed status/lastConfirmed IDs должны иметь независимые journal bindings. Existing activeIntentCount имеет аналогичный iff, completedActionCount — нет. Если count является иным историческим счётчиком, его связь и предел1 требуют отдельного объяснения; отсутствие iff нельзя скрыто исправить без schema contract. Безразмерные exact integers, domain0..1; направления/grid/costs неприменимы к этому логическому инварианту. Доказательство acceptance несогласованного DTO — ERR-050; успешное историческое расходование из него не следует. Связи F057/F060/F065, IMP-009/SNAP-FIXTURE-1.
+
+## Обязательные общие уточнения к F001–F060
+
+Для геометрических F001–006/F027–030/F037–039/F044–048/F050–052/F058 благоприятная координата u=s(P−P0), s=+1 для Far SELL и −1 для Far BUY. Денежная интерпретация требует конечного положительного K и единого symbol/currency basis; асимметричные tick values и расходы требуют broker valuation. Объём нормализуется по явно выбранному origin, затем min/max, активность каждой ноги и все gates повторяются. Lot slope не является суммой денег.
+
+Для денежных F007–026/F034–036/F040–043/F049/F053–057/F060 signed components, posting grid, distinct cost basis и независимая история обязательны. Частичный fill — самостоятельная подтверждённая запись с принадлежностью batch; расчёт по planned volume не actual settlement. Утверждение local partition не расширяется до global funding или broker authenticity. Для F031–033 account-specific margin/risk domain обязателен; standalone margin sum не доказана фактической account margin. Для F037–038/F058–059 uniform quantifier, terminal feasibility и market/execution assumptions раздельны.
+
+Эта групповая оговорка не выдаётся за завершённые 15 индивидуальных полей каждого семейства. Детальная field-by-field матрица и полный просмотр исторических machine contracts остаются в списке незавершённого охвата; AUDIT_COMPLETENESS сохраняет PARTIAL.
+
+Текущий непересекающийся счёт: 66 семейств; 47 MATHEMATICALLY_VALID_UNDER_ASSUMPTIONS, 3 NORMATIVE_CONTRADICTION, 2 MATHEMATICALLY_FALSE, 6 UNVERIFIED, 7 UNDEFINED, 1 NOT_IMPLEMENTED. SOURCE_CONTRADICTION считается отдельно как production mapping. F066 не повышается до безусловного нормативного дефекта при неизвестной семантике count.

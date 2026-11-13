@@ -373,3 +373,24 @@
 | HSBI-A03-IMP-022 | RISK | HIGH | 041 | Prefix exposure envelope Small Transition | Неполная интеграция/миграция | HIGH | REQUIRED |
 | HSBI-A03-IMP-021 | STABILITY | HIGH | 037,038,042 | Условные risk/termination claims вместо гарантии | Неполная интеграция/миграция | HIGH | REQUIRED |
 | HSBI-A03-IMP-013 | TERMINATION | HIGH | 021,031,032 | Uniform induction и исполнимое terminal состояние | Неполная интеграция/миграция | HIGH | REQUIRED |
+
+## COVERAGE-COMPLETION — уточнения существующих предложений
+
+Все IMP-001…022 сохранены. IMP-003/005 дополнены индивидуальной transitionShare nonnegativity и closed enums; IMP-004/010 — source value bindings ERR-048; IMP-009 — snapshot count/body ERR-050; IMP-007/008 — enum и intent/control-side binding ERR-049. Новых экономических размеров buffers/лотности не выбиралось.
+
+IMP-002 дополнительно различает raw observed bit equality и settled posting, NFC-normalized versus exact opaque broker namespace; это разные proposed equivalence classes. Не менять исторические hashes. IMP-011 включает отдельные plan identity и full-content digest, а не доверие immutable=true. IMP-013/021 отдельно различают bounded simultaneous lot и unbounded cumulative turnover: одно не доказывает другое.
+
+### Исправление ссылки на transitionShare
+
+Фраза дополнения об индивидуальной nonnegativity относится к будущему подтверждению сохранности guards. **Добавлять отсутствующую проверку transitionShare не требуется:** `AllocationPolicyTypes.mqh:22` уже её содержит. Рабочая гипотеза снята в переоценке ERR-005. Исходная проблема negative allocation buckets остаётся в `AllocationLedgerTypes.mqh:7`, это другой API.
+
+
+## Текущие дополнительные критерии существующих предложений
+
+IMP-004/010: ERR-048 требует отдельных связей каждого scalar с независимым proof **в публичном API**, проверки currency/precision/basis и различения allocated и projected stages. Предполагаемый эффект — исключить локальный ложноположительный Catch-Up; риск — сломать legitimate allocated branch повторным умножением share. BUY/SELL используют соответствующий close side; grid не заменяет money identity. Будущая приёмка должна охватывать текущий корректно связывающий NewFar caller и direct public boundary. Никакого нового money policy без D-02/D-04.
+
+IMP-005/007/008: ERR-049 требует exhaustive enum membership до side/role/bucket arithmetic. Unknown integral enum не становится разрешённым направлением. Не вводить один общий range для разных enum/identifier types. Положительный BUY и SELL должны сохраняться; broker grid проверяется отдельно, стоимость не обнуляется из-за schema rejection. Exact side/intent coupling должен учитывать назначение operation; один close-price contract нельзя молча навязать всем opening DTO.
+
+IMP-009: ERR-050 требует сначала утвердить смысл completedActionCount и связь с completed body/lastConfirmed/journal, затем выбирать техническое исправление. Если это cardinality, iff с существованием обязателен; если исторический counter — нужен другой формальный контракт. Proposed remedy не подменяет independent historical receipt. Zero delta для отказа/NO_OP и replay остаются будущими критериями, не выполненными тестами.
+
+Для всех22 предложений математика, affected BUY/SELL/grid/money/risk/FSM приведены в исходных карточках и связанных ERR/F. Полная индивидуальная проверка всех указанных в задании полей/совместимости с каждым историческим контрактом ещё не закрыта. Наличие22 карточек не достаточное основание COMPLETE. Новых IMP IDs не потребовалось: новые причины уже входят в scope существующих004/005/007/008/009/010.

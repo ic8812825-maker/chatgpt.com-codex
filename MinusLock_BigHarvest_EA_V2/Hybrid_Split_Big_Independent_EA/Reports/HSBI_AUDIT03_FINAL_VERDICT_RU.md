@@ -1,3 +1,95 @@
+# AUDIT03 COVERAGE-COMPLETION — текущий вердикт
+
+**Задание полного завершения аудита пока не выполнено. AUDIT_COMPLETENESS=PARTIAL.** Продолжение существенно расширяет чтение и математический разбор, но не закрывает все обязательные пункты. Ни публикация этого среза, ни условно верная алгебра не разрешают production, R1.1 или торговлю.
+
+BASE_SHA=4761c66edc3343f353ca774df835eedb1787b818
+UTC=2026-11-13T11:56:31.213916+00:00
+
+## Что фактически добавлено
+
+Все136 Docs и74 production sources прочитаны целиком в совокупности первоначального аудита и продолжения; оставшиеся по прежней карте85 Docs/30 source файлов дочитаны. Прежний denominator136 охватывал только Docs. Новый консервативный inventory —482 baseline-документа: Docs136,Reports263,Tests/Contracts79,корневые4. В нём FULL174,PARTIAL2,NOT_REVIEWED306. Historical generated fixtures/manifests не считаются утверждёнными нормативами; они включены до содержательной classification применимости. Все строки содержат blob/SHA256/Lines/роль/coverage и указание границ проверки.
+
+Исходный каталог60 сохранён, добавлены6 отношений: мгновенный объём против turnover; actual fill balance; недостаточность set equality для exact settlement; integer allocation residual; revision против атомарного commit; смысл snapshot count/body. Текущий счёт66:47 условно математически верны,3 normative contradictions,2 mathematically false implications,6 unverified,7 undefined,1 not implemented. Production mapping ведётся отдельно. Этот каталог пока не объявлен окончательно исчерпывающим.
+
+В едином реестре50 карточек: P0=14,P1=31,P2=5. Новые ERR-048 и049 — статически установленные локальные source defects: proof/scalar amount binding публичного ReserveCatchUp и closed enum validation. ERR-050 — неопределённость completedActionCount/body контракта, **AMBIGUOUS_SPECIFICATION**, а не доказанный double-spend. Всего SOURCE_DEFECT18,CONTRADICTION3,AMBIGUOUS_SPECIFICATION10,MISSING_CONTRACT9,UNPROVEN_CLAIM8,POTENTIAL_RISK2. Текущий main не реализует торговый lifecycle; эти числа не число live exploits. Новые причины соотнесены с существующими IMP;22 ID предложений сохранены.
+
+Ошибка рабочего чтения transitionShare исправлена явно: guard nonnegativity существует, контрпример с отрицательной share отвергается. Эта снятая гипотеза не включена в50 и не скрыта. ERR-005 о negative allocation buckets относится к другому validator и сохраняется.
+
+## Математические результаты и границы
+
+Добавлен отдельный ручной Far BUY цикл с собственными entry/Bid/Ask. Для обоих направлений positive Harvest+.7 совместим с полным CyclePnL−3.3. В SmallTransition таблице Gross3.7→3.2→2.2→1.2→.6, а |Net|.7→1.2→2.2→1.2→.6. При явно условном adverse band5 endpoint risk3 проходит limit8, intermediate11 — нет. Два гипотетических margin rules дают различные prefix burdens; ни одно не названо фактическим broker margin. Planned residual не становится actual NewFar автоматически.
+
+Пять глобальных свойств разобраны раздельно. Bounded simultaneous volume не доказывает bounded turnover/loss, profitable FinalClose или finite wall-clock cycle. Открытый SELL при неограниченной adverse цене — контрпример безусловному денежному bound. Uniform q-contraction доказывает малую шкалу по успешным шагам при всех предпосылках; finite prefix не universal tail и Vmin не нулевой остаток. Global conservation требует независимого complete registry и atomic/durable ordering, а не только G=C+R+Free.
+
+Все16 решений из R0F/AUDIT02/DG01 остаются AWAITING_ADMIN_APPROVAL. R0G/R0H ballots не подписаны; F64Z/T17Z — proposals. Смена schema/codec не создаёт новый logical source. Early source-key SchemaVersion/NFC и поздний opaque logical namespace оставлены явно различимыми до решения владельца.
+
+## Что ещё необходимо для COMPLETE
+
+- Закончить содержательное чтение/классификацию306 NOT_REVIEWED и2 PARTIAL строк [расширенной инвентаризации](HSBI_AUDIT03_DOCUMENT_COVERAGE_RU.md). Все точные paths перечислены; данные доступны, это не environment failure.
+- Превратить [индекс74 файлов/199 lexical function declarations](HSBI_AUDIT03_SOURCE_FUNCTION_MAP_RU.md) в полный индивидуальный contract/guard/mandatory-caller crosswalk. Извлечение имени функции не доказательство композиции.
+- Заполнить все15 индивидуальных полей для каждого formula family, завершить traceability всех исторических нормативных дополнений и поиск повторов ERR-020/046. Групповые оговорки не закрывают индивидуальные карточки.
+- Завершить нормативную Event×State×Partial×Timeout×Restart relation. Фазовая карта и факт отсутствия handler не full FSM specification proof.
+
+Эти gaps означают неполноту **аудита**, а не только недоказанную безопасность системы. Даже будущий COMPLETE не позволит автоматически поставить PROVEN прибыльности, loss bound или broker authenticity. Подробная карта — [completeness matrix](HSBI_AUDIT03_COMPLETENESS_MATRIX_RU.md).
+
+## Сохранность и выполненные действия
+
+Начальная local/origin/remote база подтверждена. Из1525 baseline файлов1515 read-only файлов, включая74 production sources, сопоставлены побайтно с Git blobs и modes:0 mismatches.10 старых AUDIT03 Markdown обновлены в разрешённом scope;3 дополнительных AUDIT03 Markdown созданы. ERR001–047,IMP001–022,F001–060 сохранены, нынешние50/22/66 headings уникальны. Relative Markdown links существуют; literal backslash+n не найдено; diff whitespace check без замечаний. Подробные хеши — [baseline/preservation](HSBI_AUDIT03_BASELINE_AND_PRESERVATION_RU.md).
+
+Тесты, runners, financial programs, compile, MetaEditor/MT5/Strategy Tester не запускались. Исторические FAIL/PASS сохранены без нового execution verdict. Вспомогательные Git/хеш/инвентаризация/запись текста не являются денежными тестами. Production, Docs,Tests и исторические evidence не изменены. Никакого trading/funding/persistence/backend не создано.
+
+FINAL_SHA и remote parity определяются **после** создания/публикации содержащего отчёт коммита; собственный полный SHA не встраивается в свои committed bytes. Публикационная проверка в финальном ответе должна сообщить реальные значения и сохранить PARTIAL.
+
+## Текущий статус до publication (не фиктивный post-push результат)
+
+```text
+TASK=HSBI_AUDIT03_COVERAGE_COMPLETION
+BASE_SHA=4761c66edc3343f353ca774df835eedb1787b818
+FINAL_SHA=POST_PUBLICATION_CHECK_REQUIRED
+REMOTE_SHA_PARITY=POST_PUBLICATION_CHECK_REQUIRED
+WORKTREE_CLEAN=POST_PUBLICATION_CHECK_REQUIRED
+PRODUCTION_FILES_UNCHANGED=YES
+HISTORICAL_EVIDENCE_UNCHANGED=YES
+PREVIOUS_AUDIT_IDS_PRESERVED=YES
+TOTAL_DOCUMENTS=482
+DOCUMENTS_FULLY_REVIEWED=174
+DOCUMENTS_PARTIALLY_REVIEWED=2
+DOCUMENTS_NOT_REVIEWED=306
+TOTAL_FORMULA_FAMILIES=66
+FORMULAS_CONDITIONALLY_VALID=47
+FORMULAS_CONTRADICTORY=3
+FORMULAS_MATHEMATICALLY_FALSE=2
+FORMULAS_UNVERIFIED=6
+FORMULAS_UNDEFINED=7
+FORMULAS_NOT_IMPLEMENTED=1
+TOTAL_ERRORS=50
+P0_COUNT=14
+P1_COUNT=31
+P2_COUNT=5
+TOTAL_IMPROVEMENTS=22
+UNRESOLVED_ADMIN_DECISIONS=16
+GLOBAL_MONEY_CONSERVATION_PROVEN=NO
+GLOBAL_LOSS_BOUND_PROVEN=NO
+FULL_FSM_VERIFIED=NO
+FULL_TRADING_CYCLE_VERIFIED=NO
+CYCLE_TERMINATION_PROVEN=NO
+PROFITABILITY_GUARANTEED=NO
+TESTS_EXECUTED=NO
+MQL5_COMPILE=NOT_RUN
+MQL5_NATIVE_TESTS=NOT_RUN
+AUDIT_COMPLETENESS=PARTIAL
+AUDIT03_COMMIT_CREATED=POST_PUBLICATION_CHECK_REQUIRED
+AUDIT03_PUBLISHED=POST_PUBLICATION_CHECK_REQUIRED
+PRODUCTION_REMEDIATION_ALLOWED=NO
+TRADING_LOGIC_START_ALLOWED=NO
+BROKER_DISPATCH_ALLOWED=NO
+REAL_TRADING_ALLOWED=NO
+```
+
+## Исторический вердикт первоначального AUDIT03 — сохранённый контекст
+
+Ниже прежний текст о базе6231...,51/136,47 ERR/60 F: это исторический срез, не текущие totals и не разрешение исполнения.
+
 # AUDIT03 — независимый итоговый вердикт
 
 **Полная корректность HSBI, сохранение денег во всей production-системе, завершение recovery, ограниченность убытка и прибыльность не доказаны. `AUDIT_COMPLETENESS=PARTIAL`.** Подготовленные отчёты не означают разрешение R1.1 или торговли.
