@@ -1,4 +1,45 @@
+> CURRENT STATUS: CURRENT_AUTHORITATIVE_R7_STATUS в конце. Все предыдущие блоки — HISTORICAL; R5–R7 локальны и не опубликованы.
+
+
+> HISTORICAL: все предшествующие R1–R4 сводки и machine blocks сохранены как история. Единственный актуальный статус этой локальной R5-редакции — CURRENT_AUTHORITATIVE_R5_STATUS в конце. Эта редакция ещё не опубликована.
+
 # AUDIT03 COVERAGE-COMPLETION — текущий вердикт
+
+## Текущий срез FINAL-CLOSURE-R2 — аудит не закрыт
+
+База b4d8f1ea5caf492f3abd030e5502d40582c52dc8. Существовавшие12 незакоммиченных отчётов сохранены без reset/clean/rebase. До первой записи R2 их пути и SHA256 зафиксированы в [WIP-инвентаризации](HSBI_AUDIT03_R2_WORK_IN_PROGRESS_RU.md). Все1515 защищённых baseline-файлов, включая74 production sources, совпали по bytes/Git blob/modes; исторические evidence не менялись.
+
+**В R2 завершено:**156 оставшихся индивидуальных function cards. Теперь199 деклараций имеют199 уникальныхFunctionID;198 имён объясняются двумя перегрузками NormalizePriceToTick. Прежние43 карты сохранены и дополнены signature/authority/boundary. Полный source body и статические callers/dependencies приведены в [карте функций](HSBI_AUDIT03_SOURCE_FUNCTION_MAP_RU.md). Это не доказательство mandatory финансовой интеграции или native runtime.
+
+[FORMULA_STATUS_RECONCILIATION](HSBI_AUDIT03_FORMULA_CATALOG_RU.md) сопоставляет все66ID с исходным Git blob: после нормализации осей изменились толькоF039 иF041.66 таблиц15полей сохранены.16 решений получили индивидуальные8-field карточки в [матрице полноты](HSBI_AUDIT03_COMPLETENESS_MATRIX_RU.md); все остаются AWAITING_ADMIN_APPROVAL, approvals0. ERR020/041/046/048/049/050 повторно проверены по исходникам с явным ограничением незавершённого historical-contract review.
+
+**Новая находка:** [ERR051](HSBI_AUDIT03_ALL_ERRORS_RU.md) — отсутствие проверки прогресса floating grid iterator в SolveNewFar. При IEEE binary64 round-to-nearest-even n=10^16 и step=1 дают nextN==n; локальный solver не имеет progress/iteration-limit guard. Это условный статический контрпример в допускаемом DTO numeric profile, не наблюдавшийся MetaTrader hang и не доказанный реальный broker profile. Production caller не найден; основной EA остаётся неторговым. [IMP023](HSBI_AUDIT03_ALL_IMPROVEMENTS_RU.md) предлагает bounded checked enumeration, без реализации. Прежние50ERR/22IMP сохранены; текущие итоги51ERR/23IMP, P0=14/P1=32/P2=5.
+
+**Незавершённый объём:**244FULL+5byte-identical reuse+236NOT_REVIEWED=485. Оба новых прочитанных machine contracts — R0F_ADMIN_DECISIONS и DG01_ACCEPTANCE_MATRIX — имеют диапазоны и выводы в [reading log](HSBI_AUDIT03_FINAL_CLOSURE_READING_LOG_RU.md). Точный список236 оставшихся файлов — строки NOT_REVIEWED [текущей инвентаризации](HSBI_AUDIT03_DOCUMENT_COVERAGE_RU.md). Полный непересекающийся нормативный guard inventory и finite FSM relation ещё не завершены.16 guard groups и10 TX rows нельзя складывать в глобальное числоguards;140 topology pairs нельзя объявить140 финансовыми переходами. Сверка всех исторических authority/callers/ссылок ещё открыта. Поэтому AUDIT_COMPLETENESS=PARTIAL.
+
+Тесты, компиляция и торговые операции не запускались. Git commit/push R2 не выполнялись: критерии полного аудита не достигнуты. Защита GitHub не обходилась; текущие Actions/Code Scanning не подтверждены. Ни документационная готовность, ни новые source cards не разрешают R1.1. Старые разделы и machine blocks ниже являются историческими срезами.
+
+
+## Текущий рабочий срез FINAL-CLOSURE — НЕ ЗАВЕРШЁН И НЕ ОПУБЛИКОВАН
+
+UTC2026-11-13 13:50:27; baseline b4d8f1ea5caf492f3abd030e5502d40582c52dc8. Это промежуточное продолжение того же AUDIT03, не окончательное закрытие. Старые verdict/status blocks ниже сохранены как история и не описывают текущую готовность.
+
+Новая инвентаризация485:242 FULL,5 EXACT_DUPLICATE_REVIEW_REUSED,238 NOT_REVIEWED,0 PARTIAL. Два прежних PARTIAL закрыты последовательным чтением; полный список оставшихся238 файлов находится в [текущей инвентаризации](HSBI_AUDIT03_DOCUMENT_COVERAGE_RU.md), диапазоны/authority/выводы — в [журнале чтения](HSBI_AUDIT03_FINAL_CLOSURE_READING_LOG_RU.md). UNKNOWN_AUTHORITY у ряда перенесённых FULL означает дополнительную незакрытую classification obligation; FULL не означает доказанный контракт.
+
+Все66 формул оформлены по15 полей, математическая и implementation оси разделены. F039 универсального P+tick для обоих направлений математически FALSE; ERR046 остаётся нормативным противоречием. F041 domain UNDEFINED, implementation NOT_IMPLEMENTED. Полная dependency traceability ещё не завершена. Пять global properties имеют индивидуальные10-field анализы, не broker/runtime гарантии.
+
+[Индивидуальная карта исходников](HSBI_AUDIT03_SOURCE_FUNCTION_MAP_RU.md) содержит43 карточки20 полей из199. [Guard crosswalk](HSBI_AUDIT03_GUARD_CALLER_CROSSWALK_RU.md) различает15 групп и10 local TX rows; глобальный atomic inventory не определён. Generic TransactionBarrierPassed не имеет production caller; Runtime barrier его не вызывает. Локальная обязательность флага не independent actual proof.
+
+[Новая FSM matrix](HSBI_AUDIT03_FSM_COMPLETE_MATRIX_RU.md):36 нормативных состояний,33 enum,9 rule cards по22 поля,20 аналитических случаев.140 разрешённых topology pairs не140 financial transitions. Не определены все phase/event/outcome priorities; полного handler нет. ERR031 уточнён: pure planner не обязан торговать; дефект в неиспользуемом terminalRouteAllowed/недоказанной terminal feasibility, а не просто в отсутствии сделки внутри solver.
+
+**Незакрыто:**238 документов;156 индивидуальных function mappings; полный inventory guards и обязательных callers; все недостающие нормативные FSM mappings/приоритеты; индивидуальная20/15-field нормализация50ERR/22IMP; сквозная новая traceability16 решений; полный quality review всех новых ссылок/строк. Эти работы содержательные, не отсутствие shell или недоступность файлов. Поэтому COMPLETE и публикация завершённого пакета недопустимы.
+
+Все1515 read-only baseline-файлов и74 production source совпали по blob/bytes/mode с Git tree.50ERR/22IMP IDs сохранены; две POTENTIAL_RISK записи дополняют18+3+10+9+8 категорий до50.16 решений остаются AWAITING_ADMIN_APPROVAL; утверждений0. Тесты/MetaEditor не запускались по прямому запрету задания.
+
+Новых commit/push нет. Защита GitHub не обходилась; branch protection API недоступен (Forbidden), Actions/Code Scanning не подтверждены. Текущие незакоммиченные Markdown сохранены в workspace. Публиковать можно только после выполнения критериев и проверки допустимого процесса без bypass.
+
+## Сохранённые исторические срезы
+
 
 **Задание полного завершения аудита пока не выполнено. AUDIT_COMPLETENESS=PARTIAL.** Продолжение существенно расширяет чтение и математический разбор, но не закрывает все обязательные пункты. Ни публикация этого среза, ни условно верная алгебра не разрешают production, R1.1 или торговлю.
 
@@ -320,3 +361,418 @@ AUDIT03_COMMIT_CREATED=POST_PUBLICATION_CHECK_REQUIRED
 AUDIT03_PUBLISHED=POST_PUBLICATION_CHECK_REQUIRED
 [/HSBI_AUDIT03_FINAL_STATUS]
 ```
+
+## FINAL-CLOSURE — машинный статус незавершённого рабочего среза
+
+~~~text
+TASK=HSBI_AUDIT03_FINAL_CLOSURE
+BASE_SHA=b4d8f1ea5caf492f3abd030e5502d40582c52dc8
+FINAL_SHA=NOT_CREATED
+REMOTE_SHA_PARITY=YES_AT_BASELINE_CHECK
+WORKTREE_CLEAN=NO
+PRODUCTION_FILES_UNCHANGED=YES
+HISTORICAL_EVIDENCE_UNCHANGED=YES
+PREVIOUS_AUDIT_IDS_PRESERVED=YES
+TOTAL_DOCUMENTS=485
+DOCUMENTS_FULLY_REVIEWED=242
+DOCUMENTS_PARTIALLY_REVIEWED=0
+DOCUMENTS_NOT_REVIEWED=238
+DOCUMENTS_EXACT_DUPLICATE_REUSED=5
+PRODUCTION_FILES_REVIEWED=74_CARRIED_FULL_READING
+FUNCTION_DECLARATIONS_TOTAL=199
+FUNCTIONS_INDIVIDUALLY_MAPPED=43
+GUARDS_TOTAL=NOT_VERIFIED
+GUARDS_MAPPED=15_GROUPS_AND_10_LOCAL_TX_ROWS
+MANDATORY_CALLERS_VERIFIED=PARTIAL_LOCAL_ONLY
+TOTAL_FORMULA_FAMILIES=66
+FORMULAS_WITH_15_FIELDS=66
+FORMULAS_MATHEMATICALLY_VALID=47_UNDER_ASSUMPTIONS
+FORMULAS_FALSE=3
+FORMULAS_CONTRADICTORY=2
+FORMULAS_UNVERIFIED=6
+FORMULAS_UNDEFINED=8
+FSM_NORMATIVE_TRANSITIONS_TOTAL=NOT_DEFINED
+FSM_NORMATIVE_TRANSITIONS_MAPPED=9_RULE_CARDS
+FSM_IMPLEMENTED_TRANSITIONS_MAPPED=140_TOPOLOGY_PAIRS_ONLY
+FSM_SPECIFICATION_GAPS=NOT_FULLY_ENUMERATED
+TOTAL_ERRORS=50
+SOURCE_DEFECT_COUNT=18
+CONTRADICTION_COUNT=3
+AMBIGUOUS_SPECIFICATION_COUNT=10
+MISSING_CONTRACT_COUNT=9
+UNPROVEN_CLAIM_COUNT=8
+P0_COUNT=14
+P1_COUNT=31
+P2_COUNT=5
+P3_COUNT=0
+TOTAL_IMPROVEMENTS=22
+UNRESOLVED_ADMIN_DECISIONS=16
+GLOBAL_MONEY_CONSERVATION_PROVEN=NO
+GLOBAL_LOSS_BOUND_PROVEN=NO
+CYCLE_TERMINATION_PROVEN=NO
+PROFITABILITY_GUARANTEED=NO
+TESTS_EXECUTED_BY_CODEX=NO
+MQL5_COMPILE=NOT_RUN
+MQL5_NATIVE_TESTS=NOT_RUN
+GITHUB_ACTIONS_STATUS=NOT_VERIFIED
+CODE_SCANNING_STATUS=NOT_VERIFIED
+BRANCH_PROTECTION_BYPASS_USED=NO
+AUDIT_COMPLETENESS=PARTIAL
+AUDIT03_COMMIT_CREATED=NO
+AUDIT03_PUBLISHED=NO
+PRODUCTION_REMEDIATION_ALLOWED=NO
+TRADING_LOGIC_START_ALLOWED=NO
+BROKER_DISPATCH_ALLOWED=NO
+REAL_TRADING_ALLOWED=NO
+~~~
+
+## R2 — машинный статус незавершённого продолжения
+
+Значения опираются на указанные выше WIP/preservation, coverage, source map, formula reconciliation, центральные реестры и completeness matrix. Неустановленные FSM/guard числа не подменяются нулями.
+
+~~~text
+TASK=HSBI_AUDIT03_FINAL_CLOSURE_R2
+BASE_SHA=b4d8f1ea5caf492f3abd030e5502d40582c52dc8
+FINAL_SHA=NOT_CREATED
+REMOTE_SHA_PARITY=YES_AT_LAST_CHECK
+WORKTREE_CLEAN=NO
+TOTAL_DOCUMENTS=485
+DOCUMENTS_FULLY_REVIEWED=244
+DOCUMENTS_EXACT_DUPLICATE_REUSED=5
+DOCUMENTS_PARTIALLY_REVIEWED=0
+DOCUMENTS_NOT_REVIEWED=236
+PRODUCTION_FILES_REVIEWED=74
+FUNCTION_DECLARATIONS_TOTAL=199
+FUNCTIONS_INDIVIDUALLY_MAPPED=199
+GUARDS_TOTAL=NOT_ESTABLISHED_REVIEW_INCOMPLETE
+GUARDS_MAPPED=16_GROUPS_AND_10_LOCAL_TX_ROWS
+MANDATORY_CALLERS_VERIFIED=LOCAL_ONLY_GLOBAL_INCOMPLETE
+TOTAL_FORMULA_FAMILIES=66
+FORMULAS_WITH_15_FIELDS=66
+FORMULA_STATUS_RECONCILIATION_COMPLETE=YES
+FSM_NORMATIVE_TRANSITIONS_TOTAL=NOT_ESTABLISHED
+FSM_NORMATIVE_TRANSITIONS_MAPPED=9_RULE_CARDS
+FSM_IMPLEMENTED_TRANSITIONS_MAPPED=140_TOPOLOGY_PAIRS_ONLY
+FSM_SPECIFICATION_GAPS=NOT_FULLY_ENUMERATED
+TOTAL_ERRORS=51
+P0_COUNT=14
+P1_COUNT=32
+P2_COUNT=5
+P3_COUNT=0
+TOTAL_IMPROVEMENTS=23
+UNRESOLVED_ADMIN_DECISIONS=16
+PRODUCTION_FILES_UNCHANGED=YES
+HISTORICAL_EVIDENCE_UNCHANGED=YES
+PREVIOUS_AUDIT_IDS_PRESERVED=YES
+GLOBAL_MONEY_CONSERVATION_PROVEN=NO
+GLOBAL_LOSS_BOUND_PROVEN=NO
+CYCLE_TERMINATION_PROVEN=NO
+PROFITABILITY_GUARANTEED=NO
+TESTS_EXECUTED_BY_CODEX=NO
+MQL5_COMPILE=NOT_RUN
+MQL5_NATIVE_TESTS=NOT_RUN
+GITHUB_ACTIONS_STATUS=NOT_VERIFIED
+CODE_SCANNING_STATUS=NOT_VERIFIED
+BRANCH_PROTECTION_BYPASS_USED=NO
+AUDIT_COMPLETENESS=PARTIAL
+AUDIT03_COMMIT_CREATED=NO
+AUDIT03_PUBLISHED=NO
+PRODUCTION_REMEDIATION_ALLOWED=NO
+TRADING_LOGIC_START_ALLOWED=NO
+BROKER_DISPATCH_ALLOWED=NO
+REAL_TRADING_ALLOWED=NO
+~~~
+
+## R4 — текущая промежуточная оценка перед GitHub snapshot
+
+Источник: [R4 checkpoint](HSBI_AUDIT03_R4_GITHUB_PUBLICATION_RU.md), coverage, guard/caller crosswalk и FSM_COMPLETE_MATRIX. Более ранние R2 машинные блоки выше сохраняют историю и не являются текущими числителями.
+
+TOTAL_DOCUMENTS=531
+DOCUMENTS_FULLY_REVIEWED=463
+DOCUMENTS_EXACT_DUPLICATE_REUSED=5
+DOCUMENTS_PARTIALLY_REVIEWED=0
+DOCUMENTS_NOT_REVIEWED=63
+FUNCTIONS_INDIVIDUALLY_MAPPED=199
+FORMULAS_WITH_15_FIELDS=66
+GUARD_CARDS_MAPPED=73
+GUARD_CENSUS_COMPLETE=NO
+FSM_SPECIFICATION_GAPS_REGISTERED=10
+ERR_051_STATUS=CONDITIONAL_STATIC_RISK
+AUDIT_COMPLETENESS=PARTIAL
+TARGET_WORK_INTEGRATED=NO
+GITHUB_API_VERIFICATION=BLOCKED_PROXY_CONNECT_403
+GITHUB_PUBLICATION_COMPLETE=NO_AT_SNAPSHOT_CREATION
+
+Полное обязательное чтение, общий normative guard/caller census и полный clause→FSM crosswalk ещё не завершены. Публикуемый промежуточный snapshot не объявляется окончательным аудитом. Тесты/компиляция не запускались; production и historical evidence неизменны; все разрешения на production/trading остаются NO.
+
+## R4 — проверенный remote snapshot и текущий остаток
+
+Первый snapshot реально размещён в GitHub: commit `f3090a5aedd71510f38afd265ac6d7d9b56b63a2`, audit-ветка `audit/hsbi-audit03-github-closure-r4`; work неизменён. Проверены HTTP200 commit/compare/final verdict и SHA256 всех16 remote raw files. Draft PR и обязательная API verification заблокированы сетевым CONNECT403 к api.github.com; PR NOT_CREATED, protection/CI/CodeScanning NOT_VERIFIED. Поэтому строгий GITHUB_PUBLICATION_COMPLETE пока NO, несмотря на доказанный обычный push. Подробные URL, hashes и ошибки — [R4 publication report](HSBI_AUDIT03_R4_GITHUB_PUBLICATION_RU.md).
+
+Текущее покрытие531=472 FULL+5duplicate+54NOT_REVIEWED+0PARTIAL;199 карт/66формул/73GRD/51ERR/23IMP/16pending approvals. Полнота document/guard/caller/FSM исследования не достигнута: AUDIT_COMPLETENESS=PARTIAL. TESTS_EXECUTED_BY_CODEX=NO; MQL5_COMPILE/MQL5_NATIVE_TESTS=NOT_RUN; все production/trading permissions=NO.
+
+## R4 — блокировка соблюдения publication gate
+
+Последний опубликованный audit SHA `5ef8983f1e91e3f4cb3b659de2e2e3c0b9268ae2` проверен по remote и bytes всех16 файлов. Однако сервер при втором обычном push сообщил bypass требований PR и Code Scanning. Поэтому R4 не завершён; дальнейшие push/merge остановлены. BRANCH_PROTECTION_BYPASS_USED=YES_SERVER_REPORTED; GITHUB_PUBLICATION_COMPLETE=NO_R4_ACCEPTANCE_BLOCKED; CODE_SCANNING_STATUS=WAITING_SERVER_REPORTED_NOT_VERIFIED. Этот локальный corrective notice ещё не опубликован, чтобы не повторять bypass. Точный server output и безопасный путь — в R4_GITHUB_PUBLICATION. Аудит PARTIAL,54 документа и полный guard/caller/FSM crosswalk остаются незавершёнными.
+
+## HISTORICAL_R5_STATUS
+
+UTC 2026-11-14T11:46:23.780963+00:00. R5 не завершён и не опубликован. Полное чтение дополнительно32 документов подтверждено индивидуальным reading log и строками coverage: 472→504 FULL,54→22 unread. Остаток перечислен точно в WIP checkpoint. Нормативный guard denominator, mandatory callers и полный clause→FSM crosswalk не закрыты;73 карты и10 gaps не выдаются за полный census. Неопределённые значения ниже не являются нулями. Содержательная переоценка всех51 ERR/23IMP/66формул в R5 не завершена; стабильные прежние ID сохранены, а shape counts проверены.
+
+Ссылки-доказательства: [coverage](HSBI_AUDIT03_DOCUMENT_COVERAGE_RU.md), [reading log](HSBI_AUDIT03_FINAL_CLOSURE_READING_LOG_RU.md), [WIP / exact remainder](HSBI_AUDIT03_R2_WORK_IN_PROGRESS_RU.md), [publication incident](HSBI_AUDIT03_R4_GITHUB_PUBLICATION_RU.md), [guards](HSBI_AUDIT03_GUARD_CALLER_CROSSWALK_RU.md), [FSM](HSBI_AUDIT03_FSM_COMPLETE_MATRIX_RU.md), [ERR](HSBI_AUDIT03_ALL_ERRORS_RU.md), [IMP](HSBI_AUDIT03_ALL_IMPROVEMENTS_RU.md), [function map](HSBI_AUDIT03_SOURCE_FUNCTION_MAP_RU.md), [formulas](HSBI_AUDIT03_FORMULA_CATALOG_RU.md).
+
+Сохранность1515 baseline read-only files (включая74 production) проверена 2026-11-14T11:44:40.407538+00:00: Git blob SHA1 и executable mode каждого файла совпали,0расхождений; также вычислен SHA256 каждого файла. SHA256 сериализованного упорядоченного manifest (JSON sort_keys=True,separators comma/colon, Path/GitBlob/SHA256/Mode) = `4b850f4d244740179adfa263ea0d932ee20a48492f06134fa957bda691f2ce1c`. Предварительная ошибочная команда ls-tree из подпапки вернула0файлов; этот результат исключён, исправленная команда использовала явный `git -C /workspace/chatgpt.com-codex` и assert1515/74. Это статическая проверка сохранности, не запуск тестов проекта.
+
+```text
+TASK=HSBI_AUDIT03_GITHUB_FINAL_CLOSURE_R5
+GITHUB_OWNER=ic8812825-maker
+GITHUB_REPOSITORY=chatgpt.com-codex
+GITHUB_TARGET_BRANCH=work
+GITHUB_AUDIT_BRANCH=audit/hsbi-audit03-github-closure-r4
+BASE_SHA=b4d8f1ea5caf492f3abd030e5502d40582c52dc8
+TARGET_WORK_SHA=b4d8f1ea5caf492f3abd030e5502d40582c52dc8
+AUDIT_BRANCH_SHA=5ef8983f1e91e3f4cb3b659de2e2e3c0b9268ae2
+FINAL_PUBLISHED_SHA=NOT_CREATED_R5
+GITHUB_REPOSITORY_VERIFIED=YES
+GITHUB_REMOTE_CONTENT_VERIFIED=YES_R4_16_FILES_ONLY
+GITHUB_API_ACCESS=NO_FORBIDDEN
+GITHUB_PR_CREATED=NO
+GITHUB_PR_URL=NOT_CREATED
+GITHUB_PUBLICATION_COMPLETE=NO
+TARGET_WORK_INTEGRATED=NO
+BRANCH_PROTECTION_RULES_VERIFIED=NO
+PREVIOUS_BYPASS_RECORDED=YES_SERVER_REPORTED
+NEW_BYPASS_USED=NO
+GITHUB_ACTIONS_STATUS=NOT_VERIFIED
+CODE_SCANNING_STATUS=NOT_VERIFIED
+TOTAL_DOCUMENTS=531
+DOCUMENTS_FULLY_REVIEWED=504
+DOCUMENTS_EXACT_DUPLICATE_REUSED=5
+DOCUMENTS_PARTIALLY_REVIEWED=0
+DOCUMENTS_NOT_REVIEWED=22
+PRODUCTION_FILES_REVIEWED=74_PREVIOUS_STATIC_REVIEW_RETAINED
+FUNCTION_DECLARATIONS_TOTAL=199
+FUNCTIONS_INDIVIDUALLY_MAPPED=199
+TOTAL_FORMULA_FAMILIES=66
+FORMULAS_WITH_15_FIELDS=66_PREVIOUS_CARDS_RETAINED
+GUARDS_TOTAL=NOT_ESTABLISHED_REVIEW_INCOMPLETE
+GUARDS_MAPPED=73
+MANDATORY_CALLERS_TOTAL=NOT_ESTABLISHED_REVIEW_INCOMPLETE
+MANDATORY_CALLERS_VERIFIED=NOT_ESTABLISHED_GLOBAL_CROSSWALK_INCOMPLETE
+GUARD_GAPS_TOTAL=70_REGISTERED_NOT_EXHAUSTIVE
+FSM_NORMATIVE_TRANSITIONS_TOTAL=UNDEFINED_BY_NORMATIVE_DOMAIN_REVIEW_INCOMPLETE
+FSM_NORMATIVE_TRANSITIONS_MAPPED=9_EXISTING_RULE_CARDS_NOT_FULL_RELATION
+FSM_IMPLEMENTED_TRANSITIONS_MAPPED=0_FINANCIAL_HANDLERS_140_PURE_TOPOLOGY_PAIRS
+FSM_SPECIFICATION_GAPS=10_REGISTERED_NOT_EXHAUSTIVE
+TOTAL_ERRORS=51
+P0_COUNT=14
+P1_COUNT=32
+P2_COUNT=5
+P3_COUNT=0
+TOTAL_IMPROVEMENTS=23
+UNRESOLVED_ADMIN_DECISIONS=16
+ERR_051_STATUS=CONDITIONAL_STATIC_RISK
+GLOBAL_MONEY_CONSERVATION_PROVEN=NO
+GLOBAL_LOSS_BOUND_PROVEN=NO
+CYCLE_TERMINATION_PROVEN=NO
+PROFITABILITY_GUARANTEED=NO
+PRODUCTION_FILES_UNCHANGED=YES
+HISTORICAL_EVIDENCE_UNCHANGED=YES
+PREVIOUS_AUDIT_IDS_PRESERVED=YES
+TESTS_EXECUTED_BY_CODEX=NO
+MQL5_COMPILE=NOT_RUN
+MQL5_NATIVE_TESTS=NOT_RUN
+AUDIT_COMPLETENESS=PARTIAL
+AUDIT03_COMMIT_CREATED=NO_R5
+AUDIT03_PUBLISHED=NO_R5_CHANGES
+PRODUCTION_REMEDIATION_ALLOWED=NO
+TRADING_LOGIC_START_ALLOWED=NO
+BROKER_DISPATCH_ALLOWED=NO
+REAL_TRADING_ALLOWED=NO
+```
+
+Опубликованный исторический R4: https://github.com/ic8812825-maker/chatgpt.com-codex/commit/5ef8983f1e91e3f4cb3b659de2e2e3c0b9268ae2 . Для R5 commit/PR URL не существует. HTTP200 raw подтверждает прежние16 файлов, но не заменяет обязательные PR/rules/checks gates и не делает локальную R5-редакцию опубликованной.
+
+## HISTORICAL_R6_STATUS
+
+UTC 2026-11-14T12:16:45.690224+00:00. **R6 PARTIAL / PUBLISH_BLOCKED.** Чтение22 документов завершено:21FULL и1побайтныйduplicate;525+6=531,0непрочитанных/частичных. Не достигнута полнота всего аудита: полный атомарныйguard census/aliasdedup,индивидуальныеmandatorycaller boundaries,полнаяnormativeFSM/clause-leveltraceability ифинальнаясверкавсех51ERR/23IMP/66Fнеобъявлены завершёнными.20boundarycrosswalk/17FSMcases/16decisionlinks — дополнительная работа,неподменаэтихкритериев.
+
+| Ось | Текущий вывод | Evidence |
+|---|---|---|
+| Audit document coverage | 525FULL+6exactduplicate;21новоеFULL/1duplicateвR6 | [coverage](HSBI_AUDIT03_DOCUMENT_COVERAGE_RU.md),[reading log](HSBI_AUDIT03_FINAL_CLOSURE_READING_LOG_RU.md) |
+| Mathematical correctness | SYSTEM_MATHEMATICALLY_VERIFIED=NO; условнаяалгебранеfullsystemproof | [66formulas](HSBI_AUDIT03_FORMULA_CATALOG_RU.md),[51ERR](HSBI_AUDIT03_ALL_ERRORS_RU.md) |
+| Normative completeness | Конфликты/D01..08/CR09/NUM/SNAP/FUNDING/BALANCEpending | [16решений](HSBI_AUDIT03_COMPLETENESS_MATRIX_RU.md) |
+| Production implementation | No financialhandlers;mainDISABLED/no-tradestub | main19–44,NoTradeExecution5–8;[function map](HSBI_AUDIT03_SOURCE_FUNCTION_MAP_RU.md) |
+| Guard/caller completeness | 73cards сохранены;20финансовыхboundaries;globalcensusINCOMPLETE | [crosswalk](HSBI_AUDIT03_GUARD_CALLER_CROSSWALK_RU.md) |
+| FSM completeness | 9rulecards/10gaps/17R6casegroups;неполнаяrelation | [FSM](HSBI_AUDIT03_FSM_COMPLETE_MATRIX_RU.md) |
+| GitHub publication | PR4existsDraft/head5ef;R5/R6неопубликованы | [publication](HSBI_AUDIT03_R4_GITHUB_PUBLICATION_RU.md) |
+| Admin decisions | 16AWAITING_ADMIN_APPROVAL,0новыхapprovals | [matrix](HSBI_AUDIT03_COMPLETENESS_MATRIX_RU.md) |
+| Trading readiness | ВсеpermissionsNO;nativeNOT_RUN | sourceunchanged+ниодноготестовогозапуска |
+
+Сохранность 2026-11-14T12:14:53.281755+00:00:1515read-only baseline files,включая74production,сопоставленыпоGitblob SHA1/mode и SHA256;0расхождений. ManifestSHA256=`4b850f4d244740179adfa263ea0d932ee20a48492f06134fa957bda691f2ce1c` (тотжеметодR5). Unique FunctionID199/F66/GRD73/ERR51/IMP23;чтениеиshapeпроверканедоказываютсемантическуюполнотукаждойкарты. gitdiff--checkexit0наконтрольномсрезе.
+
+Remote SHAи16R4rawfilesповторносверены 2026-11-14T12:15:02.617628+00:00,HTTP200/exactbytes16из16. https://github.com/ic8812825-maker/chatgpt.com-codex/pull/4 — действительноDraft,basework/headexistingaudit. https://github.com/ic8812825-maker/chatgpt.com-codex/rules — activeChatGPT1~ALL;PR/CodeQL/CodeQuality/CodeOwners/lastpushapproval/threadresolution/nonfastforwardrulesпрочитаныизpublicJSON. Прямойpushauditбезbypassнеобоснован,поэтомуневыполнен;APIGitHubForbidden. Commit/PRexistenceнеполнаяприёмкапубликации.
+
+ChecksстраницаPR4HTTP200:виденисторическийjob`check-formulas succeeded`для5ef (10s),остальныеjobsперечислены,носовокупныеобязательныестатусы/CodeQL/CodeQualityнеподтверждены. HTMLtemplatesfailureiconsнеinterpretedкакFAIL. НикакихActionsзапусковCodexнеинициировал. No merge/settings/bypass.
+
+```text
+TASK=HSBI_AUDIT03_FINAL_CLOSURE_R6
+GITHUB_OWNER=ic8812825-maker
+GITHUB_REPOSITORY=chatgpt.com-codex
+GITHUB_TARGET_BRANCH=work
+GITHUB_AUDIT_BRANCH=audit/hsbi-audit03-github-closure-r4
+GITHUB_PR_NUMBER=4
+BASE_SHA=b4d8f1ea5caf492f3abd030e5502d40582c52dc8
+TARGET_WORK_SHA=b4d8f1ea5caf492f3abd030e5502d40582c52dc8
+AUDIT_BRANCH_SHA=5ef8983f1e91e3f4cb3b659de2e2e3c0b9268ae2
+FINAL_PUBLISHED_SHA=NOT_CREATED_R6
+GITHUB_REPOSITORY_VERIFIED=YES
+GITHUB_PR_VERIFIED=YES_OPEN_DRAFT_HEAD_BASE_MATCH
+GITHUB_REMOTE_CONTENT_VERIFIED=YES_R4_16_FILES_ONLY
+GITHUB_PUBLICATION_COMPLETE=NO
+TARGET_WORK_INTEGRATED=NO
+BRANCH_PROTECTION_RULES_VERIFIED=YES_PUBLIC_RULESET_JSON
+PREVIOUS_BYPASS_RECORDED=YES_SERVER_REPORTED
+NEW_BYPASS_USED=NO
+GITHUB_ACTIONS_STATUS=ONE_R4_JOB_SUCCESS_OTHERS_NOT_VERIFIED
+CODE_SCANNING_STATUS=NOT_VERIFIED
+PUBLISH_BLOCKED=BRANCH_PROTECTION
+TOTAL_DOCUMENTS=531
+DOCUMENTS_FULLY_REVIEWED=525
+DOCUMENTS_EXACT_DUPLICATE_REUSED=6
+DOCUMENTS_PARTIALLY_REVIEWED=0
+DOCUMENTS_NOT_REVIEWED=0
+PRODUCTION_FILES_REVIEWED=74_PREVIOUS_REVIEW_RETAINED
+FUNCTION_DECLARATIONS_TOTAL=199
+FUNCTIONS_INDIVIDUALLY_MAPPED=199
+TOTAL_FORMULA_FAMILIES=66
+FORMULAS_WITH_15_FIELDS=66
+GUARDS_TOTAL=NOT_ESTABLISHED_CENSUS_INCOMPLETE
+GUARDS_MAPPED=73
+MANDATORY_CALLERS_TOTAL=NOT_ESTABLISHED_CROSSWALK_INCOMPLETE
+MANDATORY_CALLERS_VERIFIED=NOT_ESTABLISHED_GLOBAL_SCOPE
+GUARD_GAPS_TOTAL=70_REGISTERED_NOT_EXHAUSTIVE
+FSM_NORMATIVE_TRANSITIONS_TOTAL=UNDEFINED_BY_NORMATIVE_DOMAIN
+FSM_NORMATIVE_TRANSITIONS_MAPPED=9_RULE_CARDS_NOT_FULL_RELATION
+FSM_IMPLEMENTED_TRANSITIONS_MAPPED=0_FINANCIAL_HANDLERS
+FSM_SPECIFICATION_GAPS=10_REGISTERED_NOT_EXHAUSTIVE
+TOTAL_ERRORS=51
+P0_COUNT=14
+P1_COUNT=32
+P2_COUNT=5
+P3_COUNT=0
+TOTAL_IMPROVEMENTS=23
+UNRESOLVED_ADMIN_DECISIONS=16
+ERR_051_STATUS=CONDITIONAL_STATIC_RISK
+GLOBAL_MONEY_CONSERVATION_PROVEN=NO
+GLOBAL_LOSS_BOUND_PROVEN=NO
+CYCLE_TERMINATION_PROVEN=NO
+PROFITABILITY_GUARANTEED=NO
+PRODUCTION_FILES_UNCHANGED=YES
+HISTORICAL_EVIDENCE_UNCHANGED=YES
+PREVIOUS_AUDIT_IDS_PRESERVED=YES
+TESTS_EXECUTED_BY_CODEX=NO
+MQL5_COMPILE=NOT_RUN
+MQL5_NATIVE_TESTS=NOT_RUN
+AUDIT_COMPLETENESS=PARTIAL
+SYSTEM_MATHEMATICALLY_VERIFIED=NO
+AUDIT03_COMMIT_CREATED=NO_R6
+AUDIT03_PUBLISHED=NO_R5_R6_CHANGES
+PRODUCTION_REMEDIATION_ALLOWED=NO
+TRADING_LOGIC_START_ALLOWED=NO
+BROKER_DISPATCH_ALLOWED=NO
+REAL_TRADING_ALLOWED=NO
+```
+
+## CURRENT_AUTHORITATIVE_R7_STATUS
+
+UTC 2026-11-14T12:39:00.069199+00:00. R7 не завершён. Отдельно подтверждены сохранность R5/R6, текущая удалённая база и точные структурные показатели; полный атомарный нормативный census и полный caller/FSM crosswalk ещё не выполнены. Это содержательный остаток, а не только publication blocker.
+
+Основания: [baseline/preservation](HSBI_AUDIT03_BASELINE_AND_PRESERVATION_RU.md#r7_inventory_identity_reconciliation), [WIP manifest](HSBI_AUDIT03_R2_WORK_IN_PROGRESS_RU.md#r7_start_baseline), [guard aliases](HSBI_AUDIT03_GUARD_CALLER_CROSSWALK_RU.md#r7_c1_proposed_alias_crosswalk), [FSM clauses](HSBI_AUDIT03_FSM_COMPLETE_MATRIX_RU.md#r7_clause_level_transaction_relation), [точный остаток](HSBI_AUDIT03_COMPLETENESS_MATRIX_RU.md#r7_current_traceability_boundary), [GitHub blocker](HSBI_AUDIT03_R4_GITHUB_PUBLICATION_RU.md#r7_official_github_recheck). ID counts проверены по уникальным заголовкам, поля формул — структурно; прежняя severity сохранена без заявления о новой полной переклассификации.
+
+```text
+TASK=HSBI_AUDIT03_R7
+GITHUB_OWNER=ic8812825-maker
+GITHUB_REPOSITORY=chatgpt.com-codex
+GITHUB_TARGET_BRANCH=work
+GITHUB_AUDIT_BRANCH=audit/hsbi-audit03-github-closure-r4
+GITHUB_PR_NUMBER=4
+BASE_SHA=b4d8f1ea5caf492f3abd030e5502d40582c52dc8
+TARGET_WORK_SHA=b4d8f1ea5caf492f3abd030e5502d40582c52dc8
+AUDIT_BRANCH_SHA=5ef8983f1e91e3f4cb3b659de2e2e3c0b9268ae2
+FINAL_PUBLISHED_SHA=NOT_CREATED_R7
+GITHUB_REPOSITORY_VERIFIED=YES
+GITHUB_PR_VERIFIED=YES_DRAFT
+GITHUB_REMOTE_CONTENT_VERIFIED=YES_R4_ONLY
+GITHUB_PUBLICATION_COMPLETE=NO
+TARGET_WORK_INTEGRATED=NO
+BRANCH_PROTECTION_RULES_VERIFIED=YES_OFFICIAL_PUBLIC_RULESET
+PREVIOUS_BYPASS_RECORDED=YES_SERVER_REPORTED
+NEW_BYPASS_USED=NO
+PUBLISH_BLOCKED=BRANCH_PROTECTION_AND_NO_VERIFIED_WRITE_WORKFLOW
+GITHUB_ACTIONS_STATUS=NOT_RECHECKED_R7
+CODE_SCANNING_STATUS=NOT_VERIFIED
+TOTAL_DOCUMENTS=531_FROZEN_INVENTORY_INCLUDING_13_MUTABLE_REPORTS
+DOCUMENTS_FULLY_REVIEWED=525_PREVIOUS_READING_RECORDS_RETAINED
+DOCUMENTS_EXACT_DUPLICATE_REUSED=6_BYTE_IDENTITY_VERIFIED
+DOCUMENTS_PARTIALLY_REVIEWED=0_IN_READING_REGISTER
+DOCUMENTS_NOT_REVIEWED=0_IN_READING_REGISTER
+UNKNOWN_AUTHORITY_DOCUMENTS=137
+FUNCTION_DECLARATIONS_TOTAL=199
+FUNCTIONS_INDIVIDUALLY_MAPPED=199_CARDS_RETAINED
+TOTAL_FORMULA_FAMILIES=66
+FORMULAS_WITH_15_FIELDS=66_STRUCTURALLY_VERIFIED
+NORMATIVE_CLAUSES_TOTAL=NOT_ESTABLISHED_CENSUS_INCOMPLETE
+GUARD_REQUIRED_CLAUSES_TOTAL=NOT_ESTABLISHED_CENSUS_INCOMPLETE
+GUARDS_TOTAL=NOT_ESTABLISHED_CENSUS_INCOMPLETE
+GUARDS_MAPPED=73_EXISTING_CARDS_RETAINED
+GUARDS_VERIFIED_MANDATORY=NOT_ESTABLISHED_GLOBAL_SCOPE
+GUARDS_LOCAL_ONLY=NOT_ESTABLISHED_NORMALIZED_TAXONOMY
+GUARDS_MISSING=NOT_ESTABLISHED_CENSUS_INCOMPLETE
+GUARDS_SPECIFICATION_GAPS=NOT_ESTABLISHED_CENSUS_INCOMPLETE
+MANDATORY_CALLERS_TOTAL=NOT_ESTABLISHED_CROSSWALK_INCOMPLETE
+MANDATORY_CALLERS_VERIFIED=NOT_ESTABLISHED_CROSSWALK_INCOMPLETE
+MANDATORY_CALLERS_MISSING=NOT_ESTABLISHED_CROSSWALK_INCOMPLETE
+CALLER_BYPASS_PATHS=NOT_ESTABLISHED_NO_FINANCIAL_PATH_INVENTED
+CALLER_INDEPENDENCE_GAPS=NOT_ESTABLISHED_FULL_CROSSWALK_INCOMPLETE
+FSM_STATES_TOTAL=36_LABELS_IN_DOC06_NOT_COMPLETE_PRODUCT_DOMAIN
+FSM_EVENTS_TOTAL=UNDEFINED_BY_NORMATIVE_DOMAIN_SG02
+FSM_NORMATIVE_TRANSITIONS_TOTAL=UNDEFINED_BY_NORMATIVE_DOMAIN_SG01_SG02_SG04
+FSM_NORMATIVE_TRANSITIONS_MAPPED=9_RULE_CARDS_PLUS_18_R7_CLAUSE_RELATIONS_NOT_ADDITIVE
+FSM_IMPLEMENTED_TRANSITIONS_MAPPED=0_FINANCIAL_HANDLERS
+FSM_MISSING_TRANSITIONS=NOT_ESTABLISHED_CLAUSE_CROSSWALK_INCOMPLETE
+FSM_CONTRADICTORY_TRANSITIONS=NOT_ESTABLISHED_SG03_PRIORITY_CONFLICT
+FSM_SPECIFICATION_GAPS=10_REGISTERED_NOT_EXHAUSTIVE
+TOTAL_ERRORS=51
+P0_COUNT=14_RETAINED
+P1_COUNT=32_RETAINED
+P2_COUNT=5_RETAINED
+P3_COUNT=0_RETAINED
+TOTAL_IMPROVEMENTS=23
+UNRESOLVED_ADMIN_DECISIONS=16
+ERR_051_STATUS=CONDITIONAL_STATIC_RISK
+GLOBAL_MONEY_CONSERVATION_PROVEN=NO
+GLOBAL_LOSS_BOUND_PROVEN=NO
+CYCLE_TERMINATION_PROVEN=NO
+PROFITABILITY_GUARANTEED=NO
+PRODUCTION_FILES_UNCHANGED=YES_74_GIT_BLOBS_AND_MODES
+HISTORICAL_EVIDENCE_UNCHANGED=YES_1515_PROTECTED_FILES
+PREVIOUS_AUDIT_IDS_PRESERVED=YES
+TESTS_EXECUTED_BY_CODEX=NO
+MQL5_COMPILE=NOT_RUN
+MQL5_NATIVE_TESTS=NOT_RUN
+DOCUMENTARY_COMPLETENESS=READING_REGISTER_CONFIRMED_AUTHORITY_PARTIAL
+AUDIT_COMPLETENESS=PARTIAL
+SYSTEM_MATHEMATICALLY_VERIFIED=NO
+PRODUCTION_READINESS=NOT_READY
+AUDIT03_COMMIT_CREATED=NO_R7
+AUDIT03_PUBLISHED=NO_R5_R6_R7_CHANGES
+AUDIT_RESEARCH_COMPLETE=NO
+R7_OVERALL_STATUS=PARTIAL_AND_PUBLICATION_BLOCKED
+PRODUCTION_REMEDIATION_ALLOWED=NO
+TRADING_LOGIC_START_ALLOWED=NO
+BROKER_DISPATCH_ALLOWED=NO
+REAL_TRADING_ALLOWED=NO
+```
+
+Резервная упаковка: [полный patch и SHA256 двенадцати отчётов](HSBI_AUDIT03_R7_RECOVERY_PATCH_RU.md). Это локальный recovery artifact, не GitHub publication.
