@@ -37,3 +37,82 @@ Uniform contraction доказывает Fk≤q^kF0 и достижение за
 ## Разделение вывода
 
 A не влечёт B/C/D. E не влечёт прибыльность: можно идеально учитывать каждый понесённый убыток. Обнаружение математического countermodel не означает воспроизведённый broker incident. Нативное и брокерское исполнение этим заданием запрещено, поэтому native status NOT_RUN, а не FAIL или PASS. Все решения администратора остаются неутверждёнными.
+
+## FINAL-CLOSURE — пять индивидуальных карточек по10 полей
+
+Новая база b4d8f1ea5caf492f3abd030e5502d40582c52dc8. Это ручные доказательства/контрмодели; код/тесты не исполнялись. Предыдущие абзацы сохранены.
+
+### A — volume
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Точная формулировка | Отдельно sup_t Gross(t)≤B и cumulative turnover Σ abs(actual fill volume)≤T; ни одно не подменяет другое. |
+| Необходимые предположения | Для bound открытого Gross нужен bound числа уникальных actual позиций и их объёма; для turnover исключить бесконечные положительные fills. |
+| Достаточные предположения | Не более4 уникальных активных позиций, объём каждой≤Vmax дают B=4Vmax; не болееK executed fills, каждый≤Vmax дают T=K·Vmax. |
+| Доказательство / контрпример | Σabs(volume)≤4Vmax при4 позициях по слагаемым; бесконечное повторение open/close Vmin имеет bounded instantaneous Gross, но unbounded turnover. |
+| BUY / SELL | Знак направления не меняет absolute lots; зеркальные цены не нужны для этой алгебры. |
+| Broker grid / partial fills | Grid ограничивает допустимый отдельный volume, но не число повторов. Partial quantities входят в executed turnover по одному разу. |
+| Production проверяемость | Registry всех slots/pending fills нужен для actual bound; Context сейчас не охватывает все slots. |
+| Рынок / брокер / внешняя authority | Broker Vmax/grid и полнота position history независимы; локальные DTO не подтверждают их. |
+| Связи с формулами / ERR / IMP / решениями | F030/F037/F058/F061; ERR012/021/032; IMP007/013/021; MQL-DOMAIN. |
+| Статус / proof boundary | VALID_UNDER_ASSUMPTIONS для указанного bound; global turnover UNVERIFIED, не full lifecycle proof. |
+
+### B — loss
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Точная формулировка | Существует единый конечный B для cumulative economic loss по всем admissible market/execution paths. |
+| Необходимые предположения | Каждый contributing factor должен быть ограничен либо его вклад компенсирован доказанным hedge/liability contract; bounded volume недостаточен. |
+| Достаточные предположения | Bounded prices/conversion/costs/holding-time плюс bounded exposure/turnover и guaranteed bounded-cost exit дают конечную сумму потоков. |
+| Доказательство / контрпример | Открытый SELL F>0 с линейным K>0: loss=FK(P−Popen), при P→∞ конечного универсального B нет. |
+| BUY / SELL | Одна BUY при цене≥0 имеет другой ценовой bound, но повторные циклы/fees/conversion не ограничены этим односторонним примером. |
+| Broker grid / partial fills | Grid/Vmax не ограничивают adverse price; gap/partial fills могут оставить открытый риск. |
+| Production проверяемость | Local cap способен блокировать новый action; не гарантирует fill/market response при уже открытом Far. |
+| Рынок / брокер / внешняя authority | Нужны explicit market bounds/liquidity/guaranteed exit или broker liability; stopout/stop trigger недостаточен. |
+| Связи с формулами / ERR / IMP / решениями | F030/F059/F061; ERR018/019/038/042; IMP021; risk/emergency policies pending. |
+| Статус / proof boundary | Безусловная гарантия FALSE в указанном свободном domain; GLOBAL_LOSS_BOUND_PROVEN=NO. |
+
+### C — profitable exit
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Точная формулировка | На всякой допустимой траектории за конечное время actual full close имеет positive full-cycle PnL. |
+| Необходимые предположения | Нужно достижение прибыльного состояния, достаточная margin до него и исполнимое полное закрытие после всех costs. |
+| Достаточные предположения | Достижение threshold с запасом на bounded adverse execution при guaranteed fills и complete cycle accounting было бы достаточным условным профилем. |
+| Доказательство / контрпример | Flat quotes equal lock с положительными costs: ожидание не даёт обязательного positive exit; закрытие фиксирует cost. Это countermodel universal claim. |
+| BUY / SELL | Одинаковый вывод для зеркального equal BUY/SELL lock; universal P+tick без direction не основание доказательства. |
+| Broker grid / partial fills | Min/step допускают residual; partial close не full close. Preview threshold может исчезнуть между fills. |
+| Production проверяемость | Текущий threshold calculator может дать необходимый local eligibility filter, не гарантировать outcome. |
+| Рынок / брокер / внешняя authority | Достижение favorable state и guaranteed liquidity — внешние предпосылки, не следствие unit arithmetic. |
+| Связи с формулами / ERR / IMP / решениями | F010/F011/F035/F038/F039/F050/F059; ERR036/042/044/046; IMP010/020/021; D02/D06. |
+| Статус / proof boundary | PROFITABILITY_GUARANTEED=NO; universal guarantee опровергнута допустимым countermodel. |
+
+### D — cycle termination
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Точная формулировка | Для любого допустимого исполнения существует конечный момент CYCLE_CLOSED без открытого экономического остатка. |
+| Необходимые предположения | Все нужные transitions должны существовать и завершаться за конечное время; terminal route исполним, не один finite proof prefix. |
+| Достаточные предположения | Well-founded discrete measure строго падает на каждом completed step; каждый step конечен; bounded retries; terminal liquidation доказана. |
+| Доказательство / контрпример | F_k≤q^k F0 достигает Vmin, но не нуля. При F=Vmin нет допустимого 0<N<F на той же grid. Поэтому contraction не full close theorem. |
+| BUY / SELL | Объёмная рекурсия mirror-invariant, исполнимость/costs BUY/SELL отдельно зависят от quotes. |
+| Broker grid / partial fills | Округление может дать plateau; partial/rejected fills не completed reduction. Уменьшение требуется после actual recheck. |
+| Production проверяемость | terminalRouteAllowed не прочитан solver; terminal=true по достижению Vmin не проверяет route. Pure planner не обязан сам торговать. |
+| Рынок / брокер / внешняя authority | Нет гарантии favorable price/finite wait/доступности безопасного следующего кандидата без внешних предпосылок. |
+| Связи с формулами / ERR / IMP / решениями | F037/F038/F058; ERR021/031/032/041; IMP013/019/022; terminal policy pending. |
+| Статус / proof boundary | CYCLE_TERMINATION_PROVEN=NO; bounded number successful ideal reductions условно доказан. |
+
+### E — resource uniqueness
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Точная формулировка | По source Σgrants≤eligible settled net; по grant G=C+R+F, C/R/F≥0; exact event replay delta0, altered replay conflict; owner/bucket rights. |
+| Необходимые предположения | Полный source namespace и immutable equality, complete independent receipts, serializable transitions; локальной арифметики недостаточно. |
+| Достаточные предположения | Изначально подтверждённый source, один атомарный переход на событие, complete durable journal и checked affordability сохраняют partition индукцией. |
+| Доказательство / контрпример | Без общего registry два allocation50 на source50 проходят local bounds; два stale authorization30 на Free50 не легализуют60. |
+| BUY / SELL | Money identity требует одной currency/precision, направления сохраняются в signed components; BUY/SELL не меняет partition. |
+| Broker grid / partial fills | Накопление actual partial fills по source/deal/event ровно один раз; forecast/reserve labels не дополнительные деньги. |
+| Production проверяемость | Current equality/namespace/available/amount-binding guards неполны; добавление local helper не global backend. |
+| Рынок / брокер / внешняя authority | Broker history + EA-origin mapping + durable receipts + concurrent commit evidence обязательны для global/broker claim. |
+| Связи с формулами / ERR / IMP / решениями | F007/F013–019/F034/F036/F053–057/F064/F065; ERR001–008/017/030/033/048; IMP001–005/009/014; D01/D02/D07/D08. |
+| Статус / proof boundary | Условная abstract induction VALID_UNDER_ASSUMPTIONS; GLOBAL_MONEY_CONSERVATION_PROVEN=NO. |
