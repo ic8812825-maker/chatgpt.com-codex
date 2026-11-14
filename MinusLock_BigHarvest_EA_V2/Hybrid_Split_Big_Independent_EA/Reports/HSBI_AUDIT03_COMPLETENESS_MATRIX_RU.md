@@ -78,3 +78,268 @@ PRODUCTION_REMEDIATION_ALLOWED=NO
 TRADING_LOGIC_START_ALLOWED=NO
 BROKER_DISPATCH_ALLOWED=NO
 REAL_TRADING_ALLOWED=NO
+
+## FINAL-CLOSURE — текущий незавершённый срез
+
+| Обязательство | Фактический scope | Остаток |
+|---|---|---|
+| Baseline / preservation | exact base b4d8f1e; базовый inventory1528 | повторная финальная сверка перед публикацией |
+| Documents | baseline485; FULL242; exact duplicate5; PARTIAL0; NOT_REVIEWED238 | все238 перечислены в текущем coverage table; authority UNKNOWN у ряда перенесённых FULL также требует индивидуального решения |
+| Functions | 43 индивидуальные20-field cards из199; source body и static callsites |156 функций; полный atomic guard inventory |
+| Formula cards |66 по15 полей; math47 valid/3 false/2 contradictory/6 unverified/8 undefined | полный authority/caller dependency crosswalk ещё не закрыт |
+| FSM |9 normative rule cards,20 analytical cases,140 allowed source topology pairs | общий normative relation не определён; priority/phase/outcome mapping gaps; полного execution нет |
+| Global properties |5 индивидуальных10-field analyses; conditional proofs/countermodels | global broker/runtime/concurrent guarantees не доказаны |
+| Errors / improvements |50 ERR и22 IMP сохранены, ERR031 уточнён без нового ID | полная новая индивидуальная20/15-field нормализация ещё не завершена |
+| Decisions |16 pending,0 approved | сквозная новая индивидуальная traceability для всех решений ещё не завершена |
+| Quality | структурная сверка66 formula tables | полная link/line/field проверка всех обновлённых карточек ещё не завершена |
+| Publication | commit/push текущего продолжения не выполнялись | только после условий задания и без branch-protection bypass |
+
+AUDIT_COMPLETENESS=PARTIAL. Наличие всех названий выходных файлов не равно выполнению всех обязательств. Основной остаток — содержательное чтение и индивидуальный semantic crosswalk, не проблема доступа к файлам. Production и исторические evidence не исправлялись.
+
+## R2 — индивидуальное рассмотрение16 административных решений
+
+Источник proposals: Tests/Contracts/NEXT_STAGE_02B_R0F_ADMIN_DECISIONS.json:1–338, прочитан целиком. Это не присвоение normative authority. Все16 ниже AWAITING_ADMIN_APPROVAL, AdministratorDecision пуст; approvals0. Историческая D03 file привязка уточнена по actual BasketMoneyEvaluator:17.
+
+### Decision D-01
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Что решить | Grant/Consumed/Reserved/Free schema |
+| Варианты | G=C+R+F,Remainder=R+F; alternativelegacyread-only |
+| Математические последствия | 50=10+15+25, Remaining40неFree25 |
+| ERR / IMP | ERR005/006/007/033/048; IMP003/004 |
+| Будущие production модули | MoneyState/AllocationLedger/ReserveAllocation/ReserveCatchUp |
+| Отсутствующие доказательства | Независимые grant/journal/owner/precision facts |
+| Блокер | Без schema freeze нельзя silent rename Remaining в Free |
+| ApprovalStatus | AWAITING_ADMIN_APPROVAL; отдельного решения владельца нет |
+
+### Decision D-02
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Что решить | Moneykind/authority boundary |
+| Варианты | Запрет implicitprojected→actual→available; alternative planning-onlyviews |
+| Математические последствия | Projected100 без закрытыхdealsнеgrant100; unknownhistoryне0 |
+| ERR / IMP | ERR008/013/022/033/048; IMP001/004/014 |
+| Будущие production модули | EconomicLedger/LevelMoney/ReserveCatchUp/RuntimeDecisionValidator |
+| Отсутствующие доказательства | Actual brokerreceipts/completehistory/reconciliation |
+| Блокер | Не generic boolruntimeConfirmed; required typedprovider |
+| ApprovalStatus | AWAITING_ADMIN_APPROVAL; отдельного решения владельца нет |
+
+### Decision D-03
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Что решить | Big/Small attribution |
+| Варианты | Small residualheld; alternative отдельноapproved debit/credit transfer |
+| Математические последствия | Core0 Trend0 Small10→BigReserve0; переносне создаётприбыль |
+| ERR / IMP | ERR022/033/047; IMP004/014 |
+| Будущие production модули | BasketMoneyEvaluator:17 и downstream ReserveCatchUp; не LevelMoney scalarwrapper |
+| Отсутствующие доказательства | Source role/cost attribution; immutable transfer receipts еслиB |
+| Блокер | Решитьpolicyдоизменения reserveGain; текущийtransferне реализован |
+| ApprovalStatus | AWAITING_ADMIN_APPROVAL; отдельного решения владельца нет |
+
+### Decision D-04
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Что решить | Far loss basis |
+| Варианты | Absolute close-now; incremental separatediagnostic приprovedbaseline |
+| Математические последствия | Abs50 baseline40 delta10 Reserve30 покрываетdelta,неabsolute |
+| ERR / IMP | ERR018/043/048; IMP010 |
+| Будущие production модули | BasketMoneyEvaluator/CatchUpModel/ReserveCatchUp/FutureSmallAggregator |
+| Отсутствующие доказательства | Actual residual/quote/costbasis/lineage |
+| Блокер | Выбратьbasis;не выдаватьprojectedcoverageзаfill guarantee |
+| ApprovalStatus | AWAITING_ADMIN_APPROVAL; отдельного решения владельца нет |
+
+### Decision D-05
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Что решить | Current/sticky/peaktransitionpolicy |
+| Варианты | A currentloss;B persistentbreach;C maxhistoricalLoss; choiceНЕСДЕЛАН |
+| Математические последствия | -15,+100 cap12: послеfill1 A15/Btrue/C15;послеfill2 A0/Btrue/C15 |
+| ERR / IMP | ERR010/035/041; IMP005/019/022 |
+| Будущие production модули | TransactionTypes/transitionprovider/NewFarGates/scenarioSmallTransition |
+| Отсутствующие доказательства | Independent orderedbatchfills; durablebreach/resethistoryдляB/C |
+| Блокер | Нужныexplicitreset/restart/order/cap rules;автовыборзапрещён |
+| ApprovalStatus | AWAITING_ADMIN_APPROVAL; отдельного решения владельца нет |
+
+### Decision D-06
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Что решить | Costcoverage/basis |
+| Варианты | КаждыйrequiredCostID ровноодинраз;alternativebufferсprovedcoverage |
+| Математические последствия | Commission−2 ужевNet50 не subtractagainдо48;unknownslippageне0 |
+| ERR / IMP | ERR022/034/048; IMP014/015 |
+| Будущие production модули | CostModel/BrokerMoneyModel/BasketMoneyEvaluator/CatchUp |
+| Отсутствующие доказательства | Costinventory/basis/window/fees/spread/slippage brokerdata |
+| Блокер | Размерыbuffersневыбиратьпоfixture; global overlap proof отсутствует |
+| ApprovalStatus | AWAITING_ADMIN_APPROVAL; отдельного решения владельца нет |
+
+### Decision D-07
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Что решить | Replayauthority/durableexactlyonce |
+| Варианты | Conflict-firstsource reconciliation versus separatelyapprovedreceipt-first |
+| Математические последствия | Grant50 debit10→40;exactevent→40;changed11conflict |
+| ERR / IMP | ERR007/017/025/030/033; IMP004/009 |
+| Будущие production модули | ExecutionJournal/ExecutionStateSnapshot/ReserveAllocation/Persistencebackend |
+| Отсутствующие доказательства | Immutablecompletejournal; atomiccommit/CAS/crash/concurrency evidence |
+| Блокер | LocalNOOPнеdurable/concurrenttheorem;orderpolicyдолжнабытьявной |
+| ApprovalStatus | AWAITING_ADMIN_APPROVAL; отдельного решения владельца нет |
+
+### Decision D-08
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Что решить | Logical source independent provenance |
+| Варианты | Broker/Server/Account/Deal key +immutablebody;alternative independentverifiedreceipt |
+| Математические последствия | Profit50/C0 vs60/C−10 sameNet50 differentpayload→CONFLICT |
+| ERR / IMP | ERR001/002/013/026/033/049; IMP001/002 |
+| Будущие production модули | EconomicLedger/Identifiers/MoneyProofIdentity/NewFar/Runtimevalidators |
+| Отсутствующие доказательства | Brokerfacts+EA-origin journal association |
+| Блокер | Copiedexpectedнеauthority; namespace/equalitylocalAPIнеfull fundingfix |
+| ApprovalStatus | AWAITING_ADMIN_APPROVAL; отдельного решения владельца нет |
+
+### Decision CR-09
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Что решить | AllrequiredlevelCatchUp |
+| Варианты | min_i Margin_i>0;alternativesingle-leveltypedresult |
+| Математические последствия | MaxTransition level margin9, другойmargin−11: fullproofmustreject |
+| ERR / IMP | ERR018/043/048; IMP010 |
+| Будущие production модули | FutureSmallAggregator/NewFarSolver/ReserveCatchUp |
+| Отсутствующие доказательства | Requiredlevelset +snapshots/reserve/risk/margin/realcosts |
+| Блокер | Одинreserveдопустимвальтернативныхforecasts; последовательныйspendнуждаетсявdebit |
+| ApprovalStatus | AWAITING_ADMIN_APPROVAL; отдельного решения владельца нет |
+
+### Decision NUM-EXACT-1
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Что решить | Settled representation |
+| Варианты | Integer minorunits or checkedfixedpoint; referenceFractionseparate |
+| Математические последствия | 1e28−.010−(1e28−.005)=−.005 точновreference;binary64можетскрыть |
+| ERR / IMP | ERR003/040/051; IMP002/023 |
+| Будущие production модули | MoneyTypes/AllocationLedger/codec/futuregridhelpers |
+| Отсутствующие доказательства | Independentpostedcurrency/precisionnativevectors |
+| Блокер | Нельзяперенестиreference-domainвMQL5автоматически |
+| ApprovalStatus | AWAITING_ADMIN_APPROVAL; отдельного решения владельца нет |
+
+### Decision NUM-DOMAIN-1
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Что решить | Supported numeric range/intermediates |
+| Варианты | Explicitboundednativeprofile or approvedwiderarithmetic |
+| Математические последствия | 1e28dollars→1e30cents внеint64;final0не оправдываетintermediateoverflow |
+| ERR / IMP | ERR025/040/051; IMP002/005/023 |
+| Будущие production модули | BrokerGrid/NewFarSolver/moneycodec/revisionguards |
+| Отсутствующие доказательства | Nativecheckedarithmeticandreceipt-domain facts |
+| Блокер | НеиспользоватьширокиеPythonintsкакnativeproof;rejectunsupported |
+| ApprovalStatus | AWAITING_ADMIN_APPROVAL; отдельного решения владельца нет |
+
+### Decision NUM-CODEC
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Что решить | Canonical immutable encoding |
+| Варианты | F64Zfinitebinary64 or T17Zcanonical17text;noneapproved |
+| Математические последствия | raw0.1 bits3fb999999999999a; bool/int/string различимы;±0policyexplicit |
+| ERR / IMP | ERR003/026/040; IMP002/018 |
+| Будущие production модули | EconomicLedger/identityserialization/approvedcodecfile |
+| Отсутствующие доказательства | Independentgoldens/UTF8/long/ulong/nativecompile+runtime |
+| Блокер | Recommendationнеapproval; codecrepresentationнеfinancialrounding |
+| ApprovalStatus | AWAITING_ADMIN_APPROVAL; отдельного решения владельца нет |
+
+### Decision SNAP-FIXTURE-1
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Что решить | Independent snapshotcontentbinding |
+| Варианты | Versionedcontentreceipt;alternativeID-onlylimitedattestation |
+| Математические последствия | SameID3+changedfingerprint conflict; selfrecomputedreceipt неauthority |
+| ERR / IMP | ERR013/017/024/026/050; IMP009/016/017 |
+| Будущие production модули | ControlPrices/ExecutionStateSnapshot/RuntimeRestartValidator |
+| Отсутствующие доказательства | Clockauthority/contentreceipts/journalbinding |
+| Блокер | Freshflag/checksumнеactual brokertruth; recoveryненоваяauthorization |
+| ApprovalStatus | AWAITING_ADMIN_APPROVAL; отдельного решения владельца нет |
+
+### Decision FUNDING-GLOBAL-ATTRIBUTION
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Что решить | Global economic source/debitregistry |
+| Варианты | Globalcompleteattribution;currentlysource-localscopeonly |
+| Математические последствия | source50 grants40+20 invalid;unseenaccountdebit30 breaksfree50claim |
+| ERR / IMP | ERR007/008/017/033/047/048; IMP004/009 |
+| Будущие production модули | Globalprovider/ledger/backend иconsumers;неonefilefix |
+| Отсутствующие доказательства | Allaccountflows/manualdeals,atomicdurablereceipts |
+| Блокер | Source-localbalanceнеaccountfree;backendещёUNPROVEN |
+| ApprovalStatus | AWAITING_ADMIN_APPROVAL; отдельного решения владельца нет |
+
+### Decision MQL-DOMAIN
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Что решить | Actual long/ulong/double/stringdomain |
+| Варианты | Checkednativeprofile or separatelyapprovedwideradapter |
+| Математические последствия | LONG_MIN·−1/MAX+1 invalid;ulong>2^53 неserializeviadouble |
+| ERR / IMP | ERR025/029/040/051; IMP002/018/023 |
+| Будущие production модули | EconomicLedger/BrokerGrid/NewFarSolver/codec |
+| Отсутствующие доказательства | MetaEditorcompile/nativevectors; сейчасNOT_RUNпоскоупу |
+| Блокер | NativecompatibilityнеподменятьC++/Python; exactfieldlimitsrequired |
+| ApprovalStatus | AWAITING_ADMIN_APPROVAL; отдельного решения владельца нет |
+
+### Decision BALANCE-SCHEMA-MAPPING
+
+| Поле | Индивидуальный вывод |
+|---|---|
+| Что решить | Legacy balance migration |
+| Варианты | Versionedadapter iffactscomplete;elselegacyread-only/quarantine |
+| Математические последствия | G50 C10 Remaining40 R15→Free25; unknownowner/currency→UNAVAILABLE |
+| ERR / IMP | ERR005/006/007/033/048; IMP003/004/009 |
+| Будущие production модули | MoneyState/AllocationLedger/ReserveAllocation/recoveryadapters |
+| Отсутствующие доказательства | Oldschema/owner/currency/precision/historyreceipts |
+| Блокер | Нельзяподставитьcurrentaccountкакmissinghistoricowner |
+| ApprovalStatus | AWAITING_ADMIN_APPROVAL; отдельного решения владельца нет |
+
+Порядок зависимости не разрешение implementation. Local Economic Identity может быть отдельно ограничен equality/namespace API, но full remediation требует migration/callers/provider/native acceptance. Положительная документационная готовность не R1_1_START_ALLOWED.
+
+## R2 — текущий остаток и границы завершённого
+
+| Обязательство | Фактический результат | Точный остаток |
+|---|---|---|
+| Исходные материалы |12 прежних изменений сохранены, SHA256 вR2_WIP;1515readonly+74production blob/mode match | Финальная повторная сверка передпубликацией |
+| Документы |244FULL+5exactduplicate;0PARTIAL;236NOT_REVIEWED | Все236строк NOT_REVIEWED текущей485-rowтаблицы DOCUMENT_COVERAGE; UNKNOWN_AUTHORITY переносовтакженеодобрены |
+| Функции |199declarations/199uniqueFunctionIDs/198names;43сохранённые+156новыекарты | Полнаяnative/dynamic reachability невыполнялась; нормативныйmandatoryguardinventory ещёнеполон |
+| Формулы |66×15полей;66IDsсопоставленыbaseline, изменены толькоF039/F041 | Полнаясвязь со236непрочитаннымидокументаминеобъявлена завершённой |
+| Critical recheck |ERR020/041/046/048/049/050 повторно scoped; новаяERR051 | У всех6ещёоткрытоhistoricalmachinecontract покрытие; этоявноуказановкарточках |
+| Guards |16groups+10localTXrows; missingprogressguard ERR051 | Полныйнепересекающийсяnormativeinventory и все publicboundary proof, анеподсчётif |
+| FSM |9rulecards22fields/20analyticalcases;140topologypairs | Normativephase/outcome/severity priorities ипереченьspecificgapsнеполны; handlersнеimplemented |
+| Admin |16individual8fieldcards, всеAWAITING_ADMIN_APPROVAL | Решениевладельца отсутствует;нетавтоутверждения |
+| Реестры |51ERR/23IMP, P0=14/P1=32/P2=5 | Полныйqualityaudit всехстарыхиновообновлённыхсвязейещёнезавершён |
+| Публикация |CommitNO,PushNO,BypassNO | Критерииполногоаудитанедостигнуты; защитаGitHubнеобходится |
+
+AUDIT_COMPLETENESS=PARTIAL. Чтение236конкретныхфайловнеподменяетсяновымиfunctioncards. Наличие199картнеproofполнойсистемы. НетзаявленияENVIRONMENT_BLOCKED: оставшиесяработысодержательные, неошибкаshell.
+
+
+## R3 — конкретные новые цепочки прослеживаемости
+
+| Document → Clause | Formula | Function | Guard | Caller | FSM transition | ERR → IMP | Decision / proof status |
+|---|---|---|---|---|---|---|---|
+| R0A_NORMATIVE_MATRIX.D08.SourceDealKey vsR0G_IDENTITY_MATRIX.SourceKey | F017/F041/F057/F060/F062 | Economic.BuildSourceDealKey/SameEconomicRecord | A03-G001..004;fullnamespaceproviderMISSING | NO_PRODUCTION_CALLER_FOUND дляfunding classifier | Newconfirmedsource→grant NOT_IMPLEMENTED | ERR001/002/033→IMP001/002/017/018 | D02/D08/NUM-CODEC/MQL;ADMIN_DECISION_REQUIRED; schema не новыйsource |
+| AUDIT01_INVARIANT_MATRIX.NO_FALSE_NOOPnegative | F007/F017/F057/F060 | abstractpropertyoracle,productionSameEconomicRecord:9 отдельно | Component-sum иimmutableequalityразныеguards | HistoricalfixtureнеpublicEAcaller | NOT_APPLICABLE: fixtureнеFSMaction | ERR027→IMP017 | VERIFIED fixturemultiplecause; wholeproductionproofUNVERIFIED |
+| Docs06:6,9,12,18,21+Docs07:15,18,21,24 | F024–026/F036/F053/F057 | StateMachine/Transaction/Runtimepurehelpers | TX01..10,GRD001..047,SG01..10 | 3admissionpureedgesmapped,financialorchestratorMISSING | Normative relation CONFLICTING/OPEN_DOMAIN | ERR013/016/017/028/030→IMP008/009/014/018 | ADMIN_DECISION_REQUIRED;140pairsне140handlers |
+| Tests/Staticfsm/lifecycle/persistenceJSON | F036/F053/F057/F060 | Reference qualification;actualsourcecomparisonseparate | Historicalflagsnotauthoritativeprovider | NOT_IMPLEMENTED financialcaller | Historical16/18relationsнеclosedcurrentFSM | ERR017/027/028→IMP009/017/018 | SUPERSEDED/REFERENCE_ONLY;individualreadsrecorded |
+| DocsHSB2DIntegration:3–5 | F007/F024–026/F036/F060 | ValidateRuntimeDecisionContext:6–29 |47individuallylocatedlocalconditions | Barrier7/Restart16/directhelper | requiredNextState=RECONCILING result,notFSMapply | ERR013/016/033/048/049→IMP005/009/014/018 | VERIFIED_LOCAL;independence/callerfinancialscopeINCOMPLETE |
+
+Это добавленныеиндивидуальныецепочки,неполнаяматрицавсехnormclauses. Остатоктеперьсодержитточныепути(coverage+WIP),дополнительно46StaticJSON;AUDIT_COMPLETENESS=PARTIALдонезавершённогочтенияиcensus. Наличие199/66карточекнеубираетэтотостаток.
+
+## R4 — промежуточный snapshot для audit-ветки
+
+Текущее чтение:531 документов=463 FULL+5 exact duplicate+63 NOT_REVIEWED+0 PARTIAL. Увеличение denominator на46 обосновано дополнительными Tests/Static JSON в coverage; исходные485 сохранены. Функции199/199 и формулы66/66 сохраняются. Индивидуальные GRD001–073 не полный нормативный census; global mandatory caller denominator ещё не закрыт. FSM gaps10 зарегистрированы, но полный clause crosswalk остаётся незавершённым. AUDIT_COMPLETENESS=PARTIAL. Публикация audit snapshot не merge work и не разрешение production. См. [R4 publication checkpoint](HSBI_AUDIT03_R4_GITHUB_PUBLICATION_RU.md).

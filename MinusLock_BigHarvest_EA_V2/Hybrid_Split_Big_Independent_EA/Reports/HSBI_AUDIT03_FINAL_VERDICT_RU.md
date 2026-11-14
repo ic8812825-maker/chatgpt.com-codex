@@ -1,5 +1,41 @@
 # AUDIT03 COVERAGE-COMPLETION — текущий вердикт
 
+## Текущий срез FINAL-CLOSURE-R2 — аудит не закрыт
+
+База b4d8f1ea5caf492f3abd030e5502d40582c52dc8. Существовавшие12 незакоммиченных отчётов сохранены без reset/clean/rebase. До первой записи R2 их пути и SHA256 зафиксированы в [WIP-инвентаризации](HSBI_AUDIT03_R2_WORK_IN_PROGRESS_RU.md). Все1515 защищённых baseline-файлов, включая74 production sources, совпали по bytes/Git blob/modes; исторические evidence не менялись.
+
+**В R2 завершено:**156 оставшихся индивидуальных function cards. Теперь199 деклараций имеют199 уникальныхFunctionID;198 имён объясняются двумя перегрузками NormalizePriceToTick. Прежние43 карты сохранены и дополнены signature/authority/boundary. Полный source body и статические callers/dependencies приведены в [карте функций](HSBI_AUDIT03_SOURCE_FUNCTION_MAP_RU.md). Это не доказательство mandatory финансовой интеграции или native runtime.
+
+[FORMULA_STATUS_RECONCILIATION](HSBI_AUDIT03_FORMULA_CATALOG_RU.md) сопоставляет все66ID с исходным Git blob: после нормализации осей изменились толькоF039 иF041.66 таблиц15полей сохранены.16 решений получили индивидуальные8-field карточки в [матрице полноты](HSBI_AUDIT03_COMPLETENESS_MATRIX_RU.md); все остаются AWAITING_ADMIN_APPROVAL, approvals0. ERR020/041/046/048/049/050 повторно проверены по исходникам с явным ограничением незавершённого historical-contract review.
+
+**Новая находка:** [ERR051](HSBI_AUDIT03_ALL_ERRORS_RU.md) — отсутствие проверки прогресса floating grid iterator в SolveNewFar. При IEEE binary64 round-to-nearest-even n=10^16 и step=1 дают nextN==n; локальный solver не имеет progress/iteration-limit guard. Это условный статический контрпример в допускаемом DTO numeric profile, не наблюдавшийся MetaTrader hang и не доказанный реальный broker profile. Production caller не найден; основной EA остаётся неторговым. [IMP023](HSBI_AUDIT03_ALL_IMPROVEMENTS_RU.md) предлагает bounded checked enumeration, без реализации. Прежние50ERR/22IMP сохранены; текущие итоги51ERR/23IMP, P0=14/P1=32/P2=5.
+
+**Незавершённый объём:**244FULL+5byte-identical reuse+236NOT_REVIEWED=485. Оба новых прочитанных machine contracts — R0F_ADMIN_DECISIONS и DG01_ACCEPTANCE_MATRIX — имеют диапазоны и выводы в [reading log](HSBI_AUDIT03_FINAL_CLOSURE_READING_LOG_RU.md). Точный список236 оставшихся файлов — строки NOT_REVIEWED [текущей инвентаризации](HSBI_AUDIT03_DOCUMENT_COVERAGE_RU.md). Полный непересекающийся нормативный guard inventory и finite FSM relation ещё не завершены.16 guard groups и10 TX rows нельзя складывать в глобальное числоguards;140 topology pairs нельзя объявить140 финансовыми переходами. Сверка всех исторических authority/callers/ссылок ещё открыта. Поэтому AUDIT_COMPLETENESS=PARTIAL.
+
+Тесты, компиляция и торговые операции не запускались. Git commit/push R2 не выполнялись: критерии полного аудита не достигнуты. Защита GitHub не обходилась; текущие Actions/Code Scanning не подтверждены. Ни документационная готовность, ни новые source cards не разрешают R1.1. Старые разделы и machine blocks ниже являются историческими срезами.
+
+
+## Текущий рабочий срез FINAL-CLOSURE — НЕ ЗАВЕРШЁН И НЕ ОПУБЛИКОВАН
+
+UTC2026-11-13 13:50:27; baseline b4d8f1ea5caf492f3abd030e5502d40582c52dc8. Это промежуточное продолжение того же AUDIT03, не окончательное закрытие. Старые verdict/status blocks ниже сохранены как история и не описывают текущую готовность.
+
+Новая инвентаризация485:242 FULL,5 EXACT_DUPLICATE_REVIEW_REUSED,238 NOT_REVIEWED,0 PARTIAL. Два прежних PARTIAL закрыты последовательным чтением; полный список оставшихся238 файлов находится в [текущей инвентаризации](HSBI_AUDIT03_DOCUMENT_COVERAGE_RU.md), диапазоны/authority/выводы — в [журнале чтения](HSBI_AUDIT03_FINAL_CLOSURE_READING_LOG_RU.md). UNKNOWN_AUTHORITY у ряда перенесённых FULL означает дополнительную незакрытую classification obligation; FULL не означает доказанный контракт.
+
+Все66 формул оформлены по15 полей, математическая и implementation оси разделены. F039 универсального P+tick для обоих направлений математически FALSE; ERR046 остаётся нормативным противоречием. F041 domain UNDEFINED, implementation NOT_IMPLEMENTED. Полная dependency traceability ещё не завершена. Пять global properties имеют индивидуальные10-field анализы, не broker/runtime гарантии.
+
+[Индивидуальная карта исходников](HSBI_AUDIT03_SOURCE_FUNCTION_MAP_RU.md) содержит43 карточки20 полей из199. [Guard crosswalk](HSBI_AUDIT03_GUARD_CALLER_CROSSWALK_RU.md) различает15 групп и10 local TX rows; глобальный atomic inventory не определён. Generic TransactionBarrierPassed не имеет production caller; Runtime barrier его не вызывает. Локальная обязательность флага не independent actual proof.
+
+[Новая FSM matrix](HSBI_AUDIT03_FSM_COMPLETE_MATRIX_RU.md):36 нормативных состояний,33 enum,9 rule cards по22 поля,20 аналитических случаев.140 разрешённых topology pairs не140 financial transitions. Не определены все phase/event/outcome priorities; полного handler нет. ERR031 уточнён: pure planner не обязан торговать; дефект в неиспользуемом terminalRouteAllowed/недоказанной terminal feasibility, а не просто в отсутствии сделки внутри solver.
+
+**Незакрыто:**238 документов;156 индивидуальных function mappings; полный inventory guards и обязательных callers; все недостающие нормативные FSM mappings/приоритеты; индивидуальная20/15-field нормализация50ERR/22IMP; сквозная новая traceability16 решений; полный quality review всех новых ссылок/строк. Эти работы содержательные, не отсутствие shell или недоступность файлов. Поэтому COMPLETE и публикация завершённого пакета недопустимы.
+
+Все1515 read-only baseline-файлов и74 production source совпали по blob/bytes/mode с Git tree.50ERR/22IMP IDs сохранены; две POTENTIAL_RISK записи дополняют18+3+10+9+8 категорий до50.16 решений остаются AWAITING_ADMIN_APPROVAL; утверждений0. Тесты/MetaEditor не запускались по прямому запрету задания.
+
+Новых commit/push нет. Защита GitHub не обходилась; branch protection API недоступен (Forbidden), Actions/Code Scanning не подтверждены. Текущие незакоммиченные Markdown сохранены в workspace. Публиковать можно только после выполнения критериев и проверки допустимого процесса без bypass.
+
+## Сохранённые исторические срезы
+
+
 **Задание полного завершения аудита пока не выполнено. AUDIT_COMPLETENESS=PARTIAL.** Продолжение существенно расширяет чтение и математический разбор, но не закрывает все обязательные пункты. Ни публикация этого среза, ни условно верная алгебра не разрешают production, R1.1 или торговлю.
 
 BASE_SHA=4761c66edc3343f353ca774df835eedb1787b818
@@ -320,3 +356,146 @@ AUDIT03_COMMIT_CREATED=POST_PUBLICATION_CHECK_REQUIRED
 AUDIT03_PUBLISHED=POST_PUBLICATION_CHECK_REQUIRED
 [/HSBI_AUDIT03_FINAL_STATUS]
 ```
+
+## FINAL-CLOSURE — машинный статус незавершённого рабочего среза
+
+~~~text
+TASK=HSBI_AUDIT03_FINAL_CLOSURE
+BASE_SHA=b4d8f1ea5caf492f3abd030e5502d40582c52dc8
+FINAL_SHA=NOT_CREATED
+REMOTE_SHA_PARITY=YES_AT_BASELINE_CHECK
+WORKTREE_CLEAN=NO
+PRODUCTION_FILES_UNCHANGED=YES
+HISTORICAL_EVIDENCE_UNCHANGED=YES
+PREVIOUS_AUDIT_IDS_PRESERVED=YES
+TOTAL_DOCUMENTS=485
+DOCUMENTS_FULLY_REVIEWED=242
+DOCUMENTS_PARTIALLY_REVIEWED=0
+DOCUMENTS_NOT_REVIEWED=238
+DOCUMENTS_EXACT_DUPLICATE_REUSED=5
+PRODUCTION_FILES_REVIEWED=74_CARRIED_FULL_READING
+FUNCTION_DECLARATIONS_TOTAL=199
+FUNCTIONS_INDIVIDUALLY_MAPPED=43
+GUARDS_TOTAL=NOT_VERIFIED
+GUARDS_MAPPED=15_GROUPS_AND_10_LOCAL_TX_ROWS
+MANDATORY_CALLERS_VERIFIED=PARTIAL_LOCAL_ONLY
+TOTAL_FORMULA_FAMILIES=66
+FORMULAS_WITH_15_FIELDS=66
+FORMULAS_MATHEMATICALLY_VALID=47_UNDER_ASSUMPTIONS
+FORMULAS_FALSE=3
+FORMULAS_CONTRADICTORY=2
+FORMULAS_UNVERIFIED=6
+FORMULAS_UNDEFINED=8
+FSM_NORMATIVE_TRANSITIONS_TOTAL=NOT_DEFINED
+FSM_NORMATIVE_TRANSITIONS_MAPPED=9_RULE_CARDS
+FSM_IMPLEMENTED_TRANSITIONS_MAPPED=140_TOPOLOGY_PAIRS_ONLY
+FSM_SPECIFICATION_GAPS=NOT_FULLY_ENUMERATED
+TOTAL_ERRORS=50
+SOURCE_DEFECT_COUNT=18
+CONTRADICTION_COUNT=3
+AMBIGUOUS_SPECIFICATION_COUNT=10
+MISSING_CONTRACT_COUNT=9
+UNPROVEN_CLAIM_COUNT=8
+P0_COUNT=14
+P1_COUNT=31
+P2_COUNT=5
+P3_COUNT=0
+TOTAL_IMPROVEMENTS=22
+UNRESOLVED_ADMIN_DECISIONS=16
+GLOBAL_MONEY_CONSERVATION_PROVEN=NO
+GLOBAL_LOSS_BOUND_PROVEN=NO
+CYCLE_TERMINATION_PROVEN=NO
+PROFITABILITY_GUARANTEED=NO
+TESTS_EXECUTED_BY_CODEX=NO
+MQL5_COMPILE=NOT_RUN
+MQL5_NATIVE_TESTS=NOT_RUN
+GITHUB_ACTIONS_STATUS=NOT_VERIFIED
+CODE_SCANNING_STATUS=NOT_VERIFIED
+BRANCH_PROTECTION_BYPASS_USED=NO
+AUDIT_COMPLETENESS=PARTIAL
+AUDIT03_COMMIT_CREATED=NO
+AUDIT03_PUBLISHED=NO
+PRODUCTION_REMEDIATION_ALLOWED=NO
+TRADING_LOGIC_START_ALLOWED=NO
+BROKER_DISPATCH_ALLOWED=NO
+REAL_TRADING_ALLOWED=NO
+~~~
+
+## R2 — машинный статус незавершённого продолжения
+
+Значения опираются на указанные выше WIP/preservation, coverage, source map, formula reconciliation, центральные реестры и completeness matrix. Неустановленные FSM/guard числа не подменяются нулями.
+
+~~~text
+TASK=HSBI_AUDIT03_FINAL_CLOSURE_R2
+BASE_SHA=b4d8f1ea5caf492f3abd030e5502d40582c52dc8
+FINAL_SHA=NOT_CREATED
+REMOTE_SHA_PARITY=YES_AT_LAST_CHECK
+WORKTREE_CLEAN=NO
+TOTAL_DOCUMENTS=485
+DOCUMENTS_FULLY_REVIEWED=244
+DOCUMENTS_EXACT_DUPLICATE_REUSED=5
+DOCUMENTS_PARTIALLY_REVIEWED=0
+DOCUMENTS_NOT_REVIEWED=236
+PRODUCTION_FILES_REVIEWED=74
+FUNCTION_DECLARATIONS_TOTAL=199
+FUNCTIONS_INDIVIDUALLY_MAPPED=199
+GUARDS_TOTAL=NOT_ESTABLISHED_REVIEW_INCOMPLETE
+GUARDS_MAPPED=16_GROUPS_AND_10_LOCAL_TX_ROWS
+MANDATORY_CALLERS_VERIFIED=LOCAL_ONLY_GLOBAL_INCOMPLETE
+TOTAL_FORMULA_FAMILIES=66
+FORMULAS_WITH_15_FIELDS=66
+FORMULA_STATUS_RECONCILIATION_COMPLETE=YES
+FSM_NORMATIVE_TRANSITIONS_TOTAL=NOT_ESTABLISHED
+FSM_NORMATIVE_TRANSITIONS_MAPPED=9_RULE_CARDS
+FSM_IMPLEMENTED_TRANSITIONS_MAPPED=140_TOPOLOGY_PAIRS_ONLY
+FSM_SPECIFICATION_GAPS=NOT_FULLY_ENUMERATED
+TOTAL_ERRORS=51
+P0_COUNT=14
+P1_COUNT=32
+P2_COUNT=5
+P3_COUNT=0
+TOTAL_IMPROVEMENTS=23
+UNRESOLVED_ADMIN_DECISIONS=16
+PRODUCTION_FILES_UNCHANGED=YES
+HISTORICAL_EVIDENCE_UNCHANGED=YES
+PREVIOUS_AUDIT_IDS_PRESERVED=YES
+GLOBAL_MONEY_CONSERVATION_PROVEN=NO
+GLOBAL_LOSS_BOUND_PROVEN=NO
+CYCLE_TERMINATION_PROVEN=NO
+PROFITABILITY_GUARANTEED=NO
+TESTS_EXECUTED_BY_CODEX=NO
+MQL5_COMPILE=NOT_RUN
+MQL5_NATIVE_TESTS=NOT_RUN
+GITHUB_ACTIONS_STATUS=NOT_VERIFIED
+CODE_SCANNING_STATUS=NOT_VERIFIED
+BRANCH_PROTECTION_BYPASS_USED=NO
+AUDIT_COMPLETENESS=PARTIAL
+AUDIT03_COMMIT_CREATED=NO
+AUDIT03_PUBLISHED=NO
+PRODUCTION_REMEDIATION_ALLOWED=NO
+TRADING_LOGIC_START_ALLOWED=NO
+BROKER_DISPATCH_ALLOWED=NO
+REAL_TRADING_ALLOWED=NO
+~~~
+
+## R4 — текущая промежуточная оценка перед GitHub snapshot
+
+Источник: [R4 checkpoint](HSBI_AUDIT03_R4_GITHUB_PUBLICATION_RU.md), coverage, guard/caller crosswalk и FSM_COMPLETE_MATRIX. Более ранние R2 машинные блоки выше сохраняют историю и не являются текущими числителями.
+
+TOTAL_DOCUMENTS=531
+DOCUMENTS_FULLY_REVIEWED=463
+DOCUMENTS_EXACT_DUPLICATE_REUSED=5
+DOCUMENTS_PARTIALLY_REVIEWED=0
+DOCUMENTS_NOT_REVIEWED=63
+FUNCTIONS_INDIVIDUALLY_MAPPED=199
+FORMULAS_WITH_15_FIELDS=66
+GUARD_CARDS_MAPPED=73
+GUARD_CENSUS_COMPLETE=NO
+FSM_SPECIFICATION_GAPS_REGISTERED=10
+ERR_051_STATUS=CONDITIONAL_STATIC_RISK
+AUDIT_COMPLETENESS=PARTIAL
+TARGET_WORK_INTEGRATED=NO
+GITHUB_API_VERIFICATION=BLOCKED_PROXY_CONNECT_403
+GITHUB_PUBLICATION_COMPLETE=NO_AT_SNAPSHOT_CREATION
+
+Полное обязательное чтение, общий normative guard/caller census и полный clause→FSM crosswalk ещё не завершены. Публикуемый промежуточный snapshot не объявляется окончательным аудитом. Тесты/компиляция не запускались; production и historical evidence неизменны; все разрешения на production/trading остаются NO.

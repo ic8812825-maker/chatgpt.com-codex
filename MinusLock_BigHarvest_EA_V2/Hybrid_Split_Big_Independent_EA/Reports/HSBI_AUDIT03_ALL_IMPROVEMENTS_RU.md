@@ -1,5 +1,8 @@
 # AUDIT03 — единый реестр предложений
 
+**R2:**23 PROPOSAL_ONLY записи; новая IMP023 относится к ERR051 и не реализована. Прежние22ID сохранены.
+
+
 Все записи **PROPOSAL_ONLY**, утверждений владельца нет. Никаких изменений модели, production или тестовых сценариев в исходниках не выполнено. Предложения сгруппированы ниже по категории, затем HIGH перед MEDIUM; ID постоянны и не зависят от сортировки.
 
 | ID | Category | Priority | Related Errors | Expected Benefit | Risk | Complexity | Approval |
@@ -394,3 +397,32 @@ IMP-005/007/008: ERR-049 требует exhaustive enum membership до side/rol
 IMP-009: ERR-050 требует сначала утвердить смысл completedActionCount и связь с completed body/lastConfirmed/journal, затем выбирать техническое исправление. Если это cardinality, iff с существованием обязателен; если исторический counter — нужен другой формальный контракт. Proposed remedy не подменяет independent historical receipt. Zero delta для отказа/NO_OP и replay остаются будущими критериями, не выполненными тестами.
 
 Для всех22 предложений математика, affected BUY/SELL/grid/money/risk/FSM приведены в исходных карточках и связанных ERR/F. Полная индивидуальная проверка всех указанных в задании полей/совместимости с каждым историческим контрактом ещё не закрыта. Наличие22 карточек не достаточное основание COMPLETE. Новых IMP IDs не потребовалось: новые причины уже входят в scope существующих004/005/007/008/009/010.
+
+## HSBI-A03-IMP-023 — Ограниченный монотонный перебор broker grid
+
+| Поле | Индивидуальное предложение |
+|---|---|
+| ID / category / priority | HSBI-A03-IMP-023 / NUMERIC_ENUMERATION / HIGH; complexity MEDIUM |
+| Root cause | ERR051; floating loop n+=step не гарантирует nextN>n |
+| Proposed model | Versioned broker-origin grid с checked integer index k, bounded count и checked reconstruction N(k); либо явно ограниченный double-domain с обязательным nextN>n/finite/iteration-budget guard. |
+| Invariant | Каждый принятый следующий grid point строго больше предыдущего, конечен, broker-valid и принадлежит утверждённому domain; iterate count ограничен до начала/во время перебора. |
+| Independent proof | Для конечного K и strictly increasing integer k∈0..K каждая итерация уменьшает K−k; после K+1 шагов loop завершён. Reconstruction/overflow/duplicates проверяются отдельно. |
+| Domain assumptions | Независимые broker min/max/step/origin, codec и native arithmetic constraints; неизвестная/неподдерживаемая grid даёт отказ. |
+| BUY / SELL | Enumeration positive lots симметричен направлениям; price-side/money gates после reconstruction остаются направленными. |
+| Grid effects | Не менять origin0 на min-origin молча; bridge в integer ticks требует доказанной scale/integrality и checked bounds. |
+| Money effects | Сам перебор не funding/consumption; целочисленный loop index не утверждает int64 settled-money codec. |
+| FSM / risk | Отказ unsupported-domain/no-progress запрещает selection; не разрешает default NewFar или automatic resume. |
+| Compatibility / side effects | Порядок/дедупликация candidate list/digest могут измениться; старые plans нельзя silent replay как новые. |
+| Dependencies | IMP002 numeric-domain/codec; IMP007 grid; IMP011 selection/promotion; IMP013 finite operational route; не создаёт цикла нормативных approvals. |
+| Approval | PROPOSAL_ONLY / AWAITING_ADMIN_APPROVAL; production change требует отдельного задания и allowlist |
+| Future evidence | После отдельного разрешения: native positive min=max1/step1; large-ULP counterexample; overflow/countbounds; no-safe-candidate finite exit; exact order/digest replay; no state delta при отказе. Сейчас NOT_RUN. |
+| Acceptance boundary | Документальный план, не реализация. Даже доказанная конечность enumeration не гарантирует safe candidate, рынок, funding или завершение торгового цикла. |
+
+R2:23 предложения; прежние22 ID сохранены. Новый порядок зависимостей: normative decision → contract freeze → отдельно разрешённое source remediation → будущие разрешённые causal/native tests → caller/integration verification. Ни один шаг этой схемы не разрешён автоматически.
+
+
+## R3 — уточнение scope и порядка существующих предложений
+
+IMP001/002: новый Economic V2 comparatorнеустраняетвсепутистарогоклассификатора; schema/codec/versionнеразрешаютновыйlogicalSource. НужныfreezeD02/D08/NUM-CODEC/MQLиобязательныйprovider/callerпереход. IMP008/009/018: прежде реализацииFSMзакрытьSG01..10,неподменятьphase/stateилиtopology/handler. IMP017: negativefixtureNO_FALSE_NOOPдолженменятьcomponentsссохранениемNetиrawsum,иначераннийguardмаскируетclause. IMP023 сохраняется: checkedfiniteintegergriditeration/no-progressstop — кандидатнабудущеепослеnumericdomainapproval,статусERR051CONDITIONAL_STATIC_RISK,ненативноевоспроизведение.
+
+Последовательностьнеизменна: normative decision→contract freeze→source remediationвотдельномразрешённомscope→futuretests→integrationverification. Ниодноиз23предложенийнереализовановR3;16решенийAWAITING_ADMIN_APPROVAL.
