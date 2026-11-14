@@ -1,0 +1,2234 @@
+[
+  {
+    "Function": "OnInit",
+    "Source": "Hybrid_Split_Big_Independent_EA.mq5",
+    "Line": 19,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "OnDeinit",
+    "Source": "Hybrid_Split_Big_Independent_EA.mq5",
+    "Line": 29,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "OnTick",
+    "Source": "Hybrid_Split_Big_Independent_EA.mq5",
+    "Line": 35,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "OnTimer",
+    "Source": "Hybrid_Split_Big_Independent_EA.mq5",
+    "Line": 41,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_InitializeContext",
+    "Source": "Include/Core/HSBI_Context.mqh",
+    "Line": 8,
+    "Callers": [
+      "Hybrid_Split_Big_Independent_EA.mq5:23",
+      "Include/Core/HSBI_Context.mqh:9"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ResetContext",
+    "Source": "Include/Core/HSBI_Context.mqh",
+    "Line": 9,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ContextPositionValid",
+    "Source": "Include/Core/HSBI_Context.mqh",
+    "Line": 10,
+    "Callers": [
+      "Include/Core/HSBI_Context.mqh:45",
+      "Include/Core/HSBI_Context.mqh:45",
+      "Include/Core/HSBI_Context.mqh:45",
+      "Include/Core/HSBI_Context.mqh:45",
+      "Include/Core/HSBI_Context.mqh:45",
+      "Include/Core/HSBI_Context.mqh:45",
+      "Include/Core/HSBI_Context.mqh:45"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ContextRolesConflict",
+    "Source": "Include/Core/HSBI_Context.mqh",
+    "Line": 19,
+    "Callers": [
+      "Include/Core/HSBI_Context.mqh:47"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ContextPositionInScope",
+    "Source": "Include/Core/HSBI_Context.mqh",
+    "Line": 27,
+    "Callers": [
+      "Include/Core/HSBI_Context.mqh:46",
+      "Include/Core/HSBI_Context.mqh:46",
+      "Include/Core/HSBI_Context.mqh:46",
+      "Include/Core/HSBI_Context.mqh:46",
+      "Include/Core/HSBI_Context.mqh:46",
+      "Include/Core/HSBI_Context.mqh:46",
+      "Include/Core/HSBI_Context.mqh:46"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateContext",
+    "Source": "Include/Core/HSBI_Context.mqh",
+    "Line": 33,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsValidIdentity",
+    "Source": "Include/Core/HSBI_Identifiers.mqh",
+    "Line": 6,
+    "Callers": [
+      "Include/Core/HSBI_Context.mqh:30",
+      "Include/Persistence/HSBI_ReconciliationTypes.mqh:7",
+      "Include/Planning/HSBI_CandidatePlan.mqh:6"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_SameCycle",
+    "Source": "Include/Core/HSBI_Identifiers.mqh",
+    "Line": 7,
+    "Callers": [
+      "Include/Core/HSBI_Identifiers.mqh:8"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_SamePositionOwner",
+    "Source": "Include/Core/HSBI_Identifiers.mqh",
+    "Line": 8,
+    "Callers": [
+      "Include/Execution/HSBI_OwnershipGuardTypes.mqh:8",
+      "Include/Execution/HSBI_OwnershipGuardTypes.mqh:11",
+      "Include/Planning/HSBI_NewFarSolver.mqh:64"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_SameSymbolScope",
+    "Source": "Include/Core/HSBI_Identifiers.mqh",
+    "Line": 9,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_UlongToString",
+    "Source": "Include/Core/HSBI_Identifiers.mqh",
+    "Line": 10,
+    "Callers": [
+      "Include/Core/HSBI_Identifiers.mqh:23",
+      "Include/Core/HSBI_Identifiers.mqh:23",
+      "Include/Diagnostics/HSBI_PanelModel.mqh:5",
+      "Include/Execution/HSBI_ActionTypes.mqh:7",
+      "Include/Execution/HSBI_ActionTypes.mqh:7",
+      "Include/Execution/HSBI_ActionTypes.mqh:7",
+      "Include/Execution/HSBI_ActionTypes.mqh:7",
+      "Include/Execution/HSBI_ActionTypes.mqh:7",
+      "Include/Execution/HSBI_ActionTypes.mqh:7",
+      "Include/Execution/HSBI_ActionTypes.mqh:7",
+      "Include/Execution/HSBI_EventTypes.mqh:7",
+      "Include/Execution/HSBI_EventTypes.mqh:7",
+      "Include/Execution/HSBI_EventTypes.mqh:7",
+      "Include/Execution/HSBI_EventTypes.mqh:7",
+      "Include/Execution/HSBI_EventTypes.mqh:7",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:17",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:17",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:18",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:18",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:20",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:21",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:21",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:21",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:22",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:22",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:22",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:23",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:23",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:42",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:42",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:42",
+      "Include/Execution/HSBI_ExternalOutcome.mqh:14",
+      "Include/Execution/HSBI_ExternalOutcome.mqh:14",
+      "Include/Execution/HSBI_ExternalOutcome.mqh:14",
+      "Include/Execution/HSBI_ExternalOutcome.mqh:15",
+      "Include/Execution/HSBI_ExternalOutcome.mqh:15",
+      "Include/Execution/HSBI_ExternalOutcome.mqh:17",
+      "Include/Execution/HSBI_ExternalOutcome.mqh:17",
+      "Include/Execution/HSBI_ExternalOutcome.mqh:17",
+      "Include/Money/HSBI_AllocationPolicyTypes.mqh:29",
+      "Include/Money/HSBI_AllocationPolicyTypes.mqh:29",
+      "Include/Money/HSBI_EconomicLedgerTypes.mqh:7",
+      "Include/Money/HSBI_EconomicLedgerTypes.mqh:7",
+      "Include/Money/HSBI_MoneyProofIdentity.mqh:25",
+      "Include/Money/HSBI_MoneyProofIdentity.mqh:26",
+      "Include/Money/HSBI_MoneyProofIdentity.mqh:27",
+      "Include/Money/HSBI_MoneyProofIdentity.mqh:27",
+      "Include/Money/HSBI_MoneyProofIdentity.mqh:27",
+      "Include/Money/HSBI_MoneyProofIdentity.mqh:28",
+      "Include/Money/HSBI_MoneyProofIdentity.mqh:28",
+      "Include/Money/HSBI_ReserveAllocationTypes.mqh:32",
+      "Include/Money/HSBI_ReserveAllocationTypes.mqh:32",
+      "Include/Money/HSBI_ReserveAllocationTypes.mqh:32",
+      "Include/Money/HSBI_ReserveAllocationTypes.mqh:34",
+      "Include/Money/HSBI_ReserveAllocationTypes.mqh:34",
+      "Include/Money/HSBI_ReserveAllocationTypes.mqh:34",
+      "Include/Persistence/HSBI_ExecutionJournal.mqh:13",
+      "Include/Persistence/HSBI_ExecutionJournal.mqh:13",
+      "Include/Persistence/HSBI_ExecutionJournal.mqh:13",
+      "Include/Persistence/HSBI_ExecutionJournal.mqh:14",
+      "Include/Persistence/HSBI_ExecutionJournal.mqh:14",
+      "Include/Persistence/HSBI_ExecutionJournal.mqh:14",
+      "Include/Persistence/HSBI_ExecutionJournal.mqh:15",
+      "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh:14",
+      "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh:14",
+      "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh:15",
+      "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh:15",
+      "Include/Persistence/HSBI_JournalTypes.mqh:7",
+      "Include/Persistence/HSBI_JournalTypes.mqh:7",
+      "Include/Persistence/HSBI_JournalTypes.mqh:7",
+      "Include/Persistence/HSBI_SnapshotTypes.mqh:9",
+      "Include/Persistence/HSBI_SnapshotTypes.mqh:9",
+      "Include/Persistence/HSBI_SnapshotTypes.mqh:10",
+      "Include/Persistence/HSBI_SnapshotTypes.mqh:10",
+      "Include/Planning/HSBI_CandidatePlan.mqh:7",
+      "Include/Planning/HSBI_CandidatePlan.mqh:7",
+      "Include/Planning/HSBI_CandidatePlan.mqh:7",
+      "Include/Planning/HSBI_CandidatePlan.mqh:7",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:101",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:101",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:101",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:102",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:102",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:108",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:108",
+      "Include/Planning/HSBI_NewFarSolver.mqh:39",
+      "Include/Planning/HSBI_NewFarSolver.mqh:41",
+      "Include/Planning/HSBI_NewFarSolver.mqh:41",
+      "Include/Planning/HSBI_NewFarSolver.mqh:42",
+      "Include/Planning/HSBI_NewFarSolver.mqh:42",
+      "Include/Planning/HSBI_NewFarSolver.mqh:43",
+      "Include/Planning/HSBI_NewFarSolver.mqh:44",
+      "Include/Planning/HSBI_NewFarSolver.mqh:50",
+      "Include/Planning/HSBI_NewFarSolver.mqh:50",
+      "Include/Planning/HSBI_NewFarSolver.mqh:50",
+      "Include/Planning/HSBI_NewFarSolver.mqh:51",
+      "Include/Planning/HSBI_NewFarSolver.mqh:52",
+      "Include/Planning/HSBI_NewFarSolver.mqh:55",
+      "Include/Planning/HSBI_NewFarSolver.mqh:57",
+      "Include/Planning/HSBI_NewFarSolver.mqh:57",
+      "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh:17",
+      "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh:17",
+      "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh:17",
+      "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh:17",
+      "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh:17",
+      "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh:17",
+      "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh:17"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_SerializeIdentity",
+    "Source": "Include/Core/HSBI_Identifiers.mqh",
+    "Line": 23,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ExactlyOneFarOrZero",
+    "Source": "Include/Core/HSBI_Invariants.mqh",
+    "Line": 5,
+    "Callers": [
+      "Include/Core/HSBI_Invariants.mqh:6"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_NoDualTail",
+    "Source": "Include/Core/HSBI_Invariants.mqh",
+    "Line": 6,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_NoUnknownRole",
+    "Source": "Include/Core/HSBI_Invariants.mqh",
+    "Line": 7,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ContextIdentityComplete",
+    "Source": "Include/Core/HSBI_Invariants.mqh",
+    "Line": 8,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_StateRevisionMonotonic",
+    "Source": "Include/Core/HSBI_Invariants.mqh",
+    "Line": 9,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_NoPendingActionConflict",
+    "Source": "Include/Core/HSBI_Invariants.mqh",
+    "Line": 10,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_NoFinalReserveForPartialFar",
+    "Source": "Include/Core/HSBI_Invariants.mqh",
+    "Line": 11,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_AllocationConservation",
+    "Source": "Include/Core/HSBI_Invariants.mqh",
+    "Line": 12,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_RealTradingForbiddenAtHSB1",
+    "Source": "Include/Core/HSBI_Invariants.mqh",
+    "Line": 13,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ReasonToString",
+    "Source": "Include/Core/HSBI_ReasonCodes.mqh",
+    "Line": 4,
+    "Callers": [
+      "Include/Diagnostics/HSBI_Logger.mqh:6",
+      "Include/Diagnostics/HSBI_PanelModel.mqh:5"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsKnownRole",
+    "Source": "Include/Core/HSBI_Roles.mqh",
+    "Line": 6,
+    "Callers": [
+      "Include/Core/HSBI_Context.mqh:13",
+      "Include/Core/HSBI_Invariants.mqh:7",
+      "Include/Core/HSBI_Invariants.mqh:7",
+      "Include/Core/HSBI_Roles.mqh:7"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidatePositionDescriptor",
+    "Source": "Include/Core/HSBI_Roles.mqh",
+    "Line": 7,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_CanPromoteToFar",
+    "Source": "Include/Core/HSBI_Roles.mqh",
+    "Line": 8,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateRoleTransition",
+    "Source": "Include/Core/HSBI_Roles.mqh",
+    "Line": 9,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_CountFarRoles",
+    "Source": "Include/Core/HSBI_Roles.mqh",
+    "Line": 10,
+    "Callers": [
+      "Include/Core/HSBI_Invariants.mqh:5",
+      "Include/Diagnostics/HSBI_Diagnostics.mqh:5"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsRuntimeModeAllowedAtStage1",
+    "Source": "Include/Core/HSBI_RuntimeMode.mqh",
+    "Line": 5,
+    "Callers": [
+      "Include/Core/HSBI_Context.mqh:36"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_BuildRuntimePolicy",
+    "Source": "Include/Core/HSBI_RuntimePolicy.mqh",
+    "Line": 12,
+    "Callers": [
+      "Hybrid_Split_Big_Independent_EA.mq5:21",
+      "Include/Core/HSBI_Context.mqh:55",
+      "Include/Core/HSBI_RuntimePolicy.mqh:23",
+      "Include/Core/HSBI_RuntimePolicy.mqh:24",
+      "Include/Core/HSBI_RuntimePolicy.mqh:26",
+      "Include/Core/HSBI_RuntimePolicy.mqh:29"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsInjectedProofAllowed",
+    "Source": "Include/Core/HSBI_RuntimePolicy.mqh",
+    "Line": 23,
+    "Callers": [
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:47",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:61"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsProductionPreflightAllowed",
+    "Source": "Include/Core/HSBI_RuntimePolicy.mqh",
+    "Line": 24,
+    "Callers": [
+      "Include/Execution/HSBI_ExecutionPreflight.mqh:20",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:8"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsBrokerDispatchAllowed",
+    "Source": "Include/Core/HSBI_RuntimePolicy.mqh",
+    "Line": 25,
+    "Callers": [
+      "Hybrid_Split_Big_Independent_EA.mq5:22"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsStaticCalculationAllowed",
+    "Source": "Include/Core/HSBI_RuntimePolicy.mqh",
+    "Line": 26,
+    "Callers": [
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:55",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:47",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:61",
+      "Include/Planning/HSBI_NewFarSolver.mqh:99"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsCompletionSourceAllowed",
+    "Source": "Include/Core/HSBI_RuntimePolicy.mqh",
+    "Line": 28,
+    "Callers": [
+      "Include/Execution/HSBI_ExternalOutcome.mqh:25"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsTransitionAllowed",
+    "Source": "Include/Core/HSBI_StateMachine.mqh",
+    "Line": 5,
+    "Callers": [
+      "Include/Core/HSBI_StateMachine.mqh:6"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ProposeStateTransition",
+    "Source": "Include/Core/HSBI_StateMachine.mqh",
+    "Line": 6,
+    "Callers": [
+      "Include/Core/HSBI_StateMachine.mqh:7"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ApplyPureStateTransition",
+    "Source": "Include/Core/HSBI_StateMachine.mqh",
+    "Line": 7,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ConflictTargetState",
+    "Source": "Include/Core/HSBI_StateMachine.mqh",
+    "Line": 8,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_CriticalErrorTargetState",
+    "Source": "Include/Core/HSBI_StateMachine.mqh",
+    "Line": 9,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_TransactionConflictTargetState",
+    "Source": "Include/Core/HSBI_StateMachine.mqh",
+    "Line": 10,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateStateTopology",
+    "Source": "Include/Core/HSBI_StateValidator.mqh",
+    "Line": 4,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_OutcomeCompletesAction",
+    "Source": "Include/Core/HSBI_StateValidator.mqh",
+    "Line": 5,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_Result",
+    "Source": "Include/Core/HSBI_Types.mqh",
+    "Line": 7,
+    "Callers": [
+      "Include/Core/HSBI_Invariants.mqh:5",
+      "Include/Core/HSBI_Invariants.mqh:7",
+      "Include/Core/HSBI_Invariants.mqh:8",
+      "Include/Core/HSBI_Invariants.mqh:9",
+      "Include/Core/HSBI_Invariants.mqh:10",
+      "Include/Core/HSBI_Invariants.mqh:11",
+      "Include/Core/HSBI_Invariants.mqh:12",
+      "Include/Core/HSBI_Invariants.mqh:13",
+      "Include/Core/HSBI_Roles.mqh:7",
+      "Include/Core/HSBI_Roles.mqh:7",
+      "Include/Core/HSBI_Roles.mqh:7",
+      "Include/Core/HSBI_Roles.mqh:7",
+      "Include/Core/HSBI_StateValidator.mqh:4",
+      "Include/Core/HSBI_StateValidator.mqh:4",
+      "Include/Core/HSBI_StateValidator.mqh:4",
+      "Include/Planning/HSBI_ControlPrices.mqh:14",
+      "Include/Planning/HSBI_ControlPrices.mqh:15",
+      "Include/Planning/HSBI_NewFarCandidate.mqh:22"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_BuildDiagnosticSnapshot",
+    "Source": "Include/Diagnostics/HSBI_Diagnostics.mqh",
+    "Line": 5,
+    "Callers": [
+      "Include/Diagnostics/HSBI_Diagnostics.mqh:6"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_UpdateDiagnosticSnapshot",
+    "Source": "Include/Diagnostics/HSBI_Diagnostics.mqh",
+    "Line": 6,
+    "Callers": [
+      "Hybrid_Split_Big_Independent_EA.mq5:43"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_Log",
+    "Source": "Include/Diagnostics/HSBI_Logger.mqh",
+    "Line": 6,
+    "Callers": [
+      "Hybrid_Split_Big_Independent_EA.mq5:24",
+      "Hybrid_Split_Big_Independent_EA.mq5:32"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_BuildPanelModel",
+    "Source": "Include/Diagnostics/HSBI_PanelModel.mqh",
+    "Line": 5,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateActionRecord",
+    "Source": "Include/Execution/HSBI_ActionTypes.mqh",
+    "Line": 6,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_SerializeActionIds",
+    "Source": "Include/Execution/HSBI_ActionTypes.mqh",
+    "Line": 7,
+    "Callers": [
+      "Include/Persistence/HSBI_JournalTypes.mqh:7",
+      "Include/Persistence/HSBI_SnapshotTypes.mqh:10"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateEventRecord",
+    "Source": "Include/Execution/HSBI_EventTypes.mqh",
+    "Line": 6,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_SerializeEventIds",
+    "Source": "Include/Execution/HSBI_EventTypes.mqh",
+    "Line": 7,
+    "Callers": [
+      "Include/Persistence/HSBI_JournalTypes.mqh:7"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ExecutionIntentDigest",
+    "Source": "Include/Execution/HSBI_ExecutionIntent.mqh",
+    "Line": 15,
+    "Callers": [
+      "Include/Execution/HSBI_ExecutionIntent.mqh:26"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateExecutionIntentDigest",
+    "Source": "Include/Execution/HSBI_ExecutionIntent.mqh",
+    "Line": 26,
+    "Callers": [
+      "Include/Execution/HSBI_ExecutionIntent.mqh:40",
+      "Include/Execution/HSBI_ExecutionPreflight.mqh:21",
+      "Include/Execution/HSBI_ExternalOutcome.mqh:25"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsValidIntentStatus",
+    "Source": "Include/Execution/HSBI_ExecutionIntent.mqh",
+    "Line": 27,
+    "Callers": [
+      "Include/Execution/HSBI_ExecutionIntent.mqh:39"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateExecutionIntentStructure",
+    "Source": "Include/Execution/HSBI_ExecutionIntent.mqh",
+    "Line": 28,
+    "Callers": [
+      "Include/Execution/HSBI_ExecutionPreflight.mqh:20",
+      "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh:22"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IntentIdempotencyKey",
+    "Source": "Include/Execution/HSBI_ExecutionIntent.mqh",
+    "Line": 42,
+    "Callers": [
+      "Include/Execution/HSBI_ExecutionIntent.mqh:43",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:43",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:44",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:44"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsSameIntentRetry",
+    "Source": "Include/Execution/HSBI_ExecutionIntent.mqh",
+    "Line": 43,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsIntentConflict",
+    "Source": "Include/Execution/HSBI_ExecutionIntent.mqh",
+    "Line": 44,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateExecutionPreflight",
+    "Source": "Include/Execution/HSBI_ExecutionPreflight.mqh",
+    "Line": 17,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsIntentLifecycleTransitionAllowed",
+    "Source": "Include/Execution/HSBI_ExecutionPreflight.mqh",
+    "Line": 35,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IntentRetryAllowed",
+    "Source": "Include/Execution/HSBI_ExecutionPreflight.mqh",
+    "Line": 47,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ExternalOutcomeDigest",
+    "Source": "Include/Execution/HSBI_ExternalOutcome.mqh",
+    "Line": 13,
+    "Callers": [
+      "Include/Execution/HSBI_ExternalOutcome.mqh:25"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ReconcileExecutionOutcome",
+    "Source": "Include/Execution/HSBI_ExternalOutcome.mqh",
+    "Line": 22,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_SubmitActionStub",
+    "Source": "Include/Execution/HSBI_NoTradeExecution.mqh",
+    "Line": 5,
+    "Callers": [
+      "Hybrid_Split_Big_Independent_EA.mq5:37",
+      "Include/Execution/HSBI_NoTradeExecution.mqh:6",
+      "Include/Execution/HSBI_NoTradeExecution.mqh:7",
+      "Include/Execution/HSBI_NoTradeExecution.mqh:8"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_OpenPositionStub",
+    "Source": "Include/Execution/HSBI_NoTradeExecution.mqh",
+    "Line": 6,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ClosePositionStub",
+    "Source": "Include/Execution/HSBI_NoTradeExecution.mqh",
+    "Line": 7,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_PartialCloseStub",
+    "Source": "Include/Execution/HSBI_NoTradeExecution.mqh",
+    "Line": 8,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_EvaluateOwnership",
+    "Source": "Include/Execution/HSBI_OwnershipGuardTypes.mqh",
+    "Line": 8,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_TicketMatchesObservation",
+    "Source": "Include/Execution/HSBI_OwnershipGuardTypes.mqh",
+    "Line": 9,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsActualBigCoreResidual",
+    "Source": "Include/Execution/HSBI_OwnershipGuardTypes.mqh",
+    "Line": 13,
+    "Callers": [
+      "Include/Planning/HSBI_NewFarSolver.mqh:72"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsCompletedOutcome",
+    "Source": "Include/Execution/HSBI_TransactionTypes.mqh",
+    "Line": 6,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsRetryOfSameAction",
+    "Source": "Include/Execution/HSBI_TransactionTypes.mqh",
+    "Line": 7,
+    "Callers": [
+      "Include/Execution/HSBI_TransactionTypes.mqh:22"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsFreshEvent",
+    "Source": "Include/Execution/HSBI_TransactionTypes.mqh",
+    "Line": 8,
+    "Callers": [
+      "Include/Execution/HSBI_TransactionTypes.mqh:13"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_TransactionBarrierPassed",
+    "Source": "Include/Execution/HSBI_TransactionTypes.mqh",
+    "Line": 9,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_RetryAllowed",
+    "Source": "Include/Execution/HSBI_TransactionTypes.mqh",
+    "Line": 20,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_AllocatedTotal",
+    "Source": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+    "Line": 6,
+    "Callers": [
+      "Include/Money/HSBI_AllocationLedgerTypes.mqh:7",
+      "Include/Money/HSBI_AllocationLedgerTypes.mqh:7",
+      "Include/Money/HSBI_AllocationLedgerTypes.mqh:8",
+      "Include/Money/HSBI_AllocationLedgerTypes.mqh:8"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateAllocationConservation",
+    "Source": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+    "Line": 7,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ClassifyAllocationDuplicate",
+    "Source": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+    "Line": 8,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_CanConsumeBucket",
+    "Source": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+    "Line": 9,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_CanConsumeAmount",
+    "Source": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+    "Line": 10,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateAllocationPolicy",
+    "Source": "Include/Money/HSBI_AllocationPolicyTypes.mqh",
+    "Line": 16,
+    "Callers": [
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:55",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:47",
+      "Include/Planning/HSBI_NewFarSolver.mqh:99",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:24"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_AllocationPolicyDigest",
+    "Source": "Include/Money/HSBI_AllocationPolicyTypes.mqh",
+    "Line": 25,
+    "Callers": [
+      "Include/Planning/HSBI_NewFarSolver.mqh:37",
+      "Include/Planning/HSBI_NewFarSolver.mqh:56",
+      "Include/Planning/HSBI_NewFarSolver.mqh:144"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_BasketLegInput",
+    "Source": "Include/Money/HSBI_BasketMoneyEvaluator.mqh",
+    "Line": 7,
+    "Callers": [
+      "Include/Money/HSBI_BasketMoneyEvaluator.mqh:14",
+      "Include/Money/HSBI_BasketMoneyEvaluator.mqh:14",
+      "Include/Money/HSBI_BasketMoneyEvaluator.mqh:14",
+      "Include/Money/HSBI_BasketMoneyEvaluator.mqh:14"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_EvaluateBasketMoney",
+    "Source": "Include/Money/HSBI_BasketMoneyEvaluator.mqh",
+    "Line": 11,
+    "Callers": [
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:80"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_BasketMoneyProofDigest",
+    "Source": "Include/Money/HSBI_BasketMoneyEvaluator.mqh",
+    "Line": 20,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_CalculateProjectedMargin",
+    "Source": "Include/Money/HSBI_BrokerMarginModel.mqh",
+    "Line": 5,
+    "Callers": [
+      "Include/Money/HSBI_LevelMarginEvaluator.mqh:9"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_MoneyResult",
+    "Source": "Include/Money/HSBI_BrokerMoneyModel.mqh",
+    "Line": 5,
+    "Callers": [
+      "Include/Money/HSBI_BrokerMoneyModel.mqh:8"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_CalculateProjectedProfit",
+    "Source": "Include/Money/HSBI_BrokerMoneyModel.mqh",
+    "Line": 6,
+    "Callers": [
+      "Include/Money/HSBI_LevelMoneyEvaluator.mqh:11"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsFiniteNumber",
+    "Source": "Include/Money/HSBI_BrokerMoneyTypes.mqh",
+    "Line": 10,
+    "Callers": [
+      "Include/Execution/HSBI_ExecutionIntent.mqh:32",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:32",
+      "Include/Execution/HSBI_ExecutionIntent.mqh:32",
+      "Include/Money/HSBI_AllocationPolicyTypes.mqh:19",
+      "Include/Money/HSBI_AllocationPolicyTypes.mqh:19",
+      "Include/Money/HSBI_AllocationPolicyTypes.mqh:20",
+      "Include/Money/HSBI_AllocationPolicyTypes.mqh:20",
+      "Include/Money/HSBI_BasketMoneyEvaluator.mqh:18",
+      "Include/Money/HSBI_BasketMoneyEvaluator.mqh:18",
+      "Include/Money/HSBI_BasketMoneyEvaluator.mqh:18",
+      "Include/Money/HSBI_BrokerMarginModel.mqh:14",
+      "Include/Money/HSBI_BrokerMoneyModel.mqh:12",
+      "Include/Money/HSBI_BrokerMoneyModel.mqh:12",
+      "Include/Money/HSBI_BrokerMoneyModel.mqh:17",
+      "Include/Money/HSBI_BrokerMoneyTypes.mqh:16",
+      "Include/Money/HSBI_BrokerMoneyTypes.mqh:16",
+      "Include/Money/HSBI_BrokerMoneyTypes.mqh:16",
+      "Include/Money/HSBI_BrokerMoneyTypes.mqh:16",
+      "Include/Money/HSBI_BrokerMoneyTypes.mqh:16",
+      "Include/Money/HSBI_BrokerMoneyTypes.mqh:16",
+      "Include/Money/HSBI_BrokerMoneyTypes.mqh:16",
+      "Include/Money/HSBI_CatchUpModel.mqh:10",
+      "Include/Money/HSBI_CatchUpModel.mqh:10",
+      "Include/Money/HSBI_CatchUpModel.mqh:10",
+      "Include/Money/HSBI_CatchUpModel.mqh:10",
+      "Include/Money/HSBI_CatchUpModel.mqh:10",
+      "Include/Money/HSBI_CatchUpModel.mqh:10",
+      "Include/Money/HSBI_CostModel.mqh:8",
+      "Include/Money/HSBI_CostModel.mqh:8",
+      "Include/Money/HSBI_CostModel.mqh:8",
+      "Include/Money/HSBI_CostModel.mqh:8",
+      "Include/Money/HSBI_CostModel.mqh:8",
+      "Include/Money/HSBI_CostModel.mqh:13",
+      "Include/Money/HSBI_CostModel.mqh:13",
+      "Include/Money/HSBI_CostModel.mqh:17",
+      "Include/Money/HSBI_CostModel.mqh:17",
+      "Include/Money/HSBI_CostModel.mqh:18",
+      "Include/Money/HSBI_LevelMarginEvaluator.mqh:10",
+      "Include/Money/HSBI_LevelMoneyEvaluator.mqh:13",
+      "Include/Money/HSBI_ReserveAllocationTypes.mqh:19",
+      "Include/Money/HSBI_ReserveAllocationTypes.mqh:19",
+      "Include/Money/HSBI_ReserveAllocationTypes.mqh:19",
+      "Include/Money/HSBI_ReserveAllocationTypes.mqh:20",
+      "Include/Money/HSBI_ReserveAllocationTypes.mqh:20",
+      "Include/Money/HSBI_ReserveAllocationTypes.mqh:20",
+      "Include/Money/HSBI_ReserveAllocationTypes.mqh:21",
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:27",
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:32",
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:61",
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:61",
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:61",
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:62",
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:62",
+      "Include/Planning/HSBI_BrokerGrid.mqh:10",
+      "Include/Planning/HSBI_BrokerGrid.mqh:10",
+      "Include/Planning/HSBI_BrokerGrid.mqh:15",
+      "Include/Planning/HSBI_BrokerGrid.mqh:15",
+      "Include/Planning/HSBI_BrokerGrid.mqh:20",
+      "Include/Planning/HSBI_BrokerGrid.mqh:20",
+      "Include/Planning/HSBI_BrokerGrid.mqh:23",
+      "Include/Planning/HSBI_BrokerGrid.mqh:23",
+      "Include/Planning/HSBI_BrokerGrid.mqh:26",
+      "Include/Planning/HSBI_BrokerGrid.mqh:26",
+      "Include/Planning/HSBI_BrokerGrid.mqh:27",
+      "Include/Planning/HSBI_BrokerGrid.mqh:27",
+      "Include/Planning/HSBI_BrokerGrid.mqh:35",
+      "Include/Planning/HSBI_ControlPrices.mqh:19",
+      "Include/Planning/HSBI_ControlPrices.mqh:19",
+      "Include/Planning/HSBI_ControlPrices.mqh:19",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:7",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:7",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:7",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:8",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:9",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:21",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:21",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:21",
+      "Include/Planning/HSBI_GeometrySolver.mqh:8",
+      "Include/Planning/HSBI_GeometrySolver.mqh:8",
+      "Include/Planning/HSBI_GeometrySolver.mqh:8",
+      "Include/Planning/HSBI_GeometrySolver.mqh:8",
+      "Include/Planning/HSBI_GeometrySolver.mqh:10",
+      "Include/Planning/HSBI_GeometrySolver.mqh:17",
+      "Include/Planning/HSBI_GeometrySolver.mqh:17",
+      "Include/Planning/HSBI_GeometrySolver.mqh:26",
+      "Include/Planning/HSBI_GeometrySolver.mqh:26",
+      "Include/Planning/HSBI_GeometrySolver.mqh:26",
+      "Include/Planning/HSBI_GeometrySolver.mqh:29",
+      "Include/Planning/HSBI_GeometrySolver.mqh:29",
+      "Include/Planning/HSBI_GeometrySolver.mqh:29",
+      "Include/Planning/HSBI_NewFarSolver.mqh:107",
+      "Include/Risk/HSBI_FutureSmallRiskEvaluator.mqh:42",
+      "Include/Risk/HSBI_FutureSmallRiskEvaluator.mqh:42",
+      "Include/Risk/HSBI_FutureSmallRiskEvaluator.mqh:43",
+      "Include/Risk/HSBI_NewFarGateTypes.mqh:11",
+      "Include/Risk/HSBI_NewFarGateTypes.mqh:11",
+      "Include/Risk/HSBI_NewFarGateTypes.mqh:11",
+      "Include/Risk/HSBI_NewFarGateTypes.mqh:11",
+      "Include/Risk/HSBI_NewFarGateTypes.mqh:13",
+      "Include/Risk/HSBI_NewFarGateTypes.mqh:14",
+      "Include/Risk/HSBI_NewFarGateTypes.mqh:14",
+      "Include/Risk/HSBI_NewFarGateTypes.mqh:15"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateBrokerProperties",
+    "Source": "Include/Money/HSBI_BrokerMoneyTypes.mqh",
+    "Line": 11,
+    "Callers": [
+      "Include/Execution/HSBI_ExecutionPreflight.mqh:30",
+      "Include/Money/HSBI_BrokerMarginModel.mqh:8",
+      "Include/Money/HSBI_BrokerMoneyModel.mqh:9",
+      "Include/Planning/HSBI_BrokerGrid.mqh:19",
+      "Include/Planning/HSBI_BrokerGrid.mqh:35",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:50",
+      "Include/Planning/HSBI_GeometrySolver.mqh:24"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_EvaluateCandidateMoney",
+    "Source": "Include/Money/HSBI_CandidateMoneyEvaluator.mqh",
+    "Line": 10,
+    "Callers": [
+      "Include/Planning/HSBI_NewFarSolver.mqh:114"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_EvaluateCatchUp",
+    "Source": "Include/Money/HSBI_CatchUpModel.mqh",
+    "Line": 4,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateCostSnapshot",
+    "Source": "Include/Money/HSBI_CostModel.mqh",
+    "Line": 5,
+    "Callers": [
+      "Include/Money/HSBI_BrokerMoneyModel.mqh:14",
+      "Include/Money/HSBI_CostModel.mqh:13",
+      "Include/Money/HSBI_CostModel.mqh:17",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:29",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:30",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:30",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:30"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_TryActualDealNet",
+    "Source": "Include/Money/HSBI_CostModel.mqh",
+    "Line": 11,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_TryProjectedNetMoney",
+    "Source": "Include/Money/HSBI_CostModel.mqh",
+    "Line": 15,
+    "Callers": [
+      "Include/Money/HSBI_BrokerMoneyModel.mqh:19"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_BuildSourceDealKey",
+    "Source": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+    "Line": 7,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateEconomicRecord",
+    "Source": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+    "Line": 8,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_SameEconomicRecord",
+    "Source": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+    "Line": 9,
+    "Callers": [
+      "Include/Money/HSBI_EconomicLedgerTypes.mqh:10"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ClassifyEconomicDuplicate",
+    "Source": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+    "Line": 10,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_SerializeEconomicRecord",
+    "Source": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+    "Line": 11,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsHarvestSourceEntry",
+    "Source": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+    "Line": 12,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_EvaluateProjectedLegMargin",
+    "Source": "Include/Money/HSBI_LevelMarginEvaluator.mqh",
+    "Line": 5,
+    "Callers": [
+      "Include/Money/HSBI_BasketMoneyEvaluator.mqh:16",
+      "Include/Money/HSBI_BasketMoneyEvaluator.mqh:16",
+      "Include/Money/HSBI_BasketMoneyEvaluator.mqh:16",
+      "Include/Money/HSBI_BasketMoneyEvaluator.mqh:16"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_EvaluateProjectedLegMoney",
+    "Source": "Include/Money/HSBI_LevelMoneyEvaluator.mqh",
+    "Line": 7,
+    "Callers": [
+      "Include/Money/HSBI_BasketMoneyEvaluator.mqh:15",
+      "Include/Money/HSBI_BasketMoneyEvaluator.mqh:15",
+      "Include/Money/HSBI_BasketMoneyEvaluator.mqh:15",
+      "Include/Money/HSBI_BasketMoneyEvaluator.mqh:15"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateMoneyProofIdentity",
+    "Source": "Include/Money/HSBI_MoneyProofIdentity.mqh",
+    "Line": 10,
+    "Callers": [
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:27",
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:33",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:22",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:23"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsSameMoneyProofIdentity",
+    "Source": "Include/Money/HSBI_MoneyProofIdentity.mqh",
+    "Line": 16,
+    "Callers": [
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:27",
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:33"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_MoneyProofIdentityDigest",
+    "Source": "Include/Money/HSBI_MoneyProofIdentity.mqh",
+    "Line": 23,
+    "Callers": [
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:51",
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:52"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateMoneyState",
+    "Source": "Include/Money/HSBI_MoneyState.mqh",
+    "Line": 5,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_BuildRecoveryPL",
+    "Source": "Include/Money/HSBI_MoneyTypes.mqh",
+    "Line": 9,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateReserveAllocationSource",
+    "Source": "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+    "Line": 15,
+    "Callers": [
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:44",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:24"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateReserveConsumption",
+    "Source": "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+    "Line": 25,
+    "Callers": [
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:47",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:25"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsDuplicateReserveConsumption",
+    "Source": "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+    "Line": 27,
+    "Callers": [
+      "Include/Money/HSBI_ReserveAllocationTypes.mqh:30",
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:48"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ReserveConsumptionConflict",
+    "Source": "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+    "Line": 29,
+    "Callers": [
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:49"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ReserveAllocationSourceDigest",
+    "Source": "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+    "Line": 31,
+    "Callers": [
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:53",
+      "Include/Planning/HSBI_NewFarSolver.mqh:57",
+      "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh:17",
+      "Include/Runtime/HSBI_RuntimeRestartValidator.mqh:15",
+      "Include/Runtime/HSBI_RuntimeRestartValidator.mqh:15"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ReserveConsumptionKeyDigest",
+    "Source": "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+    "Line": 33,
+    "Callers": [
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:54",
+      "Include/Planning/HSBI_NewFarSolver.mqh:57",
+      "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh:17",
+      "Include/Runtime/HSBI_RuntimeRestartValidator.mqh:15",
+      "Include/Runtime/HSBI_RuntimeRestartValidator.mqh:15"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateReserveSourceProof",
+    "Source": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+    "Line": 24,
+    "Callers": [
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:42"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateFarLossProof",
+    "Source": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+    "Line": 30,
+    "Callers": [
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh:43"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_EvaluateReserveCatchUp",
+    "Source": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+    "Line": 35,
+    "Callers": [
+      "Include/Planning/HSBI_NewFarSolver.mqh:127"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ReserveCatchUpDigest",
+    "Source": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+    "Line": 78,
+    "Callers": [
+      "Include/Planning/HSBI_NewFarSolver.mqh:143",
+      "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh:17"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ExecutionJournalEntryDigest",
+    "Source": "Include/Persistence/HSBI_ExecutionJournal.mqh",
+    "Line": 12,
+    "Callers": [
+      "Include/Persistence/HSBI_ExecutionJournal.mqh:20"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateJournalEntry",
+    "Source": "Include/Persistence/HSBI_ExecutionJournal.mqh",
+    "Line": 18,
+    "Callers": [
+      "Include/Persistence/HSBI_ExecutionJournal.mqh:29",
+      "Include/Persistence/HSBI_ExecutionJournal.mqh:36"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsDuplicateJournalEntry",
+    "Source": "Include/Persistence/HSBI_ExecutionJournal.mqh",
+    "Line": 21,
+    "Callers": [
+      "Include/Persistence/HSBI_ExecutionJournal.mqh:27"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsJournalEntryConflict",
+    "Source": "Include/Persistence/HSBI_ExecutionJournal.mqh",
+    "Line": 23,
+    "Callers": [
+      "Include/Persistence/HSBI_ExecutionJournal.mqh:28"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ClassifyJournalAppend",
+    "Source": "Include/Persistence/HSBI_ExecutionJournal.mqh",
+    "Line": 25,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateJournalChain",
+    "Source": "Include/Persistence/HSBI_ExecutionJournal.mqh",
+    "Line": 31,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ExecutionStateSnapshotDigest",
+    "Source": "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh",
+    "Line": 12,
+    "Callers": [
+      "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh:31"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateNestedExecutionIntent",
+    "Source": "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh",
+    "Line": 19,
+    "Callers": [
+      "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh:32",
+      "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh:32",
+      "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh:32"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsActiveIntentStatus",
+    "Source": "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh",
+    "Line": 25,
+    "Callers": [
+      "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh:34"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateExecutionStateSnapshot",
+    "Source": "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh",
+    "Line": 27,
+    "Callers": [
+      "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh:43",
+      "Include/Runtime/HSBI_RuntimeRestartValidator.mqh:8"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_RecoverExecutionState",
+    "Source": "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh",
+    "Line": 42,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateJournalRecord",
+    "Source": "Include/Persistence/HSBI_JournalTypes.mqh",
+    "Line": 6,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_SerializeJournalIds",
+    "Source": "Include/Persistence/HSBI_JournalTypes.mqh",
+    "Line": 7,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_PersistSnapshotStub",
+    "Source": "Include/Persistence/HSBI_PersistenceInterface.mqh",
+    "Line": 7,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_CompareReconciliation",
+    "Source": "Include/Persistence/HSBI_ReconciliationTypes.mqh",
+    "Line": 7,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateSnapshotSchema",
+    "Source": "Include/Persistence/HSBI_SnapshotTypes.mqh",
+    "Line": 8,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_TestDigest",
+    "Source": "Include/Persistence/HSBI_SnapshotTypes.mqh",
+    "Line": 9,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_SerializeSnapshotIds",
+    "Source": "Include/Persistence/HSBI_SnapshotTypes.mqh",
+    "Line": 10,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_GridTolerance",
+    "Source": "Include/Planning/HSBI_BrokerGrid.mqh",
+    "Line": 7,
+    "Callers": [
+      "Include/Execution/HSBI_ExecutionPreflight.mqh:31",
+      "Include/Money/HSBI_BrokerMoneyModel.mqh:13",
+      "Include/Planning/HSBI_BrokerGrid.mqh:11",
+      "Include/Planning/HSBI_BrokerGrid.mqh:24",
+      "Include/Planning/HSBI_BrokerGrid.mqh:36",
+      "Include/Planning/HSBI_BrokerGrid.mqh:36",
+      "Include/Planning/HSBI_ControlPrices.mqh:21",
+      "Include/Planning/HSBI_ControlPrices.mqh:22",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:22",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:23",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:24",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:68",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:69",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:142",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:144",
+      "Include/Planning/HSBI_GeometrySolver.mqh:31",
+      "Include/Planning/HSBI_GeometrySolver.mqh:31",
+      "Include/Planning/HSBI_GeometrySolver.mqh:31",
+      "Include/Planning/HSBI_GeometrySolver.mqh:34",
+      "Include/Planning/HSBI_NewFarSolver.mqh:109"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsPriceOnTickGrid",
+    "Source": "Include/Planning/HSBI_BrokerGrid.mqh",
+    "Line": 8,
+    "Callers": [
+      "Include/Planning/HSBI_BrokerGrid.mqh:17",
+      "Include/Planning/HSBI_BrokerGrid.mqh:19",
+      "Include/Planning/HSBI_ControlPrices.mqh:20",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:22"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_NormalizePriceToTick",
+    "Source": "Include/Planning/HSBI_BrokerGrid.mqh",
+    "Line": 13,
+    "Callers": [
+      "Include/Planning/HSBI_ControlPrices.mqh:12"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidatePriceGrid",
+    "Source": "Include/Planning/HSBI_BrokerGrid.mqh",
+    "Line": 19,
+    "Callers": [
+      "Include/Money/HSBI_BrokerMarginModel.mqh:11",
+      "Include/Money/HSBI_BrokerMoneyModel.mqh:12",
+      "Include/Money/HSBI_BrokerMoneyModel.mqh:12"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_PriceDistanceInTicks",
+    "Source": "Include/Planning/HSBI_BrokerGrid.mqh",
+    "Line": 20,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsVolumeOnGrid",
+    "Source": "Include/Planning/HSBI_BrokerGrid.mqh",
+    "Line": 21,
+    "Callers": [
+      "Include/Planning/HSBI_BrokerGrid.mqh:36",
+      "Include/Planning/HSBI_GeometrySolver.mqh:32",
+      "Include/Planning/HSBI_GeometrySolver.mqh:32"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_FloorVolumeToStep",
+    "Source": "Include/Planning/HSBI_BrokerGrid.mqh",
+    "Line": 26,
+    "Callers": [
+      "Include/Planning/HSBI_BrokerGrid.mqh:31",
+      "Include/Planning/HSBI_GeometrySolver.mqh:30",
+      "Include/Planning/HSBI_GeometrySolver.mqh:30"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_CeilVolumeToStep",
+    "Source": "Include/Planning/HSBI_BrokerGrid.mqh",
+    "Line": 27,
+    "Callers": [
+      "Include/Planning/HSBI_BrokerGrid.mqh:30",
+      "Include/Planning/HSBI_GeometrySolver.mqh:30"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_NormalizeVolume",
+    "Source": "Include/Planning/HSBI_BrokerGrid.mqh",
+    "Line": 28,
+    "Callers": [
+      "Include/Planning/HSBI_NewFarSolver.mqh:110"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateVolume",
+    "Source": "Include/Planning/HSBI_BrokerGrid.mqh",
+    "Line": 33,
+    "Callers": [
+      "Include/Execution/HSBI_ExecutionPreflight.mqh:30",
+      "Include/Money/HSBI_BrokerMarginModel.mqh:10",
+      "Include/Money/HSBI_BrokerMoneyModel.mqh:11",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:35",
+      "Include/Planning/HSBI_GeometrySolver.mqh:27",
+      "Include/Planning/HSBI_GeometrySolver.mqh:33",
+      "Include/Planning/HSBI_NewFarSolver.mqh:72",
+      "Include/Planning/HSBI_NewFarSolver.mqh:112"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateCandidatePlan",
+    "Source": "Include/Planning/HSBI_CandidatePlan.mqh",
+    "Line": 6,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_CandidatePlanFingerprint",
+    "Source": "Include/Planning/HSBI_CandidatePlan.mqh",
+    "Line": 7,
+    "Callers": [
+      "Include/Planning/HSBI_CandidatePlan.mqh:8",
+      "Include/Planning/HSBI_CandidatePlan.mqh:8"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_SameCandidatePlan",
+    "Source": "Include/Planning/HSBI_CandidatePlan.mqh",
+    "Line": 8,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsSnapshotFresh",
+    "Source": "Include/Planning/HSBI_ControlPrices.mqh",
+    "Line": 11,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_NormalizePriceToTick",
+    "Source": "Include/Planning/HSBI_ControlPrices.mqh",
+    "Line": 12,
+    "Callers": [
+      "Include/Planning/HSBI_BrokerGrid.mqh:13"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ResolveCloseSide",
+    "Source": "Include/Planning/HSBI_ControlPrices.mqh",
+    "Line": 13,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateMarketSnapshot",
+    "Source": "Include/Planning/HSBI_ControlPrices.mqh",
+    "Line": 14,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateControlPriceSet",
+    "Source": "Include/Planning/HSBI_ControlPrices.mqh",
+    "Line": 15,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateTypedControlPrice",
+    "Source": "Include/Planning/HSBI_ControlPrices.mqh",
+    "Line": 16,
+    "Callers": [
+      "Include/Execution/HSBI_ExecutionPreflight.mqh:31",
+      "Include/Money/HSBI_BasketMoneyEvaluator.mqh:13"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_AggregateDigest",
+    "Source": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+    "Line": 16,
+    "Callers": [
+      "Include/Planning/HSBI_FutureSmallProofAggregator.mqh:58"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_AggregateFutureSmallProof",
+    "Source": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+    "Line": 23,
+    "Callers": [
+      "Include/Planning/HSBI_NewFarSolver.mqh:116"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_CalculateFutureSmallDepth",
+    "Source": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+    "Line": 5,
+    "Callers": [
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:117"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateConservativeBound",
+    "Source": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+    "Line": 12,
+    "Callers": [
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:146"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateLevelMarket",
+    "Source": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+    "Line": 18,
+    "Callers": [
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:61"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateLevelCosts",
+    "Source": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+    "Line": 27,
+    "Callers": [
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:62"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateFarProjection",
+    "Source": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+    "Line": 32,
+    "Callers": [
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:62"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_LevelControlPrice",
+    "Source": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+    "Line": 39,
+    "Callers": [
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:77"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateFutureSmallInput",
+    "Source": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+    "Line": 45,
+    "Callers": [
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:116"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_EvaluateFutureSmallLevel",
+    "Source": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+    "Line": 57,
+    "Callers": [
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:130"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_FutureSmallLevelDigest",
+    "Source": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+    "Line": 93,
+    "Callers": [
+      "Include/Planning/HSBI_FutureSmallProofAggregator.mqh:47",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:109",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:140"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_FutureSmallProofDigest",
+    "Source": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+    "Line": 106,
+    "Callers": [
+      "Include/Money/HSBI_CandidateMoneyEvaluator.mqh:17",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:130",
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:149"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_SolveFutureSmall",
+    "Source": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+    "Line": 113,
+    "Callers": [
+      "Include/Money/HSBI_CandidateMoneyEvaluator.mqh:15"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateRecoverySlope",
+    "Source": "Include/Planning/HSBI_GeometrySolver.mqh",
+    "Line": 6,
+    "Callers": [
+      "Include/Planning/HSBI_GeometrySolver.mqh:34"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_EvaluateRecoveryMoneyDirection",
+    "Source": "Include/Planning/HSBI_GeometrySolver.mqh",
+    "Line": 12,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_SolveBigGeometry",
+    "Source": "Include/Planning/HSBI_GeometrySolver.mqh",
+    "Line": 21,
+    "Callers": [
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:63"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateNewFarCandidateStructure",
+    "Source": "Include/Planning/HSBI_NewFarCandidate.mqh",
+    "Line": 19,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsCandidateSourceValid",
+    "Source": "Include/Planning/HSBI_NewFarCandidate.mqh",
+    "Line": 24,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_IsCompleteCandidateProof",
+    "Source": "Include/Planning/HSBI_NewFarCandidate.mqh",
+    "Line": 26,
+    "Callers": [
+      "Include/Planning/HSBI_NewFarCandidate.mqh:35",
+      "Include/Planning/HSBI_NewFarCandidate.mqh:35",
+      "Include/Planning/HSBI_NewFarSolver.mqh:146",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:20"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_CompareCandidateTieBreak",
+    "Source": "Include/Planning/HSBI_NewFarCandidate.mqh",
+    "Line": 33,
+    "Callers": [
+      "Include/Planning/HSBI_NewFarSolver.mqh:149"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_FutureSmallTemplateDigest",
+    "Source": "Include/Planning/HSBI_NewFarSolver.mqh",
+    "Line": 35,
+    "Callers": [
+      "Include/Planning/HSBI_NewFarSolver.mqh:56",
+      "Include/Planning/HSBI_NewFarSolver.mqh:145"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_NewFarInputDigest",
+    "Source": "Include/Planning/HSBI_NewFarSolver.mqh",
+    "Line": 47,
+    "Callers": [
+      "Include/Planning/HSBI_NewFarSolver.mqh:59",
+      "Include/Planning/HSBI_NewFarSolver.mqh:106"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_FinalizeNewFarPlanDigest",
+    "Source": "Include/Planning/HSBI_NewFarSolver.mqh",
+    "Line": 59,
+    "Callers": [
+      "Include/Planning/HSBI_NewFarSolver.mqh:148"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateNewFarSource",
+    "Source": "Include/Planning/HSBI_NewFarSolver.mqh",
+    "Line": 60,
+    "Callers": [
+      "Include/Planning/HSBI_NewFarSolver.mqh:102"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_AllowedTransitionLoss",
+    "Source": "Include/Planning/HSBI_NewFarSolver.mqh",
+    "Line": 74,
+    "Callers": [
+      "Include/Planning/HSBI_NewFarSolver.mqh:107"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_BuildCandidateFutureSmallInput",
+    "Source": "Include/Planning/HSBI_NewFarSolver.mqh",
+    "Line": 75,
+    "Callers": [
+      "Include/Planning/HSBI_NewFarSolver.mqh:114"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_NewFarProofIdentity",
+    "Source": "Include/Planning/HSBI_NewFarSolver.mqh",
+    "Line": 80,
+    "Callers": [
+      "Include/Planning/HSBI_NewFarSolver.mqh:119",
+      "Include/Planning/HSBI_NewFarSolver.mqh:120"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_CandidateProofDigest",
+    "Source": "Include/Planning/HSBI_NewFarSolver.mqh",
+    "Line": 84,
+    "Callers": [
+      "Include/Planning/HSBI_NewFarSolver.mqh:145"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_SolveNewFar",
+    "Source": "Include/Planning/HSBI_NewFarSolver.mqh",
+    "Line": 94,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_FailClosed",
+    "Source": "Include/Risk/HSBI_CalculationGateTypes.mqh",
+    "Line": 6,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_CalculationResultFlagsValid",
+    "Source": "Include/Risk/HSBI_CalculationGateTypes.mqh",
+    "Line": 10,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_EvaluateFutureSmallRisk",
+    "Source": "Include/Risk/HSBI_FutureSmallRiskEvaluator.mqh",
+    "Line": 29,
+    "Callers": [
+      "Include/Planning/HSBI_FutureSmallSolver.mqh:86"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_EvaluateNewFarGates",
+    "Source": "Include/Risk/HSBI_NewFarGateTypes.mqh",
+    "Line": 6,
+    "Callers": [
+      "Include/Planning/HSBI_NewFarSolver.mqh:134"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateRiskInput",
+    "Source": "Include/Risk/HSBI_RiskGateResult.mqh",
+    "Line": 6,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_RuntimeDecisionContextDigest",
+    "Source": "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh",
+    "Line": 17,
+    "Callers": [
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:27"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_RuntimeReject",
+    "Source": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "Line": 4,
+    "Callers": [
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:8",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:9",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:10",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:11",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:12",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:13",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:14",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:15",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:16",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:17",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:18",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:19",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:20",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:21",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:22",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:23",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:24",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:25",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:26",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:27",
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:28",
+      "Include/Runtime/HSBI_RuntimeRestartValidator.mqh:7",
+      "Include/Runtime/HSBI_RuntimeRestartValidator.mqh:8",
+      "Include/Runtime/HSBI_RuntimeRestartValidator.mqh:9",
+      "Include/Runtime/HSBI_RuntimeRestartValidator.mqh:10",
+      "Include/Runtime/HSBI_RuntimeRestartValidator.mqh:11",
+      "Include/Runtime/HSBI_RuntimeRestartValidator.mqh:12",
+      "Include/Runtime/HSBI_RuntimeRestartValidator.mqh:13",
+      "Include/Runtime/HSBI_RuntimeRestartValidator.mqh:14",
+      "Include/Runtime/HSBI_RuntimeRestartValidator.mqh:15",
+      "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh:8",
+      "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh:8",
+      "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh:9",
+      "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh:10",
+      "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh:11",
+      "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh:12",
+      "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh:13",
+      "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh:14",
+      "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh:14",
+      "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh:15",
+      "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh:16"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_RuntimePositionMatches",
+    "Source": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "Line": 5,
+    "Callers": [
+      "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh:18"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateRuntimeDecisionContext",
+    "Source": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "Line": 6,
+    "Callers": [
+      "Include/Runtime/HSBI_RuntimeRestartValidator.mqh:16",
+      "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh:7"
+    ],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_ValidateRestartedRuntimeState",
+    "Source": "Include/Runtime/HSBI_RuntimeRestartValidator.mqh",
+    "Line": 5,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  },
+  {
+    "Function": "HSBI_CanAdvanceRuntimeDecision",
+    "Source": "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh",
+    "Line": 5,
+    "Callers": [],
+    "GuardEnforcement": "NOT_VERIFIED",
+    "Crosswalk": "PARTIAL_LEXICAL"
+  }
+]

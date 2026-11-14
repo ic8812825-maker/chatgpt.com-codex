@@ -1,0 +1,292 @@
+[
+  {
+    "DecisionId": "D-01",
+    "Display": "D-01",
+    "Title": "Разделение денежных фаз",
+    "ExistingNorm": "Docs08/legacy Remaining и C3 Gross naming conflict.",
+    "Conflict": "Bare Gross смешивает исходный grant и неиспользованный остаток.",
+    "Options": {
+      "A": "G=Consumed+Reserved+Free на каждом bucket; RemainingGross=Reserved+Free. Отдельно allocation C/P/T/K/R суммируется в исходный grant, это другая ось.",
+      "B": "Legacy RemainingGross остаётся read-only view; consumption использует только явно вычисленный Free."
+    },
+    "RecommendedOption": "A",
+    "Rationale": "Исключает повторное включение already reserved/consumed money.",
+    "Risk": "Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.",
+    "Compatibility": "Новая schema/version; старые bytes неизменны. Unknown namespace/units/body → quarantine. Legacy не переименовывается в Free.",
+    "RequiredTests": "UNDERALLOCATION, EXHAUSTED-VECTOR, COMPETING-B-STALE",
+    "Dependencies": "D-10/D-14/D-16",
+    "OwnerApproval": "AWAITING_ADMIN_APPROVAL"
+  },
+  {
+    "DecisionId": "D-02",
+    "Display": "D-02",
+    "Title": "Денежные типы / source status",
+    "ExistingNorm": "Docs08 actual deals; C3 disjoint money types.",
+    "Conflict": "Одинаковые числа и kind-флаги не подтверждают actual или spendable ресурс.",
+    "Options": {
+      "A": "Captured → Reconciled → Eligible → Allocated → Reserved → Consumed — разные состояния с подтверждёнными переходами. Projected существует отдельно и не fund.",
+      "B": "Только planning views до появления независимого provider; spending всегда UNAVAILABLE."
+    },
+    "RecommendedOption": "A",
+    "Rationale": "Bool actual/valid в предъявленном DTO не является независимым фактом.",
+    "Risk": "Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.",
+    "Compatibility": "Новая schema/version; старые bytes неизменны. Unknown namespace/units/body → quarantine. Legacy не переименовывается в Free.",
+    "RequiredTests": "P0-12, P0-03, projected source rejection",
+    "Dependencies": "D-08/D-13/D-14",
+    "OwnerApproval": "AWAITING_ADMIN_APPROVAL"
+  },
+  {
+    "DecisionId": "D-03",
+    "Display": "D-03",
+    "Title": "Reserve ownership / Small",
+    "ExistingNorm": "Docs31 роли BigCore/BigTrend; production LevelMoney reserveGain включает Small.",
+    "Conflict": "Small-only profit может ошибочно получить Big Reserve назначение.",
+    "Options": {
+      "A": "Small-only profit удерживается как ResidualHeld; BigReserve funding только от утверждённых BigCore/BigTrend closing sources.",
+      "B": "Small transfer допускается отдельным approved debit/credit event с исходным SourceKey и ownership."
+    },
+    "RecommendedOption": "A",
+    "Rationale": "Смена роли не создаёт вторую прибыль; сохраняет существующее ограничение ролей.",
+    "Risk": "Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.",
+    "Compatibility": "Новая schema/version; старые bytes неизменны. Unknown namespace/units/body → quarantine. Legacy не переименовывается в Free.",
+    "RequiredTests": "Core0 Trend0 Small10 → BigReserve0 Residual10; PLANNED",
+    "Dependencies": "D-02/D-14",
+    "OwnerApproval": "AWAITING_ADMIN_APPROVAL"
+  },
+  {
+    "DecisionId": "D-04",
+    "Display": "D-04",
+    "Title": "База Catch-Up loss",
+    "ExistingNorm": "Far loss absolute/incremental proposals; historical baseline lineage не реализован.",
+    "Conflict": "Incremental10 ошибочно покрывается Reserve30 при absolute50.",
+    "Options": {
+      "A": "AbsoluteFarLoss=max(0,−ProjectedCloseNowFarNet); projected preview не тратит confirmed reserve.",
+      "B": "IncrementalLoss только после утверждения baseline, lineage, currency и restart policy."
+    },
+    "RecommendedOption": "A",
+    "Rationale": "Reserve30 не покрывает absolute loss50 при incremental10.",
+    "Risk": "Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.",
+    "Compatibility": "Новая schema/version; старые bytes неизменны. Unknown namespace/units/body → quarantine. Legacy не переименовывается в Free.",
+    "RequiredTests": "proof50/eligible100 → REJECT; lossProof−50/loss0 → REJECT; PLANNED public",
+    "Dependencies": "D-02/D-06/D-09",
+    "OwnerApproval": "AWAITING_ADMIN_APPROVAL"
+  },
+  {
+    "DecisionId": "D-05",
+    "Display": "D-05",
+    "Title": "Transition A/B/C",
+    "ExistingNorm": "Docs08 signed closing net; C2/C3 текущий batch assessment, без sticky журнала.",
+    "Conflict": "Current final loss, историческое breach и peak loss неэквивалентны.",
+    "Options": {
+      "A": "A: current signed loss=max(0,−Σactual confirmed batch net); соответствует Docs/08:21 и Docs/13:9.",
+      "B": "B: current signed accounting плюс отдельный sticky safety breach до ручного reset.",
+      "C": "C: peak historical prefix loss=max_j max(0,−Σ_{i≤j}Net_i); хранить отдельно от current loss; reset и ordering policy обязательны."
+    },
+    "RecommendedOption": "B",
+    "Rationale": "Сохраняет actual accounting A и не теряет нарушение cap на раннем prefix. Это изменение safety policy требует утверждения.",
+    "Risk": "Final cumulative Net85 cannot reconstruct earlier breach15. Missing ordered history/reset journal => UNAVAILABLE for sticky/peak migration; do not infer no breach.",
+    "Compatibility": "Новая schema/version; старые bytes неизменны. Unknown namespace/units/body → quarantine. Legacy не переименовывается в Free.",
+    "RequiredTests": "Fills−15,+100 cap12: current0,sticky true,peak15; ordered history/restart PLANNED",
+    "Dependencies": "D-06/D-07/D-13",
+    "OwnerApproval": "AWAITING_ADMIN_APPROVAL"
+  },
+  {
+    "DecisionId": "D-06",
+    "Display": "D-06",
+    "Title": "Cost basis / FinalClose",
+    "ExistingNorm": "Signed Profit/Swap/Commission/Fee и independent cost coverage; buffer headroom не actual debit.",
+    "Conflict": "Неизвестное пересечение basis/window может дать двойное вычитание или скрытый ноль.",
+    "Options": {
+      "A": "Уникальный CostID+basis+window+includedIn компонентах; каждый применимый расход учтён ровно один раз; unknown → UNAVAILABLE.",
+      "B": "Сводный buffer допустим только с независимой полной coverage map и доказанным отсутствием overlap."
+    },
+    "RecommendedOption": "A",
+    "Rationale": "Spread уже включён при open Ask/close Bid; повторное вычитание меняет PnL. FinalClose требует accounting И coverage/risk gates.",
+    "Risk": "Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.",
+    "Compatibility": "Новая schema/version; старые bytes неизменны. Unknown namespace/units/body → quarantine. Legacy не переименовывается в Free.",
+    "RequiredTests": "SIGNED-DEAL, P0-14, SPREAD-EXPANSION, MARGIN-SHORTAGE",
+    "Dependencies": "D-02/D-13",
+    "OwnerApproval": "AWAITING_ADMIN_APPROVAL"
+  },
+  {
+    "DecisionId": "D-07",
+    "Display": "D-07",
+    "Title": "Execution / Journal / Restart",
+    "ExistingNorm": "Docs08 exact NO_OP/changed CONFLICT; C3 in-memory != durable/concurrent.",
+    "Conflict": "Replay ordering, durable commit и отсутствие истории смешивались.",
+    "Options": {
+      "A": "Атомарно фиксировать source balance, revision и immutable receipt; validate full body перед NO_OP; unknown outcome → block/reconcile, не redispatch.",
+      "B": "Оставить только чистые preview и in-memory model до готовности durable provider."
+    },
+    "RecommendedOption": "A",
+    "Rationale": "Локальное сравнение revision не предотвращает два commit и не доказывает crash durability.",
+    "Risk": "Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.",
+    "Compatibility": "Новая schema/version; старые bytes неизменны. Unknown namespace/units/body → quarantine. Legacy не переименовывается в Free.",
+    "RequiredTests": "P0-08/09/10/13; crash-between-write-and-ack PLANNED",
+    "Dependencies": "D-08/D-10/D-13/D-14",
+    "OwnerApproval": "AWAITING_ADMIN_APPROVAL"
+  },
+  {
+    "DecisionId": "D-08",
+    "Display": "D-08",
+    "Title": "Source identity / broker authority",
+    "ExistingNorm": "Docs08/31/32 independent source; production source key без Account/Broker/Server.",
+    "Conflict": "Expected из proof и key по symbol/magic/cycle/deal допускают самоподтверждение и namespace collisions.",
+    "Options": {
+      "A": "Абстрактная broker/server/account/deal identity; full immutable typed body и independent history provider. Wire format утверждается отдельно D-12.",
+      "B": "Совместимый legacy alias только для lookup после independent mapping в новый namespace, не источник funding.",
+      "C": "Legacy-only временно read-only; до однозначного broker namespace funding UNAVAILABLE."
+    },
+    "RecommendedOption": "A",
+    "Rationale": "Magic/Cycle — attribution, не новая broker operation. Рекомендуется namespace, но спорный wire SourceKey здесь не выбран.",
+    "Risk": "Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.",
+    "Compatibility": "Новая schema/version; старые bytes неизменны. Unknown namespace/units/body → quarantine. Legacy не переименовывается в Free.",
+    "RequiredTests": "P0-01, POSITION, ROLE, PRICE, DIFFERENT-account/server/deal, malformed key",
+    "Dependencies": "D-02/D-12/D-13/D-16",
+    "OwnerApproval": "AWAITING_ADMIN_APPROVAL"
+  },
+  {
+    "DecisionId": "CR-09",
+    "Display": "D-09",
+    "Title": "All-level NewFar / FutureSmall",
+    "ExistingNorm": "Production worstTransitionLossLevel; C3 A all-level/B single-level.",
+    "Conflict": "MaxTransition level не гарантирует минимальный CatchUpMargin; прогноз не actual resource.",
+    "Options": {
+      "A": "ALL_LEVEL: min CatchUpMargin_i>0 для каждого required level, отдельные доступность/margin/risk proof и quantified tail.",
+      "B": "SINGLE_LEVEL: только scope-labelled preview, без all-level claim и без spending authority."
+    },
+    "RecommendedOption": "A",
+    "Rationale": "argmax TransitionLoss не равен argmin CatchUpMargin. Непроверенный tail не становится доказанным.",
+    "Risk": "Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.",
+    "Compatibility": "Новая schema/version; старые bytes неизменны. Unknown namespace/units/body → quarantine. Legacy не переименовывается в Free.",
+    "RequiredTests": "margins9/−11 transitions10/5 → all-level REJECT; PLANNED",
+    "Dependencies": "D-04/D-06/D-13/D-14",
+    "OwnerApproval": "AWAITING_ADMIN_APPROVAL"
+  },
+  {
+    "DecisionId": "NUM-EXACT-1",
+    "Display": "D-10",
+    "Title": "Settled precision",
+    "ExistingNorm": "R0D Fraction reference; raw double внешняя граница и неподтверждённый MQL domain.",
+    "Conflict": "Округление projected потерь и потеря малых дебетов могут менять знак proof.",
+    "Options": {
+      "A": "Окончательные posted суммы в checked signed64 minor units; projected double только с finite/range/error bounds и консервативной оценкой расходов.",
+      "B": "Checked wider fixed point/rational adapter с отдельно доказанными intermediates."
+    },
+    "RecommendedOption": "A",
+    "Rationale": "Exact debit1 должен изменять MAX на1; нельзя сливать financial posting и raw capture.",
+    "Risk": "Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.",
+    "Compatibility": "Новая schema/version; старые bytes неизменны. Unknown namespace/units/body → quarantine. Legacy не переименовывается в Free.",
+    "RequiredTests": "CENTS, HALF-EVEN, NEGATIVE-COST, NUM-OVERFLOW; I64 intermediate native PLANNED",
+    "Dependencies": "D-11/D-12/D-15",
+    "OwnerApproval": "AWAITING_ADMIN_APPROVAL"
+  },
+  {
+    "DecisionId": "NUM-DOMAIN-1",
+    "Display": "D-11",
+    "Title": "Currency / range / lot & price grids",
+    "ExistingNorm": "R0D lattice10^-64 abs<10^65; fixture money digits0..8.",
+    "Conflict": "Reference-domain существенно шире int64 minor units и broker precision facts.",
+    "Options": {
+      "A": "Versioned profile: currency code, confirmed digits, minor scale, signed64 checked range; broker lot min/max/step и price tick проверяются отдельно. Unknown precision → UNAVAILABLE.",
+      "B": "Multiword adapter расширяет range после отдельной native qualification; не использовать unlimited Python как MQL proof."
+    },
+    "RecommendedOption": "A",
+    "Rationale": "1e28 money не помещается в cents64; отказ лучше ложного PASS. Digits0..8 — кандидат supported profile, не broker факт.",
+    "Risk": "Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.",
+    "Compatibility": "Новая schema/version; старые bytes неизменны. Unknown namespace/units/body → quarantine. Legacy не переименовывается в Free.",
+    "RequiredTests": "VOLUME-OFFGRID, PRICE-GRID, MILLS, NUM-OVERFLOW, INF-CAP",
+    "Dependencies": "D-10/D-13/D-15",
+    "OwnerApproval": "AWAITING_ADMIN_APPROVAL"
+  },
+  {
+    "DecisionId": "NUM-CODEC",
+    "Display": "D-12",
+    "Title": "Schema / canonical codec",
+    "ExistingNorm": "R0D fixture typed codec, R1 raw64/NFC proposal, C3 native codec не проверен.",
+    "Conflict": "Wire identity и financial rounding смешивались; MQL compatibility не доказана.",
+    "Options": {
+      "A": "F64Z как кандидат raw capture: typed length-prefixed UTF8/finite binary64; exact integer money как отдельный тип; schema/profile versions обязательны.",
+      "B": "T17Z typed length-prefixed UTF8/scientific17 с полным native roundtrip evidence."
+    },
+    "RecommendedOption": "A",
+    "Rationale": "Raw capture и settled posting различны. Выбор wire SourceKey остаётся AWAITING; этот лист не freeze формата.",
+    "Risk": "Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.",
+    "Compatibility": "Новая schema/version; старые bytes неизменны. Unknown namespace/units/body → quarantine. Legacy не переименовывается в Free.",
+    "RequiredTests": "1 vs string1 vs bool1, delimiter injection, non-NFC, +0/−0, ulong2^53+1; native PLANNED",
+    "Dependencies": "D-08/D-10/D-11/D-15",
+    "OwnerApproval": "AWAITING_ADMIN_APPROVAL"
+  },
+  {
+    "DecisionId": "SNAP-FIXTURE-1",
+    "Display": "D-13",
+    "Title": "Freshness / snapshot content",
+    "ExistingNorm": "R0D content receipt; C2 ID/fresh только provider fixture assertion.",
+    "Conflict": "ID999+fresh не доказывают content/freshness полного snapshot.",
+    "Options": {
+      "A": "Content-bound provider receipt: account/symbol/currency/window, observation time, expiry, costs, full positions fingerprint; future clock skew только из профиля.",
+      "B": "Provider ID-only attestation допускается лишь диагностически, без full proof."
+    },
+    "RecommendedOption": "A",
+    "Rationale": "Самоподписанный snapshot и fresh=true не подтверждают актуальные позиции или costs.",
+    "Risk": "Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.",
+    "Compatibility": "Новая schema/version; старые bytes неизменны. Unknown namespace/units/body → quarantine. Legacy не переименовывается в Free.",
+    "RequiredTests": "SNAPSHOT-MISMATCH; same ID/altered content, future timestamp, gap PLANNED provider",
+    "Dependencies": "D-08/D-12/D-15",
+    "OwnerApproval": "AWAITING_ADMIN_APPROVAL"
+  },
+  {
+    "DecisionId": "FUNDING-GLOBAL-ATTRIBUTION",
+    "Display": "D-14",
+    "Title": "Global source funding",
+    "ExistingNorm": "C3 source-local cap доказан, глобальные account debit/credit и concurrency UNPROVEN.",
+    "Conflict": "Сумма grants одного источника не равна доказанному свободному капиталу всего счёта.",
+    "Options": {
+      "A": "Единый source registry сквозь roles/allocations/restarts; source grant разбивается один раз, transfer/reversal — отдельные события, CAS source-level.",
+      "B": "Ограничить гарантии fixture-local и блокировать все production funding до provider."
+    },
+    "RecommendedOption": "A",
+    "Rationale": "Новый allocationEvent не восстанавливает исчерпанный источник. Account equity не равно free source inventory.",
+    "Risk": "Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.",
+    "Compatibility": "Новая schema/version; старые bytes неизменны. Unknown namespace/units/body → quarantine. Legacy не переименовывается в Free.",
+    "RequiredTests": "SECOND-ALLOCATION-EVENT, P0-03, COMPETING-B-STALE; real concurrency PLANNED",
+    "Dependencies": "D-01/D-02/D-07/D-08",
+    "OwnerApproval": "AWAITING_ADMIN_APPROVAL"
+  },
+  {
+    "DecisionId": "MQL-DOMAIN",
+    "Display": "D-15",
+    "Title": "Native acceptance",
+    "ExistingNorm": "C3 Python signed64 simulation и g++ subset; MetaEditor NOT_RUN.",
+    "Conflict": "Математическая проверка не доказывает нативные ulong/long/double/UTF8 conversions.",
+    "Options": {
+      "A": "MetaEditor strict compile, long/ulong bounds, finite-only double, UTF8/codec goldens, revision overflow и actual logs обязательны.",
+      "B": "Сохранить только offline reference scope и запрет acceptance до готовности MT5."
+    },
+    "RecommendedOption": "A",
+    "Rationale": "g++ shim и Python не устанавливают MQL5 runtime semantics.",
+    "Risk": "Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.",
+    "Compatibility": "Новая schema/version; старые bytes неизменны. Unknown namespace/units/body → quarantine. Legacy не переименовывается в Free.",
+    "RequiredTests": "native_close.mq5 подготовлен; MQL5 tests NOT_RUN",
+    "Dependencies": "D-10/D-11/D-12",
+    "OwnerApproval": "AWAITING_ADMIN_APPROVAL"
+  },
+  {
+    "DecisionId": "BALANCE-SCHEMA-MAPPING",
+    "Display": "D-16",
+    "Title": "Legacy migration",
+    "ExistingNorm": "Legacy RemainingGross и новый Free profile.",
+    "Conflict": "Silent rename возвращает reserved/consumed ресурс в available.",
+    "Options": {
+      "A": "Append-only migration по independent receipts с известными currency/scale/owner/grant/consumed/reserved/free; legacy bytes не переписывать. Unknown → quarantine.",
+      "B": "Legacy schema остаётся read-only; никакого автоматического funding/migration."
+    },
+    "RecommendedOption": "A",
+    "Rationale": "Remaining40 и Reserved15 дают Free25, не40; неизвестная history не complete-empty.",
+    "Risk": "Сохранить legacy bytes/schema/hash; неизвестные namespace, units, owners или policy → quarantine/UNAVAILABLE; current terminal facts не замещают историю.",
+    "Compatibility": "Новая schema/version; старые bytes неизменны. Unknown namespace/units/body → quarantine. Legacy не переименовывается в Free.",
+    "RequiredTests": "G50,C10,R15,F25; unknown owner/schema → UNAVAILABLE; PLANNED migration",
+    "Dependencies": "D-01/D-07/D-08/D-10",
+    "OwnerApproval": "AWAITING_ADMIN_APPROVAL"
+  }
+]

@@ -1,0 +1,83 @@
+{
+  "Rows": [
+    {
+      "Check": "12 required report files",
+      "Status": "PASS"
+    },
+    {
+      "Check": "16 unique canonical decisions awaiting",
+      "Status": "PASS"
+    },
+    {
+      "Check": "199 lexical definitions",
+      "Status": "PASS"
+    },
+    {
+      "Check": "50 inherited ERR priorities",
+      "Status": "PASS"
+    },
+    {
+      "Check": "486 document partition",
+      "Status": "PASS"
+    },
+    {
+      "Check": "66 formula status partition",
+      "Status": "PASS"
+    },
+    {
+      "Check": "full union-state Cartesian obligation grid",
+      "Status": "PASS"
+    },
+    {
+      "Check": "FSM not misrepresented as verified",
+      "Status": "PASS"
+    },
+    {
+      "Check": "63 model literal cases pass",
+      "Status": "PASS"
+    },
+    {
+      "Check": "23 header-subset checks preserve 16 failures",
+      "Status": "PASS"
+    },
+    {
+      "Check": "8 model mutations killed",
+      "Status": "PASS"
+    },
+    {
+      "Check": "initial survivor evidence preserved",
+      "Status": "PASS"
+    },
+    {
+      "Check": "historical rerun saved separately",
+      "Status": "PASS"
+    },
+    {
+      "Check": "all unapplied patches syntax check",
+      "Status": "PASS"
+    },
+    {
+      "Check": "scope file allowlists exist",
+      "Status": "PASS"
+    },
+    {
+      "Check": "no native success claimed",
+      "Status": "PASS"
+    },
+    {
+      "Check": "partial audit and no implementation approval",
+      "Status": "PASS"
+    }
+  ],
+  "Pass": 17,
+  "Fail": 0,
+  "FSMDimensions": [
+    37,
+    8,
+    3,
+    3,
+    2
+  ],
+  "FSMRows": 5328,
+  "Boundary": "Artifact consistency checks only, not semantic completeness or production readiness."
+}

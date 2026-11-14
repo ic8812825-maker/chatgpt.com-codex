@@ -1,0 +1,10 @@
+--- a/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Include/Execution/HSBI_TransactionTypes.mqh
++++ b/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Include/Execution/HSBI_TransactionTypes.mqh
+@@ -19,6 +19,6 @@
+ }
+ bool HSBI_RetryAllowed(const ulong originalActionId,const ulong retryActionId,const HSBI_TransactionOutcome priorOutcome,const bool pendingOrReconciling)
+ {
+-   return pendingOrReconciling&&HSBI_IsRetryOfSameAction(originalActionId,retryActionId)&&priorOutcome!=HSBI_TX_COMPLETED;
++   return pendingOrReconciling&&HSBI_IsRetryOfSameAction(originalActionId,retryActionId)&&priorOutcome!=HSBI_TX_COMPLETED&&priorOutcome!=HSBI_TX_UNKNOWN&&priorOutcome!=HSBI_TX_TIMEOUT;
+ }
+ #endif

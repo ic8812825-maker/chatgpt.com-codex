@@ -1,0 +1,111 @@
+[
+  {
+    "ID": "A",
+    "Name": "Identity",
+    "Files": [
+      "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+      "Include/Core/HSBI_Identifiers.mqh",
+      "Include/Money/HSBI_MoneyProofIdentity.mqh"
+    ],
+    "ERR": "001/002/003/013",
+    "IMP": "001/002",
+    "Depends": "C → A",
+    "Approvals": "D-02/D-08/D-12/D-13/D-15/D-16",
+    "Functions": "HSBI_BuildSourceDealKey, HSBI_ValidateEconomicRecord, HSBI_SameEconomicRecord, HSBI_ClassifyEconomicDuplicate, HSBI_SerializeEconomicRecord, HSBI_ValidateMoneyProofIdentity",
+    "Pre": "Утверждены namespace/schema/body/canonical codec/domain и legacy mapping.",
+    "Acceptance": "Все immutable fields сравниваются; malformed namespace, altered component/price/role/position → CONFLICT/REJECT; unknown authority → UNAVAILABLE; exact replay zero delta.",
+    "Tests": "P0-01; PRICE/POSITION/ROLE; different account/server/deal; provider mismatch; malformed key; native full-field goldens.",
+    "Patch": "A_identity.patch",
+    "Limitation": "PoC сравнивает существующий полный payload; account/server/schema в legacy record отсутствуют. Поэтому этот diff НЕ является полным исправлением A."
+  },
+  {
+    "ID": "B",
+    "Name": "Allocation",
+    "Files": [
+      "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+      "Include/Money/HSBI_AllocationPolicyTypes.mqh",
+      "Include/Money/HSBI_MoneyState.mqh",
+      "Include/Money/HSBI_ReserveAllocationTypes.mqh"
+    ],
+    "ERR": "004/005/011/033",
+    "IMP": "002/003/004/009",
+    "Depends": "C+A → B",
+    "Approvals": "D-01/D-02/D-03/D-07/D-10/D-11/D-14/D-16",
+    "Functions": "HSBI_ValidateAllocationConservation, HSBI_ClassifyAllocationDuplicate, HSBI_CanConsumeAmount, HSBI_CanConsumeBucket, HSBI_ValidateAllocationPolicy, HSBI_ValidateMoneyState, HSBI_ValidateReserveAllocationSource",
+    "Pre": "Утверждены committed/draft phase, residual, exact money profile, grant/reserved/free mapping и source owner.",
+    "Acceptance": "Nonnegative exact vector equality, source cap across event IDs, immutable replay; exhausted reject; per-owner reservation; checked state revisions; zero delta.",
+    "Tests": "P0-02/03/05/13; UNDERALLOCATION; SECOND-ALLOCATION-EVENT; concurrent owner/migration unknown; crash/restart.",
+    "Patch": "B_allocation.patch",
+    "Limitation": "PoC устраняет vector-only equality gap и negative/nonfinite buckets. Source registry, lifecycle и durable consumption потребуют отдельно reviewed additive provider interface; production backend не реализуется в R1.1."
+  },
+  {
+    "ID": "C",
+    "Name": "Numeric Safety",
+    "Files": [
+      "Include/Risk/HSBI_RiskGateResult.mqh",
+      "Include/Money/HSBI_MoneyState.mqh",
+      "Include/Execution/HSBI_TransactionTypes.mqh",
+      "Include/Execution/HSBI_ExecutionIntent.mqh",
+      "Include/Execution/HSBI_ActionTypes.mqh",
+      "Include/Execution/HSBI_EventTypes.mqh",
+      "Include/Planning/HSBI_BrokerGrid.mqh",
+      "Include/Risk/HSBI_NewFarGateTypes.mqh"
+    ],
+    "ERR": "009/010/011 (P0); 014/025/026/040/049 adjacent acceptance",
+    "IMP": "002/005/007",
+    "Depends": "Первый после domain approval; не зависит от trade integration",
+    "Approvals": "D-10/D-11/D-15; enum membership — existing closed domain",
+    "Functions": "HSBI_ValidateRiskInput, HSBI_ValidateMoneyState, HSBI_TransactionBarrierPassed, HSBI_ValidateExecutionIntentStructure, HSBI_ValidateActionRecord, HSBI_ValidateEventRecord, HSBI_ValidateVolume, HSBI_EvaluateNewFarGates",
+    "Pre": "Подтверждены precision/ranges и exact enum sets; native baseline captured.",
+    "Acceptance": "Inputs/limits/intermediates finite; unknown enum rejected; min/max/grid obeyed; overflow no permit; existing valid controls unchanged.",
+    "Tests": "P0-04/05/06/07; NaN limits; ±Infinity; bounds; invalid enum; price/volume grid; native long/ulong/double.",
+    "Patch": "C_numeric.patch",
+    "Limitation": "PoC finite guards только в трёх headers. Все перечисленные domain/caller tests обязательны для acceptance; это не готовый полный numeric fix."
+  },
+  {
+    "ID": "D",
+    "Name": "Reserve Binding",
+    "Files": [
+      "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+      "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+      "Include/Planning/HSBI_NewFarSolver.mqh",
+      "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+      "Include/Money/HSBI_CatchUpModel.mqh"
+    ],
+    "ERR": "007/008/013/033/048 (P0); 018/043 adjacent",
+    "IMP": "001/004/010/011",
+    "Depends": "A+B+C → D; E provider preconditions для acceptance",
+    "Approvals": "D-02/D-03/D-04/D-06/CR-09/D-07/D-08/D-13/D-14",
+    "Functions": "HSBI_EvaluateReserveCatchUp, HSBI_ValidateReserveAllocationSource, HSBI_ValidateReserveConsumption, HSBI_SolveNewFar, HSBI_AggregateFutureSmallProof",
+    "Pre": "Exact source/allocation and free balance provider protocol согласован; preview/funding result types разделены.",
+    "Acceptance": "Projected never funds; scalar binding exact; exhausted/foreign source rejected; min required-level margin>0; no identity laundering; actual residual independent; direct public caller guarded.",
+    "Tests": "P0-03/12; amount mismatch positive control; loss mismatch; sourceAllocationKey mismatch; exhausted source; selected-level counterexample; provider unavailable.",
+    "Patch": "D_binding.patch",
+    "Limitation": "PoC только public scalar binding и output finite. Full provenance/spendability нельзя получить локальным equality; provider отсутствует → funding unavailable."
+  },
+  {
+    "ID": "E",
+    "Name": "Integration Preconditions",
+    "Files": [
+      "Include/Core/HSBI_Context.mqh",
+      "Include/Core/HSBI_Invariants.mqh",
+      "Include/Core/HSBI_StateMachine.mqh",
+      "Include/Execution/HSBI_TransactionTypes.mqh",
+      "Include/Persistence/HSBI_ExecutionJournal.mqh",
+      "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh",
+      "Include/Persistence/HSBI_PersistenceInterface.mqh",
+      "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh",
+      "Include/Runtime/HSBI_RuntimeRestartValidator.mqh"
+    ],
+    "ERR": "010/012/013/033 (P0); 016/017/025/030/050 prerequisites; 038 deployment blocker",
+    "IMP": "005/006/008/009/015/021",
+    "Depends": "A+B+C+D → E acceptance",
+    "Approvals": "D-05/D-07/D-08/D-13/D-14/D-15/D-16",
+    "Functions": "HSBI_ValidateContext, HSBI_ContextRolesConflict, HSBI_TransactionBarrierPassed, HSBI_RetryAllowed, HSBI_ClassifyJournalAppend, HSBI_ValidateExecutionStateSnapshot, HSBI_ProposeStateTransition; runtime validators по exact future diff",
+    "Pre": "Полный mandatory caller graph, state mapping, journal schema и restart protocol согласованы; trading forbidden.",
+    "Acceptance": "Far uniqueness во всех слотах; actual confirmed fill before next step; unknown outcome blocks retry; validate replay body before no-op; state increment overflow rejected; native acceptance separate.",
+    "Tests": "P0-07/08/09/10/11/13/14; changed journal body retaining old digest; snapshot mismatch; every crash point; partial then delayed complete.",
+    "Patch": "E_retry.patch",
+    "Limitation": "PoC блокирует UNKNOWN/TIMEOUT retry. Не создаёт durable storage или full FSM и не доказывает loss bound ERR-038. Торговая интеграция исключена."
+  }
+]

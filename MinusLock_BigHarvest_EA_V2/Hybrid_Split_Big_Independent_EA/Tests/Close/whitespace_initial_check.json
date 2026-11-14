@@ -1,0 +1,7 @@
+{
+  "ExitCode": 2,
+  "TrailingWhitespaceByPath": {
+    "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Close/fsm_matrix.csv": 5329,
+    "MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Close/inventory.csv": 1530
+  }
+}

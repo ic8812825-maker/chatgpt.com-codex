@@ -1,0 +1,32 @@
+[
+  {
+    "Patch": "Tests/Close/patches/A_identity.patch",
+    "ExitCode": 0,
+    "Output": "",
+    "Applied": false
+  },
+  {
+    "Patch": "Tests/Close/patches/B_allocation.patch",
+    "ExitCode": 0,
+    "Output": "",
+    "Applied": false
+  },
+  {
+    "Patch": "Tests/Close/patches/C_numeric.patch",
+    "ExitCode": 0,
+    "Output": "",
+    "Applied": false
+  },
+  {
+    "Patch": "Tests/Close/patches/D_binding.patch",
+    "ExitCode": 0,
+    "Output": "",
+    "Applied": false
+  },
+  {
+    "Patch": "Tests/Close/patches/E_retry.patch",
+    "ExitCode": 0,
+    "Output": "",
+    "Applied": false
+  }
+]

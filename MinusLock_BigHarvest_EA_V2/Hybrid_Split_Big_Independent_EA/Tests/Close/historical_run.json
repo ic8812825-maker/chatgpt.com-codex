@@ -1,0 +1,6 @@
+{
+  "ExitCode": 0,
+  "Runner": "Tests/Static/HSBI_DG01_reference_tests.py",
+  "SaveRedirection": "Tests/Close/historical_*.json",
+  "HistoricalWritesAllowed": false
+}

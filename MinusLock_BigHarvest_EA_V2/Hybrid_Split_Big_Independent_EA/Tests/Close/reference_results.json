@@ -1,0 +1,480 @@
+{
+  "UTC": "2026-11-14T18:43:07.507764+00:00",
+  "Rows": [
+    {
+      "ID": "CONTROL-FUND",
+      "Expected": "FUNDED",
+      "Actual": "FUNDED",
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-01",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "ZeroDelta": true,
+      "Status": "PASS"
+    },
+    {
+      "ID": "POSITION",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "ZeroDelta": true,
+      "Status": "PASS"
+    },
+    {
+      "ID": "ROLE",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "ZeroDelta": true,
+      "Status": "PASS"
+    },
+    {
+      "ID": "PRICE",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "ZeroDelta": true,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-02",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "ZeroDelta": true,
+      "Status": "PASS"
+    },
+    {
+      "ID": "CONSUME",
+      "Expected": "APPLIED",
+      "Actual": "APPLIED",
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-03",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "ZeroDelta": true,
+      "Status": "PASS"
+    },
+    {
+      "ID": "EXHAUSTED-VECTOR",
+      "Expected": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Actual": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-13",
+      "Expected": "NO_OP",
+      "Actual": "NO_OP",
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-08",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-09",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-04",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "NAN-CAP",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-05",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-06",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "VOLUME-OFFGRID",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "VOLUME-MAX",
+      "Expected": true,
+      "Actual": true,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "PRICE-GRID",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-07",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "COMPLETED-FILL",
+      "Expected": true,
+      "Actual": true,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-10",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-12",
+      "Expected": "UNAVAILABLE",
+      "Actual": "UNAVAILABLE",
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-14",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "FINAL-CONTROL",
+      "Expected": true,
+      "Actual": true,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "MARGIN-SHORTAGE",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "SNAPSHOT-MISMATCH",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "INVALID-ENUM",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "NONFINITE-MONEY",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "ALTERED-BODY",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "MALFORMED",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "DIFFERENT-account",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "DIFFERENT-server",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "DIFFERENT-deal",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "CENTS",
+      "Expected": 100,
+      "Actual": 100,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "HALF-EVEN",
+      "Expected": 102,
+      "Actual": 102,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "MILLS",
+      "Expected": 1234,
+      "Actual": 1234,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "NEGATIVE-ZERO",
+      "Expected": 0,
+      "Actual": 0,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "NEGATIVE-COST",
+      "Expected": -123,
+      "Actual": -123,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "NUM-NAN",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "NUM-INF",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "NUM-OVERFLOW",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "BUY-SELL-SYMMETRY",
+      "Expected": [
+        2,
+        2
+      ],
+      "Actual": [
+        2,
+        2
+      ],
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "ZERO-TREND",
+      "Expected": 1,
+      "Actual": 1,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "SIGNED-DEAL",
+      "Expected": 5650,
+      "Actual": 5650,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "GAP",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "SPREAD-EXPANSION",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "ADVERSE-TREND",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "COMPETING-A",
+      "Expected": "APPLIED",
+      "Actual": "APPLIED",
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "COMPETING-B-STALE",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "ZeroDelta": true,
+      "Status": "PASS"
+    },
+    {
+      "ID": "BALANCE-AFTER-COMPETING",
+      "Expected": [
+        1000,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Actual": [
+        1000,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "INF-CAP",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "UNDERALLOCATION",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "SECOND-ALLOCATION-EVENT",
+      "Expected": "CONFLICT",
+      "Actual": "CONFLICT",
+      "ZeroDelta": true,
+      "Status": "PASS"
+    },
+    {
+      "ID": "STALE-WITH-AVAILABLE",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "ZeroDelta": true,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-11",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "TOPOLOGY-CONTROL",
+      "Expected": true,
+      "Actual": true,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "RESERVE-BINDING-CONTROL",
+      "Expected": "PASS",
+      "Actual": "PASS",
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "ELIGIBLE-PROOF-MISMATCH",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "LOSS-PROOF-MISMATCH",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "EXHAUSTED-RESERVE",
+      "Expected": "REJECT",
+      "Actual": "REJECT",
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "PROJECTED-NOT-FUNDING",
+      "Expected": "PREVIEW_ONLY",
+      "Actual": "PREVIEW_ONLY",
+      "ZeroDelta": null,
+      "Status": "PASS"
+    },
+    {
+      "ID": "ALL-LEVEL-COUNTEREXAMPLE",
+      "Expected": false,
+      "Actual": false,
+      "ZeroDelta": null,
+      "Status": "PASS"
+    }
+  ],
+  "Pass": 63,
+  "Fail": 0,
+  "ModelSHA256": "e8beb6f19718786c350b568a59138e33fa6ead93557ec206d09169f4d774c3bf",
+  "Boundary": "PROPOSED offline model; trusted snapshot restart and serialized competing consumers only. No durable IO, authentic broker or real concurrency. P0-11 tests abstract full-slot topology; actual context caller/native scenario remains separate."
+}

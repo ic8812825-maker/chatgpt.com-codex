@@ -1,0 +1,102 @@
+{
+  "Rows": [
+    {
+      "ID": "NO_FINITE_RISK",
+      "Before": "all(math.isfinite(v) for v in values+limits)",
+      "After": "True",
+      "Status": "KILLED",
+      "FailingCases": [
+        "INF-CAP"
+      ],
+      "ExitCode": 1,
+      "Output": "{'Pass': 62, 'Fail': 1}\n"
+    },
+    {
+      "ID": "NET_ONLY_REPLAY",
+      "Before": "self.events[event]==body",
+      "After": "True",
+      "Status": "KILLED",
+      "FailingCases": [
+        "P0-01",
+        "POSITION",
+        "ROLE",
+        "PRICE",
+        "P0-02"
+      ],
+      "ExitCode": 1,
+      "Output": "{'Pass': 58, 'Fail': 5}\n"
+    },
+    {
+      "ID": "NO_VECTOR_CONSERVATION",
+      "Before": "sum(vector)!=r['net']",
+      "After": "False",
+      "Status": "KILLED",
+      "FailingCases": [
+        "UNDERALLOCATION"
+      ],
+      "ExitCode": 1,
+      "Output": "{'Pass': 62, 'Fail': 1}\n"
+    },
+    {
+      "ID": "NO_SOURCE_REUSE_GUARD",
+      "Before": "if k in self.sources:return 'CONFLICT'",
+      "After": "if False:return 'CONFLICT'",
+      "Status": "KILLED",
+      "FailingCases": [
+        "SECOND-ALLOCATION-EVENT"
+      ],
+      "ExitCode": 1,
+      "Output": "{'Pass': 62, 'Fail': 1}\n"
+    },
+    {
+      "ID": "NO_REVISION",
+      "Before": "revision!=s['revision']",
+      "After": "False",
+      "Status": "KILLED",
+      "FailingCases": [
+        "STALE-WITH-AVAILABLE"
+      ],
+      "ExitCode": 1,
+      "Output": "{'Pass': 62, 'Fail': 1}\n"
+    },
+    {
+      "ID": "NO_AVAILABILITY",
+      "Before": "amount>s['free'][bucket]",
+      "After": "False",
+      "Status": "KILLED",
+      "FailingCases": [
+        "P0-03",
+        "EXHAUSTED-VECTOR",
+        "P0-09"
+      ],
+      "ExitCode": 1,
+      "Output": "{'Pass': 60, 'Fail': 3}\n"
+    },
+    {
+      "ID": "NO_FINAL_COST",
+      "Before": "realized+unrealized-remaining>=threshold",
+      "After": "realized+unrealized>=threshold",
+      "Status": "KILLED",
+      "FailingCases": [
+        "SPREAD-EXPANSION"
+      ],
+      "ExitCode": 1,
+      "Output": "{'Pass': 62, 'Fail': 1}\n"
+    },
+    {
+      "ID": "UNKNOWN_COMPLETES",
+      "Before": "outcome=='COMPLETED'",
+      "After": "outcome in ('COMPLETED','UNKNOWN')",
+      "Status": "KILLED",
+      "FailingCases": [
+        "P0-10"
+      ],
+      "ExitCode": 1,
+      "Output": "{'Pass': 62, 'Fail': 1}\n"
+    }
+  ],
+  "Killed": 8,
+  "Survived": 0,
+  "InfrastructureErrors": 0,
+  "Boundary": "Actual source mutations of proposed Python model; neither MQL5 mutation nor proof of absence of defects."
+}

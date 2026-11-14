@@ -1,0 +1,18 @@
+--- a/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Include/Money/HSBI_ReserveCatchUpEvaluator.mqh
++++ b/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Include/Money/HSBI_ReserveCatchUpEvaluator.mqh
+@@ -60,6 +60,7 @@
+    if(!r.allocationSourceValid||!r.consumptionAllowed||!r.doubleCountFree||!r.runtimeConfirmed){r.status=HSBI_CALC_REJECT;r.details="ALLOCATION_OR_CONSUMPTION_INVALID";return r;}
+    if(!HSBI_IsFiniteNumber(x.reserveEligibleMoney)||!HSBI_IsFiniteNumber(x.farLossIncreaseMoney)||!HSBI_IsFiniteNumber(x.executionSafetyBuffer)||
+       !HSBI_IsFiniteNumber(x.netBigVolume)||!HSBI_IsFiniteNumber(x.farVolume)){r.status=HSBI_CALC_ERROR;r.details="NONFINITE_CATCH_UP";return r;}
++   if(x.reserveEligibleMoney!=x.reserveSourceProof.netMoney||x.farLossIncreaseMoney!=MathMax(0.0,-x.farLossProof.netMoney)){r.status=HSBI_CALC_REJECT;r.details="PROOF_AMOUNT_MISMATCH";return r;}
+    if(x.reserveEligibleMoneyAlreadyAllocated){
+       if(x.reserveAllocationSource.reserveAllocated<=0.0||x.reserveAllocationSource.reserveAllocated>x.reserveAllocationSource.allocatableNet||
+          x.reserveAllocationSource.alreadyConsumed>0.0){r.status=HSBI_CALC_REJECT;r.details="ALLOCATED_SOURCE_NOT_AVAILABLE";return r;}
+@@ -72,6 +73,7 @@
+    if(x.farLossIncreaseMoney<0.0||x.executionSafetyBuffer<0.0||x.netBigVolume<=0.0||x.farVolume<=0.0){r.status=HSBI_CALC_REJECT;r.details="INVALID_CATCH_UP_INPUT";return r;}
+    if(x.allocationPolicy.reserveShare*x.netBigVolume<=x.farVolume){r.status=HSBI_CALC_REJECT;r.details="LOT_CONDITION_FAILED";return r;}
+    r.catchUpMargin=r.reserveGainMoney-x.farLossIncreaseMoney-x.executionSafetyBuffer;
++   if(!HSBI_IsFiniteNumber(r.reserveGainMoney)||!HSBI_IsFiniteNumber(r.catchUpMargin)){r.status=HSBI_CALC_ERROR;r.details="NONFINITE_OUTPUT";return r;}
+    if(r.catchUpMargin<=0.0){r.status=HSBI_CALC_REJECT;r.details="MONEY_CONDITION_FAILED";return r;}
+    r.status=HSBI_CALC_PASS;r.valid=true;r.reason=HSBI_REASON_OK;r.details="PASS";return r;
+ }

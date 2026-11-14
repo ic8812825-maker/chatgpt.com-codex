@@ -1,0 +1,160 @@
+{
+  "UTC": "2026-11-14T18:47:58.213772+00:00",
+  "Command": [
+    "g++",
+    "-std=c++17",
+    "-Wall",
+    "-Wextra",
+    "-pedantic",
+    "/workspace/work/hsbi/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Close/production_subset.cpp",
+    "-o",
+    "/workspace/work/hsbi/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Tests/Close/cpp-aqwlb0_c/production_subset.bin"
+  ],
+  "CompileExit": 0,
+  "CompileOutput": "",
+  "RunExit": 1,
+  "Rows": [
+    {
+      "ID": "ECON-CONTROL",
+      "Actual": 1,
+      "Expected": 1,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-01-EQUAL-NET",
+      "Actual": 1,
+      "Expected": 2,
+      "Status": "FAIL"
+    },
+    {
+      "ID": "PRICE-MISMATCH",
+      "Actual": 2,
+      "Expected": 2,
+      "Status": "PASS"
+    },
+    {
+      "ID": "POSITION-MISMATCH",
+      "Actual": 1,
+      "Expected": 2,
+      "Status": "FAIL"
+    },
+    {
+      "ID": "ROLE-MISMATCH",
+      "Actual": 1,
+      "Expected": 2,
+      "Status": "FAIL"
+    },
+    {
+      "ID": "SOURCE-KEY-REBUILD",
+      "Actual": 1,
+      "Expected": 0,
+      "Status": "FAIL"
+    },
+    {
+      "ID": "NONFINITE-VOLUME",
+      "Actual": 1,
+      "Expected": 0,
+      "Status": "FAIL"
+    },
+    {
+      "ID": "INVALID-ECON-ENUM",
+      "Actual": 1,
+      "Expected": 0,
+      "Status": "FAIL"
+    },
+    {
+      "ID": "ALLOC-CONTROL",
+      "Actual": 1,
+      "Expected": 1,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-02-VECTOR",
+      "Actual": 1,
+      "Expected": 2,
+      "Status": "FAIL"
+    },
+    {
+      "ID": "NEGATIVE-BUCKET",
+      "Actual": 1,
+      "Expected": 0,
+      "Status": "FAIL"
+    },
+    {
+      "ID": "COMMITTED-UNDERALLOCATION-PROPOSED",
+      "Actual": 1,
+      "Expected": 0,
+      "Status": "FAIL"
+    },
+    {
+      "ID": "P0-03-EXHAUSTED-PROPOSED",
+      "Actual": 1,
+      "Expected": 0,
+      "Status": "FAIL"
+    },
+    {
+      "ID": "FINAL-RESERVE-ISOLATION",
+      "Actual": 0,
+      "Expected": 0,
+      "Status": "PASS"
+    },
+    {
+      "ID": "INVALID-BUCKET",
+      "Actual": 1,
+      "Expected": 0,
+      "Status": "FAIL"
+    },
+    {
+      "ID": "RISK-CONTROL",
+      "Actual": 1,
+      "Expected": 1,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-04-NAN",
+      "Actual": 1,
+      "Expected": 0,
+      "Status": "FAIL"
+    },
+    {
+      "ID": "NAN-LIMIT",
+      "Actual": 1,
+      "Expected": 0,
+      "Status": "FAIL"
+    },
+    {
+      "ID": "P0-05-INF",
+      "Actual": 1,
+      "Expected": 0,
+      "Status": "FAIL"
+    },
+    {
+      "ID": "FILL-CONTROL",
+      "Actual": 1,
+      "Expected": 1,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-07-NAN-FILL",
+      "Actual": 1,
+      "Expected": 0,
+      "Status": "FAIL"
+    },
+    {
+      "ID": "P0-09-REVISION",
+      "Actual": 0,
+      "Expected": 0,
+      "Status": "PASS"
+    },
+    {
+      "ID": "P0-10-UNKNOWN-RETRY",
+      "Actual": 1,
+      "Expected": 0,
+      "Status": "FAIL"
+    }
+  ],
+  "Pass": 7,
+  "Fail": 16,
+  "Boundary": "C++17 unchanged header subset + shim. NOT MQL5. PROPOSED expectations explicitly named. Failure is preserved; runner exits nonzero on failure.",
+  "HarnessSHA256": "198cafe683b336ce262027f7fd65c2e741c45a3a63b098e5caf07c4b36e9d487"
+}
