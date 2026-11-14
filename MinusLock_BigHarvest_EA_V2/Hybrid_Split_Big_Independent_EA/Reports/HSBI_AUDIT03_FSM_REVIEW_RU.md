@@ -122,3 +122,7 @@ FSM_SPECIFICATION_VERIFIED=NO, FULL_TRADING_CYCLE_VERIFIED=NO. Нет доказ
 Историческая HSB.2E таблица имеет собственные BOOTSTRAP/SIMULATION_DISPATCHED/FULL_FILL_OBSERVED naming и scope. Она прочитана целиком, но её дуги не подменяют enum существующего EA. Подробная матрица всех state/event/partial/timeout/restart комбинаций и проверка каждого исторического normative event ещё не завершены. Поэтому FULL_FSM_VERIFIED=NO и AUDIT_COMPLETENESS=PARTIAL; нормативная фазовая карта выше — полезная основа, а не full proof.
 
 Для полного концептуального SELL/BUY цикла, отсутствия safe NewFar, Emergency и prefix money/risk/margin см. новое дополнение [полного цикла](HSBI_AUDIT03_FULL_CYCLE_REVIEW_RU.md). Никакого actual handler или исполнимого теста этим дополнением не создано.
+
+## FINAL-CLOSURE — раздельные domains и relation
+
+Подробная новая [матрица FSM](HSBI_AUDIT03_FSM_COMPLETE_MATRIX_RU.md):36 нормативных состояний против33 enum;9 нормативных rule cards по22 поля;20 аналитических случаев без исполнения.140 разрешённых topology pairs — ручная мощность union по33-state domain, не140 безопасных financial transitions. Общий нормативный transition count NOT_DEFINED, gaps NOT_FULLY_ENUMERATED. Generic TransactionBarrierPassed не вызывается из Runtime barrier; совпадение имён не композиция. Полный mandatory event/actual/ledger/persisted-result orchestrator отсутствует; SPECIFICATION_GAP/NOT_IMPLEMENTED остаются раздельными. AUDIT_COMPLETENESS=PARTIAL.
