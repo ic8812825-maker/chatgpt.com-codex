@@ -807,3 +807,9 @@ Corpus: исходные485+46обнаруженныхStaticJSON=531. Counts={'F
 ## R4_START_BASELINE
 
 2026-11-14T11:11:27.635800+00:00; local/origin/work/remote=b4d8f1ea5caf492f3abd030e5502d40582c52dc8. Все предыдущие материалы сохранены. Актуальная инвентаризация531: FULL463, duplicate5, NOT_REVIEWED63, PARTIAL0. 199 FunctionID,66 формул,73 GRD,51 ERR,23 IMP,16 pending decisions. Подробные hashes/остаток/ошибки API в [R4 checkpoint](HSBI_AUDIT03_R4_GITHUB_PUBLICATION_RU.md). Новое разрешение R4 допускает отдельную audit-ветку и промежуточный snapshot, но не merge work без отдельного одобрения. Старые checkpoint counts выше являются историческими.
+
+## R4 — проверенный remote snapshot и текущий остаток
+
+Первый snapshot реально размещён в GitHub: commit `f3090a5aedd71510f38afd265ac6d7d9b56b63a2`, audit-ветка `audit/hsbi-audit03-github-closure-r4`; work неизменён. Проверены HTTP200 commit/compare/final verdict и SHA256 всех16 remote raw files. Draft PR и обязательная API verification заблокированы сетевым CONNECT403 к api.github.com; PR NOT_CREATED, protection/CI/CodeScanning NOT_VERIFIED. Поэтому строгий GITHUB_PUBLICATION_COMPLETE пока NO, несмотря на доказанный обычный push. Подробные URL, hashes и ошибки — [R4 publication report](HSBI_AUDIT03_R4_GITHUB_PUBLICATION_RU.md).
+
+Текущее покрытие531=472 FULL+5duplicate+54NOT_REVIEWED+0PARTIAL;199 карт/66формул/73GRD/51ERR/23IMP/16pending approvals. Полнота document/guard/caller/FSM исследования не достигнута: AUDIT_COMPLETENESS=PARTIAL. TESTS_EXECUTED_BY_CODEX=NO; MQL5_COMPILE/MQL5_NATIVE_TESTS=NOT_RUN; все production/trading permissions=NO.

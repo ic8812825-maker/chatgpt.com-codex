@@ -137,3 +137,100 @@ PRODUCTION_REMEDIATION_ALLOWED=NO
 TRADING_LOGIC_START_ALLOWED=NO
 BROKER_DISPATCH_ALLOWED=NO
 REAL_TRADING_ALLOWED=NO
+
+## R4 — фактическая публикация первого snapshot и проверка bytes
+
+UTC проверки:2026-11-14T11:13:47.140276+00:00.
+
+- Commit: [f3090a5aedd71510f38afd265ac6d7d9b56b63a2](https://github.com/ic8812825-maker/chatgpt.com-codex/commit/f3090a5aedd71510f38afd265ac6d7d9b56b63a2) — HTTP200.
+- Compare к исходному work: [проверенный diff](https://github.com/ic8812825-maker/chatgpt.com-codex/compare/b4d8f1ea5caf492f3abd030e5502d40582c52dc8...f3090a5aedd71510f38afd265ac6d7d9b56b63a2) — HTTP200.
+- [Итоговый отчёт](https://github.com/ic8812825-maker/chatgpt.com-codex/blob/f3090a5aedd71510f38afd265ac6d7d9b56b63a2/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Reports/HSBI_AUDIT03_FINAL_VERDICT_RU.md) — HTTP200.
+- `git push --set-upstream origin audit/hsbi-audit03-github-closure-r4`: exit0, new branch создана в разрешённом репозитории. Никакого force/bypass/settings change.
+- `git ls-remote`: audit ref = опубликованный SHA выше; work = исходный b4d8f1ea5caf492f3abd030e5502d40582c52dc8. TARGET_WORK_INTEGRATED=NO.
+- Все16 изменённых файлов прочитаны обратно по immutable commit URL с raw.githubusercontent.com; curl --fail exit0 для каждого, SHA256 совпали с локальными bytes. Это реальная remote content verification, но **не GitHub REST API verification**.
+- Draft PR create (audit→work, --draft) завершился exit1: `Post https://api.github.com/graphql: Forbidden`. PR не создан; GITHUB_PR_URL=NOT_CREATED. Серверный push вывел лишь ссылку на форму создания PR — она не является PR.
+- GITHUB_WRITE_CAPABILITY=YES подтверждено фактическим обычным push. GITHUB_REPOSITORY_VERIFIED=YES и TARGET_PATH_VERIFIED=YES по Git/Web; GitHub API permissions/protection/Actions/CodeScanning по-прежнему NOT_VERIFIED.
+- По строгому критерию R4, требующему API, GITHUB_PUBLICATION_COMPLETE=NO_API_VERIFICATION_BLOCKED и AUDIT03_PUBLISHED=NO_STRICT_API_CRITERION. При этом AUDIT_BRANCH_PUSHED=YES и REMOTE_CONTENT_MATCH=16/16 — отдельные доказанные факты, не только локальная работа.
+- Безопасное закрытие блокировки: разрешить api.github.com в сетевой политике среды; затем обычные authenticated read-only API проверки, штатный Draft PR и review. Нельзя выдавать proxy403 за установленное отсутствие repository permission или обходить сеть/защиту.
+
+### Контент первого опубликованного snapshot
+
+| Path | Bytes | SHA256 совпавших remote bytes | GitHub raw URL |
+|---|---:|---|---|
+| `Reports/HSBI_AUDIT03_ALL_ERRORS_RU.md` | 174404 | `2a9498aa1e72b493b3797594c541c510381b5aeb59df1f3b3ba140884dcb27e4` | https://raw.githubusercontent.com/ic8812825-maker/chatgpt.com-codex/f3090a5aedd71510f38afd265ac6d7d9b56b63a2/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Reports/HSBI_AUDIT03_ALL_ERRORS_RU.md |
+| `Reports/HSBI_AUDIT03_ALL_IMPROVEMENTS_RU.md` | 89105 | `8eb68750ff697dc8e6875733c0b44b0c883f32d8ff2d9a544801ef04af0d5ed6` | https://raw.githubusercontent.com/ic8812825-maker/chatgpt.com-codex/f3090a5aedd71510f38afd265ac6d7d9b56b63a2/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Reports/HSBI_AUDIT03_ALL_IMPROVEMENTS_RU.md |
+| `Reports/HSBI_AUDIT03_BASELINE_AND_PRESERVATION_RU.md` | 868260 | `f854c0374f058de49c94f6724c3e2f246460187876b7ed083cc8835bb7fde97f` | https://raw.githubusercontent.com/ic8812825-maker/chatgpt.com-codex/f3090a5aedd71510f38afd265ac6d7d9b56b63a2/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Reports/HSBI_AUDIT03_BASELINE_AND_PRESERVATION_RU.md |
+| `Reports/HSBI_AUDIT03_COMPLETENESS_MATRIX_RU.md` | 34816 | `16fca7ad83422230409449e529281d726c6b6279e935724f2167f80ca3f9cfdd` | https://raw.githubusercontent.com/ic8812825-maker/chatgpt.com-codex/f3090a5aedd71510f38afd265ac6d7d9b56b63a2/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Reports/HSBI_AUDIT03_COMPLETENESS_MATRIX_RU.md |
+| `Reports/HSBI_AUDIT03_DOCUMENT_COVERAGE_RU.md` | 626515 | `5c1f59c8a35998c2497f475b205a67d37ff2c3baaa206065234bae97cc0f7987` | https://raw.githubusercontent.com/ic8812825-maker/chatgpt.com-codex/f3090a5aedd71510f38afd265ac6d7d9b56b63a2/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Reports/HSBI_AUDIT03_DOCUMENT_COVERAGE_RU.md |
+| `Reports/HSBI_AUDIT03_FINAL_CLOSURE_READING_LOG_RU.md` | 179641 | `6404d22c8d19131714bdb00eef53c022eb261756ca69198ea2772b04f093242c` | https://raw.githubusercontent.com/ic8812825-maker/chatgpt.com-codex/f3090a5aedd71510f38afd265ac6d7d9b56b63a2/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Reports/HSBI_AUDIT03_FINAL_CLOSURE_READING_LOG_RU.md |
+| `Reports/HSBI_AUDIT03_FINAL_VERDICT_RU.md` | 49158 | `d52229c29660e87ca0bc4c88e842240bcf4b1195cf773d23ec1a8d8ff10d117c` | https://raw.githubusercontent.com/ic8812825-maker/chatgpt.com-codex/f3090a5aedd71510f38afd265ac6d7d9b56b63a2/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Reports/HSBI_AUDIT03_FINAL_VERDICT_RU.md |
+| `Reports/HSBI_AUDIT03_FORMULA_CATALOG_RU.md` | 250806 | `b670067c518c8fcf72eb0590f25acb65ce8ffc6953e477f601bb2d4d0c6e1db1` | https://raw.githubusercontent.com/ic8812825-maker/chatgpt.com-codex/f3090a5aedd71510f38afd265ac6d7d9b56b63a2/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Reports/HSBI_AUDIT03_FORMULA_CATALOG_RU.md |
+| `Reports/HSBI_AUDIT03_FSM_COMPLETE_MATRIX_RU.md` | 35977 | `9789abfcb1b1912bf50cd68f22e773c875322a19d99f68787ccff7b2b1e62c0a` | https://raw.githubusercontent.com/ic8812825-maker/chatgpt.com-codex/f3090a5aedd71510f38afd265ac6d7d9b56b63a2/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Reports/HSBI_AUDIT03_FSM_COMPLETE_MATRIX_RU.md |
+| `Reports/HSBI_AUDIT03_FSM_REVIEW_RU.md` | 16040 | `1e4d710844d530d4d68403e2b736e8c30ddb9e3790dc699b28076c2ccd2f96c0` | https://raw.githubusercontent.com/ic8812825-maker/chatgpt.com-codex/f3090a5aedd71510f38afd265ac6d7d9b56b63a2/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Reports/HSBI_AUDIT03_FSM_REVIEW_RU.md |
+| `Reports/HSBI_AUDIT03_GLOBAL_PROPERTIES_RU.md` | 20535 | `ebb84a9cb13911ff5969674d2306cc01c8544c096322817f6456d9a5a2aa8263` | https://raw.githubusercontent.com/ic8812825-maker/chatgpt.com-codex/f3090a5aedd71510f38afd265ac6d7d9b56b63a2/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Reports/HSBI_AUDIT03_GLOBAL_PROPERTIES_RU.md |
+| `Reports/HSBI_AUDIT03_GUARD_CALLER_CROSSWALK_RU.md` | 265420 | `0b9343ac172ffcdbe02b8dd951ba5c4987e208364cb4c69d4410f106b9b309f1` | https://raw.githubusercontent.com/ic8812825-maker/chatgpt.com-codex/f3090a5aedd71510f38afd265ac6d7d9b56b63a2/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Reports/HSBI_AUDIT03_GUARD_CALLER_CROSSWALK_RU.md |
+| `Reports/HSBI_AUDIT03_R2_WORK_IN_PROGRESS_RU.md` | 56704 | `5cfddaf05e89442e9b16769128a22316b5dbf48b1acc483bbda86d4b563b8712` | https://raw.githubusercontent.com/ic8812825-maker/chatgpt.com-codex/f3090a5aedd71510f38afd265ac6d7d9b56b63a2/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Reports/HSBI_AUDIT03_R2_WORK_IN_PROGRESS_RU.md |
+| `Reports/HSBI_AUDIT03_R3_STATIC_READING_METHOD_RU.md` | 307131 | `91c913fe26f5fbce9191855f2c2385274dda64f16e9c8f3974ac05423406f05d` | https://raw.githubusercontent.com/ic8812825-maker/chatgpt.com-codex/f3090a5aedd71510f38afd265ac6d7d9b56b63a2/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Reports/HSBI_AUDIT03_R3_STATIC_READING_METHOD_RU.md |
+| `Reports/HSBI_AUDIT03_R4_GITHUB_PUBLICATION_RU.md` | 11904 | `1d64960c7c1ed070fbf40aa2b5dc15c0c0230c1e9fb956a2d556b82d80bd7f36` | https://raw.githubusercontent.com/ic8812825-maker/chatgpt.com-codex/f3090a5aedd71510f38afd265ac6d7d9b56b63a2/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Reports/HSBI_AUDIT03_R4_GITHUB_PUBLICATION_RU.md |
+| `Reports/HSBI_AUDIT03_SOURCE_FUNCTION_MAP_RU.md` | 603065 | `7bf561cda9bbb5e0ddd4b26e64b1f655943483ef75f932ab4207d649e0c89848` | https://raw.githubusercontent.com/ic8812825-maker/chatgpt.com-codex/f3090a5aedd71510f38afd265ac6d7d9b56b63a2/MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Reports/HSBI_AUDIT03_SOURCE_FUNCTION_MAP_RU.md |
+
+## R4 — последующий статический прогресс
+
+После сохранённого snapshot полностью прочитаны ещё9 исторических отчётов R0A/R0B/R0C/R0D/R0E/C1, отражённые в FINAL_CLOSURE_READING_LOG и coverage. Текущий счёт472 FULL+5duplicate+54NOT_REVIEWED=531. Прежние463/63 выше — состояние первого snapshot. Тесты не запускались. Новых ERR/IMP IDs и утверждений администратора нет. Общий guard/caller census, часть document review и полная clause/FSM прослеживаемость остаются незавершёнными.
+
+### Точный текущий остаток54
+
+- `Reports/HSBI_FULL_SYSTEM_AUDIT_01_CODE_REVIEW_RU.md`
+- `Reports/HSBI_FULL_SYSTEM_AUDIT_01_DEFECT_REGISTER_RU.md`
+- `Reports/HSBI_FULL_SYSTEM_AUDIT_01_DOCUMENTATION_MAP_RU.md`
+- `Reports/HSBI_FULL_SYSTEM_AUDIT_01_FINAL_VERDICT_RU.md`
+- `Reports/HSBI_FULL_SYSTEM_AUDIT_01_PROJECT_INVENTORY_RU.md`
+- `Reports/NEXT_STAGE_02B_R0E_CONFLICT_REGISTER_RU.md`
+- `Reports/NEXT_STAGE_02B_R0_DECISIONS_REQUIRED_RU.md`
+- `Reports/NEXT_STAGE_02B_R0_FINDINGS_RU.md`
+- `Reports/NEXT_STAGE_02B_R0_TEST_RESULTS_RU.md`
+- `Tests/Contracts/HSBI_DG01_DECISION_MATRIX.json`
+- `Tests/Contracts/HSBI_FULL_SYSTEM_AUDIT_01_STATE_MATRIX.json`
+- `Tests/Contracts/HSBI_FULL_SYSTEM_AUDIT_02_DECISION_MATRIX.json`
+- `Tests/Contracts/HSB_2E_R4_R6_MIGRATION_MAP.json`
+- `Tests/Contracts/HSB_2E_R4_R7_SEMANTIC_ORACLE.json`
+- `Tests/Contracts/HSB_2E_R4_R8_MUTATION_CATALOG.json`
+- `Tests/Contracts/HSB_2E_R4_R8_SEMANTIC_ORACLE.json`
+- `Tests/Contracts/HSB_2E_R4_R9_R2_HISTORICAL_COMPATIBILITY_ORACLE.json`
+- `Tests/Contracts/HSB_2E_R4_R9_R2_HISTORICAL_PROVABILITY_MATRIX.json`
+- `Tests/Contracts/HSB_2E_R4_R9_R3_CAUSAL_PAIRS.json`
+- `Tests/Contracts/HSB_2E_R4_R9_R3_NATIVE_ECONOMIC_ORACLE_V2.json`
+- `Tests/Contracts/HSB_2E_R4_R9_R4A_R10_CASE_CONTRACT.json`
+- `Tests/Contracts/HSB_2E_R4_R9_R4A_R8_REQUIRED_CASES.json`
+- `Tests/Contracts/HSB_2E_R4_R9_R4A_R9_CASE_CONTRACT.json`
+- `Tests/Contracts/NEXT_STAGE_02B_R0B_VERIFICATION_MATRIX.json`
+- `Tests/Contracts/NEXT_STAGE_02B_R0C_VERIFICATION_MATRIX.json`
+- `Tests/Contracts/NEXT_STAGE_02B_R0D_VERIFICATION_MATRIX.json`
+- `Tests/Contracts/NEXT_STAGE_02B_R0E_C1_REQUIRED_CATALOG.json`
+- `Tests/Contracts/NEXT_STAGE_02B_R0E_C1_VERIFICATION_MATRIX.json`
+- `Tests/Contracts/NEXT_STAGE_02B_R0E_REQUIREMENT_MATRIX.json`
+- `Tests/Contracts/NEXT_STAGE_02B_R0_ADVERSARIAL_MATRIX.json`
+- `Tests/Static/hsb_2d_v1_include_graph.json`
+- `Tests/Static/hsb_2e_api_contracts.json`
+- `Tests/Static/hsb_2e_api_contracts_r2.json`
+- `Tests/Static/hsb_2e_api_contracts_r3.json`
+- `Tests/Static/hsb_2e_fixtures.json`
+- `Tests/Static/hsb_2e_fixtures_r2.json`
+- `Tests/Static/hsb_2e_formula_contracts_r2.json`
+- `Tests/Static/hsb_2e_formula_contracts_r3.json`
+- `Tests/Static/hsb_2e_normative_source_map_r3.json`
+- `Tests/Static/hsb_2e_prep_r3_mutations.json`
+- `Tests/Static/hsb_2e_prep_r4_mutations.json`
+- `Tests/Static/hsb_2e_prep_r4_r1_mutations.json`
+- `Tests/Static/hsb_2e_prep_r4_r2_mutations.json`
+- `Tests/Static/hsb_2e_prep_r4_r3_mutations.json`
+- `Tests/Static/hsb_2e_prep_r4_r4_mutations.json`
+- `Tests/Static/hsb_2e_production_file_map.json`
+- `Tests/Static/hsb_2e_r4_r6_source_mutations.json`
+- `Tests/Static/hsb_2e_scenario_contracts_r2.json`
+- `Tests/Static/hsb_2e_scenario_contracts_r3.json`
+- `Tests/Static/hsb_2e_test_plan.json`
+- `Tests/Static/hsb_2e_test_plan_r2.json`
+- `Tests/Static/hsb_2e_test_plan_r3.json`
+- `Tests/Static/hsb_2e_test_plan_r4.json`
+- `Tests/Static/hsb_2e_test_plan_r4_r1.json`
