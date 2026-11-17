@@ -1,0 +1,8 @@
+{
+  "candidate_rows": 396,
+  "physical_ledger_rows": 36,
+  "scenario_records": 14,
+  "qualified": 0,
+  "math_result": "MATH_AUDIT_UNPROVEN"
+}
+

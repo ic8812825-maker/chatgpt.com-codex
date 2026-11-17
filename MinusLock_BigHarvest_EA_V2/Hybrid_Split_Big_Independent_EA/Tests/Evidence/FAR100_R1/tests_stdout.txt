@@ -1,0 +1,28 @@
+{
+  "TestsExecuted": 1191,
+  "PASS": 1191,
+  "FAIL": 0,
+  "UNPROVEN": 5,
+  "NOT_RUN": 4,
+  "UnprovenItems": [
+    "full documentation semantic review",
+    "actual broker proof",
+    "full CR09 binding",
+    "safe first SmallTransition",
+    "profitable multi-transition reachability"
+  ],
+  "NotRunItems": [
+    "MetaEditor compile",
+    "native MQL5",
+    "broker calculation-only calls",
+    "durable crash/concurrency"
+  ],
+  "Mutations": 12,
+  "Killed": 12,
+  "Survived": 0,
+  "Historical67TestSpecs": "NOT_RUN_UNCHANGED",
+  "TradeDispatchAttempts": 0,
+  "NativeTestsExecuted": 0,
+  "ExitCode": 0
+}
+

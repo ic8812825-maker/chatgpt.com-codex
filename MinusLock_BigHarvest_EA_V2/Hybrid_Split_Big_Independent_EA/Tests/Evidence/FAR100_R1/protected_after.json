@@ -1,0 +1,646 @@
+[
+  {
+    "path": "Hybrid_Split_Big_Independent_EA.mq5",
+    "sha256": "71e511c620df5de7f1f9e0d865664efeaf4cf6edbcbb07f20efaf25c40e9bd62",
+    "blob_sha": "3b306df062b5aabac16ee5874f9cf233c21d3e36",
+    "bytes": 1339,
+    "sha256_after": "71e511c620df5de7f1f9e0d865664efeaf4cf6edbcbb07f20efaf25c40e9bd62"
+  },
+  {
+    "path": "Include/Core/.gitkeep",
+    "sha256": "416eef1f2abe375d52f7b6d017e826fc59dabddcb299b372c25c6c8d5c685802",
+    "blob_sha": "196b21f30f17a61d85d0304440003022cf429f50",
+    "bytes": 170,
+    "sha256_after": "416eef1f2abe375d52f7b6d017e826fc59dabddcb299b372c25c6c8d5c685802"
+  },
+  {
+    "path": "Include/Core/HSBI_Context.mqh",
+    "sha256": "7ae314b8f7e4183419943297885a6291afbf449a5d63490ca35757f737eb80ef",
+    "blob_sha": "382be9e46dfc00a95393b79c2e2215cf0c0e62b4",
+    "bytes": 4866,
+    "sha256_after": "7ae314b8f7e4183419943297885a6291afbf449a5d63490ca35757f737eb80ef"
+  },
+  {
+    "path": "Include/Core/HSBI_Enums.mqh",
+    "sha256": "69b0ded8187af3f69a4058188c206f11b881e4f7d9c092d7bafe1bb9111d29f6",
+    "blob_sha": "23ffdbc865932e8161d2f0eddd3627ca01640ef4",
+    "bytes": 2223,
+    "sha256_after": "69b0ded8187af3f69a4058188c206f11b881e4f7d9c092d7bafe1bb9111d29f6"
+  },
+  {
+    "path": "Include/Core/HSBI_Identifiers.mqh",
+    "sha256": "a6421afab5dc291df0d17cfa4e1d39f5cc96bd87aa9cd9602129e240d0a8dd9e",
+    "blob_sha": "d05a05147f7641040dbf7261ebdd04832d643997",
+    "bytes": 1415,
+    "sha256_after": "a6421afab5dc291df0d17cfa4e1d39f5cc96bd87aa9cd9602129e240d0a8dd9e"
+  },
+  {
+    "path": "Include/Core/HSBI_Invariants.mqh",
+    "sha256": "4c4a742a62a60361fb63e907888f4bc936591c00326ebe2812ba2fa668133981",
+    "blob_sha": "0c03a908e2887a4c19bf24829ba39769e05606b6",
+    "bytes": 2037,
+    "sha256_after": "4c4a742a62a60361fb63e907888f4bc936591c00326ebe2812ba2fa668133981"
+  },
+  {
+    "path": "Include/Core/HSBI_ReasonCodes.mqh",
+    "sha256": "62aef3906bc933cee98a136fd8ed983be36f23ef01da50a6c2572551bce2abe2",
+    "blob_sha": "3ffbe6a053ee574f607ca11161c049c990ef8128",
+    "bytes": 1798,
+    "sha256_after": "62aef3906bc933cee98a136fd8ed983be36f23ef01da50a6c2572551bce2abe2"
+  },
+  {
+    "path": "Include/Core/HSBI_Roles.mqh",
+    "sha256": "836970966be820261b031717bab2f81482ab76c57e06ee63269c368012a3399d",
+    "blob_sha": "23d0bedac6e8852342638d7f16d121ad19124a11",
+    "bytes": 1658,
+    "sha256_after": "836970966be820261b031717bab2f81482ab76c57e06ee63269c368012a3399d"
+  },
+  {
+    "path": "Include/Core/HSBI_RuntimeMode.mqh",
+    "sha256": "f47526eddac1c7007ebddfd5c32d95848600ba6751086442e8032ed6ce9878f2",
+    "blob_sha": "3c5eb19440572cae78eb2d042907ae13ffb10a44",
+    "bytes": 355,
+    "sha256_after": "f47526eddac1c7007ebddfd5c32d95848600ba6751086442e8032ed6ce9878f2"
+  },
+  {
+    "path": "Include/Core/HSBI_RuntimePolicy.mqh",
+    "sha256": "1fa087dda8d81f182c8c6d8fd2dab4c4712b973c8f95ad15c0bfdf115b01d337",
+    "blob_sha": "657fe730c1a3df306848d1de00af87aa589be449",
+    "bytes": 2233,
+    "sha256_after": "1fa087dda8d81f182c8c6d8fd2dab4c4712b973c8f95ad15c0bfdf115b01d337"
+  },
+  {
+    "path": "Include/Core/HSBI_StateMachine.mqh",
+    "sha256": "7ec9f9860ce9d72c7f7c119377c1b2bedda25001921b92ef3aa9c7d95a32e403",
+    "blob_sha": "836c2dcbe983caf7127cfcd2442dc0b740bf8479",
+    "bytes": 2211,
+    "sha256_after": "7ec9f9860ce9d72c7f7c119377c1b2bedda25001921b92ef3aa9c7d95a32e403"
+  },
+  {
+    "path": "Include/Core/HSBI_StateValidator.mqh",
+    "sha256": "145d73d6d69baf1ef58958237b6c375bef23e2cd9004d1f50c9fe694c24077f6",
+    "blob_sha": "b4c6ba061c33a6514f9eef9db2e8e885ff09008f",
+    "bytes": 678,
+    "sha256_after": "145d73d6d69baf1ef58958237b6c375bef23e2cd9004d1f50c9fe694c24077f6"
+  },
+  {
+    "path": "Include/Core/HSBI_Types.mqh",
+    "sha256": "61e08fbfc9e97df1931ae6c825a5ff64e25f1fd4502f90e71f8b2a4c2857c3cc",
+    "blob_sha": "9fd1c4bdf531665b50ba5ca6db38daba8f0d70d0",
+    "bytes": 477,
+    "sha256_after": "61e08fbfc9e97df1931ae6c825a5ff64e25f1fd4502f90e71f8b2a4c2857c3cc"
+  },
+  {
+    "path": "Include/Core/HSBI_Version.mqh",
+    "sha256": "b9432e5d966e99a8383ea9d6308e48c62725e431dd80e4a070020e9aa63359a9",
+    "blob_sha": "d0eefae130ed96720b3f1962842d2a9c30168a00",
+    "bytes": 396,
+    "sha256_after": "b9432e5d966e99a8383ea9d6308e48c62725e431dd80e4a070020e9aa63359a9"
+  },
+  {
+    "path": "Include/Diagnostics/.gitkeep",
+    "sha256": "416eef1f2abe375d52f7b6d017e826fc59dabddcb299b372c25c6c8d5c685802",
+    "blob_sha": "196b21f30f17a61d85d0304440003022cf429f50",
+    "bytes": 170,
+    "sha256_after": "416eef1f2abe375d52f7b6d017e826fc59dabddcb299b372c25c6c8d5c685802"
+  },
+  {
+    "path": "Include/Diagnostics/HSBI_Diagnostics.mqh",
+    "sha256": "ca3590969d6b9392a5c69dc3b95878c439d316505a7e08647523a5d69e425c46",
+    "blob_sha": "6bde810e9fc5fe577744381a7ce0d52c3d6718ed",
+    "bytes": 1036,
+    "sha256_after": "ca3590969d6b9392a5c69dc3b95878c439d316505a7e08647523a5d69e425c46"
+  },
+  {
+    "path": "Include/Diagnostics/HSBI_Logger.mqh",
+    "sha256": "dc56e40d37909411f11dba454ec893e66315c92c68c85c1b4a9e3234daddc388",
+    "blob_sha": "61471e52a9a98d465cb7ced3f6744ccd7678782e",
+    "bytes": 587,
+    "sha256_after": "dc56e40d37909411f11dba454ec893e66315c92c68c85c1b4a9e3234daddc388"
+  },
+  {
+    "path": "Include/Diagnostics/HSBI_PanelModel.mqh",
+    "sha256": "ba0d4470c5ba0dd0f39ab6fe47e026efac4808fc74a7c2e2bc0e658726ee560c",
+    "blob_sha": "2c878424c053e8c2b316c7e850c9df600dbdbc2d",
+    "bytes": 855,
+    "sha256_after": "ba0d4470c5ba0dd0f39ab6fe47e026efac4808fc74a7c2e2bc0e658726ee560c"
+  },
+  {
+    "path": "Include/Execution/.gitkeep",
+    "sha256": "416eef1f2abe375d52f7b6d017e826fc59dabddcb299b372c25c6c8d5c685802",
+    "blob_sha": "196b21f30f17a61d85d0304440003022cf429f50",
+    "bytes": 170,
+    "sha256_after": "416eef1f2abe375d52f7b6d017e826fc59dabddcb299b372c25c6c8d5c685802"
+  },
+  {
+    "path": "Include/Execution/HSBI_ActionTypes.mqh",
+    "sha256": "f8c4c8238052aa2999b797de7cee3e39c39435bf7e42068b4d6d76994d505f01",
+    "blob_sha": "b592dac8bb8e862336e0a8da371ba76445c4da68",
+    "bytes": 955,
+    "sha256_after": "f8c4c8238052aa2999b797de7cee3e39c39435bf7e42068b4d6d76994d505f01"
+  },
+  {
+    "path": "Include/Execution/HSBI_EventTypes.mqh",
+    "sha256": "d588c6721e7a5af9e48bad54bdbe3cf3fc90688956353c3a04380ae0181f7c13",
+    "blob_sha": "7dbdbb34a1e2eab4a3bf3bc0d649dbf30e45a13d",
+    "bytes": 751,
+    "sha256_after": "d588c6721e7a5af9e48bad54bdbe3cf3fc90688956353c3a04380ae0181f7c13"
+  },
+  {
+    "path": "Include/Execution/HSBI_ExecutionIntent.mqh",
+    "sha256": "67d9381fd0f2d170efc22a07bf4b391c9e86b1685d697d1e6201b713adb4d4f2",
+    "blob_sha": "026b7c6d44b9dad83eb7d8de9bd0c567094a13ca",
+    "bytes": 4373,
+    "sha256_after": "67d9381fd0f2d170efc22a07bf4b391c9e86b1685d697d1e6201b713adb4d4f2"
+  },
+  {
+    "path": "Include/Execution/HSBI_ExecutionPreflight.mqh",
+    "sha256": "7af97449654913e8488e8dccc44c3fcf2f08b79c14ec3aea5d0388604fb5c9c0",
+    "blob_sha": "2889fe50eb4690681f370d7be8613a887a81a05d",
+    "bytes": 4661,
+    "sha256_after": "7af97449654913e8488e8dccc44c3fcf2f08b79c14ec3aea5d0388604fb5c9c0"
+  },
+  {
+    "path": "Include/Execution/HSBI_ExternalOutcome.mqh",
+    "sha256": "01eb91c904e73d2f3973c21c37e3973b2c72cb73e295621939e132b965b65c88",
+    "blob_sha": "409e85b37268c2b7f4785a1b0d614423592b5ba7",
+    "bytes": 3731,
+    "sha256_after": "01eb91c904e73d2f3973c21c37e3973b2c72cb73e295621939e132b965b65c88"
+  },
+  {
+    "path": "Include/Execution/HSBI_NoTradeExecution.mqh",
+    "sha256": "d3264d4a3a8a6aef1a0cc69420f6d26b6aa16f25ec19e43f46151e6cbb242084",
+    "blob_sha": "5c29fece82fe03a954fb345bf006de6a281705f9",
+    "bytes": 548,
+    "sha256_after": "d3264d4a3a8a6aef1a0cc69420f6d26b6aa16f25ec19e43f46151e6cbb242084"
+  },
+  {
+    "path": "Include/Execution/HSBI_OwnershipGuardTypes.mqh",
+    "sha256": "842a28c0fa460d00c443dc9ddda2a1d5314300e3adbfb155f1876457a38f4ac7",
+    "blob_sha": "4e6ca9ad75ef5ad37da4555feea44d451a6cb4c2",
+    "bytes": 2049,
+    "sha256_after": "842a28c0fa460d00c443dc9ddda2a1d5314300e3adbfb155f1876457a38f4ac7"
+  },
+  {
+    "path": "Include/Execution/HSBI_TransactionTypes.mqh",
+    "sha256": "1b244dc72cd345f0f032dde14eb89227db20a7333cbc2c72afa2046c4720d8c9",
+    "blob_sha": "bf82abf9b8aa212ce3c96f6c859e70000968b52d",
+    "bytes": 1943,
+    "sha256_after": "1b244dc72cd345f0f032dde14eb89227db20a7333cbc2c72afa2046c4720d8c9"
+  },
+  {
+    "path": "Include/Money/.gitkeep",
+    "sha256": "416eef1f2abe375d52f7b6d017e826fc59dabddcb299b372c25c6c8d5c685802",
+    "blob_sha": "196b21f30f17a61d85d0304440003022cf429f50",
+    "bytes": 170,
+    "sha256_after": "416eef1f2abe375d52f7b6d017e826fc59dabddcb299b372c25c6c8d5c685802"
+  },
+  {
+    "path": "Include/Money/HSBI_AllocationLedgerTypes.mqh",
+    "sha256": "b539c3c52089e22c2e5cba5a95b81bdc5267b59402bf0f3662f48e80dc1b155c",
+    "blob_sha": "87f86ec7498bd115f5a21da34d596c0ce0c2170a",
+    "bytes": 1504,
+    "sha256_after": "b539c3c52089e22c2e5cba5a95b81bdc5267b59402bf0f3662f48e80dc1b155c"
+  },
+  {
+    "path": "Include/Money/HSBI_AllocationPolicyTypes.mqh",
+    "sha256": "f92a56ef4016231d435840b360ad8310eaa227657fddaf59dec1a3fb7001f3c0",
+    "blob_sha": "720942a0049cacc76691e600efdef7018e91d482",
+    "bytes": 1377,
+    "sha256_after": "f92a56ef4016231d435840b360ad8310eaa227657fddaf59dec1a3fb7001f3c0"
+  },
+  {
+    "path": "Include/Money/HSBI_BasketMoneyEvaluator.mqh",
+    "sha256": "f2038e34a8cc22d2e98cf870e479e6a3cbfe3d6edee64855ffb8784d1e5007fb",
+    "blob_sha": "4bea204e91a4719b4b24086304cb51051909a7de",
+    "bytes": 4895,
+    "sha256_after": "f2038e34a8cc22d2e98cf870e479e6a3cbfe3d6edee64855ffb8784d1e5007fb"
+  },
+  {
+    "path": "Include/Money/HSBI_BrokerMarginModel.mqh",
+    "sha256": "6d9734df01ff3717a537e59dfea8a345443ee558585d2e08313428e652a8e345",
+    "blob_sha": "a8c0f43465785d7d6c82517124c3e3b028862337",
+    "bytes": 1591,
+    "sha256_after": "6d9734df01ff3717a537e59dfea8a345443ee558585d2e08313428e652a8e345"
+  },
+  {
+    "path": "Include/Money/HSBI_BrokerMoneyModel.mqh",
+    "sha256": "66b0389135f3438acb712d8cf694db4de24f6b7e80a4b6dad1ac249e879ab068",
+    "blob_sha": "4dbee633bceb914365e536acc00208955c01588f",
+    "bytes": 2616,
+    "sha256_after": "66b0389135f3438acb712d8cf694db4de24f6b7e80a4b6dad1ac249e879ab068"
+  },
+  {
+    "path": "Include/Money/HSBI_BrokerMoneyTypes.mqh",
+    "sha256": "276e9ff6308b575be208f4cc23663d7a0489d9bcce8ec67a1a9472f437a092a4",
+    "blob_sha": "ebcd16b2a9ea770d9c8525f5ed3285f3a5129870",
+    "bytes": 2145,
+    "sha256_after": "276e9ff6308b575be208f4cc23663d7a0489d9bcce8ec67a1a9472f437a092a4"
+  },
+  {
+    "path": "Include/Money/HSBI_CandidateMoneyEvaluator.mqh",
+    "sha256": "1a50a1d0c4078049c6723d4db1c7ba1409dff6fca244d10a8e7f955eee21f945",
+    "blob_sha": "5402799247ff948b2616306060764004b468abf2",
+    "bytes": 1822,
+    "sha256_after": "1a50a1d0c4078049c6723d4db1c7ba1409dff6fca244d10a8e7f955eee21f945"
+  },
+  {
+    "path": "Include/Money/HSBI_CatchUpModel.mqh",
+    "sha256": "daab1f3d7fa18de44dea6ac293b09cd33bcc3263e691b6f3f7a5fc1dcc10b83c",
+    "blob_sha": "33a87589e8663ddf97b8c7495978b7462149d733",
+    "bytes": 1409,
+    "sha256_after": "daab1f3d7fa18de44dea6ac293b09cd33bcc3263e691b6f3f7a5fc1dcc10b83c"
+  },
+  {
+    "path": "Include/Money/HSBI_CatchUpTypes.mqh",
+    "sha256": "2d54a0ac9b149a89d3f35c2b72abad97820f7ef73d2b86118389db59bd4a142a",
+    "blob_sha": "431dd7f52b9ee82f127d04d5db6a95e25545095c",
+    "bytes": 594,
+    "sha256_after": "2d54a0ac9b149a89d3f35c2b72abad97820f7ef73d2b86118389db59bd4a142a"
+  },
+  {
+    "path": "Include/Money/HSBI_CostModel.mqh",
+    "sha256": "4f19ebab853118d7946f99a5fed2b9d84cbfd16c83390df9f5721c53c207f590",
+    "blob_sha": "293a22c0ff14bc6d635e0cc50c79c8e3d4a7d5cd",
+    "bytes": 1416,
+    "sha256_after": "4f19ebab853118d7946f99a5fed2b9d84cbfd16c83390df9f5721c53c207f590"
+  },
+  {
+    "path": "Include/Money/HSBI_EconomicLedgerTypes.mqh",
+    "sha256": "d9bcbef0fa7b6c5da61e7bafa6a6314458601252a2e580aac21396daadf95ed4",
+    "blob_sha": "e589337d228323dba278b242d01e61fc0ee733fe",
+    "bytes": 1703,
+    "sha256_after": "d9bcbef0fa7b6c5da61e7bafa6a6314458601252a2e580aac21396daadf95ed4"
+  },
+  {
+    "path": "Include/Money/HSBI_LevelMarginEvaluator.mqh",
+    "sha256": "11e0a67346fb7ca7334d59507c44daee2c0517acee9786a251d03752f8dc774f",
+    "blob_sha": "2227a0ef16caa44f4e4ffefcf860499773dbf471",
+    "bytes": 918,
+    "sha256_after": "11e0a67346fb7ca7334d59507c44daee2c0517acee9786a251d03752f8dc774f"
+  },
+  {
+    "path": "Include/Money/HSBI_LevelMoneyEvaluator.mqh",
+    "sha256": "cbe8d9c662250eaad105987f1540c00e56932cf9546c1bff29ca000e604a19b6",
+    "blob_sha": "3c89ae2355945ec7c75fac2694967ae5f1785967",
+    "bytes": 2271,
+    "sha256_after": "cbe8d9c662250eaad105987f1540c00e56932cf9546c1bff29ca000e604a19b6"
+  },
+  {
+    "path": "Include/Money/HSBI_MoneyProofIdentity.mqh",
+    "sha256": "f36029a3f62cf3d245962ea18d408555d507851e9a5e9e1e9d11c5868a28f17d",
+    "blob_sha": "cb00b547b9f4d3d9eac7a473415b25627c3ac91d",
+    "bytes": 1690,
+    "sha256_after": "f36029a3f62cf3d245962ea18d408555d507851e9a5e9e1e9d11c5868a28f17d"
+  },
+  {
+    "path": "Include/Money/HSBI_MoneyState.mqh",
+    "sha256": "0faeebfc6781198ead86e8cffac7e154947f1830e6b38d27d7900d069ac38396",
+    "blob_sha": "d318c28cc23ddaf19d22a9c7a47e9202800d1786",
+    "bytes": 423,
+    "sha256_after": "0faeebfc6781198ead86e8cffac7e154947f1830e6b38d27d7900d069ac38396"
+  },
+  {
+    "path": "Include/Money/HSBI_MoneyTypes.mqh",
+    "sha256": "d7d00aa5a139ec82730e84ab18748ba49f12a339d0716255517b3377a4f94d70",
+    "blob_sha": "2a3226fe19fdeb8053b618d2d7ca72ed111e6bb5",
+    "bytes": 1372,
+    "sha256_after": "d7d00aa5a139ec82730e84ab18748ba49f12a339d0716255517b3377a4f94d70"
+  },
+  {
+    "path": "Include/Money/HSBI_ReserveAllocationTypes.mqh",
+    "sha256": "18a3318d954d2f2426ec715441fc159fca364cdb1b65011b449e94d0671dd00f",
+    "blob_sha": "f1464320f1f853f12f8e3f3ddc3708bad2a0cd4d",
+    "bytes": 3359,
+    "sha256_after": "18a3318d954d2f2426ec715441fc159fca364cdb1b65011b449e94d0671dd00f"
+  },
+  {
+    "path": "Include/Money/HSBI_ReserveCatchUpEvaluator.mqh",
+    "sha256": "5d967cf22e7d0fdc3d37aae6077b15c4330526dcef4c5b8eda74340a64ff174d",
+    "blob_sha": "87a8b7e97727ce6e47c2a2f0abc3e237f6203204",
+    "bytes": 7363,
+    "sha256_after": "5d967cf22e7d0fdc3d37aae6077b15c4330526dcef4c5b8eda74340a64ff174d"
+  },
+  {
+    "path": "Include/Persistence/.gitkeep",
+    "sha256": "416eef1f2abe375d52f7b6d017e826fc59dabddcb299b372c25c6c8d5c685802",
+    "blob_sha": "196b21f30f17a61d85d0304440003022cf429f50",
+    "bytes": 170,
+    "sha256_after": "416eef1f2abe375d52f7b6d017e826fc59dabddcb299b372c25c6c8d5c685802"
+  },
+  {
+    "path": "Include/Persistence/HSBI_ExecutionJournal.mqh",
+    "sha256": "aeba6d8813c0079ae4f8e5c7484895e891e6acb91ae7aeacec751977adf1f76f",
+    "blob_sha": "e65d6d9b0f04a3e236952ec577ea144bf57ee2b2",
+    "bytes": 4037,
+    "sha256_after": "aeba6d8813c0079ae4f8e5c7484895e891e6acb91ae7aeacec751977adf1f76f"
+  },
+  {
+    "path": "Include/Persistence/HSBI_ExecutionStateSnapshot.mqh",
+    "sha256": "e228f6b8e2e2d0bc2aeaa8cbab6c7656412465a9f887fa8fe6b152d463e3d971",
+    "blob_sha": "4fc1e37af6430d206bb2c7b480681473cd9c2bf2",
+    "bytes": 4412,
+    "sha256_after": "e228f6b8e2e2d0bc2aeaa8cbab6c7656412465a9f887fa8fe6b152d463e3d971"
+  },
+  {
+    "path": "Include/Persistence/HSBI_JournalTypes.mqh",
+    "sha256": "800b8610c306a6d197df37b99ad93da09278f09a68049543578577d2348d80c8",
+    "blob_sha": "c2f007a44020dba1f5e0cb2c4f52342d1d0c9f8f",
+    "bytes": 759,
+    "sha256_after": "800b8610c306a6d197df37b99ad93da09278f09a68049543578577d2348d80c8"
+  },
+  {
+    "path": "Include/Persistence/HSBI_PersistenceInterface.mqh",
+    "sha256": "e72b591500db88e2596c498fcdf7dbfdbe3641eef91ebbee80ce59e3aeddab06",
+    "blob_sha": "36b7181f50fe4554d24f9ea6813906f9f4240d49",
+    "bytes": 516,
+    "sha256_after": "e72b591500db88e2596c498fcdf7dbfdbe3641eef91ebbee80ce59e3aeddab06"
+  },
+  {
+    "path": "Include/Persistence/HSBI_ReconciliationTypes.mqh",
+    "sha256": "dc7260cd56d8392664ebecfb9fd3790cfe768f1a1ab9d428ed6bf83c14679c0d",
+    "blob_sha": "1e79faeeef3b32aa5318f815f8308b67950ae3b2",
+    "bytes": 1580,
+    "sha256_after": "dc7260cd56d8392664ebecfb9fd3790cfe768f1a1ab9d428ed6bf83c14679c0d"
+  },
+  {
+    "path": "Include/Persistence/HSBI_SnapshotTypes.mqh",
+    "sha256": "d40945509150276d1e8ca60de173cf64af3a6ddff91f5ac1361c8533d41a5b9e",
+    "blob_sha": "f3c7789f323657aee83c34544b0143165b454279",
+    "bytes": 1367,
+    "sha256_after": "d40945509150276d1e8ca60de173cf64af3a6ddff91f5ac1361c8533d41a5b9e"
+  },
+  {
+    "path": "Include/Planning/.gitkeep",
+    "sha256": "416eef1f2abe375d52f7b6d017e826fc59dabddcb299b372c25c6c8d5c685802",
+    "blob_sha": "196b21f30f17a61d85d0304440003022cf429f50",
+    "bytes": 170,
+    "sha256_after": "416eef1f2abe375d52f7b6d017e826fc59dabddcb299b372c25c6c8d5c685802"
+  },
+  {
+    "path": "Include/Planning/HSBI_BrokerGrid.mqh",
+    "sha256": "4cb955469a6c502456d9db146cb5fd80568807cc23abcdcdd9bcf5e4f4dd110c",
+    "blob_sha": "82a06297b2c98113f18d92ebf3cd7bdc615749a0",
+    "bytes": 2953,
+    "sha256_after": "4cb955469a6c502456d9db146cb5fd80568807cc23abcdcdd9bcf5e4f4dd110c"
+  },
+  {
+    "path": "Include/Planning/HSBI_CandidatePlan.mqh",
+    "sha256": "3643a4a741e24e293656674b3681a74a5ef448610428f28a07dbf355533ac856",
+    "blob_sha": "f056148d2bccd020b01d6c8a7433fbba9e83f158",
+    "bytes": 1231,
+    "sha256_after": "3643a4a741e24e293656674b3681a74a5ef448610428f28a07dbf355533ac856"
+  },
+  {
+    "path": "Include/Planning/HSBI_ControlPrices.mqh",
+    "sha256": "5bd35f0cc4b7ee1aac1a772b2932f13ba385922e26d5f2649bbda76837256a4b",
+    "blob_sha": "2540db9d53533319319b698d999187f785f0815c",
+    "bytes": 2935,
+    "sha256_after": "5bd35f0cc4b7ee1aac1a772b2932f13ba385922e26d5f2649bbda76837256a4b"
+  },
+  {
+    "path": "Include/Planning/HSBI_DecisionResult.mqh",
+    "sha256": "cb5f7cd0c719ca81ad35547d49af8ba827d94d3bb41dbb88c0451eebf306849d",
+    "blob_sha": "2847c1b1c61502ffa7cba9813e0a843afcf1a50b",
+    "bytes": 249,
+    "sha256_after": "cb5f7cd0c719ca81ad35547d49af8ba827d94d3bb41dbb88c0451eebf306849d"
+  },
+  {
+    "path": "Include/Planning/HSBI_FutureSmallProofAggregator.mqh",
+    "sha256": "7bea2c75eec23825d5cbcca82fa72022b73f8c1626f5ffbce30ac79d722b03a0",
+    "blob_sha": "4678ae152960e98b9f398b4497786061d7e8a524",
+    "bytes": 5657,
+    "sha256_after": "7bea2c75eec23825d5cbcca82fa72022b73f8c1626f5ffbce30ac79d722b03a0"
+  },
+  {
+    "path": "Include/Planning/HSBI_FutureSmallSolver.mqh",
+    "sha256": "c403bbad6089076500823219dac296e69100bed0e2cb950eb1f248749b868cf6",
+    "blob_sha": "be55c93f051f57ddffd189b9d2e8eee4c3ddaf9d",
+    "bytes": 14902,
+    "sha256_after": "c403bbad6089076500823219dac296e69100bed0e2cb950eb1f248749b868cf6"
+  },
+  {
+    "path": "Include/Planning/HSBI_FutureSmallTypes.mqh",
+    "sha256": "16fcecb00c05f2e03b90f81823bdf1c2aac4a7b6263713b29ad9feb18b218325",
+    "blob_sha": "ee962ed40a99b0d0a1fdd22f2ee071cc3fb6cbcc",
+    "bytes": 5849,
+    "sha256_after": "16fcecb00c05f2e03b90f81823bdf1c2aac4a7b6263713b29ad9feb18b218325"
+  },
+  {
+    "path": "Include/Planning/HSBI_GeometrySolver.mqh",
+    "sha256": "62b3b4a8d7a374e15b96b46a380e3c2f8f0e74aa57ae8749c0261ebab27a11f9",
+    "blob_sha": "707cc1678ca4d98888b3acc2599838094fe13a78",
+    "bytes": 4648,
+    "sha256_after": "62b3b4a8d7a374e15b96b46a380e3c2f8f0e74aa57ae8749c0261ebab27a11f9"
+  },
+  {
+    "path": "Include/Planning/HSBI_GeometryTypes.mqh",
+    "sha256": "3126ecc200269b885bf2b5b46b8e72356f61e176b829ab0f40ee307e5b4e8b49",
+    "blob_sha": "3471f80349bdb20f8a13a99d11fd9b9244e93498",
+    "bytes": 669,
+    "sha256_after": "3126ecc200269b885bf2b5b46b8e72356f61e176b829ab0f40ee307e5b4e8b49"
+  },
+  {
+    "path": "Include/Planning/HSBI_NewFarCandidate.mqh",
+    "sha256": "9e09da3a5d22579807375be836931a11ecf666e79108dde2c9724f60f1cd2bf1",
+    "blob_sha": "758f1c89cf75701d3616dabec2fcb06413ee2d4a",
+    "bytes": 3417,
+    "sha256_after": "9e09da3a5d22579807375be836931a11ecf666e79108dde2c9724f60f1cd2bf1"
+  },
+  {
+    "path": "Include/Planning/HSBI_NewFarSolver.mqh",
+    "sha256": "9dcf60b6edc245a8a5ee3a05f35d4d8d26c12479f570a66aa5e4f0e703497cd2",
+    "blob_sha": "3d19eccd6cd318b9b4591e2bc0ccaa95f661930d",
+    "bytes": 18897,
+    "sha256_after": "9dcf60b6edc245a8a5ee3a05f35d4d8d26c12479f570a66aa5e4f0e703497cd2"
+  },
+  {
+    "path": "Include/Risk/.gitkeep",
+    "sha256": "416eef1f2abe375d52f7b6d017e826fc59dabddcb299b372c25c6c8d5c685802",
+    "blob_sha": "196b21f30f17a61d85d0304440003022cf429f50",
+    "bytes": 170,
+    "sha256_after": "416eef1f2abe375d52f7b6d017e826fc59dabddcb299b372c25c6c8d5c685802"
+  },
+  {
+    "path": "Include/Risk/HSBI_CalculationGateTypes.mqh",
+    "sha256": "64791ac97362dfd8a5bcf5e5b294b1b71f8d984acc10a41853d27e20328e0900",
+    "blob_sha": "06b75ded19b5c5d51e401066592dfc3ff1981e71",
+    "bytes": 1244,
+    "sha256_after": "64791ac97362dfd8a5bcf5e5b294b1b71f8d984acc10a41853d27e20328e0900"
+  },
+  {
+    "path": "Include/Risk/HSBI_FutureSmallRiskEvaluator.mqh",
+    "sha256": "8ffa044f6819186aac145df165c80a32c0d7225142b28d3ef413326518277f7b",
+    "blob_sha": "870d84b3f49a85e7db5c6d5ead777efea1c9faa3",
+    "bytes": 2086,
+    "sha256_after": "8ffa044f6819186aac145df165c80a32c0d7225142b28d3ef413326518277f7b"
+  },
+  {
+    "path": "Include/Risk/HSBI_NewFarGateTypes.mqh",
+    "sha256": "d82738006b15bb85990171b96cf65662a2699b6b890501fdd6cf31e73c1e9272",
+    "blob_sha": "7d50669bda8ff2d000566ad7a38281140a77ae83",
+    "bytes": 2159,
+    "sha256_after": "d82738006b15bb85990171b96cf65662a2699b6b890501fdd6cf31e73c1e9272"
+  },
+  {
+    "path": "Include/Risk/HSBI_RiskGateResult.mqh",
+    "sha256": "d0d7072973dac81be9284562046b7227ecfafbe14962c9ad05a3f8e2c73585c8",
+    "blob_sha": "f172bd2ab9cfc461ab403a8ce490a4b71ce3c8c4",
+    "bytes": 1158,
+    "sha256_after": "d0d7072973dac81be9284562046b7227ecfafbe14962c9ad05a3f8e2c73585c8"
+  },
+  {
+    "path": "Include/Risk/HSBI_RiskTypes.mqh",
+    "sha256": "327b2b000c136c19340ebcdca287341b7866da9bd209aac713ae393700c6bf4d",
+    "blob_sha": "6f40356c18949a0465c1595b0229a67bbcd46dc7",
+    "bytes": 582,
+    "sha256_after": "327b2b000c136c19340ebcdca287341b7866da9bd209aac713ae393700c6bf4d"
+  },
+  {
+    "path": "Include/Runtime/HSBI_RuntimeDecisionTypes.mqh",
+    "sha256": "cacba88273d9d85bd34f09d978178fc89fdceb672b3651cba683aea1679110f4",
+    "blob_sha": "0cc2619ed6ce7a93ea28c3c655a8d147e18a9231",
+    "bytes": 3578,
+    "sha256_after": "cacba88273d9d85bd34f09d978178fc89fdceb672b3651cba683aea1679110f4"
+  },
+  {
+    "path": "Include/Runtime/HSBI_RuntimeDecisionValidator.mqh",
+    "sha256": "0332a192d4b9a5389f377d252111fb0317f074bc9ff7b51658a9e8de2d5fbd9b",
+    "blob_sha": "aecbf35e7ced9fd756d80803c63626b9b52c0846",
+    "bytes": 5092,
+    "sha256_after": "0332a192d4b9a5389f377d252111fb0317f074bc9ff7b51658a9e8de2d5fbd9b"
+  },
+  {
+    "path": "Include/Runtime/HSBI_RuntimeRestartValidator.mqh",
+    "sha256": "ec27d83911b89a77c31a6d7347a700e31e8bf631268aaaddfe4eedf976b5cbe7",
+    "blob_sha": "81001f9eadb42a2c8255f38392d1739064dc6749",
+    "bytes": 3113,
+    "sha256_after": "ec27d83911b89a77c31a6d7347a700e31e8bf631268aaaddfe4eedf976b5cbe7"
+  },
+  {
+    "path": "Include/Runtime/HSBI_RuntimeTransactionBarrier.mqh",
+    "sha256": "0e04217f0bd873a784ab65cc87514c7deb65c149b8b23fa7218d885b5cf30f1a",
+    "blob_sha": "2a5df55b4b5814eed26f684b8d86583cf2b53eb6",
+    "bytes": 2871,
+    "sha256_after": "0e04217f0bd873a784ab65cc87514c7deb65c149b8b23fa7218d885b5cf30f1a"
+  },
+  {
+    "path": "Include/Scenarios/.gitkeep",
+    "sha256": "416eef1f2abe375d52f7b6d017e826fc59dabddcb299b372c25c6c8d5c685802",
+    "blob_sha": "196b21f30f17a61d85d0304440003022cf429f50",
+    "bytes": 170,
+    "sha256_after": "416eef1f2abe375d52f7b6d017e826fc59dabddcb299b372c25c6c8d5c685802"
+  },
+  {
+    "path": "Include/Scenarios/HSBI_BigHarvestTypes.mqh",
+    "sha256": "0516b1ec1b5720265df3072d28035719d3ed369f29c8bb28177b94a98873f483",
+    "blob_sha": "5be5c560ae6093281ad0f3f30cd7613514f675b1",
+    "bytes": 275,
+    "sha256_after": "0516b1ec1b5720265df3072d28035719d3ed369f29c8bb28177b94a98873f483"
+  },
+  {
+    "path": "Include/Scenarios/HSBI_FinalCloseTypes.mqh",
+    "sha256": "3adfe776abae340a17b8ae8977c848f15c3b89cc2216085e71a9bf59ae6c53cd",
+    "blob_sha": "319af55c5054e082582da0598c79ed0d319a1599",
+    "bytes": 288,
+    "sha256_after": "3adfe776abae340a17b8ae8977c848f15c3b89cc2216085e71a9bf59ae6c53cd"
+  },
+  {
+    "path": "Include/Scenarios/HSBI_InitialLockTypes.mqh",
+    "sha256": "f67baeae393cc58d4d584eb9b22819991ba281f7986f7273d1672a1def634262",
+    "blob_sha": "79b6f2df50ea5c9b38bae46849bddb9f99de108b",
+    "bytes": 277,
+    "sha256_after": "f67baeae393cc58d4d584eb9b22819991ba281f7986f7273d1672a1def634262"
+  },
+  {
+    "path": "Include/Scenarios/HSBI_PartialFarTypes.mqh",
+    "sha256": "ea862ce2f05239cc7aef8a94a256f4eaa50534c37f55d3d6c59d5ea6cf545fc5",
+    "blob_sha": "19b41ac1061bee2cd5bd7412b94df2efcb0499c9",
+    "bytes": 275,
+    "sha256_after": "ea862ce2f05239cc7aef8a94a256f4eaa50534c37f55d3d6c59d5ea6cf545fc5"
+  },
+  {
+    "path": "Include/Scenarios/HSBI_ScenarioTypes.mqh",
+    "sha256": "7cc05c0455d372ef7219b3ac4b86e9b8f2753131bcd8a5ea2819bd8a90dff1f3",
+    "blob_sha": "cd6598113b76dd2754c1ab7c5091c7e59b8d9a9c",
+    "bytes": 359,
+    "sha256_after": "7cc05c0455d372ef7219b3ac4b86e9b8f2753131bcd8a5ea2819bd8a90dff1f3"
+  },
+  {
+    "path": "Include/Scenarios/HSBI_SmallTransitionTypes.mqh",
+    "sha256": "abf62239594b699449646178cfffaf4e15b6317eec9728088fcd98a76531cef1",
+    "blob_sha": "edbe990f0b0a6df2d4cba4368ad126764abad021",
+    "bytes": 368,
+    "sha256_after": "abf62239594b699449646178cfffaf4e15b6317eec9728088fcd98a76531cef1"
+  },
+  {
+    "path": "Tests/Close/native_close.mq5",
+    "sha256": "238642a6d5be3c40d3cb04c08fa028809b89658a16fde3f50ac53a3bf9e4678c",
+    "blob_sha": "efa32b21db4cbeaf1502fd5477583ad8c9019c03",
+    "bytes": 1192,
+    "sha256_after": "238642a6d5be3c40d3cb04c08fa028809b89658a16fde3f50ac53a3bf9e4678c"
+  },
+  {
+    "path": "Tests/MQL5/HSBI_Skeleton_Tests.mq5",
+    "sha256": "a1043f6d0d39ef5da39ca587054e00d312eb8eaad0013ea1b815f584b9a59d29",
+    "blob_sha": "75052d49e55a5f43534143052b28c0b94ba2b516",
+    "bytes": 107352,
+    "sha256_after": "a1043f6d0d39ef5da39ca587054e00d312eb8eaad0013ea1b815f584b9a59d29"
+  },
+  {
+    "path": "Tests/Native/HSBI_DG01_codec_cases.mqh",
+    "sha256": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78",
+    "blob_sha": "3102e0aa6863704f41066b736d9a7542b38b6358",
+    "bytes": 5279,
+    "sha256_after": "7c91e6c7404da7486df467c25c65a68b2bd576da61fb91aa288262d3eb11fc78"
+  },
+  {
+    "path": "Tests/Native/HSBI_DG01_goldens.mqh",
+    "sha256": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c",
+    "blob_sha": "cfacd88c155caa6e22cfe40ee5ab849291349449",
+    "bytes": 1850,
+    "sha256_after": "fb9567e58e7ea5a557764c5ffe1a7ccc1ed2f0f5d3fd356ce83d494849d4c61c"
+  },
+  {
+    "path": "Tests/Native/HSBI_DG01_harness.mq5",
+    "sha256": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a",
+    "blob_sha": "d7f5a8f88b7bf625e58af1e633cf526db372bb5e",
+    "bytes": 13159,
+    "sha256_after": "a98324ff637b5df06e7380b86250713f559c1f600ef79af149956aedc51fb99a"
+  },
+  {
+    "path": "Tests/Reference/HSBI_DG01_identity_candidate.mqh",
+    "sha256": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e",
+    "blob_sha": "8c59dfe76dcf916c17774ddd63ce5ea6f1d61580",
+    "bytes": 4587,
+    "sha256_after": "fa9dd0a4d787c8f9d2b158f31bb0a3096f0640db00d3276df24d5ccb42fbcc4e"
+  },
+  {
+    "path": "Tests/Reference/HSBI_FULL_SYSTEM_AUDIT_02_native.mq5",
+    "sha256": "0f524463df6e0c8d4dea882b32dcf318a050670f98335bfe24e2b35bd83a8a8f",
+    "blob_sha": "114e026a38f7cf33633164de09ba5acb90239862",
+    "bytes": 1573,
+    "sha256_after": "0f524463df6e0c8d4dea882b32dcf318a050670f98335bfe24e2b35bd83a8a8f"
+  },
+  {
+    "path": "Tests/Reference/hsbi_02b_r0h_native_codec.mqh",
+    "sha256": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c",
+    "blob_sha": "91b8a09c2e7a2db31f0f917da105fff3260d6ffb",
+    "bytes": 8548,
+    "sha256_after": "bbeab17f48a4b93ae8f801e5800acb753eff58cf2fe505c2a3602596cb598c3c"
+  },
+  {
+    "path": "Tests/Reference/hsbi_02b_r0h_native_goldens.mqh",
+    "sha256": "775f25bfbc3664a6382c6dd96fb8832b92177fb287491d1fc59bf5f8e22a193a",
+    "blob_sha": "31506f7b0a8932bdaf0ee7044c557100fd9dcc94",
+    "bytes": 2355,
+    "sha256_after": "775f25bfbc3664a6382c6dd96fb8832b92177fb287491d1fc59bf5f8e22a193a"
+  },
+  {
+    "path": "Tests/Reference/hsbi_02b_r0h_native_harness.mq5",
+    "sha256": "4c4132f1899f9e6c7430c1b61df7c84d33391e2cee875cc3c3b996cec4dec41f",
+    "blob_sha": "1bee48cf0ea949109b44274e4810c8ca4d26a01d",
+    "bytes": 7859,
+    "sha256_after": "4c4132f1899f9e6c7430c1b61df7c84d33391e2cee875cc3c3b996cec4dec41f"
+  }
+]

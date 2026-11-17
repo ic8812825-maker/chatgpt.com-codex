@@ -1,0 +1,68 @@
+[
+  {
+    "StartDirection": -1,
+    "CompletedAuthorizedTransitions": 0,
+    "PotentialTransition1": "NO_SAFE_NEW_FAR",
+    "Reason": "for every N: eligible Core<=0,full old Far loss275.50,buffer5 => margin -280.50;funding0;actual/native/future missing",
+    "Candidates": 99,
+    "Subsequent": [
+      {
+        "Level": 2,
+        "Status": "NOT_REACHED",
+        "FarVolume": "UNAVAILABLE",
+        "PositionID": "UNAVAILABLE"
+      },
+      {
+        "Level": 3,
+        "Status": "NOT_REACHED",
+        "FarVolume": "UNAVAILABLE",
+        "PositionID": "UNAVAILABLE"
+      },
+      {
+        "Level": 4,
+        "Status": "NOT_REACHED",
+        "FarVolume": "UNAVAILABLE",
+        "PositionID": "UNAVAILABLE"
+      },
+      {
+        "Level": 5,
+        "Status": "NOT_REACHED",
+        "FarVolume": "UNAVAILABLE",
+        "PositionID": "UNAVAILABLE"
+      }
+    ]
+  },
+  {
+    "StartDirection": 1,
+    "CompletedAuthorizedTransitions": 0,
+    "PotentialTransition1": "NO_SAFE_NEW_FAR",
+    "Reason": "for every N: eligible Core<=0,full old Far loss275.50,buffer5 => margin -280.50;funding0;actual/native/future missing",
+    "Candidates": 99,
+    "Subsequent": [
+      {
+        "Level": 2,
+        "Status": "NOT_REACHED",
+        "FarVolume": "UNAVAILABLE",
+        "PositionID": "UNAVAILABLE"
+      },
+      {
+        "Level": 3,
+        "Status": "NOT_REACHED",
+        "FarVolume": "UNAVAILABLE",
+        "PositionID": "UNAVAILABLE"
+      },
+      {
+        "Level": 4,
+        "Status": "NOT_REACHED",
+        "FarVolume": "UNAVAILABLE",
+        "PositionID": "UNAVAILABLE"
+      },
+      {
+        "Level": 5,
+        "Status": "NOT_REACHED",
+        "FarVolume": "UNAVAILABLE",
+        "PositionID": "UNAVAILABLE"
+      }
+    ]
+  }
+]

@@ -1,0 +1,186 @@
+{
+  "SourceCommitSHA": "8640bf464eda220d9096adb99bc8bcb390ed68e7",
+  "files": [
+    {
+      "path": "Reports/HSBI_FAR100_R1_DOCUMENTATION_AUDIT_RU.md",
+      "size": 230159,
+      "sha256": "3e19dc064185bb9788159e9454080a6f43c0924df84697bfc7dcfe022cbb2612",
+      "blob_sha": "2138774fecba3ecd75a9726deb981a603ccca914"
+    },
+    {
+      "path": "Reports/HSBI_FAR100_R1_FINAL_OWNER_REVIEW_RU.md",
+      "size": 28332,
+      "sha256": "69c8f6d51072d91a678be287b59aa20ba4d177bd0d567a510d9d745639f52a5e",
+      "blob_sha": "1b074fca894ca42f370226b995e3155abe0239d7"
+    },
+    {
+      "path": "Reports/HSBI_FAR100_R1_FOUR_POSITION_MATH_RU.md",
+      "size": 11011,
+      "sha256": "b3d2a01cf360c313a95e0087e6e5dfe0210b25484edfb91e49f8aea160d38f22",
+      "blob_sha": "94e0bf2b3f2196992ba8a4ce7a9385a539614952"
+    },
+    {
+      "path": "Reports/HSBI_FAR100_R1_INDEPENDENT_TESTS_RU.md",
+      "size": 11835,
+      "sha256": "7627e4b0af3485f9bd7210cc107cb048ac06f318f0e6ab54d038b0631d7001bb",
+      "blob_sha": "ce3970380ec2aa4426a469195129380c2bee155d"
+    },
+    {
+      "path": "Reports/HSBI_FAR100_R1_MONEY_CONSERVATION_RU.md",
+      "size": 11073,
+      "sha256": "b0c15993019884094e01cb30b4382b4fe4703b706a3026287ded1f6b6e3e3dc5",
+      "blob_sha": "9608bbf9ac1ecba286aafb06bb9c17c117af0d1e"
+    },
+    {
+      "path": "Reports/HSBI_FAR100_R1_MULTI_TRANSITION_RU.md",
+      "size": 11747,
+      "sha256": "28b3d4c1ccbb2a075395493d7fabdcdc972b1fffcc21170ad71297b0cb61b9bd",
+      "blob_sha": "eac76055c72ddd7202a1315babb765dcfc3c7004"
+    },
+    {
+      "path": "Reports/HSBI_FAR100_R1_NEW_FAR_CANDIDATES_RU.md",
+      "size": 12355,
+      "sha256": "8a3df8354e503bdad70725eccad1e39e1e4c1646b658eb1a83d839532e55c0e5",
+      "blob_sha": "2485f4aee9ffda476fac031a2a7ef4a40f40ccd0"
+    },
+    {
+      "path": "Reports/HSBI_FAR100_R1_OPEN_ISSUES_AND_BLOCKERS_RU.md",
+      "size": 19794,
+      "sha256": "e3963b5ee8912f7385087285b9a6330b6d83f0c4aefab9c2abc860eb18e866a4",
+      "blob_sha": "de657758c3163d39c64aa00d00023cd6a9e2eba4"
+    },
+    {
+      "path": "Reports/HSBI_FAR100_R1_RISK_MARGIN_STRESS_RU.md",
+      "size": 14361,
+      "sha256": "4a0e0be4d899f37e2226603598012c39db56c9dd5b8805561ff2e9546281869f",
+      "blob_sha": "5ddb7d55a8e63ece5bffed36400bdd6ea79e93ac"
+    },
+    {
+      "path": "Reports/HSBI_FAR100_R1_SMALL_TRANSITION_LEDGER_RU.md",
+      "size": 20677,
+      "sha256": "02c8fadae1c33c3978a7985ea71c763b80e6e538b84dae3363b37878461ecfd8",
+      "blob_sha": "aeb38c388e9924747bd479ba29fdbde4b5c4a567"
+    },
+    {
+      "path": "Tests/Evidence/FAR100_R1/commands.json",
+      "size": 1539,
+      "sha256": "0983be21504af74759a3cf041e3f833ff8bc21e7629090a09bd65f306a010f6f",
+      "blob_sha": "411af17ec2ed42e928859e0fac73fb186c9948fd"
+    },
+    {
+      "path": "Tests/Evidence/FAR100_R1/control_price_curve.json",
+      "size": 523226,
+      "sha256": "b39612ae06af4ff710e47757aaff2fa257c7462cc0097dd786244b20d02b9b0d",
+      "blob_sha": "a9e7025057c31203e772ffe7e9416a016a3f0648"
+    },
+    {
+      "path": "Tests/Evidence/FAR100_R1/documentation_inventory.json",
+      "size": 986841,
+      "sha256": "57231faee889c22b3fe03a20684f6239e7bc5f2b1c8eb428f60a48db772051a2",
+      "blob_sha": "632e955e971c666f369be1bfc9dce99262740cf5"
+    },
+    {
+      "path": "Tests/Evidence/FAR100_R1/documentation_stage.json",
+      "size": 170,
+      "sha256": "599324e753aa2b247bb54436e0c76d1dae2417dc9136cdca781292f27107d613",
+      "blob_sha": "a0e0efadcb1bbf842e017cb4ee4537f14824ebcb"
+    },
+    {
+      "path": "Tests/Evidence/FAR100_R1/grid_boundaries.json",
+      "size": 877,
+      "sha256": "40ab03356c26f180da8bb5e8faa6048825399130b01c0c49b6ca0013aa2751ea",
+      "blob_sha": "75c7599b535781127939e2c113f0c0192ca32065"
+    },
+    {
+      "path": "Tests/Evidence/FAR100_R1/multi_transition.json",
+      "size": 1748,
+      "sha256": "7f83e1b6203496a0da9c11a122fc9c4a2f56b35c06faaacc6f9552c582d9e8cc",
+      "blob_sha": "0a2c2e4de9caaeeb89034e1fb0ae8f6c705a92d6"
+    },
+    {
+      "path": "Tests/Evidence/FAR100_R1/mutation_results.json",
+      "size": 2351,
+      "sha256": "aa79fee41b6a56da86cd771bf7ba1555108f9ebd4b08c077692ef3771875a515",
+      "blob_sha": "1f217c5b9cb5cd2a621c6ea9ccfc0fc03bd08fdd"
+    },
+    {
+      "path": "Tests/Evidence/FAR100_R1/new_far_candidates.json",
+      "size": 633590,
+      "sha256": "faa60cb5f09bfc176fdc257fbc16c476b79a299271c2fbb50d1e6e9d7db3503f",
+      "blob_sha": "5deb78bc3c87608e3f8d2f23623e8bd7fc6dbfe2"
+    },
+    {
+      "path": "Tests/Evidence/FAR100_R1/oracle_stdout.txt",
+      "size": 143,
+      "sha256": "e050cb11a77da08d6499061b9d031f96192467f5a9eb81dcfdd7ff25b24ec61c",
+      "blob_sha": "fead8fd7bfaec0baf8a7f8e45bd7c4c9fa17cb71"
+    },
+    {
+      "path": "Tests/Evidence/FAR100_R1/physical_transitions.json",
+      "size": 130960,
+      "sha256": "e64ce12834dded403101780dd6061668986859141302b58ba4df9a5805a1c82c",
+      "blob_sha": "f4674e29be3e9f85a6447ba83c5ac6bbe905b8a4"
+    },
+    {
+      "path": "Tests/Evidence/FAR100_R1/protected_after.json",
+      "size": 28644,
+      "sha256": "8f9f249bde6cb37bb19092bb0012f1cd5a0ff16f4edad28a545a6d8d58e81881",
+      "blob_sha": "35a1310250a76c38ffec434b6f94277ddf7f5aee"
+    },
+    {
+      "path": "Tests/Evidence/FAR100_R1/protected_before.json",
+      "size": 20548,
+      "sha256": "2ab7ac26fcc660327f13a46c940a56180448bb75ad6cc3730b25ec93f5c8a76f",
+      "blob_sha": "ca60cd70a5ca67c5324bb8e11785e5831e64755c"
+    },
+    {
+      "path": "Tests/Evidence/FAR100_R1/run_metadata.json",
+      "size": 1179,
+      "sha256": "0772018f2922764b31b496f0c0b1bcaaa06c6f5f0aa564a6822598ee7740f13a",
+      "blob_sha": "22ea7217dd0f61bec53b784c92cf6aa42b6903f7"
+    },
+    {
+      "path": "Tests/Evidence/FAR100_R1/scenarios.json",
+      "size": 52736,
+      "sha256": "54db6bc176701383f92232e34d04ea4f92960180c1a8638c9acf70cefbeb2cc5",
+      "blob_sha": "fab85375713112c5be4959e2e62ea057cc21c65f"
+    },
+    {
+      "path": "Tests/Evidence/FAR100_R1/test_results.json",
+      "size": 295754,
+      "sha256": "6b67c40a9388d0264c7dcf9e0a886c550e59d0ab84f1c591a7d5496554ee5d7c",
+      "blob_sha": "6eb8f9ef6e09f7b5395ae55c91caa2ac26fadf50"
+    },
+    {
+      "path": "Tests/Evidence/FAR100_R1/tests_stdout.txt",
+      "size": 605,
+      "sha256": "d6316a6928434691f00788f391614201cb6758321507f7ab711f0b421532de00",
+      "blob_sha": "d574ce3998c319e461be56b3086cbcbedc81f051"
+    },
+    {
+      "path": "Tests/Reference/hsbi_far100_r1_documentation.py",
+      "size": 3148,
+      "sha256": "434cf55730bd3a01a3598ebc7d6835098775f0fba232186ac30db6d6bc737724",
+      "blob_sha": "fd617ed03ab408bf937983fe2126f9c57a92dd20"
+    },
+    {
+      "path": "Tests/Reference/hsbi_far100_r1_oracle.py",
+      "size": 18480,
+      "sha256": "4356823db509c91a89dae1319bb68ab182858a924ac89701ea204c8dd1e3c8d2",
+      "blob_sha": "5847a75f51b44d9d27b7ac9fccba25252c8c7c75"
+    },
+    {
+      "path": "Tests/Reference/hsbi_far100_r1_reports.py",
+      "size": 63726,
+      "sha256": "c686bd6c71f40b05e17f7aeefd598fb125016440c4b6da375a70b6df0256f3d9",
+      "blob_sha": "ecaa6b9eb60092c4792b53a050f8f78ab3ad1d79"
+    },
+    {
+      "path": "Tests/Reference/hsbi_far100_r1_tests.py",
+      "size": 13321,
+      "sha256": "52f0175f21e3a088177cf6c90c3f0d715940bc8d8c56bd4f3b92c764ce4e1795",
+      "blob_sha": "3a96b9a97fceea9a27d1c0cb1b3de327a2f4f28a"
+    }
+  ],
+  "self_excluded": true
+}

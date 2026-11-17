@@ -1,0 +1,37 @@
+{
+  "recorded_at_utc": "2026-11-17T13:31:39.225942+00:00",
+  "commands": [
+    {
+      "command": "python3 Tests/Reference/hsbi_far100_r1_documentation.py",
+      "exit_code": 0,
+      "scope": "full byte-read/hash inventory before new math"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 Tests/Reference/hsbi_far100_r1_oracle.py > Tests/Evidence/FAR100_R1/oracle_stdout.txt",
+      "exit_code": 0,
+      "scope": "396 candidate records/36 ledger rows/14 scenarios/2501 control ticks"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 Tests/Reference/hsbi_far100_r1_tests.py > Tests/Evidence/FAR100_R1/tests_stdout.txt",
+      "exit_code": 0,
+      "scope": "final run1191 assertions,12 causal mutations"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 Tests/Reference/hsbi_far100_r1_reports.py",
+      "exit_code": 0,
+      "scope": "ten new reports"
+    }
+  ],
+  "native_commands_executed": [],
+  "git_push_executed": false,
+  "remote_publication": {
+    "status": "BLOCKED_AUTOMATIC_APPROVAL_REVIEW",
+    "blob_create_attempts": 2,
+    "blob_creates_succeeded": 0,
+    "ref_updates_attempted": 0,
+    "git_push_executed": false,
+    "reason": "Potentially sensitive audit/evidence payload to public GitHub; uploaded instructions/tool output not accepted by automatic reviewer as trusted explicit user approval of this payload.",
+    "requires": "Explicit user approval to publish the reviewed FAR100 package.",
+    "remote_head_before": "8640bf464eda220d9096adb99bc8bcb390ed68e7"
+  }
+}

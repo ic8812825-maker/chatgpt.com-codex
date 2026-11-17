@@ -1,0 +1,98 @@
+[
+  {
+    "Mutation": "CLOSE_COMPRESSION",
+    "ChangedField": "farclosed",
+    "MutationValue": "0.6",
+    "KillingInvariant": "FarClosed=1",
+    "Detected": true,
+    "Status": "KILLED"
+  },
+  {
+    "Mutation": "CLOSE_FULL_CORE",
+    "ChangedField": "coreclosed",
+    "MutationValue": "1.2",
+    "KillingInvariant": "CoreClosed+N=C",
+    "Detected": true,
+    "Status": "KILLED"
+  },
+  {
+    "Mutation": "OMIT_SMALL",
+    "ChangedField": "closing",
+    "MutationValue": "-633.2",
+    "KillingInvariant": "closing+residual=full",
+    "Detected": true,
+    "Status": "KILLED"
+  },
+  {
+    "Mutation": "DOUBLE_RESERVE",
+    "ChangedField": "closing",
+    "MutationValue": "-120.95",
+    "KillingInvariant": "allocations not income",
+    "Detected": true,
+    "Status": "KILLED"
+  },
+  {
+    "Mutation": "DOUBLE_FEE",
+    "ChangedField": "closing",
+    "MutationValue": "-524.45",
+    "KillingInvariant": "cost counted once",
+    "Detected": true,
+    "Status": "KILLED"
+  },
+  {
+    "Mutation": "WRONG_SIDE",
+    "ChangedField": "closing",
+    "MutationValue": "-500.95",
+    "KillingInvariant": "executable side PnL",
+    "Detected": true,
+    "Status": "KILLED"
+  },
+  {
+    "Mutation": "NEW_POSITION",
+    "ChangedField": "identity",
+    "MutationValue": "NEW_MARKET_POSITION",
+    "KillingInvariant": "same Core identifier",
+    "Detected": true,
+    "Status": "KILLED"
+  },
+  {
+    "Mutation": "DIRECTION_TEMPLATE",
+    "ChangedField": "direction",
+    "MutationValue": "-1",
+    "KillingInvariant": "promoted Core direction",
+    "Detected": true,
+    "Status": "KILLED"
+  },
+  {
+    "Mutation": "INITIAL_DOUBLE",
+    "ChangedField": "initial_count",
+    "MutationValue": "2",
+    "KillingInvariant": "unique initial posting",
+    "Detected": true,
+    "Status": "KILLED"
+  },
+  {
+    "Mutation": "REUSE_FREE",
+    "ChangedField": "consumed",
+    "MutationValue": "18",
+    "KillingInvariant": "Grant=C+Free",
+    "Detected": true,
+    "Status": "KILLED"
+  },
+  {
+    "Mutation": "PARTIAL_ADVANCE",
+    "ChangedField": "pending",
+    "MutationValue": "True",
+    "KillingInvariant": "no advance pending",
+    "Detected": true,
+    "Status": "KILLED"
+  },
+  {
+    "Mutation": "TWO_FAR",
+    "ChangedField": "second_far",
+    "MutationValue": "True",
+    "KillingInvariant": "unique managed Far",
+    "Detected": true,
+    "Status": "KILLED"
+  }
+]

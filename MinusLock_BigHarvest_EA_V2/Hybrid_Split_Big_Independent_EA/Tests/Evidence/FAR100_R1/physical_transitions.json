@@ -1,0 +1,3624 @@
+[
+  {
+    "Status": "COUNTERFACTUAL_ONLY_NOT_SOLVER_SELECTED",
+    "N": "0.4",
+    "Direction": -1,
+    "Rows": [
+      {
+        "Step": 1,
+        "ActionID": "MODEL_REVALIDATION",
+        "PositionIdentifier": "UNAVAILABLE",
+        "RoleBefore": "NONE",
+        "RoleAfter": "NONE",
+        "VolumeBefore": "0",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0",
+        "FillStatus": "SYNTHETIC_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_REVALIDATION",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "300.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "3638.5800000",
+            "ProjectedMarginAfter": "3638.5800000",
+            "FreeMarginAfter": "95841.5700000",
+            "MarginLevel": "2734.037729004171957192091420"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1984.6800000",
+            "ProjectedMarginAfter": "1984.6800000",
+            "FreeMarginAfter": "97495.4700000",
+            "MarginLevel": "5012.402503174315254852167604"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "2315.46000000",
+            "ProjectedMarginAfter": "2315.46000000",
+            "FreeMarginAfter": "97164.69000000",
+            "MarginLevel": "4296.345002720841647016143660"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "1.80",
+          "GrossSELL": "1.50",
+          "NetLotSELLminusBUY": "-0.30",
+          "TotalGrossExposure": "3.30",
+          "UnrealizedMarkNet": "-608.3000000",
+          "UnrealizedCloseNowNet": "-623.1500000",
+          "RealizedCycleAll": "88.45",
+          "RecoveryRealizedA": "-11.55",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "100088.45",
+          "EquityMark": "99480.1500000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "3638.5800000",
+              "ProjectedMarginAfter": "3638.5800000",
+              "FreeMarginAfter": "95841.5700000",
+              "MarginLevel": "2734.037729004171957192091420"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1984.6800000",
+              "ProjectedMarginAfter": "1984.6800000",
+              "FreeMarginAfter": "97495.4700000",
+              "MarginLevel": "5012.402503174315254852167604"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "2315.46000000",
+              "ProjectedMarginAfter": "2315.46000000",
+              "FreeMarginAfter": "97164.69000000",
+              "MarginLevel": "4296.345002720841647016143660"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "300.0000000",
+          "RiskControlSymmetric100pip": "300.0000000",
+          "CycleDrawdown": "0.5198500",
+          "AccountDrawdown": "0.6192307692307692307692307692",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_F0",
+            "role": "FAR",
+            "direction": -1,
+            "volume": "1",
+            "open_price": "1.10000",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": 1,
+            "volume": "1.20",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_T0",
+            "role": "BIG_TREND",
+            "direction": 1,
+            "volume": "0.60",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_S0",
+            "role": "SMALL_BASE",
+            "direction": -1,
+            "volume": "0.50",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 2,
+        "ActionID": "MODEL_IMMUTABLE_PLAN",
+        "PositionIdentifier": "UNAVAILABLE",
+        "RoleBefore": "NONE",
+        "RoleAfter": "NONE",
+        "VolumeBefore": "0",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0",
+        "FillStatus": "SYNTHETIC_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_IMMUTABLE_PLAN",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "300.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "3638.5800000",
+            "ProjectedMarginAfter": "3638.5800000",
+            "FreeMarginAfter": "95841.5700000",
+            "MarginLevel": "2734.037729004171957192091420"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1984.6800000",
+            "ProjectedMarginAfter": "1984.6800000",
+            "FreeMarginAfter": "97495.4700000",
+            "MarginLevel": "5012.402503174315254852167604"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "2315.46000000",
+            "ProjectedMarginAfter": "2315.46000000",
+            "FreeMarginAfter": "97164.69000000",
+            "MarginLevel": "4296.345002720841647016143660"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "1.80",
+          "GrossSELL": "1.50",
+          "NetLotSELLminusBUY": "-0.30",
+          "TotalGrossExposure": "3.30",
+          "UnrealizedMarkNet": "-608.3000000",
+          "UnrealizedCloseNowNet": "-623.1500000",
+          "RealizedCycleAll": "88.45",
+          "RecoveryRealizedA": "-11.55",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "100088.45",
+          "EquityMark": "99480.1500000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "3638.5800000",
+              "ProjectedMarginAfter": "3638.5800000",
+              "FreeMarginAfter": "95841.5700000",
+              "MarginLevel": "2734.037729004171957192091420"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1984.6800000",
+              "ProjectedMarginAfter": "1984.6800000",
+              "FreeMarginAfter": "97495.4700000",
+              "MarginLevel": "5012.402503174315254852167604"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "2315.46000000",
+              "ProjectedMarginAfter": "2315.46000000",
+              "FreeMarginAfter": "97164.69000000",
+              "MarginLevel": "4296.345002720841647016143660"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "300.0000000",
+          "RiskControlSymmetric100pip": "300.0000000",
+          "CycleDrawdown": "0.5198500",
+          "AccountDrawdown": "0.6192307692307692307692307692",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_F0",
+            "role": "FAR",
+            "direction": -1,
+            "volume": "1",
+            "open_price": "1.10000",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": 1,
+            "volume": "1.20",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_T0",
+            "role": "BIG_TREND",
+            "direction": 1,
+            "volume": "0.60",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_S0",
+            "role": "SMALL_BASE",
+            "direction": -1,
+            "volume": "0.50",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 3,
+        "ActionID": "MODEL_TRIGGER_HOLD_RETRACE_DEBOUNCE",
+        "PositionIdentifier": "UNAVAILABLE",
+        "RoleBefore": "NONE",
+        "RoleAfter": "NONE",
+        "VolumeBefore": "0",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0",
+        "FillStatus": "SYNTHETIC_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_TRIGGER_HOLD_RETRACE_DEBOUNCE",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "300.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "3638.5800000",
+            "ProjectedMarginAfter": "3638.5800000",
+            "FreeMarginAfter": "95841.5700000",
+            "MarginLevel": "2734.037729004171957192091420"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1984.6800000",
+            "ProjectedMarginAfter": "1984.6800000",
+            "FreeMarginAfter": "97495.4700000",
+            "MarginLevel": "5012.402503174315254852167604"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "2315.46000000",
+            "ProjectedMarginAfter": "2315.46000000",
+            "FreeMarginAfter": "97164.69000000",
+            "MarginLevel": "4296.345002720841647016143660"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "1.80",
+          "GrossSELL": "1.50",
+          "NetLotSELLminusBUY": "-0.30",
+          "TotalGrossExposure": "3.30",
+          "UnrealizedMarkNet": "-608.3000000",
+          "UnrealizedCloseNowNet": "-623.1500000",
+          "RealizedCycleAll": "88.45",
+          "RecoveryRealizedA": "-11.55",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "100088.45",
+          "EquityMark": "99480.1500000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "3638.5800000",
+              "ProjectedMarginAfter": "3638.5800000",
+              "FreeMarginAfter": "95841.5700000",
+              "MarginLevel": "2734.037729004171957192091420"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1984.6800000",
+              "ProjectedMarginAfter": "1984.6800000",
+              "FreeMarginAfter": "97495.4700000",
+              "MarginLevel": "5012.402503174315254852167604"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "2315.46000000",
+              "ProjectedMarginAfter": "2315.46000000",
+              "FreeMarginAfter": "97164.69000000",
+              "MarginLevel": "4296.345002720841647016143660"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "300.0000000",
+          "RiskControlSymmetric100pip": "300.0000000",
+          "CycleDrawdown": "0.5198500",
+          "AccountDrawdown": "0.6192307692307692307692307692",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_F0",
+            "role": "FAR",
+            "direction": -1,
+            "volume": "1",
+            "open_price": "1.10000",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": 1,
+            "volume": "1.20",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_T0",
+            "role": "BIG_TREND",
+            "direction": 1,
+            "volume": "0.60",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_S0",
+            "role": "SMALL_BASE",
+            "direction": -1,
+            "volume": "0.50",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 4,
+        "ActionID": "MODEL_FUNDING_AND_FOUR_CAPS",
+        "PositionIdentifier": "UNAVAILABLE",
+        "RoleBefore": "NONE",
+        "RoleAfter": "NONE",
+        "VolumeBefore": "0",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0",
+        "FillStatus": "SYNTHETIC_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_FUNDING_AND_FOUR_CAPS",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "300.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "3638.5800000",
+            "ProjectedMarginAfter": "3638.5800000",
+            "FreeMarginAfter": "95841.5700000",
+            "MarginLevel": "2734.037729004171957192091420"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1984.6800000",
+            "ProjectedMarginAfter": "1984.6800000",
+            "FreeMarginAfter": "97495.4700000",
+            "MarginLevel": "5012.402503174315254852167604"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "2315.46000000",
+            "ProjectedMarginAfter": "2315.46000000",
+            "FreeMarginAfter": "97164.69000000",
+            "MarginLevel": "4296.345002720841647016143660"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "1.80",
+          "GrossSELL": "1.50",
+          "NetLotSELLminusBUY": "-0.30",
+          "TotalGrossExposure": "3.30",
+          "UnrealizedMarkNet": "-608.3000000",
+          "UnrealizedCloseNowNet": "-623.1500000",
+          "RealizedCycleAll": "88.45",
+          "RecoveryRealizedA": "-11.55",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "100088.45",
+          "EquityMark": "99480.1500000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "3638.5800000",
+              "ProjectedMarginAfter": "3638.5800000",
+              "FreeMarginAfter": "95841.5700000",
+              "MarginLevel": "2734.037729004171957192091420"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1984.6800000",
+              "ProjectedMarginAfter": "1984.6800000",
+              "FreeMarginAfter": "97495.4700000",
+              "MarginLevel": "5012.402503174315254852167604"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "2315.46000000",
+              "ProjectedMarginAfter": "2315.46000000",
+              "FreeMarginAfter": "97164.69000000",
+              "MarginLevel": "4296.345002720841647016143660"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "300.0000000",
+          "RiskControlSymmetric100pip": "300.0000000",
+          "CycleDrawdown": "0.5198500",
+          "AccountDrawdown": "0.6192307692307692307692307692",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_F0",
+            "role": "FAR",
+            "direction": -1,
+            "volume": "1",
+            "open_price": "1.10000",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": 1,
+            "volume": "1.20",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_T0",
+            "role": "BIG_TREND",
+            "direction": 1,
+            "volume": "0.60",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_S0",
+            "role": "SMALL_BASE",
+            "direction": -1,
+            "volume": "0.50",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 5,
+        "ActionID": "MODEL_CLOSE_SMALL_BASE",
+        "PositionIdentifier": "MODEL_S0",
+        "RoleBefore": "SMALL_BASE",
+        "RoleAfter": "CLOSED",
+        "VolumeBefore": "0.50",
+        "RequestedClose": "0.50",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0.50",
+        "VolumeAfter": "0.00",
+        "FillStatus": "SYNTHETIC_COMPLETED_MODEL",
+        "DealIDs": "MODEL_ONLY:MODEL_CLOSE_SMALL_BASE",
+        "GrossMoney": "114.5000000",
+        "Costs": "2.250",
+        "DealNet": "112.2500000",
+        "CyclePnL": "-534.7000000",
+        "Risk": "800.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "3087.2800000",
+            "ProjectedMarginAfter": "3087.2800000",
+            "FreeMarginAfter": "96390.6200000",
+            "MarginLevel": "3222.185872353657588556917416"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1984.6800000",
+            "ProjectedMarginAfter": "1984.6800000",
+            "FreeMarginAfter": "97493.2200000",
+            "MarginLevel": "5012.289134772356248866315980"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "2205.2000000",
+            "ProjectedMarginAfter": "2205.2000000",
+            "FreeMarginAfter": "97272.7000000",
+            "MarginLevel": "4511.060221295120623979684382"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "1.80",
+          "GrossSELL": "1",
+          "NetLotSELLminusBUY": "-0.80",
+          "TotalGrossExposure": "2.80",
+          "UnrealizedMarkNet": "-722.8000000",
+          "UnrealizedCloseNowNet": "-735.4000000",
+          "RealizedCycleAll": "200.7000000",
+          "RecoveryRealizedA": "100.7000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "100200.7000000",
+          "EquityMark": "99477.9000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "3087.2800000",
+              "ProjectedMarginAfter": "3087.2800000",
+              "FreeMarginAfter": "96390.6200000",
+              "MarginLevel": "3222.185872353657588556917416"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1984.6800000",
+              "ProjectedMarginAfter": "1984.6800000",
+              "FreeMarginAfter": "97493.2200000",
+              "MarginLevel": "5012.289134772356248866315980"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "2205.2000000",
+              "ProjectedMarginAfter": "2205.2000000",
+              "FreeMarginAfter": "97272.7000000",
+              "MarginLevel": "4511.060221295120623979684382"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "800.0000000",
+          "RiskControlSymmetric100pip": "800.0000000",
+          "CycleDrawdown": "0.5221000",
+          "AccountDrawdown": "0.6214785214785214785214785215",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_F0",
+            "role": "FAR",
+            "direction": -1,
+            "volume": "1",
+            "open_price": "1.10000",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": 1,
+            "volume": "1.20",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_T0",
+            "role": "BIG_TREND",
+            "direction": 1,
+            "volume": "0.60",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 6,
+        "ActionID": "MODEL_CONFIRM_SMALL_BASE",
+        "PositionIdentifier": "MODEL_S0",
+        "RoleBefore": "SMALL_BASE",
+        "RoleAfter": "SMALL_BASE",
+        "VolumeBefore": "0.50",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0.50",
+        "FillStatus": "SYNTHETIC_CONFIRM_MODEL",
+        "DealIDs": "MODEL_ONLY:MODEL_CONFIRM_SMALL_BASE",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "800.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "3087.2800000",
+            "ProjectedMarginAfter": "3087.2800000",
+            "FreeMarginAfter": "96390.6200000",
+            "MarginLevel": "3222.185872353657588556917416"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1984.6800000",
+            "ProjectedMarginAfter": "1984.6800000",
+            "FreeMarginAfter": "97493.2200000",
+            "MarginLevel": "5012.289134772356248866315980"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "2205.2000000",
+            "ProjectedMarginAfter": "2205.2000000",
+            "FreeMarginAfter": "97272.7000000",
+            "MarginLevel": "4511.060221295120623979684382"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "1.80",
+          "GrossSELL": "1",
+          "NetLotSELLminusBUY": "-0.80",
+          "TotalGrossExposure": "2.80",
+          "UnrealizedMarkNet": "-722.8000000",
+          "UnrealizedCloseNowNet": "-735.4000000",
+          "RealizedCycleAll": "200.7000000",
+          "RecoveryRealizedA": "100.7000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "100200.7000000",
+          "EquityMark": "99477.9000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "3087.2800000",
+              "ProjectedMarginAfter": "3087.2800000",
+              "FreeMarginAfter": "96390.6200000",
+              "MarginLevel": "3222.185872353657588556917416"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1984.6800000",
+              "ProjectedMarginAfter": "1984.6800000",
+              "FreeMarginAfter": "97493.2200000",
+              "MarginLevel": "5012.289134772356248866315980"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "2205.2000000",
+              "ProjectedMarginAfter": "2205.2000000",
+              "FreeMarginAfter": "97272.7000000",
+              "MarginLevel": "4511.060221295120623979684382"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "800.0000000",
+          "RiskControlSymmetric100pip": "800.0000000",
+          "CycleDrawdown": "0.5221000",
+          "AccountDrawdown": "0.6214785214785214785214785215",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_F0",
+            "role": "FAR",
+            "direction": -1,
+            "volume": "1",
+            "open_price": "1.10000",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": 1,
+            "volume": "1.20",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_T0",
+            "role": "BIG_TREND",
+            "direction": 1,
+            "volume": "0.60",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 7,
+        "ActionID": "MODEL_CLOSE_FAR",
+        "PositionIdentifier": "MODEL_F0",
+        "RoleBefore": "FAR",
+        "RoleAfter": "CLOSED",
+        "VolumeBefore": "1",
+        "RequestedClose": "1",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "1",
+        "VolumeAfter": "0",
+        "FillStatus": "SYNTHETIC_COMPLETED_MODEL",
+        "DealIDs": "MODEL_ONLY:MODEL_CLOSE_FAR",
+        "GrossMoney": "-271.00000",
+        "Costs": "4.5",
+        "DealNet": "-275.50000",
+        "CyclePnL": "-534.7000000",
+        "Risk": "1800.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "1984.6800000",
+            "ProjectedMarginAfter": "1984.6800000",
+            "FreeMarginAfter": "97488.7200000",
+            "MarginLevel": "5012.062397968438236894612734"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1984.6800000",
+            "ProjectedMarginAfter": "1984.6800000",
+            "FreeMarginAfter": "97488.7200000",
+            "MarginLevel": "5012.062397968438236894612734"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "1984.6800000",
+            "ProjectedMarginAfter": "1984.6800000",
+            "FreeMarginAfter": "97488.7200000",
+            "MarginLevel": "5012.062397968438236894612734"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "1.80",
+          "GrossSELL": "0",
+          "NetLotSELLminusBUY": "-1.80",
+          "TotalGrossExposure": "1.80",
+          "UnrealizedMarkNet": "-451.8000000",
+          "UnrealizedCloseNowNet": "-459.9000000",
+          "RealizedCycleAll": "-74.8000000",
+          "RecoveryRealizedA": "-174.8000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99925.2000000",
+          "EquityMark": "99473.4000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "1984.6800000",
+              "ProjectedMarginAfter": "1984.6800000",
+              "FreeMarginAfter": "97488.7200000",
+              "MarginLevel": "5012.062397968438236894612734"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1984.6800000",
+              "ProjectedMarginAfter": "1984.6800000",
+              "FreeMarginAfter": "97488.7200000",
+              "MarginLevel": "5012.062397968438236894612734"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "1984.6800000",
+              "ProjectedMarginAfter": "1984.6800000",
+              "FreeMarginAfter": "97488.7200000",
+              "MarginLevel": "5012.062397968438236894612734"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "1800.0000000",
+          "RiskControlSymmetric100pip": "1800.0000000",
+          "CycleDrawdown": "0.5266000",
+          "AccountDrawdown": "0.6259740259740259740259740260",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": 1,
+            "volume": "1.20",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_T0",
+            "role": "BIG_TREND",
+            "direction": 1,
+            "volume": "0.60",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 8,
+        "ActionID": "MODEL_CONFIRM_FAR",
+        "PositionIdentifier": "MODEL_F0",
+        "RoleBefore": "FAR",
+        "RoleAfter": "FAR",
+        "VolumeBefore": "1",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "1",
+        "FillStatus": "SYNTHETIC_CONFIRM_MODEL",
+        "DealIDs": "MODEL_ONLY:MODEL_CONFIRM_FAR",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "1800.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "1984.6800000",
+            "ProjectedMarginAfter": "1984.6800000",
+            "FreeMarginAfter": "97488.7200000",
+            "MarginLevel": "5012.062397968438236894612734"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1984.6800000",
+            "ProjectedMarginAfter": "1984.6800000",
+            "FreeMarginAfter": "97488.7200000",
+            "MarginLevel": "5012.062397968438236894612734"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "1984.6800000",
+            "ProjectedMarginAfter": "1984.6800000",
+            "FreeMarginAfter": "97488.7200000",
+            "MarginLevel": "5012.062397968438236894612734"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "1.80",
+          "GrossSELL": "0",
+          "NetLotSELLminusBUY": "-1.80",
+          "TotalGrossExposure": "1.80",
+          "UnrealizedMarkNet": "-451.8000000",
+          "UnrealizedCloseNowNet": "-459.9000000",
+          "RealizedCycleAll": "-74.8000000",
+          "RecoveryRealizedA": "-174.8000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99925.2000000",
+          "EquityMark": "99473.4000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "1984.6800000",
+              "ProjectedMarginAfter": "1984.6800000",
+              "FreeMarginAfter": "97488.7200000",
+              "MarginLevel": "5012.062397968438236894612734"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1984.6800000",
+              "ProjectedMarginAfter": "1984.6800000",
+              "FreeMarginAfter": "97488.7200000",
+              "MarginLevel": "5012.062397968438236894612734"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "1984.6800000",
+              "ProjectedMarginAfter": "1984.6800000",
+              "FreeMarginAfter": "97488.7200000",
+              "MarginLevel": "5012.062397968438236894612734"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "1800.0000000",
+          "RiskControlSymmetric100pip": "1800.0000000",
+          "CycleDrawdown": "0.5266000",
+          "AccountDrawdown": "0.6259740259740259740259740260",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": 1,
+            "volume": "1.20",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_T0",
+            "role": "BIG_TREND",
+            "direction": 1,
+            "volume": "0.60",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 9,
+        "ActionID": "MODEL_CLOSE_BIG_TREND",
+        "PositionIdentifier": "MODEL_T0",
+        "RoleBefore": "BIG_TREND",
+        "RoleAfter": "CLOSED",
+        "VolumeBefore": "0.60",
+        "RequestedClose": "0.60",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0.60",
+        "VolumeAfter": "0.00",
+        "FillStatus": "SYNTHETIC_COMPLETED_MODEL",
+        "DealIDs": "MODEL_ONLY:MODEL_CLOSE_BIG_TREND",
+        "GrossMoney": "-150.6000000",
+        "Costs": "2.700",
+        "DealNet": "-153.3000000",
+        "CyclePnL": "-534.7000000",
+        "Risk": "1200.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "1323.1200000",
+            "ProjectedMarginAfter": "1323.1200000",
+            "FreeMarginAfter": "98147.5800000",
+            "MarginLevel": "7517.889533829131144567386178"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1323.1200000",
+            "ProjectedMarginAfter": "1323.1200000",
+            "FreeMarginAfter": "98147.5800000",
+            "MarginLevel": "7517.889533829131144567386178"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "1323.1200000",
+            "ProjectedMarginAfter": "1323.1200000",
+            "FreeMarginAfter": "98147.5800000",
+            "MarginLevel": "7517.889533829131144567386178"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "1.20",
+          "GrossSELL": "0",
+          "NetLotSELLminusBUY": "-1.20",
+          "TotalGrossExposure": "1.20",
+          "UnrealizedMarkNet": "-301.2000000",
+          "UnrealizedCloseNowNet": "-306.6000000",
+          "RealizedCycleAll": "-228.1000000",
+          "RecoveryRealizedA": "-328.1000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99771.9000000",
+          "EquityMark": "99470.7000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "1323.1200000",
+              "ProjectedMarginAfter": "1323.1200000",
+              "FreeMarginAfter": "98147.5800000",
+              "MarginLevel": "7517.889533829131144567386178"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1323.1200000",
+              "ProjectedMarginAfter": "1323.1200000",
+              "FreeMarginAfter": "98147.5800000",
+              "MarginLevel": "7517.889533829131144567386178"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "1323.1200000",
+              "ProjectedMarginAfter": "1323.1200000",
+              "FreeMarginAfter": "98147.5800000",
+              "MarginLevel": "7517.889533829131144567386178"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "1200.0000000",
+          "RiskControlSymmetric100pip": "1200.0000000",
+          "CycleDrawdown": "0.5293000",
+          "AccountDrawdown": "0.6286713286713286713286713287",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": 1,
+            "volume": "1.20",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 10,
+        "ActionID": "MODEL_CONFIRM_BIG_TREND",
+        "PositionIdentifier": "MODEL_T0",
+        "RoleBefore": "BIG_TREND",
+        "RoleAfter": "BIG_TREND",
+        "VolumeBefore": "0.60",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0.60",
+        "FillStatus": "SYNTHETIC_CONFIRM_MODEL",
+        "DealIDs": "MODEL_ONLY:MODEL_CONFIRM_BIG_TREND",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "1200.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "1323.1200000",
+            "ProjectedMarginAfter": "1323.1200000",
+            "FreeMarginAfter": "98147.5800000",
+            "MarginLevel": "7517.889533829131144567386178"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1323.1200000",
+            "ProjectedMarginAfter": "1323.1200000",
+            "FreeMarginAfter": "98147.5800000",
+            "MarginLevel": "7517.889533829131144567386178"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "1323.1200000",
+            "ProjectedMarginAfter": "1323.1200000",
+            "FreeMarginAfter": "98147.5800000",
+            "MarginLevel": "7517.889533829131144567386178"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "1.20",
+          "GrossSELL": "0",
+          "NetLotSELLminusBUY": "-1.20",
+          "TotalGrossExposure": "1.20",
+          "UnrealizedMarkNet": "-301.2000000",
+          "UnrealizedCloseNowNet": "-306.6000000",
+          "RealizedCycleAll": "-228.1000000",
+          "RecoveryRealizedA": "-328.1000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99771.9000000",
+          "EquityMark": "99470.7000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "1323.1200000",
+              "ProjectedMarginAfter": "1323.1200000",
+              "FreeMarginAfter": "98147.5800000",
+              "MarginLevel": "7517.889533829131144567386178"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1323.1200000",
+              "ProjectedMarginAfter": "1323.1200000",
+              "FreeMarginAfter": "98147.5800000",
+              "MarginLevel": "7517.889533829131144567386178"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "1323.1200000",
+              "ProjectedMarginAfter": "1323.1200000",
+              "FreeMarginAfter": "98147.5800000",
+              "MarginLevel": "7517.889533829131144567386178"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "1200.0000000",
+          "RiskControlSymmetric100pip": "1200.0000000",
+          "CycleDrawdown": "0.5293000",
+          "AccountDrawdown": "0.6286713286713286713286713287",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": 1,
+            "volume": "1.20",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 11,
+        "ActionID": "MODEL_CLOSE_BIG_CORE",
+        "PositionIdentifier": "MODEL_C0",
+        "RoleBefore": "BIG_CORE",
+        "RoleAfter": "BIG_CORE",
+        "VolumeBefore": "1.20",
+        "RequestedClose": "0.80",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0.80",
+        "VolumeAfter": "0.40",
+        "FillStatus": "SYNTHETIC_COMPLETED_MODEL",
+        "DealIDs": "MODEL_ONLY:MODEL_CLOSE_BIG_CORE",
+        "GrossMoney": "-200.8000000",
+        "Costs": "3.600",
+        "DealNet": "-204.4000000",
+        "CyclePnL": "-534.7000000",
+        "Risk": "400.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0.40",
+          "GrossSELL": "0",
+          "NetLotSELLminusBUY": "-0.40",
+          "TotalGrossExposure": "0.40",
+          "UnrealizedMarkNet": "-100.4000000",
+          "UnrealizedCloseNowNet": "-102.2000000",
+          "RealizedCycleAll": "-432.5000000",
+          "RecoveryRealizedA": "-532.5000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99567.5000000",
+          "EquityMark": "99467.1000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "400.0000000",
+          "RiskControlSymmetric100pip": "400.0000000",
+          "CycleDrawdown": "0.5329000",
+          "AccountDrawdown": "0.6322677322677322677322677323",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": 1,
+            "volume": "0.40",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 12,
+        "ActionID": "MODEL_CONFIRM_BIG_CORE",
+        "PositionIdentifier": "MODEL_C0",
+        "RoleBefore": "BIG_CORE",
+        "RoleAfter": "BIG_CORE",
+        "VolumeBefore": "1.20",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "1.20",
+        "FillStatus": "SYNTHETIC_CONFIRM_MODEL",
+        "DealIDs": "MODEL_ONLY:MODEL_CONFIRM_BIG_CORE",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "400.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0.40",
+          "GrossSELL": "0",
+          "NetLotSELLminusBUY": "-0.40",
+          "TotalGrossExposure": "0.40",
+          "UnrealizedMarkNet": "-100.4000000",
+          "UnrealizedCloseNowNet": "-102.2000000",
+          "RealizedCycleAll": "-432.5000000",
+          "RecoveryRealizedA": "-532.5000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99567.5000000",
+          "EquityMark": "99467.1000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "400.0000000",
+          "RiskControlSymmetric100pip": "400.0000000",
+          "CycleDrawdown": "0.5329000",
+          "AccountDrawdown": "0.6322677322677322677322677323",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": 1,
+            "volume": "0.40",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 13,
+        "ActionID": "MODEL_READ_ACTUAL_RESIDUAL",
+        "PositionIdentifier": "MODEL_C0",
+        "RoleBefore": "BIG_CORE",
+        "RoleAfter": "BIG_CORE",
+        "VolumeBefore": "0.40",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0.40",
+        "FillStatus": "SYNTHETIC_COUNTERFACTUAL_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_READ_ACTUAL_RESIDUAL",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "400.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0.40",
+          "GrossSELL": "0",
+          "NetLotSELLminusBUY": "-0.40",
+          "TotalGrossExposure": "0.40",
+          "UnrealizedMarkNet": "-100.4000000",
+          "UnrealizedCloseNowNet": "-102.2000000",
+          "RealizedCycleAll": "-432.5000000",
+          "RecoveryRealizedA": "-532.5000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99567.5000000",
+          "EquityMark": "99467.1000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "400.0000000",
+          "RiskControlSymmetric100pip": "400.0000000",
+          "CycleDrawdown": "0.5329000",
+          "AccountDrawdown": "0.6322677322677322677322677323",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": 1,
+            "volume": "0.40",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 14,
+        "ActionID": "MODEL_NEWFAR_SOLVER",
+        "PositionIdentifier": "MODEL_C0",
+        "RoleBefore": "BIG_CORE",
+        "RoleAfter": "BIG_CORE",
+        "VolumeBefore": "0.40",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0.40",
+        "FillStatus": "SYNTHETIC_COUNTERFACTUAL_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_NEWFAR_SOLVER",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "400.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0.40",
+          "GrossSELL": "0",
+          "NetLotSELLminusBUY": "-0.40",
+          "TotalGrossExposure": "0.40",
+          "UnrealizedMarkNet": "-100.4000000",
+          "UnrealizedCloseNowNet": "-102.2000000",
+          "RealizedCycleAll": "-432.5000000",
+          "RecoveryRealizedA": "-532.5000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99567.5000000",
+          "EquityMark": "99467.1000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "400.0000000",
+          "RiskControlSymmetric100pip": "400.0000000",
+          "CycleDrawdown": "0.5329000",
+          "AccountDrawdown": "0.6322677322677322677322677323",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": 1,
+            "volume": "0.40",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 15,
+        "ActionID": "MODEL_PROMOTION",
+        "PositionIdentifier": "MODEL_C0",
+        "RoleBefore": "BIG_CORE",
+        "RoleAfter": "FAR",
+        "VolumeBefore": "0.40",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0.40",
+        "FillStatus": "SYNTHETIC_COUNTERFACTUAL_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_PROMOTION",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "400.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0.40",
+          "GrossSELL": "0",
+          "NetLotSELLminusBUY": "-0.40",
+          "TotalGrossExposure": "0.40",
+          "UnrealizedMarkNet": "-100.4000000",
+          "UnrealizedCloseNowNet": "-102.2000000",
+          "RealizedCycleAll": "-432.5000000",
+          "RecoveryRealizedA": "-532.5000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99567.5000000",
+          "EquityMark": "99467.1000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "400.0000000",
+          "RiskControlSymmetric100pip": "400.0000000",
+          "CycleDrawdown": "0.5329000",
+          "AccountDrawdown": "0.6322677322677322677322677323",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "FAR",
+            "direction": 1,
+            "volume": "0.40",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 16,
+        "ActionID": "MODEL_PERSIST",
+        "PositionIdentifier": "MODEL_C0",
+        "RoleBefore": "FAR",
+        "RoleAfter": "FAR",
+        "VolumeBefore": "0.40",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0.40",
+        "FillStatus": "SYNTHETIC_COUNTERFACTUAL_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_PERSIST",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "400.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0.40",
+          "GrossSELL": "0",
+          "NetLotSELLminusBUY": "-0.40",
+          "TotalGrossExposure": "0.40",
+          "UnrealizedMarkNet": "-100.4000000",
+          "UnrealizedCloseNowNet": "-102.2000000",
+          "RealizedCycleAll": "-432.5000000",
+          "RecoveryRealizedA": "-532.5000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99567.5000000",
+          "EquityMark": "99467.1000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "400.0000000",
+          "RiskControlSymmetric100pip": "400.0000000",
+          "CycleDrawdown": "0.5329000",
+          "AccountDrawdown": "0.6322677322677322677322677323",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "FAR",
+            "direction": 1,
+            "volume": "0.40",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 17,
+        "ActionID": "MODEL_RECONCILIATION",
+        "PositionIdentifier": "MODEL_C0",
+        "RoleBefore": "FAR",
+        "RoleAfter": "FAR",
+        "VolumeBefore": "0.40",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0.40",
+        "FillStatus": "SYNTHETIC_COUNTERFACTUAL_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_RECONCILIATION",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "400.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0.40",
+          "GrossSELL": "0",
+          "NetLotSELLminusBUY": "-0.40",
+          "TotalGrossExposure": "0.40",
+          "UnrealizedMarkNet": "-100.4000000",
+          "UnrealizedCloseNowNet": "-102.2000000",
+          "RealizedCycleAll": "-432.5000000",
+          "RecoveryRealizedA": "-532.5000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99567.5000000",
+          "EquityMark": "99467.1000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "400.0000000",
+          "RiskControlSymmetric100pip": "400.0000000",
+          "CycleDrawdown": "0.5329000",
+          "AccountDrawdown": "0.6322677322677322677322677323",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "FAR",
+            "direction": 1,
+            "volume": "0.40",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 18,
+        "ActionID": "MODEL_NEXT_STATE",
+        "PositionIdentifier": "MODEL_C0",
+        "RoleBefore": "FAR",
+        "RoleAfter": "FAR",
+        "VolumeBefore": "0.40",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0.40",
+        "FillStatus": "SYNTHETIC_COUNTERFACTUAL_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_NEXT_STATE",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "400.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "441.0400000",
+            "ProjectedMarginAfter": "441.0400000",
+            "FreeMarginAfter": "99026.0600000",
+            "MarginLevel": "22552.85234899328859060402685"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0.40",
+          "GrossSELL": "0",
+          "NetLotSELLminusBUY": "-0.40",
+          "TotalGrossExposure": "0.40",
+          "UnrealizedMarkNet": "-100.4000000",
+          "UnrealizedCloseNowNet": "-102.2000000",
+          "RealizedCycleAll": "-432.5000000",
+          "RecoveryRealizedA": "-532.5000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99567.5000000",
+          "EquityMark": "99467.1000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "441.0400000",
+              "ProjectedMarginAfter": "441.0400000",
+              "FreeMarginAfter": "99026.0600000",
+              "MarginLevel": "22552.85234899328859060402685"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "400.0000000",
+          "RiskControlSymmetric100pip": "400.0000000",
+          "CycleDrawdown": "0.5329000",
+          "AccountDrawdown": "0.6322677322677322677322677323",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "FAR",
+            "direction": 1,
+            "volume": "0.40",
+            "open_price": "1.10500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      }
+    ],
+    "ClosingNet": "-520.9500000",
+    "ResidualNet": "-102.2000000",
+    "FullBasketNet": "-623.1500000",
+    "RealBrokerFills": 0
+  },
+  {
+    "Status": "COUNTERFACTUAL_ONLY_NOT_SOLVER_SELECTED",
+    "N": "0.4",
+    "Direction": 1,
+    "Rows": [
+      {
+        "Step": 1,
+        "ActionID": "MODEL_REVALIDATION",
+        "PositionIdentifier": "UNAVAILABLE",
+        "RoleBefore": "NONE",
+        "RoleAfter": "NONE",
+        "VolumeBefore": "0",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0",
+        "FillStatus": "SYNTHETIC_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_REVALIDATION",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "300.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "3621.4200000",
+            "ProjectedMarginAfter": "3621.4200000",
+            "FreeMarginAfter": "95858.7300000",
+            "MarginLevel": "2746.992892290869327501366867"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1975.3200000",
+            "ProjectedMarginAfter": "1975.3200000",
+            "FreeMarginAfter": "97504.8300000",
+            "MarginLevel": "5036.153635866593767085839256"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "2304.54000000",
+            "ProjectedMarginAfter": "2304.54000000",
+            "FreeMarginAfter": "97175.61000000",
+            "MarginLevel": "4316.703116457080371787862220"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "1.50",
+          "GrossSELL": "1.80",
+          "NetLotSELLminusBUY": "0.30",
+          "TotalGrossExposure": "3.30",
+          "UnrealizedMarkNet": "-608.3000000",
+          "UnrealizedCloseNowNet": "-623.1500000",
+          "RealizedCycleAll": "88.45",
+          "RecoveryRealizedA": "-11.55",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "100088.45",
+          "EquityMark": "99480.1500000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "3621.4200000",
+              "ProjectedMarginAfter": "3621.4200000",
+              "FreeMarginAfter": "95858.7300000",
+              "MarginLevel": "2746.992892290869327501366867"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1975.3200000",
+              "ProjectedMarginAfter": "1975.3200000",
+              "FreeMarginAfter": "97504.8300000",
+              "MarginLevel": "5036.153635866593767085839256"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "2304.54000000",
+              "ProjectedMarginAfter": "2304.54000000",
+              "FreeMarginAfter": "97175.61000000",
+              "MarginLevel": "4316.703116457080371787862220"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "300.0000000",
+          "RiskControlSymmetric100pip": "300.0000000",
+          "CycleDrawdown": "0.5198500",
+          "AccountDrawdown": "0.6192307692307692307692307692",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_F0",
+            "role": "FAR",
+            "direction": 1,
+            "volume": "1",
+            "open_price": "1.10000",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": -1,
+            "volume": "1.20",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_T0",
+            "role": "BIG_TREND",
+            "direction": -1,
+            "volume": "0.60",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_S0",
+            "role": "SMALL_BASE",
+            "direction": 1,
+            "volume": "0.50",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 2,
+        "ActionID": "MODEL_IMMUTABLE_PLAN",
+        "PositionIdentifier": "UNAVAILABLE",
+        "RoleBefore": "NONE",
+        "RoleAfter": "NONE",
+        "VolumeBefore": "0",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0",
+        "FillStatus": "SYNTHETIC_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_IMMUTABLE_PLAN",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "300.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "3621.4200000",
+            "ProjectedMarginAfter": "3621.4200000",
+            "FreeMarginAfter": "95858.7300000",
+            "MarginLevel": "2746.992892290869327501366867"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1975.3200000",
+            "ProjectedMarginAfter": "1975.3200000",
+            "FreeMarginAfter": "97504.8300000",
+            "MarginLevel": "5036.153635866593767085839256"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "2304.54000000",
+            "ProjectedMarginAfter": "2304.54000000",
+            "FreeMarginAfter": "97175.61000000",
+            "MarginLevel": "4316.703116457080371787862220"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "1.50",
+          "GrossSELL": "1.80",
+          "NetLotSELLminusBUY": "0.30",
+          "TotalGrossExposure": "3.30",
+          "UnrealizedMarkNet": "-608.3000000",
+          "UnrealizedCloseNowNet": "-623.1500000",
+          "RealizedCycleAll": "88.45",
+          "RecoveryRealizedA": "-11.55",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "100088.45",
+          "EquityMark": "99480.1500000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "3621.4200000",
+              "ProjectedMarginAfter": "3621.4200000",
+              "FreeMarginAfter": "95858.7300000",
+              "MarginLevel": "2746.992892290869327501366867"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1975.3200000",
+              "ProjectedMarginAfter": "1975.3200000",
+              "FreeMarginAfter": "97504.8300000",
+              "MarginLevel": "5036.153635866593767085839256"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "2304.54000000",
+              "ProjectedMarginAfter": "2304.54000000",
+              "FreeMarginAfter": "97175.61000000",
+              "MarginLevel": "4316.703116457080371787862220"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "300.0000000",
+          "RiskControlSymmetric100pip": "300.0000000",
+          "CycleDrawdown": "0.5198500",
+          "AccountDrawdown": "0.6192307692307692307692307692",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_F0",
+            "role": "FAR",
+            "direction": 1,
+            "volume": "1",
+            "open_price": "1.10000",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": -1,
+            "volume": "1.20",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_T0",
+            "role": "BIG_TREND",
+            "direction": -1,
+            "volume": "0.60",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_S0",
+            "role": "SMALL_BASE",
+            "direction": 1,
+            "volume": "0.50",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 3,
+        "ActionID": "MODEL_TRIGGER_HOLD_RETRACE_DEBOUNCE",
+        "PositionIdentifier": "UNAVAILABLE",
+        "RoleBefore": "NONE",
+        "RoleAfter": "NONE",
+        "VolumeBefore": "0",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0",
+        "FillStatus": "SYNTHETIC_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_TRIGGER_HOLD_RETRACE_DEBOUNCE",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "300.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "3621.4200000",
+            "ProjectedMarginAfter": "3621.4200000",
+            "FreeMarginAfter": "95858.7300000",
+            "MarginLevel": "2746.992892290869327501366867"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1975.3200000",
+            "ProjectedMarginAfter": "1975.3200000",
+            "FreeMarginAfter": "97504.8300000",
+            "MarginLevel": "5036.153635866593767085839256"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "2304.54000000",
+            "ProjectedMarginAfter": "2304.54000000",
+            "FreeMarginAfter": "97175.61000000",
+            "MarginLevel": "4316.703116457080371787862220"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "1.50",
+          "GrossSELL": "1.80",
+          "NetLotSELLminusBUY": "0.30",
+          "TotalGrossExposure": "3.30",
+          "UnrealizedMarkNet": "-608.3000000",
+          "UnrealizedCloseNowNet": "-623.1500000",
+          "RealizedCycleAll": "88.45",
+          "RecoveryRealizedA": "-11.55",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "100088.45",
+          "EquityMark": "99480.1500000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "3621.4200000",
+              "ProjectedMarginAfter": "3621.4200000",
+              "FreeMarginAfter": "95858.7300000",
+              "MarginLevel": "2746.992892290869327501366867"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1975.3200000",
+              "ProjectedMarginAfter": "1975.3200000",
+              "FreeMarginAfter": "97504.8300000",
+              "MarginLevel": "5036.153635866593767085839256"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "2304.54000000",
+              "ProjectedMarginAfter": "2304.54000000",
+              "FreeMarginAfter": "97175.61000000",
+              "MarginLevel": "4316.703116457080371787862220"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "300.0000000",
+          "RiskControlSymmetric100pip": "300.0000000",
+          "CycleDrawdown": "0.5198500",
+          "AccountDrawdown": "0.6192307692307692307692307692",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_F0",
+            "role": "FAR",
+            "direction": 1,
+            "volume": "1",
+            "open_price": "1.10000",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": -1,
+            "volume": "1.20",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_T0",
+            "role": "BIG_TREND",
+            "direction": -1,
+            "volume": "0.60",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_S0",
+            "role": "SMALL_BASE",
+            "direction": 1,
+            "volume": "0.50",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 4,
+        "ActionID": "MODEL_FUNDING_AND_FOUR_CAPS",
+        "PositionIdentifier": "UNAVAILABLE",
+        "RoleBefore": "NONE",
+        "RoleAfter": "NONE",
+        "VolumeBefore": "0",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0",
+        "FillStatus": "SYNTHETIC_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_FUNDING_AND_FOUR_CAPS",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "300.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "3621.4200000",
+            "ProjectedMarginAfter": "3621.4200000",
+            "FreeMarginAfter": "95858.7300000",
+            "MarginLevel": "2746.992892290869327501366867"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1975.3200000",
+            "ProjectedMarginAfter": "1975.3200000",
+            "FreeMarginAfter": "97504.8300000",
+            "MarginLevel": "5036.153635866593767085839256"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "2304.54000000",
+            "ProjectedMarginAfter": "2304.54000000",
+            "FreeMarginAfter": "97175.61000000",
+            "MarginLevel": "4316.703116457080371787862220"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "1.50",
+          "GrossSELL": "1.80",
+          "NetLotSELLminusBUY": "0.30",
+          "TotalGrossExposure": "3.30",
+          "UnrealizedMarkNet": "-608.3000000",
+          "UnrealizedCloseNowNet": "-623.1500000",
+          "RealizedCycleAll": "88.45",
+          "RecoveryRealizedA": "-11.55",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "100088.45",
+          "EquityMark": "99480.1500000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "3621.4200000",
+              "ProjectedMarginAfter": "3621.4200000",
+              "FreeMarginAfter": "95858.7300000",
+              "MarginLevel": "2746.992892290869327501366867"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1975.3200000",
+              "ProjectedMarginAfter": "1975.3200000",
+              "FreeMarginAfter": "97504.8300000",
+              "MarginLevel": "5036.153635866593767085839256"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "2304.54000000",
+              "ProjectedMarginAfter": "2304.54000000",
+              "FreeMarginAfter": "97175.61000000",
+              "MarginLevel": "4316.703116457080371787862220"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "300.0000000",
+          "RiskControlSymmetric100pip": "300.0000000",
+          "CycleDrawdown": "0.5198500",
+          "AccountDrawdown": "0.6192307692307692307692307692",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_F0",
+            "role": "FAR",
+            "direction": 1,
+            "volume": "1",
+            "open_price": "1.10000",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": -1,
+            "volume": "1.20",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_T0",
+            "role": "BIG_TREND",
+            "direction": -1,
+            "volume": "0.60",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_S0",
+            "role": "SMALL_BASE",
+            "direction": 1,
+            "volume": "0.50",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 5,
+        "ActionID": "MODEL_CLOSE_SMALL_BASE",
+        "PositionIdentifier": "MODEL_S0",
+        "RoleBefore": "SMALL_BASE",
+        "RoleAfter": "CLOSED",
+        "VolumeBefore": "0.50",
+        "RequestedClose": "0.50",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0.50",
+        "VolumeAfter": "0.00",
+        "FillStatus": "SYNTHETIC_COMPLETED_MODEL",
+        "DealIDs": "MODEL_ONLY:MODEL_CLOSE_SMALL_BASE",
+        "GrossMoney": "114.5000000",
+        "Costs": "2.250",
+        "DealNet": "112.2500000",
+        "CyclePnL": "-534.7000000",
+        "Risk": "800.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "3072.7200000",
+            "ProjectedMarginAfter": "3072.7200000",
+            "FreeMarginAfter": "96405.1800000",
+            "MarginLevel": "3237.454112317425603374209170"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1975.3200000",
+            "ProjectedMarginAfter": "1975.3200000",
+            "FreeMarginAfter": "97502.5800000",
+            "MarginLevel": "5036.039730271550938582103153"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "2194.8000000",
+            "ProjectedMarginAfter": "2194.8000000",
+            "FreeMarginAfter": "97283.1000000",
+            "MarginLevel": "4532.435757244395844723892838"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "1",
+          "GrossSELL": "1.80",
+          "NetLotSELLminusBUY": "0.80",
+          "TotalGrossExposure": "2.80",
+          "UnrealizedMarkNet": "-722.8000000",
+          "UnrealizedCloseNowNet": "-735.4000000",
+          "RealizedCycleAll": "200.7000000",
+          "RecoveryRealizedA": "100.7000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "100200.7000000",
+          "EquityMark": "99477.9000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "3072.7200000",
+              "ProjectedMarginAfter": "3072.7200000",
+              "FreeMarginAfter": "96405.1800000",
+              "MarginLevel": "3237.454112317425603374209170"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1975.3200000",
+              "ProjectedMarginAfter": "1975.3200000",
+              "FreeMarginAfter": "97502.5800000",
+              "MarginLevel": "5036.039730271550938582103153"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "2194.8000000",
+              "ProjectedMarginAfter": "2194.8000000",
+              "FreeMarginAfter": "97283.1000000",
+              "MarginLevel": "4532.435757244395844723892838"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "800.0000000",
+          "RiskControlSymmetric100pip": "800.0000000",
+          "CycleDrawdown": "0.5221000",
+          "AccountDrawdown": "0.6214785214785214785214785215",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_F0",
+            "role": "FAR",
+            "direction": 1,
+            "volume": "1",
+            "open_price": "1.10000",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": -1,
+            "volume": "1.20",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_T0",
+            "role": "BIG_TREND",
+            "direction": -1,
+            "volume": "0.60",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 6,
+        "ActionID": "MODEL_CONFIRM_SMALL_BASE",
+        "PositionIdentifier": "MODEL_S0",
+        "RoleBefore": "SMALL_BASE",
+        "RoleAfter": "SMALL_BASE",
+        "VolumeBefore": "0.50",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0.50",
+        "FillStatus": "SYNTHETIC_CONFIRM_MODEL",
+        "DealIDs": "MODEL_ONLY:MODEL_CONFIRM_SMALL_BASE",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "800.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "3072.7200000",
+            "ProjectedMarginAfter": "3072.7200000",
+            "FreeMarginAfter": "96405.1800000",
+            "MarginLevel": "3237.454112317425603374209170"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1975.3200000",
+            "ProjectedMarginAfter": "1975.3200000",
+            "FreeMarginAfter": "97502.5800000",
+            "MarginLevel": "5036.039730271550938582103153"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "2194.8000000",
+            "ProjectedMarginAfter": "2194.8000000",
+            "FreeMarginAfter": "97283.1000000",
+            "MarginLevel": "4532.435757244395844723892838"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "1",
+          "GrossSELL": "1.80",
+          "NetLotSELLminusBUY": "0.80",
+          "TotalGrossExposure": "2.80",
+          "UnrealizedMarkNet": "-722.8000000",
+          "UnrealizedCloseNowNet": "-735.4000000",
+          "RealizedCycleAll": "200.7000000",
+          "RecoveryRealizedA": "100.7000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "100200.7000000",
+          "EquityMark": "99477.9000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "3072.7200000",
+              "ProjectedMarginAfter": "3072.7200000",
+              "FreeMarginAfter": "96405.1800000",
+              "MarginLevel": "3237.454112317425603374209170"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1975.3200000",
+              "ProjectedMarginAfter": "1975.3200000",
+              "FreeMarginAfter": "97502.5800000",
+              "MarginLevel": "5036.039730271550938582103153"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "2194.8000000",
+              "ProjectedMarginAfter": "2194.8000000",
+              "FreeMarginAfter": "97283.1000000",
+              "MarginLevel": "4532.435757244395844723892838"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "800.0000000",
+          "RiskControlSymmetric100pip": "800.0000000",
+          "CycleDrawdown": "0.5221000",
+          "AccountDrawdown": "0.6214785214785214785214785215",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_F0",
+            "role": "FAR",
+            "direction": 1,
+            "volume": "1",
+            "open_price": "1.10000",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": -1,
+            "volume": "1.20",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_T0",
+            "role": "BIG_TREND",
+            "direction": -1,
+            "volume": "0.60",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 7,
+        "ActionID": "MODEL_CLOSE_FAR",
+        "PositionIdentifier": "MODEL_F0",
+        "RoleBefore": "FAR",
+        "RoleAfter": "CLOSED",
+        "VolumeBefore": "1",
+        "RequestedClose": "1",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "1",
+        "VolumeAfter": "0",
+        "FillStatus": "SYNTHETIC_COMPLETED_MODEL",
+        "DealIDs": "MODEL_ONLY:MODEL_CLOSE_FAR",
+        "GrossMoney": "-271.00000",
+        "Costs": "4.5",
+        "DealNet": "-275.50000",
+        "CyclePnL": "-534.7000000",
+        "Risk": "1800.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "1975.3200000",
+            "ProjectedMarginAfter": "1975.3200000",
+            "FreeMarginAfter": "97498.0800000",
+            "MarginLevel": "5035.811919081465281574630946"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1975.3200000",
+            "ProjectedMarginAfter": "1975.3200000",
+            "FreeMarginAfter": "97498.0800000",
+            "MarginLevel": "5035.811919081465281574630946"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "1975.3200000",
+            "ProjectedMarginAfter": "1975.3200000",
+            "FreeMarginAfter": "97498.0800000",
+            "MarginLevel": "5035.811919081465281574630946"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0",
+          "GrossSELL": "1.80",
+          "NetLotSELLminusBUY": "1.80",
+          "TotalGrossExposure": "1.80",
+          "UnrealizedMarkNet": "-451.8000000",
+          "UnrealizedCloseNowNet": "-459.9000000",
+          "RealizedCycleAll": "-74.8000000",
+          "RecoveryRealizedA": "-174.8000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99925.2000000",
+          "EquityMark": "99473.4000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "1975.3200000",
+              "ProjectedMarginAfter": "1975.3200000",
+              "FreeMarginAfter": "97498.0800000",
+              "MarginLevel": "5035.811919081465281574630946"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1975.3200000",
+              "ProjectedMarginAfter": "1975.3200000",
+              "FreeMarginAfter": "97498.0800000",
+              "MarginLevel": "5035.811919081465281574630946"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "1975.3200000",
+              "ProjectedMarginAfter": "1975.3200000",
+              "FreeMarginAfter": "97498.0800000",
+              "MarginLevel": "5035.811919081465281574630946"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "1800.0000000",
+          "RiskControlSymmetric100pip": "1800.0000000",
+          "CycleDrawdown": "0.5266000",
+          "AccountDrawdown": "0.6259740259740259740259740260",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": -1,
+            "volume": "1.20",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_T0",
+            "role": "BIG_TREND",
+            "direction": -1,
+            "volume": "0.60",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 8,
+        "ActionID": "MODEL_CONFIRM_FAR",
+        "PositionIdentifier": "MODEL_F0",
+        "RoleBefore": "FAR",
+        "RoleAfter": "FAR",
+        "VolumeBefore": "1",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "1",
+        "FillStatus": "SYNTHETIC_CONFIRM_MODEL",
+        "DealIDs": "MODEL_ONLY:MODEL_CONFIRM_FAR",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "1800.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "1975.3200000",
+            "ProjectedMarginAfter": "1975.3200000",
+            "FreeMarginAfter": "97498.0800000",
+            "MarginLevel": "5035.811919081465281574630946"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1975.3200000",
+            "ProjectedMarginAfter": "1975.3200000",
+            "FreeMarginAfter": "97498.0800000",
+            "MarginLevel": "5035.811919081465281574630946"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "1975.3200000",
+            "ProjectedMarginAfter": "1975.3200000",
+            "FreeMarginAfter": "97498.0800000",
+            "MarginLevel": "5035.811919081465281574630946"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0",
+          "GrossSELL": "1.80",
+          "NetLotSELLminusBUY": "1.80",
+          "TotalGrossExposure": "1.80",
+          "UnrealizedMarkNet": "-451.8000000",
+          "UnrealizedCloseNowNet": "-459.9000000",
+          "RealizedCycleAll": "-74.8000000",
+          "RecoveryRealizedA": "-174.8000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99925.2000000",
+          "EquityMark": "99473.4000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "1975.3200000",
+              "ProjectedMarginAfter": "1975.3200000",
+              "FreeMarginAfter": "97498.0800000",
+              "MarginLevel": "5035.811919081465281574630946"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1975.3200000",
+              "ProjectedMarginAfter": "1975.3200000",
+              "FreeMarginAfter": "97498.0800000",
+              "MarginLevel": "5035.811919081465281574630946"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "1975.3200000",
+              "ProjectedMarginAfter": "1975.3200000",
+              "FreeMarginAfter": "97498.0800000",
+              "MarginLevel": "5035.811919081465281574630946"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "1800.0000000",
+          "RiskControlSymmetric100pip": "1800.0000000",
+          "CycleDrawdown": "0.5266000",
+          "AccountDrawdown": "0.6259740259740259740259740260",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": -1,
+            "volume": "1.20",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          },
+          {
+            "identifier": "MODEL_T0",
+            "role": "BIG_TREND",
+            "direction": -1,
+            "volume": "0.60",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 9,
+        "ActionID": "MODEL_CLOSE_BIG_TREND",
+        "PositionIdentifier": "MODEL_T0",
+        "RoleBefore": "BIG_TREND",
+        "RoleAfter": "CLOSED",
+        "VolumeBefore": "0.60",
+        "RequestedClose": "0.60",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0.60",
+        "VolumeAfter": "0.00",
+        "FillStatus": "SYNTHETIC_COMPLETED_MODEL",
+        "DealIDs": "MODEL_ONLY:MODEL_CLOSE_BIG_TREND",
+        "GrossMoney": "-150.6000000",
+        "Costs": "2.700",
+        "DealNet": "-153.3000000",
+        "CyclePnL": "-534.7000000",
+        "Risk": "1200.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "1316.8800000",
+            "ProjectedMarginAfter": "1316.8800000",
+            "FreeMarginAfter": "98153.8200000",
+            "MarginLevel": "7553.512848551120831055221432"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1316.8800000",
+            "ProjectedMarginAfter": "1316.8800000",
+            "FreeMarginAfter": "98153.8200000",
+            "MarginLevel": "7553.512848551120831055221432"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "1316.8800000",
+            "ProjectedMarginAfter": "1316.8800000",
+            "FreeMarginAfter": "98153.8200000",
+            "MarginLevel": "7553.512848551120831055221432"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0",
+          "GrossSELL": "1.20",
+          "NetLotSELLminusBUY": "1.20",
+          "TotalGrossExposure": "1.20",
+          "UnrealizedMarkNet": "-301.2000000",
+          "UnrealizedCloseNowNet": "-306.6000000",
+          "RealizedCycleAll": "-228.1000000",
+          "RecoveryRealizedA": "-328.1000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99771.9000000",
+          "EquityMark": "99470.7000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "1316.8800000",
+              "ProjectedMarginAfter": "1316.8800000",
+              "FreeMarginAfter": "98153.8200000",
+              "MarginLevel": "7553.512848551120831055221432"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1316.8800000",
+              "ProjectedMarginAfter": "1316.8800000",
+              "FreeMarginAfter": "98153.8200000",
+              "MarginLevel": "7553.512848551120831055221432"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "1316.8800000",
+              "ProjectedMarginAfter": "1316.8800000",
+              "FreeMarginAfter": "98153.8200000",
+              "MarginLevel": "7553.512848551120831055221432"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "1200.0000000",
+          "RiskControlSymmetric100pip": "1200.0000000",
+          "CycleDrawdown": "0.5293000",
+          "AccountDrawdown": "0.6286713286713286713286713287",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": -1,
+            "volume": "1.20",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 10,
+        "ActionID": "MODEL_CONFIRM_BIG_TREND",
+        "PositionIdentifier": "MODEL_T0",
+        "RoleBefore": "BIG_TREND",
+        "RoleAfter": "BIG_TREND",
+        "VolumeBefore": "0.60",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0.60",
+        "FillStatus": "SYNTHETIC_CONFIRM_MODEL",
+        "DealIDs": "MODEL_ONLY:MODEL_CONFIRM_BIG_TREND",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "1200.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "1316.8800000",
+            "ProjectedMarginAfter": "1316.8800000",
+            "FreeMarginAfter": "98153.8200000",
+            "MarginLevel": "7553.512848551120831055221432"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "1316.8800000",
+            "ProjectedMarginAfter": "1316.8800000",
+            "FreeMarginAfter": "98153.8200000",
+            "MarginLevel": "7553.512848551120831055221432"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "1316.8800000",
+            "ProjectedMarginAfter": "1316.8800000",
+            "FreeMarginAfter": "98153.8200000",
+            "MarginLevel": "7553.512848551120831055221432"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0",
+          "GrossSELL": "1.20",
+          "NetLotSELLminusBUY": "1.20",
+          "TotalGrossExposure": "1.20",
+          "UnrealizedMarkNet": "-301.2000000",
+          "UnrealizedCloseNowNet": "-306.6000000",
+          "RealizedCycleAll": "-228.1000000",
+          "RecoveryRealizedA": "-328.1000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99771.9000000",
+          "EquityMark": "99470.7000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "1316.8800000",
+              "ProjectedMarginAfter": "1316.8800000",
+              "FreeMarginAfter": "98153.8200000",
+              "MarginLevel": "7553.512848551120831055221432"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "1316.8800000",
+              "ProjectedMarginAfter": "1316.8800000",
+              "FreeMarginAfter": "98153.8200000",
+              "MarginLevel": "7553.512848551120831055221432"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "1316.8800000",
+              "ProjectedMarginAfter": "1316.8800000",
+              "FreeMarginAfter": "98153.8200000",
+              "MarginLevel": "7553.512848551120831055221432"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "1200.0000000",
+          "RiskControlSymmetric100pip": "1200.0000000",
+          "CycleDrawdown": "0.5293000",
+          "AccountDrawdown": "0.6286713286713286713286713287",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": -1,
+            "volume": "1.20",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 11,
+        "ActionID": "MODEL_CLOSE_BIG_CORE",
+        "PositionIdentifier": "MODEL_C0",
+        "RoleBefore": "BIG_CORE",
+        "RoleAfter": "BIG_CORE",
+        "VolumeBefore": "1.20",
+        "RequestedClose": "0.80",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0.80",
+        "VolumeAfter": "0.40",
+        "FillStatus": "SYNTHETIC_COMPLETED_MODEL",
+        "DealIDs": "MODEL_ONLY:MODEL_CLOSE_BIG_CORE",
+        "GrossMoney": "-200.8000000",
+        "Costs": "3.600",
+        "DealNet": "-204.4000000",
+        "CyclePnL": "-534.7000000",
+        "Risk": "400.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0",
+          "GrossSELL": "0.40",
+          "NetLotSELLminusBUY": "0.40",
+          "TotalGrossExposure": "0.40",
+          "UnrealizedMarkNet": "-100.4000000",
+          "UnrealizedCloseNowNet": "-102.2000000",
+          "RealizedCycleAll": "-432.5000000",
+          "RecoveryRealizedA": "-532.5000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99567.5000000",
+          "EquityMark": "99467.1000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "400.0000000",
+          "RiskControlSymmetric100pip": "400.0000000",
+          "CycleDrawdown": "0.5329000",
+          "AccountDrawdown": "0.6322677322677322677322677323",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": -1,
+            "volume": "0.40",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 12,
+        "ActionID": "MODEL_CONFIRM_BIG_CORE",
+        "PositionIdentifier": "MODEL_C0",
+        "RoleBefore": "BIG_CORE",
+        "RoleAfter": "BIG_CORE",
+        "VolumeBefore": "1.20",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "1.20",
+        "FillStatus": "SYNTHETIC_CONFIRM_MODEL",
+        "DealIDs": "MODEL_ONLY:MODEL_CONFIRM_BIG_CORE",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "400.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0",
+          "GrossSELL": "0.40",
+          "NetLotSELLminusBUY": "0.40",
+          "TotalGrossExposure": "0.40",
+          "UnrealizedMarkNet": "-100.4000000",
+          "UnrealizedCloseNowNet": "-102.2000000",
+          "RealizedCycleAll": "-432.5000000",
+          "RecoveryRealizedA": "-532.5000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99567.5000000",
+          "EquityMark": "99467.1000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "400.0000000",
+          "RiskControlSymmetric100pip": "400.0000000",
+          "CycleDrawdown": "0.5329000",
+          "AccountDrawdown": "0.6322677322677322677322677323",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": -1,
+            "volume": "0.40",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 13,
+        "ActionID": "MODEL_READ_ACTUAL_RESIDUAL",
+        "PositionIdentifier": "MODEL_C0",
+        "RoleBefore": "BIG_CORE",
+        "RoleAfter": "BIG_CORE",
+        "VolumeBefore": "0.40",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0.40",
+        "FillStatus": "SYNTHETIC_COUNTERFACTUAL_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_READ_ACTUAL_RESIDUAL",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "400.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0",
+          "GrossSELL": "0.40",
+          "NetLotSELLminusBUY": "0.40",
+          "TotalGrossExposure": "0.40",
+          "UnrealizedMarkNet": "-100.4000000",
+          "UnrealizedCloseNowNet": "-102.2000000",
+          "RealizedCycleAll": "-432.5000000",
+          "RecoveryRealizedA": "-532.5000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99567.5000000",
+          "EquityMark": "99467.1000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "400.0000000",
+          "RiskControlSymmetric100pip": "400.0000000",
+          "CycleDrawdown": "0.5329000",
+          "AccountDrawdown": "0.6322677322677322677322677323",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": -1,
+            "volume": "0.40",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 14,
+        "ActionID": "MODEL_NEWFAR_SOLVER",
+        "PositionIdentifier": "MODEL_C0",
+        "RoleBefore": "BIG_CORE",
+        "RoleAfter": "BIG_CORE",
+        "VolumeBefore": "0.40",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0.40",
+        "FillStatus": "SYNTHETIC_COUNTERFACTUAL_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_NEWFAR_SOLVER",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "400.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0",
+          "GrossSELL": "0.40",
+          "NetLotSELLminusBUY": "0.40",
+          "TotalGrossExposure": "0.40",
+          "UnrealizedMarkNet": "-100.4000000",
+          "UnrealizedCloseNowNet": "-102.2000000",
+          "RealizedCycleAll": "-432.5000000",
+          "RecoveryRealizedA": "-532.5000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99567.5000000",
+          "EquityMark": "99467.1000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "400.0000000",
+          "RiskControlSymmetric100pip": "400.0000000",
+          "CycleDrawdown": "0.5329000",
+          "AccountDrawdown": "0.6322677322677322677322677323",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "BIG_CORE",
+            "direction": -1,
+            "volume": "0.40",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 15,
+        "ActionID": "MODEL_PROMOTION",
+        "PositionIdentifier": "MODEL_C0",
+        "RoleBefore": "BIG_CORE",
+        "RoleAfter": "FAR",
+        "VolumeBefore": "0.40",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0.40",
+        "FillStatus": "SYNTHETIC_COUNTERFACTUAL_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_PROMOTION",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "400.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0",
+          "GrossSELL": "0.40",
+          "NetLotSELLminusBUY": "0.40",
+          "TotalGrossExposure": "0.40",
+          "UnrealizedMarkNet": "-100.4000000",
+          "UnrealizedCloseNowNet": "-102.2000000",
+          "RealizedCycleAll": "-432.5000000",
+          "RecoveryRealizedA": "-532.5000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99567.5000000",
+          "EquityMark": "99467.1000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "400.0000000",
+          "RiskControlSymmetric100pip": "400.0000000",
+          "CycleDrawdown": "0.5329000",
+          "AccountDrawdown": "0.6322677322677322677322677323",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "FAR",
+            "direction": -1,
+            "volume": "0.40",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 16,
+        "ActionID": "MODEL_PERSIST",
+        "PositionIdentifier": "MODEL_C0",
+        "RoleBefore": "FAR",
+        "RoleAfter": "FAR",
+        "VolumeBefore": "0.40",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0.40",
+        "FillStatus": "SYNTHETIC_COUNTERFACTUAL_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_PERSIST",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "400.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0",
+          "GrossSELL": "0.40",
+          "NetLotSELLminusBUY": "0.40",
+          "TotalGrossExposure": "0.40",
+          "UnrealizedMarkNet": "-100.4000000",
+          "UnrealizedCloseNowNet": "-102.2000000",
+          "RealizedCycleAll": "-432.5000000",
+          "RecoveryRealizedA": "-532.5000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99567.5000000",
+          "EquityMark": "99467.1000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "400.0000000",
+          "RiskControlSymmetric100pip": "400.0000000",
+          "CycleDrawdown": "0.5329000",
+          "AccountDrawdown": "0.6322677322677322677322677323",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "FAR",
+            "direction": -1,
+            "volume": "0.40",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 17,
+        "ActionID": "MODEL_RECONCILIATION",
+        "PositionIdentifier": "MODEL_C0",
+        "RoleBefore": "FAR",
+        "RoleAfter": "FAR",
+        "VolumeBefore": "0.40",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0.40",
+        "FillStatus": "SYNTHETIC_COUNTERFACTUAL_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_RECONCILIATION",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "400.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0",
+          "GrossSELL": "0.40",
+          "NetLotSELLminusBUY": "0.40",
+          "TotalGrossExposure": "0.40",
+          "UnrealizedMarkNet": "-100.4000000",
+          "UnrealizedCloseNowNet": "-102.2000000",
+          "RealizedCycleAll": "-432.5000000",
+          "RecoveryRealizedA": "-532.5000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99567.5000000",
+          "EquityMark": "99467.1000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "400.0000000",
+          "RiskControlSymmetric100pip": "400.0000000",
+          "CycleDrawdown": "0.5329000",
+          "AccountDrawdown": "0.6322677322677322677322677323",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "FAR",
+            "direction": -1,
+            "volume": "0.40",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      },
+      {
+        "Step": 18,
+        "ActionID": "MODEL_NEXT_STATE",
+        "PositionIdentifier": "MODEL_C0",
+        "RoleBefore": "FAR",
+        "RoleAfter": "FAR",
+        "VolumeBefore": "0.40",
+        "RequestedClose": "0",
+        "ActualClosed": "UNAVAILABLE",
+        "SimulatedClosed": "0",
+        "VolumeAfter": "0.40",
+        "FillStatus": "SYNTHETIC_COUNTERFACTUAL_CONTROL",
+        "DealIDs": "MODEL_ONLY:MODEL_NEXT_STATE",
+        "GrossMoney": "0",
+        "Costs": "0",
+        "DealNet": "0",
+        "CyclePnL": "-534.7000000",
+        "Risk": "400.0000000",
+        "Margin": {
+          "SYN_GROSS_1_100": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          },
+          "SYN_HEDGED_MAX": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          },
+          "SYN_HEDGED20": {
+            "MarginUsed": "438.9600000",
+            "ProjectedMarginAfter": "438.9600000",
+            "FreeMarginAfter": "99028.1400000",
+            "MarginLevel": "22659.71842536905412793876435"
+          }
+        },
+        "State": "PROJECTED_ONLY_NOT_AUTHORIZED",
+        "Metrics": {
+          "GrossBUY": "0",
+          "GrossSELL": "0.40",
+          "NetLotSELLminusBUY": "0.40",
+          "TotalGrossExposure": "0.40",
+          "UnrealizedMarkNet": "-100.4000000",
+          "UnrealizedCloseNowNet": "-102.2000000",
+          "RealizedCycleAll": "-432.5000000",
+          "RecoveryRealizedA": "-532.5000000",
+          "EconomicCycleCloseNow": "-534.7000000",
+          "RecoveryPLCloseNowA": "-634.7000000",
+          "Balance": "99567.5000000",
+          "EquityMark": "99467.1000000",
+          "EquityCloseNow": "99465.3000000",
+          "MarginProfiles": {
+            "SYN_GROSS_1_100": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            },
+            "SYN_HEDGED_MAX": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            },
+            "SYN_HEDGED20": {
+              "MarginUsed": "438.9600000",
+              "ProjectedMarginAfter": "438.9600000",
+              "FreeMarginAfter": "99028.1400000",
+              "MarginLevel": "22659.71842536905412793876435"
+            }
+          },
+          "WorstCaseLoss": "UNBOUNDED_MARKET_NOT_PROVEN",
+          "GapStressLoss": "400.0000000",
+          "RiskControlSymmetric100pip": "400.0000000",
+          "CycleDrawdown": "0.5329000",
+          "AccountDrawdown": "0.6322677322677322677322677323",
+          "BrokerMarginProof": "UNAVAILABLE",
+          "BrokerRiskProof": "UNAVAILABLE"
+        },
+        "Positions": [
+          {
+            "identifier": "MODEL_C0",
+            "role": "FAR",
+            "direction": -1,
+            "volume": "0.40",
+            "open_price": "1.09500",
+            "swap_per_lot": "-1"
+          }
+        ]
+      }
+    ],
+    "ClosingNet": "-520.9500000",
+    "ResidualNet": "-102.2000000",
+    "FullBasketNet": "-623.1500000",
+    "RealBrokerFills": 0
+  }
+]
