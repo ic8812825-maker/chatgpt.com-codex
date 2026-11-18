@@ -1,0 +1,14 @@
+{
+  "status":"BROKER_FILL_EVIDENCE_UNAVAILABLE",
+  "broker_logs":0,
+  "checks":["user attachments contain task text","pinned research baseline reports assumed venue","repository broker-named paths are source/specification and intent-validator artifacts"],
+  "guaranteed_capacity":null,
+  "guaranteed_delay":null,
+  "historical_fills":"MODEL_ONLY",
+  "scenarios":{
+    "quote_fill":{"capacity_units":1000,"slip_points":0,"latency_events":0},
+    "bounded_slip":{"capacity_units":1000,"slip_points":2,"latency_events":0},
+    "delayed_partial":{"capacity_units_first_or_every_third":25,"capacity_other":1000,"slip_points":2,"latency_at_every_third":1,"reject_event":2,"unknown_event":10},
+    "compound_stress":{"capacity_units_until_event_6":25,"capacity_after":0,"slip_points":4,"extra_spread_from_event_3":40,"unknown_from_event":8}
+  }
+}
