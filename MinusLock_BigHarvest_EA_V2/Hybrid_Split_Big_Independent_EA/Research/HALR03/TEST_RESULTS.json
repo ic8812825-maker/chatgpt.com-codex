@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "tests": 8,
+  "baseline_reproduced": 15,
+  "cash_reconciled_fills": 996,
+  "failure_rows": 372,
+  "paired_rows": 798,
+  "trial_group_rows": 266,
+  "kernel_rows": 108,
+  "historical_archives": 5
+}

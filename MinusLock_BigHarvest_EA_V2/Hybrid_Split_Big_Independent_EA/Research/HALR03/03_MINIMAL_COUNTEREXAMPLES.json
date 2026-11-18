@@ -1,0 +1,1860 @@
+[
+ {
+  "mechanism": "refusal_before_gap",
+  "matched": true,
+  "horizon": 3,
+  "scenario": {
+   "orientation": 1,
+   "moves": [
+    300,
+    300,
+    -4000
+   ],
+   "name": "refusal_before_gap",
+   "events": [
+    [
+     2,
+     [
+      [
+       "rejects",
+       100
+      ]
+     ]
+    ]
+   ],
+   "adaptive": false
+  },
+  "outcome": {
+   "pnl": -798.0,
+   "low": -798.0,
+   "drawdown": 800.0,
+   "cost": 29.0,
+   "gross": 2.0,
+   "net": 0.5,
+   "margin": 0.49216972292865746,
+   "forced": 1,
+   "residual": 0.0,
+   "pending": 0,
+   "failures": 1,
+   "violations": "LOSS",
+   "success": false,
+   "flat": true,
+   "time": 3,
+   "core_closed_early": false,
+   "cost_with_reserve": 29.0,
+   "margin_stopout": false,
+   "action_counts": [
+    [
+     "ADJUST",
+     1
+    ],
+    [
+     "HOLD",
+     1
+    ],
+    [
+     "TARGET",
+     1
+    ]
+   ]
+  },
+  "journal": [
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 1000,
+    "rejects": 0,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "HOLD",
+    "order": null
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 1000,
+    "rejects": 0,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "ADJUST",
+    "order": null
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "CREATED",
+    "order": "order-1",
+    "side": 1,
+    "units": 20,
+    "ticket": 1,
+    "eligible": 1,
+    "expires": 4
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "SUBMITTED",
+    "order": "order-1",
+    "remaining": 20
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "ACCEPTED",
+    "order": "order-1",
+    "remaining": 20
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "FILL",
+    "order": "order-1",
+    "units": 20,
+    "side": 1,
+    "ticket": 1,
+    "pnl": -11600,
+    "net": 20,
+    "gross": 180
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "FILLED",
+    "order": "order-1",
+    "remaining": 0
+   },
+   {
+    "step": 2,
+    "mid": 600,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 1000,
+    "rejects": 100,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 2,
+    "mid": 600,
+    "event": "TARGET",
+    "order": null
+   },
+   {
+    "step": 2,
+    "mid": 600,
+    "event": "CREATED",
+    "order": "order-2",
+    "side": -1,
+    "units": 70,
+    "ticket": 0,
+    "eligible": 2,
+    "expires": 5
+   },
+   {
+    "step": 2,
+    "mid": 600,
+    "event": "SUBMITTED",
+    "order": "order-2",
+    "remaining": 70
+   },
+   {
+    "step": 2,
+    "mid": 600,
+    "event": "REJECTED",
+    "order": "order-2",
+    "remaining": 70
+   },
+   {
+    "step": 3,
+    "mid": -3400,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 1000,
+    "rejects": 0,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 3,
+    "mid": -3400,
+    "event": "CREATED",
+    "order": "order-3",
+    "side": -1,
+    "units": 70,
+    "ticket": 0,
+    "eligible": 3,
+    "expires": 6
+   },
+   {
+    "step": 3,
+    "mid": -3400,
+    "event": "SUBMITTED",
+    "order": "order-3",
+    "remaining": 70
+   },
+   {
+    "step": 3,
+    "mid": -3400,
+    "event": "ACCEPTED",
+    "order": "order-3",
+    "remaining": 70
+   },
+   {
+    "step": 3,
+    "mid": -3400,
+    "event": "FILL",
+    "order": "order-3",
+    "units": 70,
+    "side": -1,
+    "ticket": 0,
+    "pnl": -159600,
+    "net": -50,
+    "gross": 110
+   },
+   {
+    "step": 3,
+    "mid": -3400,
+    "event": "FILLED",
+    "order": "order-3",
+    "remaining": 0
+   },
+   {
+    "step": 3,
+    "mid": -3400,
+    "event": "CREATED",
+    "order": "order-4",
+    "side": 1,
+    "units": 80,
+    "ticket": 1,
+    "eligible": 3,
+    "expires": 6
+   },
+   {
+    "step": 3,
+    "mid": -3400,
+    "event": "SUBMITTED",
+    "order": "order-4",
+    "remaining": 80
+   },
+   {
+    "step": 3,
+    "mid": -3400,
+    "event": "ACCEPTED",
+    "order": "order-4",
+    "remaining": 80
+   },
+   {
+    "step": 3,
+    "mid": -3400,
+    "event": "FILL",
+    "order": "order-4",
+    "units": 80,
+    "side": 1,
+    "ticket": 1,
+    "pnl": -159600,
+    "net": 30,
+    "gross": 30
+   },
+   {
+    "step": 3,
+    "mid": -3400,
+    "event": "FILLED",
+    "order": "order-4",
+    "remaining": 0
+   },
+   {
+    "step": 3,
+    "mid": -3400,
+    "event": "CREATED",
+    "order": "order-5",
+    "side": -1,
+    "units": 30,
+    "ticket": 0,
+    "eligible": 3,
+    "expires": 6
+   },
+   {
+    "step": 3,
+    "mid": -3400,
+    "event": "SUBMITTED",
+    "order": "order-5",
+    "remaining": 30
+   },
+   {
+    "step": 3,
+    "mid": -3400,
+    "event": "ACCEPTED",
+    "order": "order-5",
+    "remaining": 30
+   },
+   {
+    "step": 3,
+    "mid": -3400,
+    "event": "FILL",
+    "order": "order-5",
+    "units": 30,
+    "side": -1,
+    "ticket": 0,
+    "pnl": -159600,
+    "net": 0,
+    "gross": 0
+   },
+   {
+    "step": 3,
+    "mid": -3400,
+    "event": "FILLED",
+    "order": "order-5",
+    "remaining": 0
+   }
+  ]
+ },
+ {
+  "mechanism": "no_liquidity",
+  "matched": true,
+  "horizon": 0,
+  "scenario": {
+   "orientation": 1,
+   "moves": [],
+   "name": "no_liquidity",
+   "events": [
+    [
+     0,
+     [
+      [
+       "capacity",
+       0
+      ]
+     ]
+    ]
+   ],
+   "adaptive": false
+  },
+  "outcome": {
+   "pnl": -58.0,
+   "low": -58.0,
+   "drawdown": 58.0,
+   "cost": 0.0,
+   "gross": 2.0,
+   "net": 0.0,
+   "margin": 0.4908312140275733,
+   "forced": 0,
+   "residual": 2.0,
+   "pending": 1,
+   "failures": 0,
+   "violations": "DEADLINE",
+   "success": false,
+   "flat": false,
+   "time": 0,
+   "core_closed_early": false,
+   "cost_with_reserve": 29.0,
+   "margin_stopout": false,
+   "action_counts": []
+  },
+  "journal": [
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 0,
+    "rejects": 0,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "CREATED",
+    "order": "order-1",
+    "side": -1,
+    "units": 50,
+    "ticket": 0,
+    "eligible": 0,
+    "expires": 3
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "SUBMITTED",
+    "order": "order-1",
+    "remaining": 50
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "ACCEPTED",
+    "order": "order-1",
+    "remaining": 50
+   }
+  ]
+ },
+ {
+  "mechanism": "one_leg",
+  "matched": true,
+  "horizon": 1,
+  "scenario": {
+   "orientation": 1,
+   "moves": [
+    300
+   ],
+   "name": "one_leg",
+   "events": [
+    [
+     0,
+     [
+      [
+       "capacity",
+       50
+      ]
+     ]
+    ]
+   ],
+   "adaptive": false
+  },
+  "outcome": {
+   "pnl": -208.0,
+   "low": -208.0,
+   "drawdown": 208.0,
+   "cost": 29.0,
+   "gross": 2.0,
+   "net": 0.5,
+   "margin": 0.4908312140275733,
+   "forced": 0,
+   "residual": 0.0,
+   "pending": 0,
+   "failures": 0,
+   "violations": "LOSS",
+   "success": false,
+   "flat": true,
+   "time": 1,
+   "core_closed_early": false,
+   "cost_with_reserve": 29.0,
+   "margin_stopout": false,
+   "action_counts": []
+  },
+  "journal": [
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 50,
+    "rejects": 0,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "CREATED",
+    "order": "order-1",
+    "side": -1,
+    "units": 50,
+    "ticket": 0,
+    "eligible": 0,
+    "expires": 3
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "SUBMITTED",
+    "order": "order-1",
+    "remaining": 50
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "ACCEPTED",
+    "order": "order-1",
+    "remaining": 50
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "FILL",
+    "order": "order-1",
+    "units": 50,
+    "side": -1,
+    "ticket": 0,
+    "pnl": -11600,
+    "net": -50,
+    "gross": 150
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "FILLED",
+    "order": "order-1",
+    "remaining": 0
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "CREATED",
+    "order": "order-2",
+    "side": 1,
+    "units": 100,
+    "ticket": 1,
+    "eligible": 0,
+    "expires": 3
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "SUBMITTED",
+    "order": "order-2",
+    "remaining": 100
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "ACCEPTED",
+    "order": "order-2",
+    "remaining": 100
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 1000,
+    "rejects": 0,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "FILL",
+    "order": "order-2",
+    "units": 100,
+    "side": 1,
+    "ticket": 1,
+    "pnl": -41600,
+    "net": 50,
+    "gross": 50
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "FILLED",
+    "order": "order-2",
+    "remaining": 0
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "CREATED",
+    "order": "order-3",
+    "side": -1,
+    "units": 50,
+    "ticket": 0,
+    "eligible": 1,
+    "expires": 4
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "SUBMITTED",
+    "order": "order-3",
+    "remaining": 50
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "ACCEPTED",
+    "order": "order-3",
+    "remaining": 50
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "FILL",
+    "order": "order-3",
+    "units": 50,
+    "side": -1,
+    "ticket": 0,
+    "pnl": -41600,
+    "net": 0,
+    "gross": 0
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "FILLED",
+    "order": "order-3",
+    "remaining": 0
+   }
+  ]
+ },
+ {
+  "mechanism": "unknown_then_fill",
+  "matched": true,
+  "horizon": 1,
+  "scenario": {
+   "orientation": 1,
+   "moves": [
+    0
+   ],
+   "name": "unknown_then_fill",
+   "events": [
+    [
+     0,
+     [
+      [
+       "unknown",
+       true
+      ]
+     ]
+    ]
+   ],
+   "adaptive": false
+  },
+  "outcome": {
+   "pnl": -58.0,
+   "low": -58.0,
+   "drawdown": 58.0,
+   "cost": 29.0,
+   "gross": 2.0,
+   "net": 0.5,
+   "margin": 0.4908312140275733,
+   "forced": 0,
+   "residual": 0.0,
+   "pending": 0,
+   "failures": 1,
+   "violations": "",
+   "success": false,
+   "flat": true,
+   "time": 1,
+   "core_closed_early": false,
+   "cost_with_reserve": 29.0,
+   "margin_stopout": false,
+   "action_counts": []
+  },
+  "journal": [
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 1000,
+    "rejects": 0,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "CREATED",
+    "order": "order-1",
+    "side": -1,
+    "units": 50,
+    "ticket": 0,
+    "eligible": 0,
+    "expires": 3
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "SUBMITTED",
+    "order": "order-1",
+    "remaining": 50
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "UNKNOWN",
+    "order": "order-1",
+    "remaining": 50
+   },
+   {
+    "step": 1,
+    "mid": 0,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 1000,
+    "rejects": 0,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 1,
+    "mid": 0,
+    "event": "ACCEPTED",
+    "order": "order-1",
+    "remaining": 50
+   },
+   {
+    "step": 1,
+    "mid": 0,
+    "event": "FILL",
+    "order": "order-1",
+    "units": 50,
+    "side": -1,
+    "ticket": 0,
+    "pnl": -11600,
+    "net": -50,
+    "gross": 150
+   },
+   {
+    "step": 1,
+    "mid": 0,
+    "event": "FILLED",
+    "order": "order-1",
+    "remaining": 0
+   },
+   {
+    "step": 1,
+    "mid": 0,
+    "event": "CREATED",
+    "order": "order-2",
+    "side": 1,
+    "units": 100,
+    "ticket": 1,
+    "eligible": 1,
+    "expires": 4
+   },
+   {
+    "step": 1,
+    "mid": 0,
+    "event": "SUBMITTED",
+    "order": "order-2",
+    "remaining": 100
+   },
+   {
+    "step": 1,
+    "mid": 0,
+    "event": "ACCEPTED",
+    "order": "order-2",
+    "remaining": 100
+   },
+   {
+    "step": 1,
+    "mid": 0,
+    "event": "FILL",
+    "order": "order-2",
+    "units": 100,
+    "side": 1,
+    "ticket": 1,
+    "pnl": -11600,
+    "net": 50,
+    "gross": 50
+   },
+   {
+    "step": 1,
+    "mid": 0,
+    "event": "FILLED",
+    "order": "order-2",
+    "remaining": 0
+   },
+   {
+    "step": 1,
+    "mid": 0,
+    "event": "CREATED",
+    "order": "order-3",
+    "side": -1,
+    "units": 50,
+    "ticket": 0,
+    "eligible": 1,
+    "expires": 4
+   },
+   {
+    "step": 1,
+    "mid": 0,
+    "event": "SUBMITTED",
+    "order": "order-3",
+    "remaining": 50
+   },
+   {
+    "step": 1,
+    "mid": 0,
+    "event": "ACCEPTED",
+    "order": "order-3",
+    "remaining": 50
+   },
+   {
+    "step": 1,
+    "mid": 0,
+    "event": "FILL",
+    "order": "order-3",
+    "units": 50,
+    "side": -1,
+    "ticket": 0,
+    "pnl": -11600,
+    "net": 0,
+    "gross": 0
+   },
+   {
+    "step": 1,
+    "mid": 0,
+    "event": "FILLED",
+    "order": "order-3",
+    "remaining": 0
+   }
+  ]
+ },
+ {
+  "mechanism": "wide_open",
+  "matched": true,
+  "horizon": 0,
+  "scenario": {
+   "orientation": 1,
+   "moves": [],
+   "name": "wide_open",
+   "events": [
+    [
+     0,
+     [
+      [
+       "spread",
+       100
+      ]
+     ]
+    ]
+   ],
+   "adaptive": false
+  },
+  "outcome": {
+   "pnl": -138.0,
+   "low": -138.0,
+   "drawdown": 138.0,
+   "cost": 109.0,
+   "gross": 2.0,
+   "net": 0.5,
+   "margin": 0.49365271609922395,
+   "forced": 0,
+   "residual": 0.0,
+   "pending": 0,
+   "failures": 0,
+   "violations": "COST",
+   "success": false,
+   "flat": true,
+   "time": 0,
+   "core_closed_early": false,
+   "cost_with_reserve": 109.0,
+   "margin_stopout": false,
+   "action_counts": []
+  },
+  "journal": [
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 100,
+    "slip": 0,
+    "capacity": 1000,
+    "rejects": 0,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "CREATED",
+    "order": "order-1",
+    "side": -1,
+    "units": 50,
+    "ticket": 0,
+    "eligible": 0,
+    "expires": 3
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "SUBMITTED",
+    "order": "order-1",
+    "remaining": 50
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "ACCEPTED",
+    "order": "order-1",
+    "remaining": 50
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "FILL",
+    "order": "order-1",
+    "units": 50,
+    "side": -1,
+    "ticket": 0,
+    "pnl": -27600,
+    "net": -50,
+    "gross": 150
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "FILLED",
+    "order": "order-1",
+    "remaining": 0
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "CREATED",
+    "order": "order-2",
+    "side": 1,
+    "units": 100,
+    "ticket": 1,
+    "eligible": 0,
+    "expires": 3
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "SUBMITTED",
+    "order": "order-2",
+    "remaining": 100
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "ACCEPTED",
+    "order": "order-2",
+    "remaining": 100
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "FILL",
+    "order": "order-2",
+    "units": 100,
+    "side": 1,
+    "ticket": 1,
+    "pnl": -27600,
+    "net": 50,
+    "gross": 50
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "FILLED",
+    "order": "order-2",
+    "remaining": 0
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "CREATED",
+    "order": "order-3",
+    "side": -1,
+    "units": 50,
+    "ticket": 0,
+    "eligible": 0,
+    "expires": 3
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "SUBMITTED",
+    "order": "order-3",
+    "remaining": 50
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "ACCEPTED",
+    "order": "order-3",
+    "remaining": 50
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "FILL",
+    "order": "order-3",
+    "units": 50,
+    "side": -1,
+    "ticket": 0,
+    "pnl": -27600,
+    "net": 0,
+    "gross": 0
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "FILLED",
+    "order": "order-3",
+    "remaining": 0
+   }
+  ]
+ },
+ {
+  "mechanism": "delay",
+  "matched": true,
+  "horizon": 1,
+  "scenario": {
+   "orientation": 1,
+   "moves": [
+    300
+   ],
+   "name": "delay",
+   "events": [
+    [
+     0,
+     [
+      [
+       "delay",
+       1
+      ]
+     ]
+    ]
+   ],
+   "adaptive": false
+  },
+  "outcome": {
+   "pnl": -58.0,
+   "low": -58.0,
+   "drawdown": 58.0,
+   "cost": 29.0,
+   "gross": 2.0,
+   "net": 0.5,
+   "margin": 0.49216972292865746,
+   "forced": 0,
+   "residual": 0.0,
+   "pending": 0,
+   "failures": 0,
+   "violations": "",
+   "success": false,
+   "flat": true,
+   "time": 1,
+   "core_closed_early": false,
+   "cost_with_reserve": 29.0,
+   "margin_stopout": false,
+   "action_counts": []
+  },
+  "journal": [
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 1000,
+    "rejects": 0,
+    "delay": 1,
+    "carry": 0
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "CREATED",
+    "order": "order-1",
+    "side": -1,
+    "units": 50,
+    "ticket": 0,
+    "eligible": 1,
+    "expires": 3
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "SUBMITTED",
+    "order": "order-1",
+    "remaining": 50
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "ACCEPTED",
+    "order": "order-1",
+    "remaining": 50
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 1000,
+    "rejects": 0,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "FILL",
+    "order": "order-1",
+    "units": 50,
+    "side": -1,
+    "ticket": 0,
+    "pnl": -11600,
+    "net": -50,
+    "gross": 150
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "FILLED",
+    "order": "order-1",
+    "remaining": 0
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "CREATED",
+    "order": "order-2",
+    "side": 1,
+    "units": 100,
+    "ticket": 1,
+    "eligible": 1,
+    "expires": 4
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "SUBMITTED",
+    "order": "order-2",
+    "remaining": 100
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "ACCEPTED",
+    "order": "order-2",
+    "remaining": 100
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "FILL",
+    "order": "order-2",
+    "units": 100,
+    "side": 1,
+    "ticket": 1,
+    "pnl": -11600,
+    "net": 50,
+    "gross": 50
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "FILLED",
+    "order": "order-2",
+    "remaining": 0
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "CREATED",
+    "order": "order-3",
+    "side": -1,
+    "units": 50,
+    "ticket": 0,
+    "eligible": 1,
+    "expires": 4
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "SUBMITTED",
+    "order": "order-3",
+    "remaining": 50
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "ACCEPTED",
+    "order": "order-3",
+    "remaining": 50
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "FILL",
+    "order": "order-3",
+    "units": 50,
+    "side": -1,
+    "ticket": 0,
+    "pnl": -11600,
+    "net": 0,
+    "gross": 0
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "FILLED",
+    "order": "order-3",
+    "remaining": 0
+   }
+  ]
+ },
+ {
+  "mechanism": "capacity",
+  "matched": true,
+  "horizon": 0,
+  "scenario": {
+   "orientation": 1,
+   "moves": [],
+   "name": "capacity",
+   "events": [
+    [
+     0,
+     [
+      [
+       "capacity",
+       1
+      ]
+     ]
+    ]
+   ],
+   "adaptive": false
+  },
+  "outcome": {
+   "pnl": -58.0,
+   "low": -58.0,
+   "drawdown": 58.0,
+   "cost": 0.145,
+   "gross": 2.0,
+   "net": 0.01,
+   "margin": 0.4908312140275733,
+   "forced": 0,
+   "residual": 1.99,
+   "pending": 1,
+   "failures": 0,
+   "violations": "DEADLINE",
+   "success": false,
+   "flat": false,
+   "time": 0,
+   "core_closed_early": false,
+   "cost_with_reserve": 29.0,
+   "margin_stopout": false,
+   "action_counts": []
+  },
+  "journal": [
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 1,
+    "rejects": 0,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "CREATED",
+    "order": "order-1",
+    "side": -1,
+    "units": 50,
+    "ticket": 0,
+    "eligible": 0,
+    "expires": 3
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "SUBMITTED",
+    "order": "order-1",
+    "remaining": 50
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "ACCEPTED",
+    "order": "order-1",
+    "remaining": 50
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "FILL",
+    "order": "order-1",
+    "units": 1,
+    "side": -1,
+    "ticket": 0,
+    "pnl": -11600,
+    "net": -1,
+    "gross": 199
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "PARTIAL",
+    "order": "order-1",
+    "remaining": 49
+   }
+  ]
+ },
+ {
+  "mechanism": "stopout",
+  "matched": true,
+  "horizon": 3,
+  "scenario": {
+   "orientation": 1,
+   "moves": [
+    300,
+    300,
+    -90000
+   ],
+   "name": "stopout",
+   "events": [
+    [
+     2,
+     [
+      [
+       "rejects",
+       100
+      ]
+     ]
+    ]
+   ],
+   "adaptive": false
+  },
+  "outcome": {
+   "pnl": -17998.0,
+   "low": -17998.0,
+   "drawdown": 18000.0,
+   "cost": 29.0,
+   "gross": 2.0,
+   "net": 0.5,
+   "margin": 247320.0,
+   "forced": 1,
+   "residual": 0.0,
+   "pending": 0,
+   "failures": 1,
+   "violations": "LOSS|MARGIN",
+   "success": false,
+   "flat": true,
+   "time": 3,
+   "core_closed_early": false,
+   "cost_with_reserve": 29.0,
+   "margin_stopout": true,
+   "action_counts": [
+    [
+     "ADJUST",
+     1
+    ],
+    [
+     "HOLD",
+     1
+    ],
+    [
+     "TARGET",
+     1
+    ]
+   ]
+  },
+  "journal": [
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 1000,
+    "rejects": 0,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "HOLD",
+    "order": null
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 1000,
+    "rejects": 0,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "ADJUST",
+    "order": null
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "CREATED",
+    "order": "order-1",
+    "side": 1,
+    "units": 20,
+    "ticket": 1,
+    "eligible": 1,
+    "expires": 4
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "SUBMITTED",
+    "order": "order-1",
+    "remaining": 20
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "ACCEPTED",
+    "order": "order-1",
+    "remaining": 20
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "FILL",
+    "order": "order-1",
+    "units": 20,
+    "side": 1,
+    "ticket": 1,
+    "pnl": -11600,
+    "net": 20,
+    "gross": 180
+   },
+   {
+    "step": 1,
+    "mid": 300,
+    "event": "FILLED",
+    "order": "order-1",
+    "remaining": 0
+   },
+   {
+    "step": 2,
+    "mid": 600,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 1000,
+    "rejects": 100,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 2,
+    "mid": 600,
+    "event": "TARGET",
+    "order": null
+   },
+   {
+    "step": 2,
+    "mid": 600,
+    "event": "CREATED",
+    "order": "order-2",
+    "side": -1,
+    "units": 70,
+    "ticket": 0,
+    "eligible": 2,
+    "expires": 5
+   },
+   {
+    "step": 2,
+    "mid": 600,
+    "event": "SUBMITTED",
+    "order": "order-2",
+    "remaining": 70
+   },
+   {
+    "step": 2,
+    "mid": 600,
+    "event": "REJECTED",
+    "order": "order-2",
+    "remaining": 70
+   },
+   {
+    "step": 3,
+    "mid": -89400,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 1000,
+    "rejects": 0,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 3,
+    "mid": -89400,
+    "event": "CREATED",
+    "order": "order-3",
+    "side": -1,
+    "units": 70,
+    "ticket": 0,
+    "eligible": 3,
+    "expires": 6
+   },
+   {
+    "step": 3,
+    "mid": -89400,
+    "event": "SUBMITTED",
+    "order": "order-3",
+    "remaining": 70
+   },
+   {
+    "step": 3,
+    "mid": -89400,
+    "event": "ACCEPTED",
+    "order": "order-3",
+    "remaining": 70
+   },
+   {
+    "step": 3,
+    "mid": -89400,
+    "event": "FILL",
+    "order": "order-3",
+    "units": 70,
+    "side": -1,
+    "ticket": 0,
+    "pnl": -3599600,
+    "net": -50,
+    "gross": 110
+   },
+   {
+    "step": 3,
+    "mid": -89400,
+    "event": "FILLED",
+    "order": "order-3",
+    "remaining": 0
+   },
+   {
+    "step": 3,
+    "mid": -89400,
+    "event": "CREATED",
+    "order": "order-4",
+    "side": 1,
+    "units": 80,
+    "ticket": 1,
+    "eligible": 3,
+    "expires": 6
+   },
+   {
+    "step": 3,
+    "mid": -89400,
+    "event": "SUBMITTED",
+    "order": "order-4",
+    "remaining": 80
+   },
+   {
+    "step": 3,
+    "mid": -89400,
+    "event": "ACCEPTED",
+    "order": "order-4",
+    "remaining": 80
+   },
+   {
+    "step": 3,
+    "mid": -89400,
+    "event": "FILL",
+    "order": "order-4",
+    "units": 80,
+    "side": 1,
+    "ticket": 1,
+    "pnl": -3599600,
+    "net": 30,
+    "gross": 30
+   },
+   {
+    "step": 3,
+    "mid": -89400,
+    "event": "FILLED",
+    "order": "order-4",
+    "remaining": 0
+   },
+   {
+    "step": 3,
+    "mid": -89400,
+    "event": "CREATED",
+    "order": "order-5",
+    "side": -1,
+    "units": 30,
+    "ticket": 0,
+    "eligible": 3,
+    "expires": 6
+   },
+   {
+    "step": 3,
+    "mid": -89400,
+    "event": "SUBMITTED",
+    "order": "order-5",
+    "remaining": 30
+   },
+   {
+    "step": 3,
+    "mid": -89400,
+    "event": "ACCEPTED",
+    "order": "order-5",
+    "remaining": 30
+   },
+   {
+    "step": 3,
+    "mid": -89400,
+    "event": "FILL",
+    "order": "order-5",
+    "units": 30,
+    "side": -1,
+    "ticket": 0,
+    "pnl": -3599600,
+    "net": 0,
+    "gross": 0
+   },
+   {
+    "step": 3,
+    "mid": -89400,
+    "event": "FILLED",
+    "order": "order-5",
+    "remaining": 0
+   }
+  ]
+ },
+ {
+  "mechanism": "repeat_safe",
+  "matched": true,
+  "horizon": 1,
+  "scenario": {
+   "orientation": 1,
+   "moves": [
+    0
+   ],
+   "name": "repeat_safe",
+   "events": [
+    [
+     0,
+     [
+      [
+       "rejects",
+       100
+      ]
+     ]
+    ],
+    [
+     1,
+     [
+      [
+       "rejects",
+       100
+      ]
+     ]
+    ]
+   ],
+   "adaptive": false
+  },
+  "outcome": {
+   "pnl": -58.0,
+   "low": -58.0,
+   "drawdown": 58.0,
+   "cost": 0.0,
+   "gross": 2.0,
+   "net": 0.0,
+   "margin": 0.4908312140275733,
+   "forced": 0,
+   "residual": 2.0,
+   "pending": 0,
+   "failures": 2,
+   "violations": "DEADLINE",
+   "success": false,
+   "flat": false,
+   "time": 1,
+   "core_closed_early": false,
+   "cost_with_reserve": 29.0,
+   "margin_stopout": false,
+   "action_counts": []
+  },
+  "journal": [
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 1000,
+    "rejects": 100,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "CREATED",
+    "order": "order-1",
+    "side": -1,
+    "units": 50,
+    "ticket": 0,
+    "eligible": 0,
+    "expires": 3
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "SUBMITTED",
+    "order": "order-1",
+    "remaining": 50
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "REJECTED",
+    "order": "order-1",
+    "remaining": 50
+   },
+   {
+    "step": 1,
+    "mid": 0,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 1000,
+    "rejects": 100,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 1,
+    "mid": 0,
+    "event": "CREATED",
+    "order": "order-2",
+    "side": -1,
+    "units": 50,
+    "ticket": 0,
+    "eligible": 1,
+    "expires": 4
+   },
+   {
+    "step": 1,
+    "mid": 0,
+    "event": "SUBMITTED",
+    "order": "order-2",
+    "remaining": 50
+   },
+   {
+    "step": 1,
+    "mid": 0,
+    "event": "REJECTED",
+    "order": "order-2",
+    "remaining": 50
+   }
+  ]
+ },
+ {
+  "mechanism": "cancel_race",
+  "matched": true,
+  "horizon": 1,
+  "journal": [
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 1000,
+    "rejects": 0,
+    "delay": 1,
+    "carry": 0
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "CREATED",
+    "order": "order-1",
+    "side": 1,
+    "units": 10,
+    "ticket": null,
+    "eligible": 1,
+    "expires": 4
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "SUBMITTED",
+    "order": "order-1",
+    "remaining": 10
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "ACCEPTED",
+    "order": "order-1",
+    "remaining": 10
+   },
+   {
+    "step": 0,
+    "mid": 0,
+    "event": "CANCEL_PENDING",
+    "order": "order-1",
+    "remaining": 10
+   },
+   {
+    "step": 1,
+    "mid": 150,
+    "event": "QUOTE",
+    "order": null,
+    "spread": 20,
+    "slip": 0,
+    "capacity": 1000,
+    "rejects": 0,
+    "delay": 0,
+    "carry": 0
+   },
+   {
+    "step": 1,
+    "mid": 150,
+    "event": "FILL",
+    "order": "order-1",
+    "units": 10,
+    "side": 1,
+    "ticket": null,
+    "pnl": -12180,
+    "net": 10,
+    "gross": 210
+   },
+   {
+    "step": 1,
+    "mid": 150,
+    "event": "FILLED",
+    "order": "order-1",
+    "remaining": 0
+   }
+  ]
+ }
+]

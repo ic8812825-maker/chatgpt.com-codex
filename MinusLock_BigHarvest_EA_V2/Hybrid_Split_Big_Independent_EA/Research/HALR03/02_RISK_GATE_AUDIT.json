@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "cash_and_tree": [
+    {
+      "variant": "A3-RC",
+      "direct_tree_paths": 250,
+      "stress_paths": 88,
+      "reconciled_fills": 376
+    },
+    {
+      "variant": "M-RC",
+      "direct_tree_paths": 250,
+      "stress_paths": 88,
+      "reconciled_fills": 364
+    },
+    {
+      "variant": "K-EXECUTABLE",
+      "direct_tree_paths": 250,
+      "stress_paths": 88,
+      "reconciled_fills": 256
+    }
+  ],
+  "loss_gate_boundary": [
+    {
+      "net": 0,
+      "admitted": true,
+      "result": "OK"
+    },
+    {
+      "net": -13,
+      "admitted": true,
+      "result": "OK"
+    },
+    {
+      "net": -14,
+      "admitted": true,
+      "result": "OK"
+    },
+    {
+      "net": -15,
+      "admitted": false,
+      "result": "LOSS"
+    },
+    {
+      "net": -50,
+      "admitted": false,
+      "result": "LOSS"
+    }
+  ],
+  "pending_open_round_trip_ticks": 174,
+  "late_fill_units": 3
+}

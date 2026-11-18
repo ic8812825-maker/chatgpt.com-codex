@@ -1,0 +1,8 @@
+profile,status,scope,rationale
+E0,FORMALLY_PROVEN,"ER and K, under stated budgets and nominal initial mark","Full confirmed batches, one price step before backup exit"
+E1,FORMALLY_PROVEN,"ER and K under max move 300, spread 32, slip 2, carry 1",Service every event; stress reserve and verified queue
+E2,FORMALLY_PROVEN,ER and K under bounded odd-event outages with even-event confirmed capacity,Two-step backup and early flatten at last assured service
+E3,VIOLATED,Liveness for all policies in scripted subset,At most 0.30 lots confirmed before enduring unknown/zero capacity
+E4,FORMALLY_PROVEN,"K and ER fallback only, in the scripted nominal initial service",Earliest flatten precedes gap; holding directional Net is not certified
+E5,NOT_PROVEN,General finite horizon; violated for tested witnesses,At H=4 aggregate capacity <=1.15 lots and liveness is impossible
+E6,VIOLATED,All policies from positive initial Gross,No fill before deadline

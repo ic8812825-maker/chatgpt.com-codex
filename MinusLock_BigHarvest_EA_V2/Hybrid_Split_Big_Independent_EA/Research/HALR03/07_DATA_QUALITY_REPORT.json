@@ -1,0 +1,120 @@
+{
+  "archives": [
+    {
+      "rows": 2977382,
+      "spread_over_20": 49906,
+      "valid": 2977382,
+      "gap_over_60s": 293,
+      "quote_precision": [
+        6
+      ],
+      "first_utc": 1672610641.067,
+      "last_utc": 1675227594.919,
+      "sampled_slots": 1066,
+      "timezone": "UTC-05:00",
+      "member": "DAT_ASCII_EURUSD_T_202301.csv",
+      "sha256": "ad18725ce707f67889adbb7e63cc13daf53dbd31a1c7fca562e96775e31b322a",
+      "month": "202301",
+      "fold": "training",
+      "source": "HistData Generic ASCII tick Bid/Ask"
+    },
+    {
+      "rows": 1535263,
+      "valid": 1535263,
+      "gap_over_60s": 328,
+      "spread_over_20": 5237,
+      "jump_over_300": 2,
+      "quote_precision": [
+        6
+      ],
+      "first_utc": 1688338800.184,
+      "last_utc": 1690865997.466,
+      "sampled_slots": 738,
+      "timezone": "UTC-05:00",
+      "member": "DAT_ASCII_EURUSD_T_202307.csv",
+      "sha256": "e2eceddfa96f3cce9cf3c05749fa7692dab829b318d56625fa59fae80e3593b7",
+      "month": "202307",
+      "fold": "validation",
+      "source": "HistData Generic ASCII tick Bid/Ask"
+    },
+    {
+      "rows": 2176113,
+      "spread_over_20": 12760,
+      "valid": 2176113,
+      "gap_over_60s": 265,
+      "quote_precision": [
+        6
+      ],
+      "first_utc": 1704146412.108,
+      "last_utc": 1706763597.721,
+      "sampled_slots": 1059,
+      "timezone": "UTC-05:00",
+      "member": "DAT_ASCII_EURUSD_T_202401.csv",
+      "sha256": "9a4ae15d87abff93311cc60adf7fe83de9078664c6baaf2984fcc70f160b3da9",
+      "month": "202401",
+      "fold": "diagnostic_test",
+      "source": "HistData Generic ASCII tick Bid/Ask"
+    },
+    {
+      "rows": 5726260,
+      "spread_over_20": 63342,
+      "valid": 5726260,
+      "gap_over_60s": 77,
+      "outside_regular_provider_session": 3290,
+      "jump_over_300": 1,
+      "quote_precision": [
+        6
+      ],
+      "first_utc": 1583100001.729,
+      "last_utc": 1585717199.903,
+      "sampled_slots": 1067,
+      "timezone": "UTC-05:00",
+      "member": "DAT_ASCII_EURUSD_T_202003.csv",
+      "sha256": "2c4442ec10a32e75e3a3cda3a683a3fe8ad893664befb6dc6f797e2d8fdcac58",
+      "month": "202003",
+      "fold": "stress",
+      "source": "HistData Generic ASCII tick Bid/Ask"
+    },
+    {
+      "rows": 1463751,
+      "valid": 1463751,
+      "gap_over_60s": 623,
+      "spread_over_20": 5485,
+      "jump_over_300": 1,
+      "quote_precision": [
+        6
+      ],
+      "first_utc": 1719810000.461,
+      "last_utc": 1722488395.131,
+      "sampled_slots": 1103,
+      "timezone": "UTC-05:00",
+      "member": "DAT_ASCII_EURUSD_T_202407.csv",
+      "sha256": "d46ff671cd5fd65c605d7c03496217dcbca3ed39086dc3afe202f193f518442c",
+      "month": "202407",
+      "fold": "test",
+      "source": "HistData Generic ASCII tick Bid/Ask"
+    }
+  ],
+  "episodes": {
+    "training": {
+      "count": 19,
+      "incomplete_removed": 1
+    },
+    "validation": {
+      "count": 9,
+      "incomplete_removed": 5
+    },
+    "diagnostic_test": {
+      "count": 15,
+      "incomplete_removed": 0
+    },
+    "stress": {
+      "count": 31,
+      "incomplete_removed": 0
+    },
+    "test": {
+      "count": 9,
+      "incomplete_removed": 1
+    }
+  }
+}
