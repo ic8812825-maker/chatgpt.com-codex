@@ -1,6 +1,7 @@
 """Receding-horizon controller with exact finite DP on its reduced continuation."""
 from copy import deepcopy
 from functools import lru_cache
+from math import fsum
 from preserve import target_net
 
 D = (-300, -150, 0, 150, 300)
@@ -23,7 +24,7 @@ def utility(pnl, objective):
 def reduce_children(values, previous, objective):
     if objective == "minimax":
         return min(values)
-    return sum(v * w for v, w in zip(values, weights(previous)))
+    return fsum(v * w for v, w in zip(values, weights(previous)))
 
 
 def continuation_actions(net, original, size):
@@ -66,7 +67,7 @@ class Meta:
         if not closed.gross:
             yield "SWITCH_TO_B" if a else "DONE", closed
         if a:
-            for side in (-1, 1):
+            for side in (-book.orientation, book.orientation):
                 trial = deepcopy(book)
                 target_net(trial, q, side*self.p.net)
                 yield "PARTIAL_CLOSE", trial
@@ -75,7 +76,7 @@ class Meta:
                            {i: t.units for i, t in book.tickets.items() if t.original})
                 yield "ADJUST_NET", trial
         else:
-            for side in (-1, 1):
+            for side in (-book.orientation, book.orientation):
                 trial = deepcopy(book)
                 target_net(trial, q, side*self.p.net)
                 yield "OPEN_RECOVERY" if not book.gross else "ADJUST_NET", trial

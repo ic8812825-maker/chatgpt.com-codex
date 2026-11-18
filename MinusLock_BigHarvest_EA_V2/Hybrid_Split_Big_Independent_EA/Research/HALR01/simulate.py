@@ -3,6 +3,7 @@ from dataclasses import dataclass, replace
 from money import Ledger, Config
 from preserve import Params, Preserve, sign
 from rebuild import Rebuild
+from balanced import Balanced
 from meta import Meta
 from scenarios import quote
 
@@ -34,7 +35,11 @@ def run(variant, scenario, p=Params(), budget=180, config=Config(), trace=None):
     strict = variant.endswith("-strict")
     if variant.startswith("A"):
         policy = Preserve(variant[:2], p, orientation, strict)
-    elif variant.startswith("B") or variant == "J":
+    elif variant == "J Balanced":
+        if name not in ("stochastic", "exhaustive") or config != Config() or budget != 180:
+            raise ValueError("J adapter is validated only on the nominal execution model")
+        policy = Balanced(p)
+    elif variant.startswith("B"):
         policy = Rebuild(variant, p)
     elif variant.startswith("M"):
         policy = Meta(p, budget, variant[2:])
@@ -56,7 +61,7 @@ def run(variant, scenario, p=Params(), budget=180, config=Config(), trace=None):
         target = mark > 1e-9
         if target or step == horizon:
             closing = True
-        if not variant.startswith("M"):
+        if not variant.startswith("M") and variant != "J Balanced":
             room = mark - 3 * abs(book.net) - p.reserve
             if room < -budget - 1e-9:
                 closing = True

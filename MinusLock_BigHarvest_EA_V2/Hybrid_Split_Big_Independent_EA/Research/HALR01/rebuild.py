@@ -26,7 +26,7 @@ class Rebuild:
             return
 
         self.exit_pending = False
-        limit = 1 if self.variant in ("B1", "J") else self.p.attempts
+        limit = 1 if self.variant == "B1" else self.p.attempts
         if self.attempts >= limit:
             return
         move = q.mid - self.anchor
@@ -35,13 +35,6 @@ class Rebuild:
         self.prev_side = side
         if not side or (self.variant == "B3" and self.confirm < 2):
             return
-        if self.variant == "J":
-            lot = self.p.net / 100
-            stress = book.snapshot(q)["pnl"] - lot * (q.spread + q.slip + 9 + 600 + 48)
-            margin = lot * (110000 + q.mid + 650) / 30
-            if stress < -180 or 15000 + stress < 2 * margin:
-                self.attempts += 1
-                return
         self.attempts += 1
         target_net(book, q, side * self.p.net)
         self.entry = q.mid

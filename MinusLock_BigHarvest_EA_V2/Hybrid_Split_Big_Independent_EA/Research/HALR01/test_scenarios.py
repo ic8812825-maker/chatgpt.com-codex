@@ -9,7 +9,7 @@ class ScenarioTest(unittest.TestCase):
 
     def test_reproducible_and_mirrored(self):
         self.assertEqual(list(sample(99, 20)), list(sample(99, 20)))
-        for v in ("K", "A1", "A2", "A3", "B1", "B2", "B3", "B4"):
+        for v in ("K", "A1", "A2", "A3", "B1", "B2", "B3", "B4", "M-minimax", "M-probability", "M-adjusted"):
             a = run(v, (1, (300, 300, -300, 100, -50, 0), "constant"))
             b = run(v, (-1, (-300, -300, 300, -100, 50, 0), "constant"))
             self.assertAlmostEqual(a.pnl, b.pnl)
