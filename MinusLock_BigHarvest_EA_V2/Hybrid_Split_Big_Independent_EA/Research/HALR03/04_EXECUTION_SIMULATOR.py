@@ -201,8 +201,10 @@ class Case:
 
 
 class ExecutionCycle(Cycle):
-    def __init__(self,*args,journal=None,**kwargs):
-        super().__init__(*args,journal=None,**kwargs)
+    def __init__(self,name,*args,journal=None,**kwargs):
+        # Use the shared Cycle emergency branch for both risk-controlled families.
+        guarded = name + "-RC" if name.endswith("-ER") else name
+        super().__init__(guarded,*args,journal=None,**kwargs)
         self.v=Venue(self.book,journal)
 
 
