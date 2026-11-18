@@ -1,0 +1,57 @@
+{
+  "controls": {
+    "successes": 981,
+    "trials": 1200,
+    "wilson": [
+      0.794644151,
+      0.838329563
+    ],
+    "mean": 1.189925,
+    "worst_sample": -172.0,
+    "worst_tree": -175.0,
+    "paths": 488281250,
+    "orientations": [
+      -1,
+      1
+    ],
+    "worst_stress": -22483.0,
+    "stress_counts": {
+      "A3-selected": 32,
+      "K-EXECUTABLE": 24
+    },
+    "tests": 15,
+    "tests_passed": true
+  },
+  "comparisons": {
+    "COMPARISON_RESULTS.csv": {
+      "archived": "dc9c324381bc396070dceaaa382e47fe9bbfc89c55c11b676006cbe4c9f5296a",
+      "replay": "dc9c324381bc396070dceaaa382e47fe9bbfc89c55c11b676006cbe4c9f5296a",
+      "identical": true
+    },
+    "EXHAUSTIVE_RESULTS.csv": {
+      "archived": "ca1e584a269e75c1d265984eac2516f03d60c9ae14b5758701b676b9ecb85558",
+      "replay": "ca1e584a269e75c1d265984eac2516f03d60c9ae14b5758701b676b9ecb85558",
+      "identical": true
+    },
+    "ADVERSARIAL_RESULTS.csv": {
+      "archived": "a0bd5d5585e29d0e1178faa24ddc9a0ff29494bfb17586429e5da1dd484c19f7",
+      "replay": "a0bd5d5585e29d0e1178faa24ddc9a0ff29494bfb17586429e5da1dd484c19f7",
+      "identical": true
+    },
+    "COST_BUDGET_FRONTIER.csv": {
+      "archived": "ce07594283c9ab6724c575d1a6700ff8f64e2e29d4d20c9445695a04da83d968",
+      "replay": "ce07594283c9ab6724c575d1a6700ff8f64e2e29d4d20c9445695a04da83d968",
+      "identical": true
+    },
+    "PAIRED_COMPARISON.csv": {
+      "archived": "0e0e5aafc00d3b14b645e92a29f29944d13a3204ad53e929b459e47e091d1623",
+      "replay": "0e0e5aafc00d3b14b645e92a29f29944d13a3204ad53e929b459e47e091d1623",
+      "identical": true
+    },
+    "OPTIMAL_PARAMETERS.csv": {
+      "archived": "10bc50e957851154e84ea70a4eb6f319762bb4894ee70ce36534bb14ce0faeec",
+      "replay": "10bc50e957851154e84ea70a4eb6f319762bb4894ee70ce36534bb14ce0faeec",
+      "identical": true
+    }
+  }
+}
