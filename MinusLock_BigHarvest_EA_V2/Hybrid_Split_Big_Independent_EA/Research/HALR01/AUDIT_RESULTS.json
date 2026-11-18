@@ -1,0 +1,26 @@
+{
+  "meta_action_counts": {
+    "M-minimax": {
+      "DONE": 1200
+    },
+    "M-probability": {
+      "EXIT": 1200,
+      "HOLD": 1426,
+      "PARTIAL_CLOSE": 3789,
+      "SWITCH_TO_B": 258,
+      "WAIT": 406
+    },
+    "M-adjusted": {
+      "EXIT": 1200,
+      "HARVEST": 9,
+      "HOLD": 3599,
+      "PARTIAL_CLOSE": 2129,
+      "REHEDGE": 177,
+      "SWITCH_TO_B": 1
+    }
+  },
+  "replayed_rows": 7,
+  "best_policy_test_paths": 1200,
+  "stress_paths": 88,
+  "exhaustive_policy_rows": 15
+}

@@ -70,7 +70,8 @@ def run(variant, scenario, p=Params(), budget=180, config=Config(), trace=None):
         else:
             policy.act(book, q, step)
         if trace is not None:
-            trace.append((step, book.net, book.gross, book.snapshot(q)["pnl"]))
+            action = "EXIT" if closing else getattr(policy, "action", variant)
+            trace.append((step, book.net, book.gross, book.snapshot(q)["pnl"], action))
         if not book.gross and (closing or getattr(policy, "stopped", False)):
             if book.snapshot(q)["pnl"] > 1e-9:
                 recovered_at = step

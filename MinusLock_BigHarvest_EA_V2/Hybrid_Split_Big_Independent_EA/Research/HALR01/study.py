@@ -108,7 +108,7 @@ def paired(a, b):
 def main():
     train, valid, test = (list(sample(*spec)) for spec in (TRAIN, VALIDATE, TEST))
     xpaths, spaths = list(exhaustive()), list(stress())
-    opt, comparisons, frontier, matrix, budget_rows, pairs = [], [], [], [], [], []
+    opt, comparisons, matrix, budget_rows, pairs = [], [], [], [], []
     all_eval = {}
     selected_at = {}
     for budget in BUDGETS:
@@ -129,13 +129,11 @@ def main():
 
     for budget, chosen in selected_at.items():
         k = evaluate(Candidate("K"), test, budget)
-        points = []
         for c, valid_score in chosen:
             result = evaluate(c, test, budget)
             sp = evaluate(c, spaths, budget)
             all_eval[budget,c] = (result, sp)
             r = dict(budget=budget, **info(c), split="independent_test", **summary(result, True))
-            points.append(r)
             comparisons.extend([r, dict(budget=budget, **info(c), split="adversarial_holdout", **summary(sp))])
             wins, losses, delta = paired(result, k)
             pairs.append(dict(budget=budget, variant=c.variant, baseline="K", n=len(k),
@@ -148,10 +146,6 @@ def main():
                     orientation, path, name = scenario
                     matrix.append(dict(variant=c.variant, orientation=orientation,
                                        scenario=name, moves=str(path), **asdict(outcome)))
-        metrics = [(p["rate"], -p["worst_loss"], -p["cvar95"]) for p in points]
-        for p, m in zip(points, metrics):
-            if not any(all(x>=y for x,y in zip(other,m)) and other!=m for other in metrics):
-                frontier.append(p)
         # Screen candidates in validation order against the exact fixed-execution
         # six-step tree. This tree is part of the feasibility constraints.
         ordered = sorted(chosen, key=lambda row: rank(row[1]), reverse=True)
@@ -183,6 +177,7 @@ def main():
                                   recoveries_only_candidate=wins, recoveries_only_baseline=losses,
                                   mean_pnl_difference=delta))
     add_balanced(comparisons, pairs, test, xpaths)
+    frontier = pareto_rows(comparisons)
     for name, rows in (("OPTIMIZATION_RESULTS",opt), ("COMPARISON_RESULTS",comparisons),
                        ("PARETO_FRONTIER",frontier), ("SCENARIO_MATRIX",matrix),
                        ("BUDGET_FRONTIER",budget_rows), ("PAIRED_RESULTS",pairs)):
@@ -193,6 +188,21 @@ def main():
             changed = replace(c, config=replace(c.config, commission=fee))
             sensitivity.append(dict(**info(changed), **summary(evaluate(changed,test,180),True)))
     write_csv("COST_SENSITIVITY",sensitivity)
+
+
+def pareto_rows(comparisons):
+    frontier = []
+    for budget in BUDGETS:
+        points = [r for r in comparisons if int(r["budget"]) == budget
+                  and r["split"] == "independent_test"]
+        metrics = [(round(float(p["rate"]), 8), -round(float(p["worst_loss"]), 8),
+                    -round(float(p["cvar95"]), 8)) for p in points]
+        for point, metric in zip(points, metrics):
+            dominated = any(all(a >= b for a,b in zip(other,metric)) and other != metric
+                            for other in metrics)
+            if not dominated:
+                frontier.append(point)
+    return frontier
 
 
 def add_balanced(comparisons, pairs, test, xpaths):
