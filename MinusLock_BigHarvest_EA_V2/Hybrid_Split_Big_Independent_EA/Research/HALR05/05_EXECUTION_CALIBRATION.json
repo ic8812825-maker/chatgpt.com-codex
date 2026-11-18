@@ -1,0 +1,39 @@
+{
+  "status": "BROKER_FILL_EVIDENCE_UNAVAILABLE",
+  "execution_evidence": "MODEL_ONLY",
+  "broker_logs": 0,
+  "guaranteed_capacity": null,
+  "observed_broker_delay": null,
+  "models": {
+    "QUOTE_FILL": {},
+    "BOUNDED_SLIPPAGE": {
+      "slip": 2
+    },
+    "DELAY_ONLY": {
+      "delay": 1
+    },
+    "PARTIAL_ONLY": {
+      "capacity": 25
+    },
+    "DELAYED_PARTIAL": {
+      "schedule": "pinned HALR04 replay"
+    },
+    "REJECT_ONLY": {
+      "rejects_first_event": 1
+    },
+    "UNKNOWN_ONLY": {
+      "unknown_until": 3
+    },
+    "REJECT_UNKNOWN": {
+      "rejects_first_event": 1,
+      "unknown_from": 1,
+      "unknown_until": 4
+    },
+    "LOW_LIQUIDITY": {
+      "capacity": 10
+    },
+    "COMPOUND_STRESS": {
+      "schedule": "pinned HALR04 replay"
+    }
+  }
+}
