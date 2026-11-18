@@ -1,0 +1,21 @@
+{
+  "provider":"HistData EURUSD Generic ASCII ticks",
+  "tz":"UTC-05:00 fixed",
+  "training":["201902","202004","202105","202210"],
+  "validation":["202302","202310"],
+  "final_test":["202403","202406","202409","202502","202505","202508"],
+  "baseline_diagnostic":["202407"],
+  "crisis_diagnostic":["202003"],
+  "interval_minutes":[0,1,5,15,30],
+  "horizon":12,
+  "primary":"S2/30m/H12",
+  "anchor_local":"08:00",
+  "activation_closes_local":"14:00",
+  "activation_points":300,
+  "clock_tolerance_minutes":5,
+  "cluster":"calendar month",
+  "embargo":"one scheduled episode per local day; at least 11h55 to next anchor under the observation tolerance",
+  "trained_thresholds":"fixed buckets; shrink group estimates toward zero",
+  "primary_success":"lower simultaneous confidence bound on paired realized delta > 0, no hard violations, all paired episodes FLAT",
+  "analysis_started_before_final_returns":true
+}
