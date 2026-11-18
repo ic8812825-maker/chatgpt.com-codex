@@ -1,0 +1,9 @@
+profile,status,scope,short_paths_checked
+E0,PROVEN,"RDB-0..4, explicit guaranteed service, initially feasible, projected actions",216
+E1,PROVEN,"RDB-0..4, explicit guaranteed service, initially feasible, projected actions",216
+E2,PROVEN,"RDB-0..4, explicit guaranteed service, initially feasible, projected actions",216
+E3,VIOLATED,required FLAT impossible under stated initial Gross and service,0
+E4,PROVEN,EXIT_K only when guaranteed initial full service precedes gap,0
+E5,VIOLATED,some finite horizons/paths; general H12 feasibility NOT_PROVEN,0
+E6,VIOLATED,required FLAT impossible under stated initial Gross and service,0
+historical,NOT_PROVEN,"real prices; assumed, unconfirmed broker fills",0

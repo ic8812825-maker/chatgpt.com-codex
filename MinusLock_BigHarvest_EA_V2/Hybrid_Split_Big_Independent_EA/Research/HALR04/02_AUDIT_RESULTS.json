@@ -1,0 +1,29 @@
+{
+  "K-EXECUTABLE": {
+    "cases": 88,
+    "fills": 272,
+    "flat": 76,
+    "residual": 12,
+    "pending": 8,
+    "paired_flat": 76,
+    "max_additional_loss": 0
+  },
+  "A3-ER": {
+    "cases": 88,
+    "fills": 372,
+    "flat": 72,
+    "residual": 16,
+    "pending": 8,
+    "paired_flat": 72,
+    "max_additional_loss": 17940.0
+  },
+  "M-ER": {
+    "cases": 88,
+    "fills": 348,
+    "flat": 72,
+    "residual": 16,
+    "pending": 8,
+    "paired_flat": 72,
+    "max_additional_loss": 17945.8
+  }
+}

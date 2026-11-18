@@ -1,0 +1,12 @@
+{
+  "results_rows": 216,
+  "historical_primary_rows": 2484,
+  "archive_stress_rows": 792,
+  "valid_ticks": 33839492,
+  "market_archives": 14,
+  "initial_margin_failures": 28,
+  "historical_reconciled_paths": 1035,
+  "historical_reconciled_fills": 3068,
+  "archived_reconciled_fills": 992,
+  "contract_verified": true
+}

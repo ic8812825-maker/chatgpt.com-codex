@@ -1,0 +1,151 @@
+{
+  "source_format": "HistData EURUSD Generic ASCII ticks",
+  "calendar": {
+    "provider": "HistData EURUSD Generic ASCII ticks",
+    "tz": "UTC-05:00 fixed",
+    "training": [
+      "201902",
+      "202004",
+      "202105",
+      "202210"
+    ],
+    "validation": [
+      "202302",
+      "202310"
+    ],
+    "final_test": [
+      "202403",
+      "202406",
+      "202409",
+      "202502",
+      "202505",
+      "202508"
+    ],
+    "baseline_diagnostic": [
+      "202407"
+    ],
+    "crisis_diagnostic": [
+      "202003"
+    ],
+    "interval_minutes": [
+      0,
+      1,
+      5,
+      15,
+      30
+    ],
+    "horizon": 12,
+    "primary": "S2/30m/H12",
+    "anchor_local": "08:00",
+    "activation_closes_local": "14:00",
+    "activation_points": 300,
+    "clock_tolerance_minutes": 5,
+    "cluster": "calendar month",
+    "embargo": "one scheduled episode per local day; at least 11h55 to next anchor under the observation tolerance",
+    "trained_thresholds": "fixed buckets; shrink group estimates toward zero",
+    "primary_success": "lower simultaneous confidence bound on paired realized delta > 0, no hard violations, all paired episodes FLAT",
+    "analysis_started_before_final_returns": true
+  },
+  "archives": [
+    {
+      "month": "201902",
+      "fold": "training",
+      "archive": "historical-201902.zip",
+      "sha256": "8f954c1db6980d0b0a9d4e98fcdd7beafe48eef0e240cb14009621bacefbdf33",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2019/2"
+    },
+    {
+      "month": "202004",
+      "fold": "training",
+      "archive": "historical-202004.zip",
+      "sha256": "f04003bd7c1f818a8b50c7e6bea4e64a42f20d77022cfe0ab9941cc07df9ba0d",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2020/4"
+    },
+    {
+      "month": "202105",
+      "fold": "training",
+      "archive": "historical-202105.zip",
+      "sha256": "88b5e037ad765352a7d574fedc943d4f378552ade141a06c79b89adb0563005f",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2021/5"
+    },
+    {
+      "month": "202210",
+      "fold": "training",
+      "archive": "historical-202210.zip",
+      "sha256": "c62394f255595c07c51a17042f62ef1bab5002f845b89cc93f8933fafa2cf72a",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2022/10"
+    },
+    {
+      "month": "202302",
+      "fold": "validation",
+      "archive": "historical-202302.zip",
+      "sha256": "05eee0b585d3fdbe4c783302a8cbcb7dd54ceb477a35fa1050ee7a1e9d7a222b",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2023/2"
+    },
+    {
+      "month": "202310",
+      "fold": "validation",
+      "archive": "historical-202310.zip",
+      "sha256": "04ce16bbe3ea2b183d982ba85e3b40f670a7a9ecb9276835cb505ab51bdd5a99",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2023/10"
+    },
+    {
+      "month": "202403",
+      "fold": "final_test",
+      "archive": "historical-202403.zip",
+      "sha256": "b70fcaf5ee82ca6dc847f8a6c0f4354ecb456ae8579faed8563b53ac2ac324df",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2024/3"
+    },
+    {
+      "month": "202406",
+      "fold": "final_test",
+      "archive": "historical-202406.zip",
+      "sha256": "162e85bb8da67b35852b2950f1aa2e6d2eff7f2fef738849bc1327e4f5392d12",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2024/6"
+    },
+    {
+      "month": "202409",
+      "fold": "final_test",
+      "archive": "historical-202409.zip",
+      "sha256": "00ab61749d1d70081c18f9dfe4a175e160c54de29edb779a713432fcbae10059",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2024/9"
+    },
+    {
+      "month": "202502",
+      "fold": "final_test",
+      "archive": "historical-202502.zip",
+      "sha256": "63c3b2717c024f7aada8642b38e7a944646dbe2440303632918e5c594db2313e",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2025/2"
+    },
+    {
+      "month": "202505",
+      "fold": "final_test",
+      "archive": "historical-202505.zip",
+      "sha256": "3ce49d7b44e8b17c942ad2d5e77e317c023a5884f090c086806b888dae633f77",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2025/5"
+    },
+    {
+      "month": "202508",
+      "fold": "final_test",
+      "archive": "historical-202508.zip",
+      "sha256": "c9b4869da23f24082614b8666159ce4a1f83573f5e687879634d7640f507a229",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2025/8"
+    },
+    {
+      "month": "202407",
+      "fold": "baseline_diagnostic",
+      "archive": "historical-202407.zip",
+      "sha256": "d46ff671cd5fd65c605d7c03496217dcbca3ed39086dc3afe202f193f518442c",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2024/7"
+    },
+    {
+      "month": "202003",
+      "fold": "crisis_diagnostic",
+      "archive": "historical-202003.zip",
+      "sha256": "2c4442ec10a32e75e3a3cda3a683a3fe8ad893664befb6dc6f797e2d8fdcac58",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2020/3"
+    }
+  ],
+  "rights": "Public download. Redistribution terms not independently confirmed; archives omitted from Git.",
+  "acquire": "Run the pinned HALR-03 fetch_histdata.py using the listed months"
+}
