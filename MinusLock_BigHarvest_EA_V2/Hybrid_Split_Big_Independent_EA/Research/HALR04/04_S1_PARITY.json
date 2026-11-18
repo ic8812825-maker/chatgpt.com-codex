@@ -1,0 +1,74 @@
+[
+  {
+    "mode": "quote_fill",
+    "policy": "A3-ER",
+    "episodes": 9,
+    "recovered": 0,
+    "flat": 9,
+    "violations": 0
+  },
+  {
+    "mode": "quote_fill",
+    "policy": "M-ER",
+    "episodes": 9,
+    "recovered": 1,
+    "flat": 9,
+    "violations": 0
+  },
+  {
+    "mode": "quote_fill",
+    "policy": "K-EXECUTABLE",
+    "episodes": 9,
+    "recovered": 0,
+    "flat": 9,
+    "violations": 0
+  },
+  {
+    "mode": "bounded_slip",
+    "policy": "A3-ER",
+    "episodes": 9,
+    "recovered": 0,
+    "flat": 9,
+    "violations": 0
+  },
+  {
+    "mode": "bounded_slip",
+    "policy": "M-ER",
+    "episodes": 9,
+    "recovered": 1,
+    "flat": 9,
+    "violations": 0
+  },
+  {
+    "mode": "bounded_slip",
+    "policy": "K-EXECUTABLE",
+    "episodes": 9,
+    "recovered": 0,
+    "flat": 9,
+    "violations": 0
+  },
+  {
+    "mode": "delayed_partial",
+    "policy": "A3-ER",
+    "episodes": 9,
+    "recovered": 0,
+    "flat": 9,
+    "violations": 0
+  },
+  {
+    "mode": "delayed_partial",
+    "policy": "M-ER",
+    "episodes": 9,
+    "recovered": 0,
+    "flat": 9,
+    "violations": 0
+  },
+  {
+    "mode": "delayed_partial",
+    "policy": "K-EXECUTABLE",
+    "episodes": 9,
+    "recovered": 0,
+    "flat": 9,
+    "violations": 0
+  }
+]
