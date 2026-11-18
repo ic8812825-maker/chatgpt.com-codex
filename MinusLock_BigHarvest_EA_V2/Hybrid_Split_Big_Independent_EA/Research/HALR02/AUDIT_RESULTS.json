@@ -1,0 +1,20 @@
+{
+  "compared_policy_rows": 13,
+  "budget_rows": 35,
+  "matched_horizon_rows": 4,
+  "complete_cases": {
+    "K-EXECUTABLE/4": 1250,
+    "K-EXECUTABLE/6": 31250,
+    "K-EXECUTABLE/8": 781250,
+    "K-EXECUTABLE/12": 488281250,
+    "A3-selected/4": 1250,
+    "A3-selected/6": 31250,
+    "A3-selected/8": 781250,
+    "A3-selected/12": 488281250,
+    "M-selected/4": 1250,
+    "M-selected/6": 31250,
+    "M-selected/8": 781250,
+    "M-selected/12": 488281250
+  },
+  "minimal_witnesses": 3
+}

@@ -2,9 +2,10 @@
 from collections import namedtuple
 from itertools import product
 
+from a3rc import choose_a3
 from execution import Quote
 from ledger2 import Limits, TICKS
-from meta_rc import D
+from meta_rc import D, choose_m
 from runner import Cycle, run
 from scenarios2 import Scenario
 
@@ -31,8 +32,16 @@ def exact(variant, orientation, params, limits, selector=None, node_limit=150000
             return Counts(count,count*int(flat and mark>0),
                           count*int(bool(b.violations) or not flat),mark,mark,
                           count*int(not flat),count*int(flat))
-        key=(t,v.quote.mid,cycle.memory,b.realized,b.spent,b.next_id,
-             tuple(b.tickets.items()),tuple(sorted(b.violations)))
+        if selector in (None,choose_a3,choose_m):
+            # At a fixed nominal quote a close preserves mark. A new lot
+            # subtracts its exact round trip. Entry prices therefore affect
+            # future admissible decisions only through the current mark.
+            shape=tuple((i if ticket.original else -1,ticket.side,ticket.units)
+                        for i,ticket in b.tickets.items())
+            cash=(mark,b.spent,shape)
+        else:
+            cash=(b.realized,b.spent,b.next_id,tuple(b.tickets.items()))
+        key=(t,v.quote.mid,cycle.memory,cash,tuple(sorted(b.violations)))
         if key not in cache:
             if len(cache)>=node_limit:
                 raise NodeLimit(len(cache))

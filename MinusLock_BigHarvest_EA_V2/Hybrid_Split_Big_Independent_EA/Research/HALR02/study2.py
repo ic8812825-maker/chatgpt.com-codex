@@ -1,5 +1,6 @@
 """Fit on training and validation, certify under the declared nominal contract."""
 import csv
+import gzip
 from dataclasses import asdict, dataclass, replace
 import json
 import math
@@ -233,10 +234,13 @@ def compare(test,winners):
                 c.apply(s,journal=trace)
                 journals.append(dict(label=label,case=s.name,scenario=record,journal=trace))
     write("COMPARISON_RESULTS",list(summary_rows.values()))
-    write("ADVERSARIAL_RESULTS",stress_rows)
+    write("ADVERSARIAL_RESULTS",[
+        {k:v for k,v in row.items() if k not in ("events","moves","action_counts")}
+        for row in stress_rows
+    ])
     write("PAIRED_COMPARISON",paired(results,test,results["K-EXECUTABLE"]))
-    Path("COUNTEREXAMPLE_JOURNALS.jsonl").write_text(
-        "".join(json.dumps(j,separators=(",",":"))+"\n" for j in journals))
+    lines = "".join(json.dumps(j,separators=(",",":"))+"\n" for j in journals)
+    Path("COUNTEREXAMPLE_JOURNALS.jsonl.gz").write_bytes(gzip.compress(lines.encode(),mtime=0))
     return profiles
 
 
@@ -249,7 +253,7 @@ def exhaustive(profiles):
             for o in (-1,1):
                 print("exhaustive",label,h,o,flush=True)
                 try:
-                    result,nodes=exact(c.name,o,c.p,l,c.selector,node_limit=90000)
+                    result,nodes=exact(c.name,o,c.p,l,c.selector,node_limit=300000)
                     status="COMPLETE"
                     x=dict(result._asdict())
                     x["worst"]/=TICKS
