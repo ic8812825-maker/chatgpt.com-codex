@@ -73,6 +73,7 @@ class Venue:
         return tuple(o for o in self.orders.values() if o.state not in TERMINAL)
 
     def advance(self, step, quote):
+        self.previous_mid = self.quote.mid if hasattr(self,"quote") else quote.mid
         self.step, self.quote = step, quote
         self.capacity, self.rejects = quote.capacity, quote.rejects
         self.emit("QUOTE", spread=quote.spread, slip=quote.slip, capacity=quote.capacity,
