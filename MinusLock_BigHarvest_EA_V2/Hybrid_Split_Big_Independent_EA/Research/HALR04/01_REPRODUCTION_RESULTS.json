@@ -1,0 +1,50 @@
+{
+  "initial": [
+    {
+      "orientation": -1,
+      "mark": -58.0,
+      "initial_cost": 29.0,
+      "exit_reserve": 29.0,
+      "gross": 200,
+      "net": 0
+    },
+    {
+      "orientation": 1,
+      "mark": -58.0,
+      "initial_cost": 29.0,
+      "exit_reserve": 29.0,
+      "gross": 200,
+      "net": 0
+    }
+  ],
+  "e1": {
+    "seed": "31409",
+    "grid": "3",
+    "n": "1800",
+    "recoveries": "1434",
+    "mean_pnl": "-6.604533333",
+    "worst_pnl": "-178.8",
+    "cvar99": "177.060555556"
+  },
+  "baseline_test_report": {
+    "passed": true,
+    "tests": 8,
+    "baseline_reproduced": 15,
+    "cash_reconciled_fills": 996,
+    "failure_rows": 372,
+    "paired_rows": 798,
+    "trial_group_rows": 266,
+    "kernel_rows": 108,
+    "historical_archives": 5
+  },
+  "python": "3.12.14",
+  "hash_comparison": {
+    "08_HALR02_STRESS_BRIDGE.csv": true,
+    "08_HALR02_STRESS_OUTCOMES.csv": true,
+    "08_PAIRED_COMPARISON.csv": true,
+    "08_RECOVERY_RISK_FRONTIER.csv": true,
+    "08_ROBUSTNESS_MATRIX.csv": true,
+    "08_TUNING_LOG.csv": true,
+    "10_INCREMENTAL_VALUE_VS_K.csv": true
+  }
+}
