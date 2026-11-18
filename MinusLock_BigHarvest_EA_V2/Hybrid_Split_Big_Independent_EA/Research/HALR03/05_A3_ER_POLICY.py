@@ -42,9 +42,19 @@ def net_room(book,q,ctx):
     return min(book.limits.net,max(0,room//(2*distance)))
 
 
+def observed_contract(v,env):
+    q=v.quote
+    if (q.spread>env.spread or q.slip>env.slip or q.carry>env.carry
+            or abs(q.mid-v.previous_mid)>env.move):
+        return False
+    if v.step%env.stride:
+        return True
+    return not (q.delay or q.unknown or v.rejects or v.capacity<v.book.gross)
+
+
 def er_options(v,p,m,env):
     ctx=context(v,env)
-    if ctx is None:
+    if ctx is None or not observed_contract(v,env):
         return
     if v.step%env.stride!=0:
         if exit_status(v,env)=="EXIT_GUARANTEED_WITHIN_CONTRACT":

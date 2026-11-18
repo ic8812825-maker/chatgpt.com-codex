@@ -15,7 +15,7 @@ DELEGATES={"A3-ER":a3.choose_er,"B4-RC":choose_b,"K-EXECUTABLE":choose_k}
 
 def choose_meta(v,p,m,env):
     ctx=a3.context(v,env)
-    if ctx is None:
+    if ctx is None or not a3.observed_contract(v,env):
         return "SAFE",None,replace(m,exiting=True),None
     if v.step%env.stride:
         return a3.choose_er(v,p,m,env)
