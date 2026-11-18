@@ -1,0 +1,27 @@
+{
+  "RESEARCH_STATUS":"COMPLETED",
+  "HISTORICAL_EVIDENCE":"INCONCLUSIVE",
+  "EXECUTION_EVIDENCE":"MODEL_ONLY",
+  "BROKER_EVIDENCE_DETAIL":"BROKER_FILL_EVIDENCE_UNAVAILABLE",
+  "RISK_STATUS":"VIOLATED",
+  "RISK_SCOPE":{
+    "E0_E2":"PROVEN_WITHIN_SPECIFIED_CONTRACT",
+    "primary_historical":"VIOLATED_AT_ACTIVATION_AND_ONE_RDB_1_2_DEADLINE",
+    "broader_execution":"NOT_PROVEN"
+  },
+  "ECONOMIC_ADVANTAGE":"NO_PROVEN_ADVANTAGE",
+  "PRODUCTION_READY":"NO",
+  "primary":{"scheme":"S2","minutes":30,"horizon":12,"execution":"quote_fill",
+             "activated":69,"calendar_month_clusters":6,"initial_margin_violations":28},
+  "diagnostic_subgroup":{
+    "preaction_eligible":41,
+    "status":"POST_HOC_HYPOTHESIS",
+    "comparable_policies":["M-ER","RDB-3"],
+    "confirmed_flat":41,
+    "recoveries":11,
+    "mean_delta_usd":6.809756097560975,
+    "descriptor":"Identical M-ER and RDB-3 outcomes in this subgroup; future holdout required"
+  },
+  "decision":"Retain K as executable flatten control. Decline recovery in uncertified states. No research winner for the full primary scope.",
+  "next_stage":"A preregistered M-ER vs K comparison on a new initially eligible holdout with anonymized broker fill evidence."
+}

@@ -1,0 +1,41 @@
+{
+  "confirmed_stages": [
+    {
+      "sha": "28a828d4aeff4044ea7bf9c29b2648fcdc02abd8",
+      "subject": "research(halr04-01): freeze and reproduce HALR03 baseline"
+    },
+    {
+      "sha": "2b3259a3c93be8c87a8843690df442b727d113f2",
+      "subject": "research(halr04-02): independently audit money and economic objectives"
+    },
+    {
+      "sha": "a0cbfdff2c567015c26c5031c1c5a9c7d4776280",
+      "subject": "research(halr04-03): expand and validate historical bid ask evidence"
+    },
+    {
+      "sha": "599bf2b908a6f67ba15ff2943d7ccdd0cba31b32",
+      "subject": "research(halr04-04): implement causal replay and audit episode selection"
+    },
+    {
+      "sha": "bf72703a2db4b05da433cb9d5512862b3093f181",
+      "subject": "research(halr04-05): establish broker execution evidence and liquidity limits"
+    },
+    {
+      "sha": "7fb59ac44018dd275bbb32b04d9115f205abffaf",
+      "subject": "research(halr04-06): implement causal recovery decision boundary"
+    },
+    {
+      "sha": "3550ee61381abf5faa75475916a0f7552ec0c5e1",
+      "subject": "research(halr04-07): verify viability and impossibility boundaries"
+    },
+    {
+      "sha": "faba50a274c55716bc699a49a58feb34d8dd7b9c",
+      "subject": "research(halr04-08): run frozen walk forward and independent paired tests"
+    },
+    {
+      "sha": "230facb24488c95bad245785df6b9552eb893ca8",
+      "subject": "research(halr04-09): evaluate economic frontier and adversarial robustness"
+    }
+  ],
+  "stage_10": "Resolve via Draft PR head; the enclosing commit cannot embed its own hash."
+}
