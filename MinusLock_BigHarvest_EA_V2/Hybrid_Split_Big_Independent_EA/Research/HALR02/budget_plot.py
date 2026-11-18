@@ -1,6 +1,7 @@
 """Draw the budget surface (optional Matplotlib)."""
 from csv import DictReader
 import math
+from pathlib import Path
 import matplotlib.pyplot as plt
 
 plt.rcParams["svg.hashsalt"]="halr02"
@@ -19,4 +20,6 @@ for i,row in enumerate(z):
     for j,x in enumerate(row):
         ax.text(j,i,"—" if math.isnan(x) else f"{x:.1f}",ha="center",va="center",
                 color="white" if x>62 else "#1a2740")
-fig.savefig("BUDGET_SURFACE.svg",metadata={"Date":None})
+svg = Path("BUDGET_SURFACE.svg")
+fig.savefig(svg,metadata={"Date":None})
+svg.write_text("\n".join(line.rstrip() for line in svg.read_text().splitlines()) + "\n")
