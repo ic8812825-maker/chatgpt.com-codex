@@ -1,0 +1,26 @@
+{
+  "activations": 69,
+  "audit": {
+    "archive_stress_rows": 792,
+    "archived_reconciled_fills": 992,
+    "contract_verified": true,
+    "historical_primary_rows": 2484,
+    "historical_reconciled_fills": 3068,
+    "historical_reconciled_paths": 1035,
+    "initial_margin_failures": 28,
+    "market_archives": 14,
+    "results_rows": 216,
+    "valid_ticks": 33839492
+  },
+  "byte_identical": "08_PAIRED_RESULTS.csv",
+  "initial_margin": 28,
+  "m_er_recoveries": 11,
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "reproduced": true,
+  "tests": {
+    "errors": 0,
+    "failures": 0,
+    "passed": true,
+    "tests": 9
+  }
+}

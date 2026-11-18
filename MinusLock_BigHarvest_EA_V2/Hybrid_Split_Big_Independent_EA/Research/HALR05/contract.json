@@ -1,0 +1,20 @@
+{
+  "symbol":"EURUSD",
+  "point":"0.00001",
+  "pip":"0.0001",
+  "lot_unit":"0.01",
+  "account_currency":"USD",
+  "half_cents_per_dollar":200,
+  "initial_gross_units":200,
+  "capital":15000,
+  "leverage":30,
+  "margin_level_bps":20000,
+  "stopout_bps":5000,
+  "commission_half_cents_per_unit_one_side":9,
+  "full_loss_usd":180,
+  "new_cost_usd":50,
+  "max_gross_units":500,
+  "max_net_units":50,
+  "horizon":12,
+  "hist_execution":"MODEL_ONLY"
+}

@@ -1,0 +1,16 @@
+{
+  "base": "d81c048bac82e7d8fd5e5c872d68a96e6983927f",
+  "branch": "research/halr05",
+  "checked_utc": "2026-11-18T23:19:11.237828+00:00",
+  "parameters": "Exact HALR04 contract.json; Params() and dispatch in pinned replay.py",
+  "pr": {
+    "7": "ac17e6a365ec97457b3fd358163f5aab91f15924",
+    "8": "7d12c24192730b27dac92bb8a5bad0c0efa900cc",
+    "9": "dd957384a43253964c906379cf37c0ec80de0828"
+  },
+  "source_shas": {
+    "HALR02_DIR": "ac17e6a365ec97457b3fd358163f5aab91f15924",
+    "HALR03_DIR": "7d12c24192730b27dac92bb8a5bad0c0efa900cc",
+    "HALR04_DIR": "dd957384a43253964c906379cf37c0ec80de0828"
+  }
+}
