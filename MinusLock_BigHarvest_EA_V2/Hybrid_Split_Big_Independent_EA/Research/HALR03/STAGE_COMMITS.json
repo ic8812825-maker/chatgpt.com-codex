@@ -1,0 +1,38 @@
+[
+  {
+    "sha": "5f66510bd4dea0bba5a7f5a4cde0aa394074aaa7",
+    "subject": "HALR03-01: freeze and reproduce HALR02 baseline"
+  },
+  {
+    "sha": "952fb19026d57806001de6dff38df4c1c12b246b",
+    "subject": "HALR03-02: independently audit money risk and nominal proofs"
+  },
+  {
+    "sha": "ced7954def7ff749229c83cfb5aae930c7d926b8",
+    "subject": "HALR03-03: classify and minimize execution failures"
+  },
+  {
+    "sha": "2bb95768fa7a670c9b67608d5b00f88b3411bb5c",
+    "subject": "HALR03-04: implement extended execution contracts"
+  },
+  {
+    "sha": "420cedefb632f335b6e1eb4141f04401af833b2e",
+    "subject": "HALR03-05: implement execution robust A3 candidate"
+  },
+  {
+    "sha": "d1dde9058d56b697149733394dcee151d6ed47eb",
+    "subject": "HALR03-06: implement and verify meta controller"
+  },
+  {
+    "sha": "d207d04612f21dcef97c19d2268bcadbb043a986",
+    "subject": "HALR03-07: build historical bid ask validation pipeline"
+  },
+  {
+    "sha": "c41948560e82accb2f8d6081a3fc02af3e9ceb5b",
+    "subject": "HALR03-08: run paired robustness and statistical comparisons"
+  },
+  {
+    "sha": "988415053fa0e362c7535a799f29f2fee25bf0eb",
+    "subject": "HALR03-09: establish viability and risk certificate boundaries"
+  }
+]

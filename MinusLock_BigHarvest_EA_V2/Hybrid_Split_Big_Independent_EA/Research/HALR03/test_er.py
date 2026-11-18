@@ -5,6 +5,7 @@ import unittest
 from baseline_audit import reconcile
 from a3rc import Params
 from ledger2 import Limits
+from execution import Quote
 from meta_rc import D
 
 m=importlib.import_module("04_EXECUTION_SIMULATOR")
@@ -20,6 +21,19 @@ class RobustTests(unittest.TestCase):
                 c=m.Case(orientation,d,"E2",(20,20,20,20,20))
                 r=m.replay("A3-ER",c,l,p,a.choose_er,contract=m.PROFILES["E2"])
                 self.assertTrue(r.flat and not r.violations,(c,r))
+
+    def test_detected_service_contract_breach_forces_safe(self):
+        meta=importlib.import_module("06_META_ER_POLICY")
+        for select in (a.choose_er,meta.choose_meta):
+            c=m.ExecutionCycle("A3-ER",1,Limits(horizon=2),
+                               Params(trigger=0),m.PROFILES["E1"],selector=select,journal=[])
+            c.step(0,Quote(0,capacity=25,delay=1))
+            self.assertTrue(c.memory.exiting)
+            self.assertFalse(c.finish)
+            orders=[event for event in c.v.journal if event["event"]=="CREATED"]
+            self.assertTrue(orders and all(event["ticket"] is not None for event in orders))
+            c.step(1,Quote(0))
+            self.assertTrue(c.finish)
 
     def test_cost_infeasibility_and_final_flat(self):
         l=Limits(cost=20,horizon=4)
