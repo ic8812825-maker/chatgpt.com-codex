@@ -1,0 +1,295 @@
+{
+  "archives": [
+    {
+      "archive": "historical-201501.zip",
+      "month": "201501",
+      "sha256": "01bda26f5a7a54ee621791e6ee279d3e334afecd36ac8261a961cd50233c6a7f",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2015/1",
+      "utc_first": "2015-01-01T18:00:21.493000+00:00",
+      "utc_last": "2015-01-30T21:59:45.507000+00:00"
+    },
+    {
+      "archive": "historical-201502.zip",
+      "month": "201502",
+      "sha256": "04c9b5f42cd092bf825372f14d9ba93d0927478f522edc9178390c317a3b812b",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2015/2",
+      "utc_first": "2015-02-01T22:00:02.577000+00:00",
+      "utc_last": "2015-02-27T21:59:54.890000+00:00"
+    },
+    {
+      "archive": "historical-201503.zip",
+      "month": "201503",
+      "sha256": "db20019a7c4cf25b3d657e9ae9b9f9ce60571df3dbb429f7efe03b81f21cc631",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2015/3",
+      "utc_first": "2015-03-01T22:00:07.687000+00:00",
+      "utc_last": "2015-04-01T04:59:51.517000+00:00"
+    },
+    {
+      "archive": "historical-201504.zip",
+      "month": "201504",
+      "sha256": "86d7c6a47ffe25f1e9dad432e70999b59d7f37a4125077882486d78662b4fc6e",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2015/4",
+      "utc_first": "2015-04-01T05:00:01.517000+00:00",
+      "utc_last": "2015-05-01T04:59:40.337000+00:00"
+    },
+    {
+      "archive": "historical-201505.zip",
+      "month": "201505",
+      "sha256": "9543408a6d41e1cc435622d60f2c98a8bf447cb62e215af69cdab0aa926c113f",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2015/5",
+      "utc_first": "2015-05-01T05:00:00.587000+00:00",
+      "utc_last": "2015-06-01T04:59:59.953000+00:00"
+    },
+    {
+      "archive": "historical-201506.zip",
+      "month": "201506",
+      "sha256": "a6ff18c32f17de0b6e60a499be3e86e82993d7105e558f9d24b84b95ae7da89c",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2015/6",
+      "utc_first": "2015-06-01T05:00:00.453000+00:00",
+      "utc_last": "2015-07-01T04:59:50.517000+00:00"
+    },
+    {
+      "archive": "historical-201507.zip",
+      "month": "201507",
+      "sha256": "f88b0fa0fed60108bf1ba244361135c7b1ac933817eed20983a8c6f65a85e161",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2015/7",
+      "utc_first": "2015-07-01T05:00:10.767000+00:00",
+      "utc_last": "2015-07-31T21:59:59.567000+00:00"
+    },
+    {
+      "archive": "historical-201508.zip",
+      "month": "201508",
+      "sha256": "0abf4563a057bdd7e8c377308bac9a4d8f0cd97073401c93ca935906b8a07568",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2015/8",
+      "utc_first": "2015-08-02T22:00:03.633000+00:00",
+      "utc_last": "2015-09-01T04:59:59.763000+00:00"
+    },
+    {
+      "archive": "historical-201509.zip",
+      "month": "201509",
+      "sha256": "ba2623dbedb5819bd3b687d85b15c95f9ba25be38bdf0d1ad17bbf50520bdd7e",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2015/9",
+      "utc_first": "2015-09-01T05:00:00.013000+00:00",
+      "utc_last": "2015-10-01T04:59:56.510000+00:00"
+    },
+    {
+      "archive": "historical-201510.zip",
+      "month": "201510",
+      "sha256": "77e92ff494b6e2dc2cb47729defe76f9e047e9a684b7ffcc8fa8e61ce4246e5f",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2015/10",
+      "utc_first": "2015-10-01T05:00:01.010000+00:00",
+      "utc_last": "2015-10-30T21:59:56.207000+00:00"
+    },
+    {
+      "archive": "historical-201511.zip",
+      "month": "201511",
+      "sha256": "3e7453d89e26dc8476e9087c169f33d9624dc1a728a6412700d3ddc4cc572544",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2015/11",
+      "utc_first": "2015-11-01T22:00:06.490000+00:00",
+      "utc_last": "2015-12-01T04:59:58.220000+00:00"
+    },
+    {
+      "archive": "historical-201512.zip",
+      "month": "201512",
+      "sha256": "8b28a6fed141b1f24234b048d1eb2c2b3056e48dff8408db421be196b8422eb8",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2015/12",
+      "utc_first": "2015-12-01T05:00:00.470000+00:00",
+      "utc_last": "2015-12-31T21:59:50.487000+00:00"
+    },
+    {
+      "archive": "historical-201601.zip",
+      "month": "201601",
+      "sha256": "12f0ad7253da68970a123370dc6fcdb8b7dbe1ded17e26e0fa18f4b00c9d4dda",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2016/1",
+      "utc_first": "2016-01-03T22:00:15.493000+00:00",
+      "utc_last": "2016-02-01T04:59:41.170000+00:00"
+    },
+    {
+      "archive": "historical-201602.zip",
+      "month": "201602",
+      "sha256": "d8f3ecc5908bc3f36f13d04a69dc52adbad02d9608be9fbd8701ef4e443d78b6",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2016/2",
+      "utc_first": "2016-02-01T05:00:01.670000+00:00",
+      "utc_last": "2016-03-01T04:59:55.637000+00:00"
+    },
+    {
+      "archive": "historical-201603.zip",
+      "month": "201603",
+      "sha256": "8357ef823ac27d9c53da9acff6f79b6e8fc058cea9fdf8f32be08bf06dbe3e1b",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2016/3",
+      "utc_first": "2016-03-01T05:00:00.400000+00:00",
+      "utc_last": "2016-04-01T04:59:59.277000+00:00"
+    },
+    {
+      "archive": "historical-201604.zip",
+      "month": "201604",
+      "sha256": "c02c329d8bac5f49c094d5d41b413f5beffd12eed120591c54fece4346d119ac",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2016/4",
+      "utc_first": "2016-04-01T05:00:00.777000+00:00",
+      "utc_last": "2016-04-29T21:59:58.440000+00:00"
+    },
+    {
+      "archive": "historical-201605.zip",
+      "month": "201605",
+      "sha256": "958a3e0336b7b7fed31b665aecf6dca4d794fad69ce17657ebc0284099db660b",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2016/5",
+      "utc_first": "2016-05-01T22:00:05.347000+00:00",
+      "utc_last": "2016-06-01T04:59:58.687000+00:00"
+    },
+    {
+      "archive": "historical-201606.zip",
+      "month": "201606",
+      "sha256": "970c20c03d6f7a0f0dd1f56b508f9349755439663b0a074fc58f54f772260eeb",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2016/6",
+      "utc_first": "2016-06-01T05:00:00.953000+00:00",
+      "utc_last": "2016-07-01T04:59:51.510000+00:00"
+    },
+    {
+      "archive": "historical-201607.zip",
+      "month": "201607",
+      "sha256": "f029f0080be817019e6b43f65a52d92b53efd18223174a953316af18de1d50fb",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2016/7",
+      "utc_first": "2016-07-01T05:00:00.760000+00:00",
+      "utc_last": "2016-08-01T04:59:59.017000+00:00"
+    },
+    {
+      "archive": "historical-201608.zip",
+      "month": "201608",
+      "sha256": "6f5ce1b758c9bc477df4e65484d025155173608700736d66b29d6c48263d1cb8",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2016/8",
+      "utc_first": "2016-08-01T05:00:00.003000+00:00",
+      "utc_last": "2016-09-01T04:59:51.850000+00:00"
+    },
+    {
+      "archive": "historical-201609.zip",
+      "month": "201609",
+      "sha256": "1b32091cc70019e8dd3bc2ff4eab070baf0dd233ab2f924d57cdb3fad934d6cf",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2016/9",
+      "utc_first": "2016-09-01T05:00:06.600000+00:00",
+      "utc_last": "2016-09-30T21:59:46.037000+00:00"
+    },
+    {
+      "archive": "historical-201610.zip",
+      "month": "201610",
+      "sha256": "6c9ebd6f2a9e002a6df856512cd955fd36eb1015571a158f875dbfae8d01d0a1",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2016/10",
+      "utc_first": "2016-10-02T22:00:03.583000+00:00",
+      "utc_last": "2016-11-01T04:59:29.813000+00:00"
+    },
+    {
+      "archive": "historical-201611.zip",
+      "month": "201611",
+      "sha256": "d2a14d34870b9e82f5a1a18083d1cc0ee852daaf1bc60d8d1b181d7a23dac836",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2016/11",
+      "utc_first": "2016-11-01T05:00:00.813000+00:00",
+      "utc_last": "2016-12-01T04:59:56.773000+00:00"
+    },
+    {
+      "archive": "historical-201612.zip",
+      "month": "201612",
+      "sha256": "e59b3a7e747ea09cbdeb870b2e52c8eadedab323664752f8208f251d15e62d8d",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2016/12",
+      "utc_first": "2016-12-01T05:00:03.290000+00:00",
+      "utc_last": "2016-12-30T21:59:20.383000+00:00"
+    },
+    {
+      "archive": "historical-201701.zip",
+      "month": "201701",
+      "sha256": "a4792c9dded64323014218db1c1691064b719c95bdd7eaeebb76501c461565ac",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2017/1",
+      "utc_first": "2017-01-02T07:00:15.287000+00:00",
+      "utc_last": "2017-02-01T04:59:45.877000+00:00"
+    },
+    {
+      "archive": "historical-201702.zip",
+      "month": "201702",
+      "sha256": "8989a9f94c62f65b340a5538835af59f32287518b9a710deefa5ea16ebd35882",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2017/2",
+      "utc_first": "2017-02-01T05:00:00.390000+00:00",
+      "utc_last": "2017-03-01T04:59:34.160000+00:00"
+    },
+    {
+      "archive": "historical-201703.zip",
+      "month": "201703",
+      "sha256": "cfe715c76bbe8979dd172cf62af69494ad5fe9ce64a6b629a1d38a095de1bd98",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2017/3",
+      "utc_first": "2017-03-01T05:00:06.160000+00:00",
+      "utc_last": "2017-03-31T21:59:59.087000+00:00"
+    },
+    {
+      "archive": "historical-201704.zip",
+      "month": "201704",
+      "sha256": "551e24ee62941645b7eb8cab1e83ca5c280768f991c37289cce32031e195701a",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2017/4",
+      "utc_first": "2017-04-02T22:00:29.610000+00:00",
+      "utc_last": "2017-05-01T04:59:19.207000+00:00"
+    },
+    {
+      "archive": "historical-201705.zip",
+      "month": "201705",
+      "sha256": "5d2f95b1133d4f71cd660706b0526137c3206761ce772be298835526c49a2b66",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2017/5",
+      "utc_first": "2017-05-01T05:00:42.207000+00:00",
+      "utc_last": "2017-06-01T04:59:59.843000+00:00"
+    },
+    {
+      "archive": "historical-201706.zip",
+      "month": "201706",
+      "sha256": "c239f8490f604715086a48c7c588734413d3299e3b49711c9652a5cada5c9722",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2017/6",
+      "utc_first": "2017-06-01T05:00:02.093000+00:00",
+      "utc_last": "2017-06-30T21:59:59.157000+00:00"
+    },
+    {
+      "archive": "historical-201707.zip",
+      "month": "201707",
+      "sha256": "9a9538e26bd0b814aa0f798c28de734812d71faffc877239bebf805340b742ef",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2017/7",
+      "utc_first": "2017-07-02T22:00:04.457000+00:00",
+      "utc_last": "2017-08-01T04:59:46.737000+00:00"
+    },
+    {
+      "archive": "historical-201708.zip",
+      "month": "201708",
+      "sha256": "fa38d42bbeb44f667000ac0bd7c851ed92f4dd02bf98215f0c000af6b2dff885",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2017/8",
+      "utc_first": "2017-08-01T05:00:01.237000+00:00",
+      "utc_last": "2017-09-01T04:59:58.977000+00:00"
+    },
+    {
+      "archive": "historical-201709.zip",
+      "month": "201709",
+      "sha256": "8b504fb0cecf1875c9fee77c6bfaef9da2055e6ec60123bf93ce31bfb83b012a",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2017/9",
+      "utc_first": "2017-09-01T05:00:00.727000+00:00",
+      "utc_last": "2017-09-29T21:59:58.993000+00:00"
+    },
+    {
+      "archive": "historical-201710.zip",
+      "month": "201710",
+      "sha256": "707159eeac99f00aa3677e600ccbf567a5930132ff0b2395c1349d35fba9e29a",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2017/10",
+      "utc_first": "2017-10-01T22:00:03.973000+00:00",
+      "utc_last": "2017-11-01T04:59:59.770000+00:00"
+    },
+    {
+      "archive": "historical-201711.zip",
+      "month": "201711",
+      "sha256": "5750433363f211df7c95c8a5a8fee65e431099f1f0013d9e113c57b152f61a11",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2017/11",
+      "utc_first": "2017-11-01T05:00:10.020000+00:00",
+      "utc_last": "2017-12-01T04:59:57.043000+00:00"
+    },
+    {
+      "archive": "historical-201712.zip",
+      "month": "201712",
+      "sha256": "383dd3fa2721e66d227d33251d29345a02ba6d13b49d21e26844a711ed268954",
+      "source": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/EURUSD/2017/12",
+      "utc_first": "2017-12-01T05:00:00.043000+00:00",
+      "utc_last": "2017-12-29T21:59:44.970000+00:00"
+    }
+  ],
+  "rights": "Public download; redistribution terms unverified; raw ZIP outside Git.",
+  "source": "HistData EURUSD Generic ASCII Bid/Ask",
+  "time_zone": "Fixed UTC-05:00"
+}
