@@ -123,7 +123,9 @@ class RDBCycle(venue.ExecutionCycle):
         v.emit("OBSERVE")
         self.monitor()
         v.emit("RISK_CHECK",**risk.observed_pending(v))
-        if not b.gross and not v.active:
+        terminal_flat=(self.current_route not in ROUTES or self.memory.exiting or
+                       t>=b.limits.horizon or b.mark(q)>0 or bool(b.violations))
+        if not b.gross and not v.active and terminal_flat:
             self.finish=True
             v.emit("FLAT_CONFIRMED")
             return

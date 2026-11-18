@@ -1,0 +1,61 @@
+{
+  "calendar": {
+    "provider": "HistData EURUSD Generic ASCII ticks",
+    "tz": "UTC-05:00 fixed",
+    "training": [
+      "201902",
+      "202004",
+      "202105",
+      "202210"
+    ],
+    "validation": [
+      "202302",
+      "202310"
+    ],
+    "final_test": [
+      "202403",
+      "202406",
+      "202409",
+      "202502",
+      "202505",
+      "202508"
+    ],
+    "baseline_diagnostic": [
+      "202407"
+    ],
+    "crisis_diagnostic": [
+      "202003"
+    ],
+    "interval_minutes": [
+      0,
+      1,
+      5,
+      15,
+      30
+    ],
+    "horizon": 12,
+    "primary": "S2/30m/H12",
+    "anchor_local": "08:00",
+    "activation_closes_local": "14:00",
+    "activation_points": 300,
+    "clock_tolerance_minutes": 5,
+    "cluster": "calendar month",
+    "embargo": "one scheduled episode per local day; at least 11h55 to next anchor under the observation tolerance",
+    "trained_thresholds": "fixed buckets; shrink group estimates toward zero",
+    "primary_success": "lower simultaneous confidence bound on paired realized delta > 0, no hard violations, all paired episodes FLAT",
+    "analysis_started_before_final_returns": true
+  },
+  "model_sha256": "8f73e4563d5a56c0033b47c971852003f12fd4991b18084f4aa41bed7a8f1784",
+  "contract_sha256": "3810746ea899639cbe59e052e5a055835ff9ff44ab225335a58edfe638e247fa",
+  "engine_hashes": {
+    "06_RDB_POLICY.py": "7fff02d2c2251b61409080681069d880dad725b7ef0b3c4a15e6bcd4db053103",
+    "07_RISK_GATE.py": "b912e5be983a14299662b6dd8a637aec4d0a5221aae23673744d2b8199c82f08",
+    "replay.py": "607e4fc20494a8d679ebf275dca1d13bacad09daa87c89a7fb9b8a23c1bdd86d",
+    "holdout.py": "aa0f695f4ac0f4c9d32611d843462d8cfd8b7d890c66fc8bcba30c3e15199104",
+    "04_CAUSAL_REPLAY.py": "4f22e186a1501c25e53eea7824efc4f6fa35228a878e763bb3970f51bbb8de86"
+  },
+  "cluster_draws": 4000,
+  "bootstrap_seed": 48211,
+  "primary_family": 6,
+  "execution_evidence": "MODEL_ONLY"
+}
