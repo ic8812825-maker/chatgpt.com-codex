@@ -1,0 +1,624 @@
+{
+  "parameters": [
+    {
+      "core": 25,
+      "net": 20,
+      "trigger": 150,
+      "switches": 3,
+      "harvest": 50,
+      "attempts": 2,
+      "neutral": true,
+      "reserve": 0,
+      "depth": 2,
+      "time_buffer": 0,
+      "direction": 1
+    },
+    {
+      "core": 10,
+      "net": 12,
+      "trigger": 0,
+      "switches": 4,
+      "harvest": 25,
+      "attempts": 1,
+      "neutral": true,
+      "reserve": 0,
+      "depth": 2,
+      "time_buffer": 0,
+      "direction": 1
+    },
+    {
+      "core": 25,
+      "net": 25,
+      "trigger": 75,
+      "switches": 4,
+      "harvest": 50,
+      "attempts": 2,
+      "neutral": true,
+      "reserve": 0,
+      "depth": 4,
+      "time_buffer": 0,
+      "direction": 1
+    },
+    {
+      "core": 50,
+      "net": 30,
+      "trigger": 140,
+      "switches": 6,
+      "harvest": 25,
+      "attempts": 2,
+      "neutral": true,
+      "reserve": 0,
+      "depth": 4,
+      "time_buffer": 0,
+      "direction": 1
+    },
+    {
+      "core": 80,
+      "net": 40,
+      "trigger": 225,
+      "switches": 6,
+      "harvest": 75,
+      "attempts": 2,
+      "neutral": true,
+      "reserve": 0,
+      "depth": 6,
+      "time_buffer": 0,
+      "direction": 1
+    },
+    {
+      "core": 1,
+      "net": 50,
+      "trigger": 300,
+      "switches": 8,
+      "harvest": 0,
+      "attempts": 3,
+      "neutral": true,
+      "reserve": 5,
+      "depth": 8,
+      "time_buffer": 0,
+      "direction": 1
+    }
+  ],
+  "selected": [
+    {
+      "profile": "E0",
+      "horizon": 4,
+      "policy": "A3-RC",
+      "grid": 3
+    },
+    {
+      "profile": "E0",
+      "horizon": 4,
+      "policy": "A3-ER",
+      "grid": 3
+    },
+    {
+      "profile": "E0",
+      "horizon": 4,
+      "policy": "M-RC",
+      "grid": 2
+    },
+    {
+      "profile": "E0",
+      "horizon": 4,
+      "policy": "M-ER",
+      "grid": 2
+    },
+    {
+      "profile": "E0",
+      "horizon": 4,
+      "policy": "B4-RC",
+      "grid": 3
+    },
+    {
+      "profile": "E0",
+      "horizon": 6,
+      "policy": "A3-RC",
+      "grid": 3
+    },
+    {
+      "profile": "E0",
+      "horizon": 6,
+      "policy": "A3-ER",
+      "grid": 3
+    },
+    {
+      "profile": "E0",
+      "horizon": 6,
+      "policy": "M-RC",
+      "grid": 2
+    },
+    {
+      "profile": "E0",
+      "horizon": 6,
+      "policy": "M-ER",
+      "grid": 5
+    },
+    {
+      "profile": "E0",
+      "horizon": 6,
+      "policy": "B4-RC",
+      "grid": 3
+    },
+    {
+      "profile": "E0",
+      "horizon": 8,
+      "policy": "A3-RC",
+      "grid": 3
+    },
+    {
+      "profile": "E0",
+      "horizon": 8,
+      "policy": "A3-ER",
+      "grid": 3
+    },
+    {
+      "profile": "E0",
+      "horizon": 8,
+      "policy": "M-RC",
+      "grid": 3
+    },
+    {
+      "profile": "E0",
+      "horizon": 8,
+      "policy": "M-ER",
+      "grid": 5
+    },
+    {
+      "profile": "E0",
+      "horizon": 8,
+      "policy": "B4-RC",
+      "grid": 3
+    },
+    {
+      "profile": "E0",
+      "horizon": 12,
+      "policy": "A3-RC",
+      "grid": 3
+    },
+    {
+      "profile": "E0",
+      "horizon": 12,
+      "policy": "A3-ER",
+      "grid": 3
+    },
+    {
+      "profile": "E0",
+      "horizon": 12,
+      "policy": "M-RC",
+      "grid": 5
+    },
+    {
+      "profile": "E0",
+      "horizon": 12,
+      "policy": "M-ER",
+      "grid": 4
+    },
+    {
+      "profile": "E0",
+      "horizon": 12,
+      "policy": "B4-RC",
+      "grid": 3
+    },
+    {
+      "profile": "E0",
+      "horizon": 16,
+      "policy": "A3-RC",
+      "grid": 3
+    },
+    {
+      "profile": "E0",
+      "horizon": 16,
+      "policy": "A3-ER",
+      "grid": 2
+    },
+    {
+      "profile": "E0",
+      "horizon": 16,
+      "policy": "M-RC",
+      "grid": 4
+    },
+    {
+      "profile": "E0",
+      "horizon": 16,
+      "policy": "M-ER",
+      "grid": 4
+    },
+    {
+      "profile": "E0",
+      "horizon": 16,
+      "policy": "B4-RC",
+      "grid": 2
+    },
+    {
+      "profile": "E0",
+      "horizon": 24,
+      "policy": "A3-RC",
+      "grid": 3
+    },
+    {
+      "profile": "E0",
+      "horizon": 24,
+      "policy": "A3-ER",
+      "grid": 3
+    },
+    {
+      "profile": "E0",
+      "horizon": 24,
+      "policy": "M-RC",
+      "grid": 1
+    },
+    {
+      "profile": "E0",
+      "horizon": 24,
+      "policy": "M-ER",
+      "grid": 4
+    },
+    {
+      "profile": "E0",
+      "horizon": 24,
+      "policy": "B4-RC",
+      "grid": 2
+    },
+    {
+      "profile": "E1",
+      "horizon": 4,
+      "policy": "A3-RC",
+      "grid": 5
+    },
+    {
+      "profile": "E1",
+      "horizon": 4,
+      "policy": "A3-ER",
+      "grid": 3
+    },
+    {
+      "profile": "E1",
+      "horizon": 4,
+      "policy": "M-RC",
+      "grid": 3
+    },
+    {
+      "profile": "E1",
+      "horizon": 4,
+      "policy": "M-ER",
+      "grid": 2
+    },
+    {
+      "profile": "E1",
+      "horizon": 4,
+      "policy": "B4-RC",
+      "grid": 5
+    },
+    {
+      "profile": "E1",
+      "horizon": 6,
+      "policy": "A3-RC",
+      "grid": 5
+    },
+    {
+      "profile": "E1",
+      "horizon": 6,
+      "policy": "A3-ER",
+      "grid": 3
+    },
+    {
+      "profile": "E1",
+      "horizon": 6,
+      "policy": "M-RC",
+      "grid": 3
+    },
+    {
+      "profile": "E1",
+      "horizon": 6,
+      "policy": "M-ER",
+      "grid": 2
+    },
+    {
+      "profile": "E1",
+      "horizon": 6,
+      "policy": "B4-RC",
+      "grid": 5
+    },
+    {
+      "profile": "E1",
+      "horizon": 8,
+      "policy": "A3-RC",
+      "grid": 5
+    },
+    {
+      "profile": "E1",
+      "horizon": 8,
+      "policy": "A3-ER",
+      "grid": 3
+    },
+    {
+      "profile": "E1",
+      "horizon": 8,
+      "policy": "M-RC",
+      "grid": 3
+    },
+    {
+      "profile": "E1",
+      "horizon": 8,
+      "policy": "M-ER",
+      "grid": 3
+    },
+    {
+      "profile": "E1",
+      "horizon": 8,
+      "policy": "B4-RC",
+      "grid": 5
+    },
+    {
+      "profile": "E1",
+      "horizon": 12,
+      "policy": "A3-RC",
+      "grid": 5
+    },
+    {
+      "profile": "E1",
+      "horizon": 12,
+      "policy": "A3-ER",
+      "grid": 3
+    },
+    {
+      "profile": "E1",
+      "horizon": 12,
+      "policy": "M-RC",
+      "grid": 3
+    },
+    {
+      "profile": "E1",
+      "horizon": 12,
+      "policy": "M-ER",
+      "grid": 5
+    },
+    {
+      "profile": "E1",
+      "horizon": 12,
+      "policy": "B4-RC",
+      "grid": 5
+    },
+    {
+      "profile": "E1",
+      "horizon": 16,
+      "policy": "A3-RC",
+      "grid": 5
+    },
+    {
+      "profile": "E1",
+      "horizon": 16,
+      "policy": "A3-ER",
+      "grid": 3
+    },
+    {
+      "profile": "E1",
+      "horizon": 16,
+      "policy": "M-RC",
+      "grid": 3
+    },
+    {
+      "profile": "E1",
+      "horizon": 16,
+      "policy": "M-ER",
+      "grid": 5
+    },
+    {
+      "profile": "E1",
+      "horizon": 16,
+      "policy": "B4-RC",
+      "grid": 5
+    },
+    {
+      "profile": "E1",
+      "horizon": 24,
+      "policy": "A3-RC",
+      "grid": 5
+    },
+    {
+      "profile": "E1",
+      "horizon": 24,
+      "policy": "A3-ER",
+      "grid": 3
+    },
+    {
+      "profile": "E1",
+      "horizon": 24,
+      "policy": "M-RC",
+      "grid": 3
+    },
+    {
+      "profile": "E1",
+      "horizon": 24,
+      "policy": "M-ER",
+      "grid": 5
+    },
+    {
+      "profile": "E1",
+      "horizon": 24,
+      "policy": "B4-RC",
+      "grid": 5
+    },
+    {
+      "profile": "E2",
+      "horizon": 4,
+      "policy": "A3-RC",
+      "grid": 1
+    },
+    {
+      "profile": "E2",
+      "horizon": 4,
+      "policy": "A3-ER",
+      "grid": 3
+    },
+    {
+      "profile": "E2",
+      "horizon": 4,
+      "policy": "M-RC",
+      "grid": 1
+    },
+    {
+      "profile": "E2",
+      "horizon": 4,
+      "policy": "M-ER",
+      "grid": 1
+    },
+    {
+      "profile": "E2",
+      "horizon": 4,
+      "policy": "B4-RC",
+      "grid": 5
+    },
+    {
+      "profile": "E2",
+      "horizon": 6,
+      "policy": "A3-RC",
+      "grid": 1
+    },
+    {
+      "profile": "E2",
+      "horizon": 6,
+      "policy": "A3-ER",
+      "grid": 0
+    },
+    {
+      "profile": "E2",
+      "horizon": 6,
+      "policy": "M-RC",
+      "grid": 1
+    },
+    {
+      "profile": "E2",
+      "horizon": 6,
+      "policy": "M-ER",
+      "grid": 5
+    },
+    {
+      "profile": "E2",
+      "horizon": 6,
+      "policy": "B4-RC",
+      "grid": 5
+    },
+    {
+      "profile": "E2",
+      "horizon": 8,
+      "policy": "A3-RC",
+      "grid": 1
+    },
+    {
+      "profile": "E2",
+      "horizon": 8,
+      "policy": "A3-ER",
+      "grid": 2
+    },
+    {
+      "profile": "E2",
+      "horizon": 8,
+      "policy": "M-RC",
+      "grid": 1
+    },
+    {
+      "profile": "E2",
+      "horizon": 8,
+      "policy": "M-ER",
+      "grid": 5
+    },
+    {
+      "profile": "E2",
+      "horizon": 8,
+      "policy": "B4-RC",
+      "grid": 5
+    },
+    {
+      "profile": "E2",
+      "horizon": 12,
+      "policy": "A3-RC",
+      "grid": 1
+    },
+    {
+      "profile": "E2",
+      "horizon": 12,
+      "policy": "A3-ER",
+      "grid": 2
+    },
+    {
+      "profile": "E2",
+      "horizon": 12,
+      "policy": "M-RC",
+      "grid": 1
+    },
+    {
+      "profile": "E2",
+      "horizon": 12,
+      "policy": "M-ER",
+      "grid": 5
+    },
+    {
+      "profile": "E2",
+      "horizon": 12,
+      "policy": "B4-RC",
+      "grid": 5
+    },
+    {
+      "profile": "E2",
+      "horizon": 16,
+      "policy": "A3-RC",
+      "grid": 1
+    },
+    {
+      "profile": "E2",
+      "horizon": 16,
+      "policy": "A3-ER",
+      "grid": 4
+    },
+    {
+      "profile": "E2",
+      "horizon": 16,
+      "policy": "M-RC",
+      "grid": 1
+    },
+    {
+      "profile": "E2",
+      "horizon": 16,
+      "policy": "M-ER",
+      "grid": 5
+    },
+    {
+      "profile": "E2",
+      "horizon": 16,
+      "policy": "B4-RC",
+      "grid": 5
+    },
+    {
+      "profile": "E2",
+      "horizon": 24,
+      "policy": "A3-RC",
+      "grid": 1
+    },
+    {
+      "profile": "E2",
+      "horizon": 24,
+      "policy": "A3-ER",
+      "grid": 3
+    },
+    {
+      "profile": "E2",
+      "horizon": 24,
+      "policy": "M-RC",
+      "grid": 1
+    },
+    {
+      "profile": "E2",
+      "horizon": 24,
+      "policy": "M-ER",
+      "grid": 1
+    },
+    {
+      "profile": "E2",
+      "horizon": 24,
+      "policy": "B4-RC",
+      "grid": 5
+    }
+  ]
+}
