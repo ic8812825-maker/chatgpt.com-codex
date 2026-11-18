@@ -1,0 +1,14 @@
+[
+  {
+    "delegate": "A3-ER",
+    "identical_paths": 8
+  },
+  {
+    "delegate": "B4-RC",
+    "identical_paths": 8
+  },
+  {
+    "delegate": "K-EXECUTABLE",
+    "identical_paths": 8
+  }
+]
