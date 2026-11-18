@@ -17,3 +17,8 @@ def setup():
         if str(path) not in sys.path:
             sys.path.append(str(path))
     return paths
+
+
+def source():
+    """Compatibility entry point imported by the pinned HALR03 venue."""
+    return setup()["HALR02_DIR"]

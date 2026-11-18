@@ -1,0 +1,99 @@
+{
+  "calendar": [
+    "201501",
+    "201502",
+    "201503",
+    "201504",
+    "201505",
+    "201506",
+    "201507",
+    "201508",
+    "201509",
+    "201510",
+    "201511",
+    "201512",
+    "201601",
+    "201602",
+    "201603",
+    "201604",
+    "201605",
+    "201606",
+    "201607",
+    "201608",
+    "201609",
+    "201610",
+    "201611",
+    "201612",
+    "201701",
+    "201702",
+    "201703",
+    "201704",
+    "201705",
+    "201706",
+    "201707",
+    "201708",
+    "201709",
+    "201710",
+    "201711",
+    "201712"
+  ],
+  "primary_mode": "QUOTE_FILL",
+  "horizon": 12,
+  "eligible_policy_neutral": true,
+  "scope": "S2 fixed EST 08:00 anchor, activation through 14:00, 30m real observations; no interpolation",
+  "bootstrap": {
+    "seed": 502133,
+    "replicates": 10000,
+    "alpha_one_sided": 0.05,
+    "primary_family": 1
+  },
+  "barriers": {
+    "complete_months": 36,
+    "min_eligible_month_clusters": 25,
+    "max_incremental_cvar99_usd": 50,
+    "max_additional_loss_usd": 122,
+    "all_paired_flat": true,
+    "zero_violations": true,
+    "positive_3_month_lcb": true,
+    "all_leave_one_month_means_positive": true
+  },
+  "execution": {
+    "QUOTE_FILL": {},
+    "BOUNDED_SLIPPAGE": {
+      "slip": 2
+    },
+    "DELAY_ONLY": {
+      "delay": 1
+    },
+    "PARTIAL_ONLY": {
+      "capacity": 25
+    },
+    "DELAYED_PARTIAL": {
+      "schedule": "pinned HALR04 replay"
+    },
+    "REJECT_ONLY": {
+      "rejects_first_event": 1
+    },
+    "UNKNOWN_ONLY": {
+      "unknown_until": 3
+    },
+    "REJECT_UNKNOWN": {
+      "rejects_first_event": 1,
+      "unknown_from": 1,
+      "unknown_until": 4
+    },
+    "LOW_LIQUIDITY": {
+      "capacity": 10
+    },
+    "COMPOUND_STRESS": {
+      "schedule": "pinned HALR04 replay"
+    }
+  },
+  "source_hashes_file": "01_DEPENDENCY_HASHES.json",
+  "locked_sha256": {
+    "02_MARGIN_ORACLE.py": "d63737757f485a45d0294ebe18f662818324960aa9e328e0bb71afb21f4acac4",
+    "contract.json": "3810746ea899639cbe59e052e5a055835ff9ff44ab225335a58edfe638e247fa",
+    "inference.py": "5f99437247386335e6bc3d320b2574b02621fa8e85ffe8cf0d0f7309e1ccadbd",
+    "04_CAUSAL_REPLAY.py": "5d4c2bc3cb60b521f2d47e61aa5fd8a2de1dc965609e7d1242167ddfb43ffe23"
+  }
+}
