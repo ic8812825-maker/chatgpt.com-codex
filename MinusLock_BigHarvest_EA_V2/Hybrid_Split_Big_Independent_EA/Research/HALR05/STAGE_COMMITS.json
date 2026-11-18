@@ -1,0 +1,41 @@
+{
+  "confirmed_stages": [
+    {
+      "sha": "d41407f8f550550b366eaaecea56cc640aa0a695",
+      "subject": "research(halr05-01): freeze and reproduce HALR04 baseline"
+    },
+    {
+      "sha": "5c5e6a6844978f510f0167ea0d46436f0fc1cc22",
+      "subject": "research(halr05-02): independently audit margin and eligibility"
+    },
+    {
+      "sha": "eb345431439d723812f5245a88321b2b160791f7",
+      "subject": "research(halr05-03): preregister eligibility and lock independent holdout"
+    },
+    {
+      "sha": "a3b4303e64c3a0665ddbecf9ed342e82e0c94221",
+      "subject": "research(halr05-04): validate new historical data and causal replay"
+    },
+    {
+      "sha": "1ef896e33c18f44be0613dc005b526fc5eba6455",
+      "subject": "research(halr05-05): establish broker fill evidence and execution calibration"
+    },
+    {
+      "sha": "619adebb743e664164c6a0b55b182793a11467fc",
+      "subject": "research(halr05-06): independently verify money and risk accounting"
+    },
+    {
+      "sha": "c355b51b9a5b4183c96e63a4ce43c9a8b509e3cf",
+      "subject": "research(halr05-07): run frozen M ER versus K confirmatory test"
+    },
+    {
+      "sha": "63fcdfa5f9f7dc37e07d7c989433c1272f9869c4",
+      "subject": "research(halr05-08): assess execution robustness and tail risk"
+    },
+    {
+      "sha": "4389a513d9541167cd125c05c41c488e1aaaf8a1",
+      "subject": "research(halr05-09): independently audit economic feasibility"
+    }
+  ],
+  "stage_10": "Verified in the Draft PR head"
+}

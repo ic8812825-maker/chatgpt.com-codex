@@ -1,0 +1,14 @@
+{
+  "RESEARCH_STATUS":"COMPLETED",
+  "VERDICT":"NEGATIVE_EVIDENCE",
+  "ECONOMIC_ADVANTAGE":"NO_CONFIRMED_ADVANTAGE",
+  "EXECUTION_EVIDENCE":"MODEL_ONLY",
+  "BROKER_STATUS":"BROKER_FILL_EVIDENCE_UNAVAILABLE",
+  "RISK_STATUS":"VIOLATED",
+  "PRODUCTION_READY":"NO",
+  "scope":"Frozen HALR04 M-ER vs executable K, EURUSD HistData 2015-01 to 2017-12, pre-eligible S2 H12/30m QUOTE_FILL",
+  "primary":{"eligible":322,"eligible_months":30,"flat_pairs":322,"m_recoveries":71,"k_recoveries":0,
+             "mean_delta_usd":-5.175776397515528,"m_risk_failures":1,"k_risk_failures":0},
+  "decision":"Do not proceed with M-ER for this scope. Use K as the research benchmark when its full exit is available. No general brokerage guarantee.",
+  "further_research":"Only with confirmed broker evidence or a new locked mechanism/hypothesis; no retrofit to this holdout."
+}
