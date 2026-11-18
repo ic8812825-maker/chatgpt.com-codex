@@ -1,0 +1,93 @@
+{
+  "E0": {
+    "name": "E0",
+    "move": 300,
+    "spread": 20,
+    "slip": 0,
+    "carry": 0,
+    "stride": 1,
+    "note": "Nominal, full same-quote batches at every event",
+    "window": 1,
+    "reserve": 0,
+    "evidence": "ASSUMED",
+    "full_batch_capacity": 1000
+  },
+  "E1": {
+    "name": "E1",
+    "move": 300,
+    "spread": 32,
+    "slip": 2,
+    "carry": 1,
+    "stride": 1,
+    "note": "Bounded spread/carry; confirmed service at every event",
+    "window": 1,
+    "reserve": 0,
+    "evidence": "ASSUMED",
+    "full_batch_capacity": 1000
+  },
+  "E2": {
+    "name": "E2",
+    "move": 300,
+    "spread": 32,
+    "slip": 2,
+    "carry": 1,
+    "stride": 2,
+    "note": "Even events serve full batches; odd events have zero capacity",
+    "window": 1,
+    "reserve": 0,
+    "evidence": "ASSUMED",
+    "full_batch_capacity": 1000
+  },
+  "E3": {
+    "name": "E3",
+    "move": 300,
+    "spread": 50,
+    "slip": 3,
+    "carry": 1,
+    "stride": null,
+    "note": "Persistent rejection or UNKNOWN",
+    "window": 1,
+    "reserve": 0,
+    "evidence": "ASSUMED",
+    "full_batch_capacity": null
+  },
+  "E4": {
+    "name": "E4",
+    "move": 4200,
+    "spread": 32,
+    "slip": 2,
+    "carry": 0,
+    "stride": null,
+    "note": "Gap and interrupted execution; no assured service",
+    "window": 1,
+    "reserve": 0,
+    "evidence": "ASSUMED",
+    "full_batch_capacity": null
+  },
+  "E5": {
+    "name": "E5",
+    "move": 300,
+    "spread": 40,
+    "slip": 4,
+    "carry": 1,
+    "stride": null,
+    "note": "Adverse price after observed Net; patterned venue limits",
+    "window": 1,
+    "reserve": 0,
+    "evidence": "ASSUMED",
+    "full_batch_capacity": null
+  },
+  "E6": {
+    "name": "E6",
+    "move": null,
+    "spread": 100,
+    "slip": 4,
+    "carry": 1,
+    "stride": null,
+    "note": "Zero capacity through the deadline",
+    "window": 1,
+    "reserve": 0,
+    "evidence": "ASSUMED",
+    "full_batch_capacity": null
+  }
+}
