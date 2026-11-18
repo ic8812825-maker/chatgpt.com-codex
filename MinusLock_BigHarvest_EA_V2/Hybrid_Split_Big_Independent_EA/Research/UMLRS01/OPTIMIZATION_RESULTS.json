@@ -1,0 +1,896 @@
+{
+  "training_cycles": 520,
+  "validation_cycles": 646,
+  "optimization_simulations": 160614,
+  "profiles": {
+    "Conservative": {
+      "A": {
+        "policy": {
+          "family": "A",
+          "cap": 20,
+          "size": 5,
+          "level": 80,
+          "limit": 4,
+          "horizon": 8,
+          "budget": 180
+        },
+        "score": [
+          0,
+          138.0,
+          0,
+          0.9157692307692287,
+          63.71501346153846,
+          18.0,
+          58.05655769230769,
+          7.907692307692308
+        ],
+        "pruned": 40,
+        "simulations": 4488,
+        "candidates": 48,
+        "eligible": 0,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "B": {
+        "policy": {
+          "family": "B",
+          "cap": 20,
+          "size": 20,
+          "level": 140,
+          "limit": 4,
+          "horizon": 12,
+          "budget": 180
+        },
+        "score": [
+          0,
+          193.8,
+          0,
+          0.45615384615384613,
+          81.71926923076923,
+          18.546923076923076,
+          59.42123076923077,
+          10.790384615384616
+        ],
+        "pruned": 4,
+        "simulations": 2104,
+        "candidates": 48,
+        "eligible": 8,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "C": {
+        "policy": {
+          "family": "C",
+          "cap": 20,
+          "size": 5,
+          "level": 80,
+          "limit": 4,
+          "horizon": 8,
+          "budget": 180
+        },
+        "score": [
+          0,
+          129.45,
+          0,
+          0.4738461538461536,
+          64.41539615384616,
+          18.44653846153846,
+          59.48578461538462,
+          7.905769230769231
+        ],
+        "pruned": 40,
+        "simulations": 4376,
+        "candidates": 48,
+        "eligible": 0,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "D": {
+        "policy": {
+          "family": "D",
+          "cap": 20,
+          "size": 20,
+          "level": 140,
+          "limit": 4,
+          "horizon": 12,
+          "budget": 180
+        },
+        "score": [
+          0,
+          181.8,
+          0,
+          0.8092307692307656,
+          81.46042307692308,
+          18.661153846153848,
+          58.71623076923077,
+          10.811538461538461
+        ],
+        "pruned": 4,
+        "simulations": 2140,
+        "candidates": 48,
+        "eligible": 8,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "E": {
+        "policy": {
+          "family": "E",
+          "cap": 20,
+          "size": 20,
+          "level": 140,
+          "limit": 4,
+          "horizon": 12,
+          "budget": 180
+        },
+        "score": [
+          0,
+          193.8,
+          0,
+          0.45615384615384613,
+          81.71926923076923,
+          18.546923076923076,
+          59.42123076923077,
+          10.790384615384616
+        ],
+        "pruned": 4,
+        "simulations": 2104,
+        "candidates": 48,
+        "eligible": 8,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "F": {
+        "policy": {
+          "family": "F",
+          "cap": 20,
+          "size": 20,
+          "level": 80,
+          "limit": 4,
+          "horizon": 8,
+          "budget": 180
+        },
+        "score": [
+          0,
+          218.0,
+          0,
+          1.7015384615384619,
+          80.6612923076923,
+          18.0,
+          58.774846153846156,
+          7.413461538461538
+        ],
+        "pruned": 24,
+        "simulations": 12720,
+        "candidates": 48,
+        "eligible": 0,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "G": {
+        "policy": {
+          "family": "G",
+          "cap": 20,
+          "size": 5,
+          "level": 140,
+          "limit": 4,
+          "horizon": 8,
+          "budget": 180
+        },
+        "score": [
+          0,
+          130.03,
+          0,
+          1.2928846153846152,
+          77.23578846153846,
+          18.146596153846154,
+          58.414353846153844,
+          7.905769230769231
+        ],
+        "pruned": 32,
+        "simulations": 8848,
+        "candidates": 48,
+        "eligible": 0,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "H": {
+        "policy": {
+          "family": "H",
+          "cap": 20,
+          "size": 5,
+          "level": 140,
+          "limit": 8,
+          "horizon": 8,
+          "budget": 180
+        },
+        "score": [
+          0,
+          153.16,
+          0,
+          1.2475384615384613,
+          76.384635,
+          18.039115384615386,
+          58.47510076923077,
+          7.898076923076923
+        ],
+        "pruned": 40,
+        "simulations": 4704,
+        "candidates": 48,
+        "eligible": 0,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "I": {
+        "policy": {
+          "family": "I",
+          "cap": 20,
+          "size": 20,
+          "level": 80,
+          "limit": 4,
+          "horizon": 12,
+          "budget": 180
+        },
+        "score": [
+          0,
+          191.6,
+          0,
+          1.1615384615384698,
+          87.32966153846154,
+          20.475,
+          65.18546153846154,
+          10.84423076923077
+        ],
+        "pruned": 6,
+        "simulations": 1142,
+        "candidates": 48,
+        "eligible": 8,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "J": {
+        "policy": {
+          "family": "J",
+          "cap": 20,
+          "size": 10,
+          "level": 140,
+          "limit": 4,
+          "horizon": 12,
+          "budget": 180
+        },
+        "score": [
+          0,
+          123.9,
+          0,
+          0.0,
+          63.50884615384616,
+          18.53653846153846,
+          59.316161538461536,
+          11.726923076923077
+        ],
+        "pruned": 12,
+        "simulations": 2140,
+        "candidates": 48,
+        "eligible": 16,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "K": {
+        "policy": {
+          "family": "K",
+          "cap": 20,
+          "size": 20,
+          "level": 80,
+          "limit": 8,
+          "horizon": 12,
+          "budget": 300
+        },
+        "score": [
+          0,
+          58.0,
+          0,
+          0.0,
+          58.0,
+          18.0,
+          58.0,
+          0
+        ],
+        "pruned": 0,
+        "simulations": 520,
+        "candidates": 1,
+        "eligible": 0,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "pareto_validation_finalists": [
+        "B",
+        "E",
+        "J",
+        "K"
+      ],
+      "validation_minimax": "K",
+      "validation_recovery": "J"
+    },
+    "Balanced": {
+      "A": {
+        "policy": {
+          "family": "A",
+          "cap": 50,
+          "size": 12,
+          "level": 80,
+          "limit": 4,
+          "horizon": 8,
+          "budget": 180
+        },
+        "score": [
+          0,
+          202.0,
+          0,
+          1.6670769230769267,
+          71.62372461538462,
+          18.0,
+          58.32035384615384,
+          7.875
+        ],
+        "pruned": 40,
+        "simulations": 4488,
+        "candidates": 48,
+        "eligible": 0,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "B": {
+        "policy": {
+          "family": "B",
+          "cap": 50,
+          "size": 25,
+          "level": 80,
+          "limit": 4,
+          "horizon": 12,
+          "budget": 180
+        },
+        "score": [
+          0,
+          248.26,
+          0,
+          2.122038461538459,
+          104.20585576923077,
+          19.33269230769231,
+          61.95253846153846,
+          9.11923076923077
+        ],
+        "pruned": 22,
+        "simulations": 1398,
+        "candidates": 48,
+        "eligible": 24,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "C": {
+        "policy": {
+          "family": "C",
+          "cap": 50,
+          "size": 12,
+          "level": 80,
+          "limit": 4,
+          "horizon": 8,
+          "budget": 180
+        },
+        "score": [
+          0,
+          181.48,
+          0,
+          0.38953846153845717,
+          73.30464307692307,
+          19.071692307692306,
+          61.538190769230766,
+          7.882692307692308
+        ],
+        "pruned": 40,
+        "simulations": 4344,
+        "candidates": 48,
+        "eligible": 0,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "D": {
+        "policy": {
+          "family": "D",
+          "cap": 50,
+          "size": 25,
+          "level": 80,
+          "limit": 8,
+          "horizon": 12,
+          "budget": 180
+        },
+        "score": [
+          0,
+          210.0,
+          0,
+          2.574019230769238,
+          103.392375,
+          21.171634615384615,
+          66.82943269230769,
+          9.038461538461538
+        ],
+        "pruned": 22,
+        "simulations": 1308,
+        "candidates": 48,
+        "eligible": 24,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "E": {
+        "policy": {
+          "family": "E",
+          "cap": 50,
+          "size": 25,
+          "level": 80,
+          "limit": 4,
+          "horizon": 12,
+          "budget": 180
+        },
+        "score": [
+          0,
+          203.0,
+          0,
+          3.232673076923078,
+          97.98373076923077,
+          19.099038461538463,
+          60.70010576923077,
+          9.117307692307692
+        ],
+        "pruned": 22,
+        "simulations": 1224,
+        "candidates": 48,
+        "eligible": 24,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "F": {
+        "policy": {
+          "family": "F",
+          "cap": 50,
+          "size": 25,
+          "level": 80,
+          "limit": 4,
+          "horizon": 8,
+          "budget": 180
+        },
+        "score": [
+          0,
+          280.01,
+          0,
+          4.859615384615381,
+          109.23378846153847,
+          18.0,
+          59.41080769230769,
+          5.948076923076923
+        ],
+        "pruned": 36,
+        "simulations": 6660,
+        "candidates": 48,
+        "eligible": 0,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "G": {
+        "policy": {
+          "family": "G",
+          "cap": 50,
+          "size": 50,
+          "level": 140,
+          "limit": 4,
+          "horizon": 12,
+          "budget": 180
+        },
+        "score": [
+          0,
+          316.51,
+          0,
+          2.1711538461538424,
+          113.31548076923077,
+          19.33269230769231,
+          61.92423076923077,
+          8.294230769230769
+        ],
+        "pruned": 2,
+        "simulations": 1082,
+        "candidates": 48,
+        "eligible": 4,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "H": {
+        "policy": {
+          "family": "H",
+          "cap": 50,
+          "size": 25,
+          "level": 80,
+          "limit": 8,
+          "horizon": 12,
+          "budget": 180
+        },
+        "score": [
+          0,
+          203.0,
+          0,
+          4.290666153846161,
+          90.0544676923077,
+          19.265365384615386,
+          62.99262076923077,
+          10.796153846153846
+        ],
+        "pruned": 40,
+        "simulations": 4564,
+        "candidates": 48,
+        "eligible": 0,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "I": {
+        "policy": {
+          "family": "I",
+          "cap": 50,
+          "size": 25,
+          "level": 80,
+          "limit": 4,
+          "horizon": 12,
+          "budget": 180
+        },
+        "score": [
+          0,
+          210.0,
+          0,
+          2.9470961538461538,
+          102.40535576923077,
+          20.790865384615383,
+          65.44385576923077,
+          9.115384615384615
+        ],
+        "pruned": 22,
+        "simulations": 1272,
+        "candidates": 48,
+        "eligible": 24,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "J": {
+        "policy": {
+          "family": "J",
+          "cap": 50,
+          "size": 12,
+          "level": 140,
+          "limit": 4,
+          "horizon": 12,
+          "budget": 180
+        },
+        "score": [
+          0,
+          133.48,
+          0,
+          0.0,
+          64.42138461538461,
+          18.64384615384615,
+          59.872470769230766,
+          11.661538461538461
+        ],
+        "pruned": 12,
+        "simulations": 2140,
+        "candidates": 48,
+        "eligible": 16,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "K": {
+        "policy": {
+          "family": "K",
+          "cap": 50,
+          "size": 50,
+          "level": 80,
+          "limit": 8,
+          "horizon": 12,
+          "budget": 300
+        },
+        "score": [
+          0,
+          58.0,
+          0,
+          0.0,
+          58.0,
+          18.0,
+          58.0,
+          0
+        ],
+        "pruned": 0,
+        "simulations": 520,
+        "candidates": 1,
+        "eligible": 0,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "pareto_validation_finalists": [
+        "B",
+        "E",
+        "J",
+        "K"
+      ],
+      "validation_minimax": "K",
+      "validation_recovery": "J"
+    },
+    "Aggressive": {
+      "A": {
+        "policy": {
+          "family": "A",
+          "cap": 100,
+          "size": 25,
+          "level": 80,
+          "limit": 4,
+          "horizon": 8,
+          "budget": 180
+        },
+        "score": [
+          0,
+          402.02,
+          0,
+          4.704807692307696,
+          85.6573076923077,
+          18.0,
+          57.40834615384615,
+          7.361538461538461
+        ],
+        "pruned": 16,
+        "simulations": 17056,
+        "candidates": 48,
+        "eligible": 0,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "B": {
+        "policy": {
+          "family": "B",
+          "cap": 100,
+          "size": 50,
+          "level": 80,
+          "limit": 4,
+          "horizon": 12,
+          "budget": 300
+        },
+        "score": [
+          0,
+          402.02,
+          0,
+          10.894423076923076,
+          136.50201923076924,
+          20.198076923076922,
+          63.90305769230769,
+          6.375
+        ],
+        "pruned": 12,
+        "simulations": 2260,
+        "candidates": 48,
+        "eligible": 16,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "C": {
+        "policy": {
+          "family": "C",
+          "cap": 100,
+          "size": 50,
+          "level": 80,
+          "limit": 4,
+          "horizon": 8,
+          "budget": 300
+        },
+        "score": [
+          0,
+          402.02,
+          0,
+          1.3076538461538405,
+          121.15686538461539,
+          22.465384615384615,
+          74.87713461538462,
+          6.811538461538461
+        ],
+        "pruned": 16,
+        "simulations": 17056,
+        "candidates": 48,
+        "eligible": 0,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "D": {
+        "policy": {
+          "family": "D",
+          "cap": 100,
+          "size": 50,
+          "level": 80,
+          "limit": 4,
+          "horizon": 12,
+          "budget": 300
+        },
+        "score": [
+          0,
+          402.02,
+          0,
+          11.15596153846154,
+          142.97990384615386,
+          22.517307692307693,
+          69.97228846153845,
+          6.003846153846154
+        ],
+        "pruned": 12,
+        "simulations": 2272,
+        "candidates": 48,
+        "eligible": 16,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "E": {
+        "policy": {
+          "family": "E",
+          "cap": 100,
+          "size": 50,
+          "level": 80,
+          "limit": 4,
+          "horizon": 12,
+          "budget": 300
+        },
+        "score": [
+          0,
+          402.02,
+          0,
+          10.894423076923076,
+          136.50201923076924,
+          20.198076923076922,
+          63.90305769230769,
+          6.375
+        ],
+        "pruned": 12,
+        "simulations": 2260,
+        "candidates": 48,
+        "eligible": 16,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "F": {
+        "policy": {
+          "family": "F",
+          "cap": 100,
+          "size": 25,
+          "level": 80,
+          "limit": 4,
+          "horizon": 8,
+          "budget": 180
+        },
+        "score": [
+          0,
+          502.02,
+          0,
+          12.527153846153851,
+          135.10203846153846,
+          18.0,
+          58.39826923076923,
+          2.9461538461538463
+        ],
+        "pruned": 0,
+        "simulations": 24960,
+        "candidates": 48,
+        "eligible": 0,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "G": {
+        "policy": {
+          "family": "G",
+          "cap": 100,
+          "size": 100,
+          "level": 80,
+          "limit": 8,
+          "horizon": 12,
+          "budget": 300
+        },
+        "score": [
+          0,
+          471.04,
+          0,
+          11.40996153846153,
+          153.83184615384616,
+          23.727115384615384,
+          74.40213461538461,
+          5.361538461538461
+        ],
+        "pruned": 4,
+        "simulations": 2212,
+        "candidates": 48,
+        "eligible": 8,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "H": {
+        "policy": {
+          "family": "H",
+          "cap": 100,
+          "size": 100,
+          "level": 80,
+          "limit": 8,
+          "horizon": 8,
+          "budget": 180
+        },
+        "score": [
+          0,
+          402.02,
+          0,
+          11.982434615384612,
+          118.4607176923077,
+          18.78819230769231,
+          60.55521730769231,
+          3.4269230769230767
+        ],
+        "pruned": 28,
+        "simulations": 11300,
+        "candidates": 48,
+        "eligible": 0,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "I": {
+        "policy": {
+          "family": "I",
+          "cap": 100,
+          "size": 50,
+          "level": 80,
+          "limit": 4,
+          "horizon": 12,
+          "budget": 300
+        },
+        "score": [
+          0,
+          402.02,
+          0,
+          11.100192307692303,
+          141.97028846153847,
+          22.075961538461538,
+          68.55017307692307,
+          6.042307692307692
+        ],
+        "pruned": 12,
+        "simulations": 2272,
+        "candidates": 48,
+        "eligible": 16,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "J": {
+        "policy": {
+          "family": "J",
+          "cap": 100,
+          "size": 25,
+          "level": 140,
+          "limit": 4,
+          "horizon": 8,
+          "budget": 300
+        },
+        "score": [
+          0,
+          172.75,
+          0,
+          0.0,
+          70.80096153846154,
+          19.341346153846153,
+          62.45386538461538,
+          7.7615384615384615
+        ],
+        "pruned": 0,
+        "simulations": 4160,
+        "candidates": 48,
+        "eligible": 8,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "K": {
+        "policy": {
+          "family": "K",
+          "cap": 100,
+          "size": 100,
+          "level": 80,
+          "limit": 8,
+          "horizon": 12,
+          "budget": 300
+        },
+        "score": [
+          0,
+          58.0,
+          0,
+          0.0,
+          58.0,
+          18.0,
+          58.0,
+          0
+        ],
+        "pruned": 0,
+        "simulations": 520,
+        "candidates": 1,
+        "eligible": 0,
+        "status": "FINITE_SPACE_OPTIMUM"
+      },
+      "pareto_validation_finalists": [
+        "B",
+        "E",
+        "J",
+        "K"
+      ],
+      "validation_minimax": "K",
+      "validation_recovery": "J"
+    }
+  },
+  "status": "BEST_FOUND"
+}
