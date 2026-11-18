@@ -1,0 +1,6202 @@
+{
+  "archived_worst": [
+    {
+      "case": "stopout_gap",
+      "events": [
+        [
+          2,
+          [
+            [
+              "capacity",
+              0
+            ]
+          ]
+        ]
+      ],
+      "index": 34,
+      "journal": [
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 0,
+          "order": null,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 20,
+          "step": 0,
+          "unknown": false
+        },
+        {
+          "event": "SWITCH_B",
+          "mid": 0,
+          "order": null,
+          "step": 0
+        },
+        {
+          "event": "CREATED",
+          "mid": 0,
+          "order": "halr03-1",
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 0,
+          "order": "halr03-1",
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 0,
+          "order": "halr03-1",
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "FILL",
+          "gross": 150,
+          "mid": 0,
+          "net": -50,
+          "order": "halr03-1",
+          "pnl": -11600,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "FILLED",
+          "mid": 0,
+          "order": "halr03-1",
+          "remaining": 0,
+          "step": 0
+        },
+        {
+          "event": "CREATED",
+          "mid": 0,
+          "order": "halr03-2",
+          "side": 1,
+          "step": 0,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 0,
+          "order": "halr03-2",
+          "remaining": 100,
+          "step": 0
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 0,
+          "order": "halr03-2",
+          "remaining": 100,
+          "step": 0
+        },
+        {
+          "event": "FILL",
+          "gross": 50,
+          "mid": 0,
+          "net": 50,
+          "order": "halr03-2",
+          "pnl": -11600,
+          "side": 1,
+          "step": 0,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "FILLED",
+          "mid": 0,
+          "order": "halr03-2",
+          "remaining": 0,
+          "step": 0
+        },
+        {
+          "event": "CREATED",
+          "mid": 0,
+          "order": "halr03-3",
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 0,
+          "order": "halr03-3",
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 0,
+          "order": "halr03-3",
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "FILL",
+          "gross": 0,
+          "mid": 0,
+          "net": 0,
+          "order": "halr03-3",
+          "pnl": -11600,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "FILLED",
+          "mid": 0,
+          "order": "halr03-3",
+          "remaining": 0,
+          "step": 0
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": -300,
+          "order": null,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 20,
+          "step": 1,
+          "unknown": false
+        },
+        {
+          "event": "B_OPEN",
+          "mid": -300,
+          "order": null,
+          "step": 1
+        },
+        {
+          "event": "CREATED",
+          "mid": -300,
+          "order": "halr03-4",
+          "side": -1,
+          "step": 1,
+          "ticket": null,
+          "units": 20
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": -300,
+          "order": "halr03-4",
+          "remaining": 20,
+          "step": 1
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": -300,
+          "order": "halr03-4",
+          "remaining": 20,
+          "step": 1
+        },
+        {
+          "event": "FILL",
+          "gross": 20,
+          "mid": -300,
+          "net": -20,
+          "order": "halr03-4",
+          "pnl": -12760,
+          "side": -1,
+          "step": 1,
+          "ticket": null,
+          "units": 20
+        },
+        {
+          "event": "FILLED",
+          "mid": -300,
+          "order": "halr03-4",
+          "remaining": 0,
+          "step": 1
+        },
+        {
+          "cancel_race": false,
+          "capacity": 0,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": -600,
+          "order": null,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 20,
+          "step": 2,
+          "unknown": false
+        },
+        {
+          "event": "SAFE",
+          "mid": -600,
+          "order": null,
+          "step": 2
+        },
+        {
+          "event": "CREATED",
+          "mid": -600,
+          "order": "halr03-5",
+          "side": 1,
+          "step": 2,
+          "ticket": 2,
+          "units": 20
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": -600,
+          "order": "halr03-5",
+          "remaining": 20,
+          "step": 2
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": -600,
+          "order": "halr03-5",
+          "remaining": 20,
+          "step": 2
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 89400,
+          "order": null,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 20,
+          "step": 3,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 0,
+          "mid": 89400,
+          "net": 0,
+          "order": "halr03-5",
+          "pnl": -3600760,
+          "side": 1,
+          "step": 3,
+          "ticket": 2,
+          "units": 20
+        },
+        {
+          "event": "FILLED",
+          "mid": 89400,
+          "order": "halr03-5",
+          "remaining": 0,
+          "step": 3
+        }
+      ],
+      "moves": [
+        -300,
+        -300,
+        90000,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "orientation": -1,
+      "outcome": {
+        "action_counts": [
+          [
+            "B_OPEN",
+            1
+          ],
+          [
+            "SAFE",
+            1
+          ],
+          [
+            "SWITCH_B",
+            1
+          ]
+        ],
+        "core_closed_early": true,
+        "cost": 34.8,
+        "cost_with_reserve": 34.8,
+        "drawdown": 18003.8,
+        "failures": 0,
+        "flat": true,
+        "forced": 1,
+        "gross": 2.0,
+        "low": -18003.8,
+        "margin": 265880.0,
+        "margin_stopout": true,
+        "net": 0.5,
+        "pending": 0,
+        "pnl": -18003.8,
+        "residual": 0.0,
+        "success": false,
+        "time": 3,
+        "violations": "LOSS|MARGIN"
+      },
+      "policy": "M-ER"
+    },
+    {
+      "case": "execution_adversary",
+      "events": [
+        [
+          0,
+          [
+            [
+              "capacity",
+              23
+            ],
+            [
+              "slip",
+              4
+            ],
+            [
+              "delay",
+              1
+            ],
+            [
+              "rejects",
+              0
+            ]
+          ]
+        ],
+        [
+          1,
+          [
+            [
+              "capacity",
+              23
+            ],
+            [
+              "slip",
+              4
+            ],
+            [
+              "delay",
+              0
+            ],
+            [
+              "rejects",
+              1
+            ]
+          ]
+        ],
+        [
+          2,
+          [
+            [
+              "capacity",
+              23
+            ],
+            [
+              "slip",
+              4
+            ],
+            [
+              "delay",
+              0
+            ],
+            [
+              "rejects",
+              0
+            ]
+          ]
+        ],
+        [
+          3,
+          [
+            [
+              "capacity",
+              23
+            ],
+            [
+              "slip",
+              4
+            ],
+            [
+              "delay",
+              1
+            ],
+            [
+              "rejects",
+              0
+            ]
+          ]
+        ],
+        [
+          4,
+          [
+            [
+              "capacity",
+              23
+            ],
+            [
+              "slip",
+              4
+            ],
+            [
+              "delay",
+              0
+            ],
+            [
+              "rejects",
+              1
+            ]
+          ]
+        ],
+        [
+          5,
+          [
+            [
+              "capacity",
+              23
+            ],
+            [
+              "slip",
+              4
+            ],
+            [
+              "delay",
+              0
+            ],
+            [
+              "rejects",
+              0
+            ]
+          ]
+        ],
+        [
+          6,
+          [
+            [
+              "capacity",
+              23
+            ],
+            [
+              "slip",
+              4
+            ],
+            [
+              "delay",
+              1
+            ],
+            [
+              "rejects",
+              0
+            ]
+          ]
+        ],
+        [
+          7,
+          [
+            [
+              "capacity",
+              23
+            ],
+            [
+              "slip",
+              4
+            ],
+            [
+              "delay",
+              0
+            ],
+            [
+              "rejects",
+              1
+            ]
+          ]
+        ],
+        [
+          8,
+          [
+            [
+              "capacity",
+              23
+            ],
+            [
+              "slip",
+              4
+            ],
+            [
+              "delay",
+              0
+            ],
+            [
+              "rejects",
+              0
+            ]
+          ]
+        ],
+        [
+          9,
+          [
+            [
+              "capacity",
+              23
+            ],
+            [
+              "slip",
+              4
+            ],
+            [
+              "delay",
+              1
+            ],
+            [
+              "rejects",
+              0
+            ]
+          ]
+        ],
+        [
+          10,
+          [
+            [
+              "capacity",
+              23
+            ],
+            [
+              "slip",
+              4
+            ],
+            [
+              "delay",
+              0
+            ],
+            [
+              "rejects",
+              1
+            ]
+          ]
+        ],
+        [
+          11,
+          [
+            [
+              "capacity",
+              23
+            ],
+            [
+              "slip",
+              4
+            ],
+            [
+              "delay",
+              0
+            ],
+            [
+              "rejects",
+              0
+            ]
+          ]
+        ],
+        [
+          12,
+          [
+            [
+              "capacity",
+              23
+            ],
+            [
+              "slip",
+              4
+            ],
+            [
+              "delay",
+              1
+            ],
+            [
+              "rejects",
+              0
+            ]
+          ]
+        ]
+      ],
+      "index": 38,
+      "journal": [
+        {
+          "cancel_race": false,
+          "capacity": 23,
+          "carry": 0,
+          "delay": 1,
+          "event": "QUOTE",
+          "mid": 0,
+          "order": null,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 20,
+          "step": 0,
+          "unknown": false
+        },
+        {
+          "event": "CREATED",
+          "mid": 0,
+          "order": "halr03-1",
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 0,
+          "order": "halr03-1",
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 0,
+          "order": "halr03-1",
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "cancel_race": false,
+          "capacity": 23,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 0,
+          "order": null,
+          "rejects": 1,
+          "slip": 4,
+          "spread": 20,
+          "step": 1,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 177,
+          "mid": 0,
+          "net": -23,
+          "order": "halr03-1",
+          "pnl": -13200,
+          "side": -1,
+          "step": 1,
+          "ticket": 0,
+          "units": 23
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 0,
+          "order": "halr03-1",
+          "remaining": 27,
+          "step": 1
+        },
+        {
+          "cancel_race": false,
+          "capacity": 23,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 300,
+          "order": null,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 20,
+          "step": 2,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 154,
+          "mid": 300,
+          "net": -46,
+          "order": "halr03-1",
+          "pnl": -27000,
+          "side": -1,
+          "step": 2,
+          "ticket": 0,
+          "units": 23
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 300,
+          "order": "halr03-1",
+          "remaining": 4,
+          "step": 2
+        },
+        {
+          "cancel_race": false,
+          "capacity": 23,
+          "carry": 0,
+          "delay": 1,
+          "event": "QUOTE",
+          "mid": 600,
+          "order": null,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 20,
+          "step": 3,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 150,
+          "mid": 600,
+          "net": -50,
+          "order": "halr03-1",
+          "pnl": -54600,
+          "side": -1,
+          "step": 3,
+          "ticket": 0,
+          "units": 4
+        },
+        {
+          "event": "FILLED",
+          "mid": 600,
+          "order": "halr03-1",
+          "remaining": 0,
+          "step": 3
+        },
+        {
+          "event": "CREATED",
+          "mid": 600,
+          "order": "halr03-2",
+          "side": 1,
+          "step": 3,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 600,
+          "order": "halr03-2",
+          "remaining": 100,
+          "step": 3
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 600,
+          "order": "halr03-2",
+          "remaining": 100,
+          "step": 3
+        },
+        {
+          "cancel_race": false,
+          "capacity": 23,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 900,
+          "order": null,
+          "rejects": 1,
+          "slip": 4,
+          "spread": 20,
+          "step": 4,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 127,
+          "mid": 900,
+          "net": -27,
+          "order": "halr03-2",
+          "pnl": -84600,
+          "side": 1,
+          "step": 4,
+          "ticket": 1,
+          "units": 23
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 900,
+          "order": "halr03-2",
+          "remaining": 77,
+          "step": 4
+        },
+        {
+          "cancel_race": false,
+          "capacity": 23,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 1200,
+          "order": null,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 20,
+          "step": 5,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 104,
+          "mid": 1200,
+          "net": -4,
+          "order": "halr03-2",
+          "pnl": -100800,
+          "side": 1,
+          "step": 5,
+          "ticket": 1,
+          "units": 23
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 1200,
+          "order": "halr03-2",
+          "remaining": 54,
+          "step": 5
+        },
+        {
+          "cancel_race": false,
+          "capacity": 23,
+          "carry": 0,
+          "delay": 1,
+          "event": "QUOTE",
+          "mid": 1500,
+          "order": null,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 20,
+          "step": 6,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 81,
+          "mid": 1500,
+          "net": 19,
+          "order": "halr03-2",
+          "pnl": -103200,
+          "side": 1,
+          "step": 6,
+          "ticket": 1,
+          "units": 23
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 1500,
+          "order": "halr03-2",
+          "remaining": 31,
+          "step": 6
+        },
+        {
+          "cancel_race": false,
+          "capacity": 23,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 1200,
+          "order": null,
+          "rejects": 1,
+          "slip": 4,
+          "spread": 20,
+          "step": 7,
+          "unknown": false
+        },
+        {
+          "event": "EXPIRED",
+          "mid": 1200,
+          "order": "halr03-2",
+          "remaining": 31,
+          "step": 7
+        },
+        {
+          "event": "CREATED",
+          "mid": 1200,
+          "order": "halr03-3",
+          "side": -1,
+          "step": 7,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 1200,
+          "order": "halr03-3",
+          "remaining": 50,
+          "step": 7
+        },
+        {
+          "event": "REJECTED",
+          "mid": 1200,
+          "order": "halr03-3",
+          "remaining": 50,
+          "step": 7
+        },
+        {
+          "cancel_race": false,
+          "capacity": 23,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 900,
+          "order": null,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 20,
+          "step": 8,
+          "unknown": false
+        },
+        {
+          "event": "CREATED",
+          "mid": 900,
+          "order": "halr03-4",
+          "side": -1,
+          "step": 8,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 900,
+          "order": "halr03-4",
+          "remaining": 50,
+          "step": 8
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 900,
+          "order": "halr03-4",
+          "remaining": 50,
+          "step": 8
+        },
+        {
+          "event": "FILL",
+          "gross": 58,
+          "mid": 900,
+          "net": -4,
+          "order": "halr03-4",
+          "pnl": -126000,
+          "side": -1,
+          "step": 8,
+          "ticket": 0,
+          "units": 23
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 900,
+          "order": "halr03-4",
+          "remaining": 27,
+          "step": 8
+        },
+        {
+          "cancel_race": false,
+          "capacity": 23,
+          "carry": 0,
+          "delay": 1,
+          "event": "QUOTE",
+          "mid": 1200,
+          "order": null,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 20,
+          "step": 9,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 35,
+          "mid": 1200,
+          "net": -27,
+          "order": "halr03-4",
+          "pnl": -128400,
+          "side": -1,
+          "step": 9,
+          "ticket": 0,
+          "units": 23
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 1200,
+          "order": "halr03-4",
+          "remaining": 4,
+          "step": 9
+        },
+        {
+          "cancel_race": false,
+          "capacity": 23,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 1500,
+          "order": null,
+          "rejects": 1,
+          "slip": 4,
+          "spread": 20,
+          "step": 10,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 31,
+          "mid": 1500,
+          "net": -31,
+          "order": "halr03-4",
+          "pnl": -144600,
+          "side": -1,
+          "step": 10,
+          "ticket": 0,
+          "units": 4
+        },
+        {
+          "event": "FILLED",
+          "mid": 1500,
+          "order": "halr03-4",
+          "remaining": 0,
+          "step": 10
+        },
+        {
+          "event": "CREATED",
+          "mid": 1500,
+          "order": "halr03-5",
+          "side": 1,
+          "step": 10,
+          "ticket": 1,
+          "units": 31
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 1500,
+          "order": "halr03-5",
+          "remaining": 31,
+          "step": 10
+        },
+        {
+          "event": "REJECTED",
+          "mid": 1500,
+          "order": "halr03-5",
+          "remaining": 31,
+          "step": 10
+        },
+        {
+          "cancel_race": false,
+          "capacity": 23,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 1800,
+          "order": null,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 20,
+          "step": 11,
+          "unknown": false
+        },
+        {
+          "event": "CREATED",
+          "mid": 1800,
+          "order": "halr03-6",
+          "side": 1,
+          "step": 11,
+          "ticket": 1,
+          "units": 31
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 1800,
+          "order": "halr03-6",
+          "remaining": 31,
+          "step": 11
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 1800,
+          "order": "halr03-6",
+          "remaining": 31,
+          "step": 11
+        },
+        {
+          "event": "FILL",
+          "gross": 8,
+          "mid": 1800,
+          "net": -8,
+          "order": "halr03-6",
+          "pnl": -163200,
+          "side": 1,
+          "step": 11,
+          "ticket": 1,
+          "units": 23
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 1800,
+          "order": "halr03-6",
+          "remaining": 8,
+          "step": 11
+        },
+        {
+          "cancel_race": false,
+          "capacity": 23,
+          "carry": 0,
+          "delay": 1,
+          "event": "QUOTE",
+          "mid": 2100,
+          "order": null,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 20,
+          "step": 12,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 0,
+          "mid": 2100,
+          "net": 0,
+          "order": "halr03-6",
+          "pnl": -168000,
+          "side": 1,
+          "step": 12,
+          "ticket": 1,
+          "units": 8
+        },
+        {
+          "event": "FILLED",
+          "mid": 2100,
+          "order": "halr03-6",
+          "remaining": 0,
+          "step": 12
+        }
+      ],
+      "moves": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "orientation": -1,
+      "outcome": {
+        "action_counts": [],
+        "core_closed_early": false,
+        "cost": 37.0,
+        "cost_with_reserve": 37.0,
+        "drawdown": 840.0,
+        "failures": 3,
+        "flat": true,
+        "forced": 0,
+        "gross": 2.0,
+        "low": -840.0,
+        "margin": 0.4910941475826972,
+        "margin_stopout": false,
+        "net": 0.5,
+        "pending": 0,
+        "pnl": -840.0,
+        "residual": 0.0,
+        "success": false,
+        "time": 12,
+        "violations": "LOSS"
+      },
+      "policy": "K-EXECUTABLE"
+    },
+    {
+      "case": "stopout_gap",
+      "events": [
+        [
+          2,
+          [
+            [
+              "capacity",
+              0
+            ]
+          ]
+        ]
+      ],
+      "index": 34,
+      "journal": [
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 0,
+          "order": null,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 20,
+          "step": 0,
+          "unknown": false
+        },
+        {
+          "event": "HOLD",
+          "mid": 0,
+          "order": null,
+          "step": 0
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": -300,
+          "order": null,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 20,
+          "step": 1,
+          "unknown": false
+        },
+        {
+          "event": "ADJUST",
+          "mid": -300,
+          "order": null,
+          "step": 1
+        },
+        {
+          "event": "CREATED",
+          "mid": -300,
+          "order": "halr03-1",
+          "side": -1,
+          "step": 1,
+          "ticket": 0,
+          "units": 20
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": -300,
+          "order": "halr03-1",
+          "remaining": 20,
+          "step": 1
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": -300,
+          "order": "halr03-1",
+          "remaining": 20,
+          "step": 1
+        },
+        {
+          "event": "FILL",
+          "gross": 180,
+          "mid": -300,
+          "net": -20,
+          "order": "halr03-1",
+          "pnl": -11600,
+          "side": -1,
+          "step": 1,
+          "ticket": 0,
+          "units": 20
+        },
+        {
+          "event": "FILLED",
+          "mid": -300,
+          "order": "halr03-1",
+          "remaining": 0,
+          "step": 1
+        },
+        {
+          "cancel_race": false,
+          "capacity": 0,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": -600,
+          "order": null,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 20,
+          "step": 2,
+          "unknown": false
+        },
+        {
+          "event": "TARGET",
+          "mid": -600,
+          "order": null,
+          "step": 2
+        },
+        {
+          "event": "CREATED",
+          "mid": -600,
+          "order": "halr03-2",
+          "side": -1,
+          "step": 2,
+          "ticket": 0,
+          "units": 30
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": -600,
+          "order": "halr03-2",
+          "remaining": 30,
+          "step": 2
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": -600,
+          "order": "halr03-2",
+          "remaining": 30,
+          "step": 2
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 89400,
+          "order": null,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 20,
+          "step": 3,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 150,
+          "mid": 89400,
+          "net": -50,
+          "order": "halr03-2",
+          "pnl": -3599600,
+          "side": -1,
+          "step": 3,
+          "ticket": 0,
+          "units": 30
+        },
+        {
+          "event": "FILLED",
+          "mid": 89400,
+          "order": "halr03-2",
+          "remaining": 0,
+          "step": 3
+        },
+        {
+          "event": "CREATED",
+          "mid": 89400,
+          "order": "halr03-3",
+          "side": 1,
+          "step": 3,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 89400,
+          "order": "halr03-3",
+          "remaining": 100,
+          "step": 3
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 89400,
+          "order": "halr03-3",
+          "remaining": 100,
+          "step": 3
+        },
+        {
+          "event": "FILL",
+          "gross": 50,
+          "mid": 89400,
+          "net": 50,
+          "order": "halr03-3",
+          "pnl": -3599600,
+          "side": 1,
+          "step": 3,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "FILLED",
+          "mid": 89400,
+          "order": "halr03-3",
+          "remaining": 0,
+          "step": 3
+        },
+        {
+          "event": "CREATED",
+          "mid": 89400,
+          "order": "halr03-4",
+          "side": -1,
+          "step": 3,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 89400,
+          "order": "halr03-4",
+          "remaining": 50,
+          "step": 3
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 89400,
+          "order": "halr03-4",
+          "remaining": 50,
+          "step": 3
+        },
+        {
+          "event": "FILL",
+          "gross": 0,
+          "mid": 89400,
+          "net": 0,
+          "order": "halr03-4",
+          "pnl": -3599600,
+          "side": -1,
+          "step": 3,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "FILLED",
+          "mid": 89400,
+          "order": "halr03-4",
+          "remaining": 0,
+          "step": 3
+        }
+      ],
+      "moves": [
+        -300,
+        -300,
+        90000,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "orientation": -1,
+      "outcome": {
+        "action_counts": [
+          [
+            "ADJUST",
+            1
+          ],
+          [
+            "HOLD",
+            1
+          ],
+          [
+            "TARGET",
+            1
+          ]
+        ],
+        "core_closed_early": false,
+        "cost": 29.0,
+        "cost_with_reserve": 29.0,
+        "drawdown": 18000.0,
+        "failures": 0,
+        "flat": true,
+        "forced": 1,
+        "gross": 2.0,
+        "low": -17998.0,
+        "margin": 2392920.0,
+        "margin_stopout": true,
+        "net": 0.5,
+        "pending": 0,
+        "pnl": -17998.0,
+        "residual": 0.0,
+        "success": false,
+        "time": 3,
+        "violations": "LOSS|MARGIN"
+      },
+      "policy": "A3-ER"
+    }
+  ],
+  "holdout": [
+    {
+      "episode": {
+        "complete": true,
+        "entry": [
+          1435651200227,
+          111651,
+          111654
+        ],
+        "id": "2015-06-30",
+        "month": "201506",
+        "obs": [
+          [
+            1435652207737,
+            111955,
+            111956
+          ],
+          [
+            1435654009210,
+            111992,
+            111996
+          ],
+          [
+            1435655807993,
+            112242,
+            112243
+          ],
+          [
+            1435657608217,
+            111957,
+            111962
+          ],
+          [
+            1435659407953,
+            111941,
+            111944
+          ],
+          [
+            1435661209443,
+            111817,
+            111821
+          ],
+          [
+            1435663008680,
+            111353,
+            111359
+          ],
+          [
+            1435664808697,
+            111503,
+            111509
+          ],
+          [
+            1435666608183,
+            111518,
+            111522
+          ],
+          [
+            1435668408423,
+            111439,
+            111441
+          ],
+          [
+            1435670210410,
+            111505,
+            111509
+          ],
+          [
+            1435672007900,
+            111475,
+            111480
+          ],
+          [
+            1435673808663,
+            111495,
+            111497
+          ]
+        ],
+        "orientation": 1
+      },
+      "independent": {
+        "conservative_total_reserve_peak": 12.5,
+        "cost": 12.5,
+        "end_net": 0.0,
+        "flat": true,
+        "gross": 2.0,
+        "low": -201.8,
+        "margin": 0.49831308140828773,
+        "net": 0.5,
+        "observed_violations": "LOSS",
+        "paid_cost": 12.5,
+        "pending": 0,
+        "pending_open_max_reserve": 2.0,
+        "pnl": -201.8,
+        "realized_mid": -177.3,
+        "reserve_exit": 0.0,
+        "residual": 0.0,
+        "verified_fills": 5
+      },
+      "journal": [
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 1955.5,
+          "order": null,
+          "quote_utc_ms": 1435670207737,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 1,
+          "step": 0,
+          "unknown": false
+        },
+        {
+          "event": "SWITCH_B",
+          "mid": 1955.5,
+          "order": null,
+          "quote_utc_ms": 1435670207737,
+          "step": 0
+        },
+        {
+          "event": "CREATED",
+          "mid": 1955.5,
+          "order": "halr03-1",
+          "quote_utc_ms": 1435670207737,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 1955.5,
+          "order": "halr03-1",
+          "quote_utc_ms": 1435670207737,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 1955.5,
+          "order": "halr03-1",
+          "quote_utc_ms": 1435670207737,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "FILL",
+          "gross": 150,
+          "mid": 1955.5,
+          "net": -50,
+          "order": "halr03-1",
+          "pnl": -4400.0,
+          "quote_utc_ms": 1435670207737,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "FILLED",
+          "mid": 1955.5,
+          "order": "halr03-1",
+          "quote_utc_ms": 1435670207737,
+          "remaining": 0,
+          "step": 0
+        },
+        {
+          "event": "CREATED",
+          "mid": 1955.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1435670207737,
+          "side": 1,
+          "step": 0,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 1955.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1435670207737,
+          "remaining": 100,
+          "step": 0
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 1955.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1435670207737,
+          "remaining": 100,
+          "step": 0
+        },
+        {
+          "event": "FILL",
+          "gross": 50,
+          "mid": 1955.5,
+          "net": 50,
+          "order": "halr03-2",
+          "pnl": -4400.0,
+          "quote_utc_ms": 1435670207737,
+          "side": 1,
+          "step": 0,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "FILLED",
+          "mid": 1955.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1435670207737,
+          "remaining": 0,
+          "step": 0
+        },
+        {
+          "event": "CREATED",
+          "mid": 1955.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1435670207737,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 1955.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1435670207737,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 1955.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1435670207737,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "FILL",
+          "gross": 0,
+          "mid": 1955.5,
+          "net": 0,
+          "order": "halr03-3",
+          "pnl": -4400.0,
+          "quote_utc_ms": 1435670207737,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "FILLED",
+          "mid": 1955.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1435670207737,
+          "remaining": 0,
+          "step": 0
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 1994.0,
+          "order": null,
+          "quote_utc_ms": 1435672009210,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 4,
+          "step": 1,
+          "unknown": false
+        },
+        {
+          "event": "B_WAIT",
+          "mid": 1994.0,
+          "order": null,
+          "quote_utc_ms": 1435672009210,
+          "step": 1
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2242.5,
+          "order": null,
+          "quote_utc_ms": 1435673807993,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 1,
+          "step": 2,
+          "unknown": false
+        },
+        {
+          "event": "B_OPEN",
+          "mid": 2242.5,
+          "order": null,
+          "quote_utc_ms": 1435673807993,
+          "step": 2
+        },
+        {
+          "event": "CREATED",
+          "mid": 2242.5,
+          "order": "halr03-4",
+          "quote_utc_ms": 1435673807993,
+          "side": 1,
+          "step": 2,
+          "ticket": null,
+          "units": 20
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2242.5,
+          "order": "halr03-4",
+          "quote_utc_ms": 1435673807993,
+          "remaining": 20,
+          "step": 2
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2242.5,
+          "order": "halr03-4",
+          "quote_utc_ms": 1435673807993,
+          "remaining": 20,
+          "step": 2
+        },
+        {
+          "event": "FILL",
+          "gross": 20,
+          "mid": 2242.5,
+          "net": 20,
+          "order": "halr03-4",
+          "pnl": -4800.0,
+          "quote_utc_ms": 1435673807993,
+          "side": 1,
+          "step": 2,
+          "ticket": null,
+          "units": 20
+        },
+        {
+          "event": "FILLED",
+          "mid": 2242.5,
+          "order": "halr03-4",
+          "quote_utc_ms": 1435673807993,
+          "remaining": 0,
+          "step": 2
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 1959.5,
+          "order": null,
+          "quote_utc_ms": 1435675608217,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 5,
+          "step": 3,
+          "unknown": false
+        },
+        {
+          "event": "B_HOLD",
+          "mid": 1959.5,
+          "order": null,
+          "quote_utc_ms": 1435675608217,
+          "step": 3
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 1942.5,
+          "order": null,
+          "quote_utc_ms": 1435677407953,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 3,
+          "step": 4,
+          "unknown": false
+        },
+        {
+          "event": "B_HOLD",
+          "mid": 1942.5,
+          "order": null,
+          "quote_utc_ms": 1435677407953,
+          "step": 4
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 1819.0,
+          "order": null,
+          "quote_utc_ms": 1435679209443,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 4,
+          "step": 5,
+          "unknown": false
+        },
+        {
+          "event": "B_HOLD",
+          "mid": 1819.0,
+          "order": null,
+          "quote_utc_ms": 1435679209443,
+          "step": 5
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 1356.0,
+          "order": null,
+          "quote_utc_ms": 1435681008680,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 6,
+          "step": 6,
+          "unknown": false
+        },
+        {
+          "event": "DEADLINE_OR_FORCED",
+          "mid": 1356.0,
+          "order": null,
+          "quote_utc_ms": 1435681008680,
+          "step": 6
+        },
+        {
+          "event": "CREATED",
+          "mid": 1356.0,
+          "order": "halr03-5",
+          "quote_utc_ms": 1435681008680,
+          "side": -1,
+          "step": 6,
+          "ticket": 2,
+          "units": 20
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 1356.0,
+          "order": "halr03-5",
+          "quote_utc_ms": 1435681008680,
+          "remaining": 20,
+          "step": 6
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 1356.0,
+          "order": "halr03-5",
+          "quote_utc_ms": 1435681008680,
+          "remaining": 20,
+          "step": 6
+        },
+        {
+          "event": "FILL",
+          "gross": 0,
+          "mid": 1356.0,
+          "net": 0,
+          "order": "halr03-5",
+          "pnl": -40360.0,
+          "quote_utc_ms": 1435681008680,
+          "side": -1,
+          "step": 6,
+          "ticket": 2,
+          "units": 20
+        },
+        {
+          "event": "FILLED",
+          "mid": 1356.0,
+          "order": "halr03-5",
+          "quote_utc_ms": 1435681008680,
+          "remaining": 0,
+          "step": 6
+        }
+      ],
+      "mode": "QUOTE_FILL",
+      "outcome": {
+        "action_counts": [
+          [
+            "B_HOLD",
+            3
+          ],
+          [
+            "B_OPEN",
+            1
+          ],
+          [
+            "B_WAIT",
+            1
+          ],
+          [
+            "DEADLINE_OR_FORCED",
+            1
+          ],
+          [
+            "SWITCH_B",
+            1
+          ]
+        ],
+        "attempts": 5,
+        "core_closed_early": true,
+        "cost": 12.5,
+        "cost_with_reserve": 12.5,
+        "decision": "M-ER",
+        "drawdown": 201.8,
+        "elapsed_ms": 10800943,
+        "failures": 0,
+        "flat": true,
+        "forced": 1,
+        "gross": 2.0,
+        "low": -201.8,
+        "margin": 0.49831308140828773,
+        "margin_stopout": false,
+        "net": 0.5,
+        "pending": 0,
+        "pnl": -201.8,
+        "quote_events": 7,
+        "residual": 0.0,
+        "success": false,
+        "time": 6,
+        "violations": "LOSS"
+      },
+      "policy": "M-ER"
+    },
+    {
+      "episode": {
+        "complete": true,
+        "entry": [
+          1427443200177,
+          108565,
+          108571
+        ],
+        "id": "2015-03-27",
+        "month": "201503",
+        "obs": [
+          [
+            1427445677177,
+            108870,
+            108871
+          ],
+          [
+            1427447477647,
+            108653,
+            108657
+          ],
+          [
+            1427449277373,
+            108690,
+            108693
+          ],
+          [
+            1427451077597,
+            108698,
+            108699
+          ],
+          [
+            1427452877350,
+            108761,
+            108764
+          ],
+          [
+            1427454677570,
+            108748,
+            108750
+          ],
+          [
+            1427456477577,
+            108767,
+            108771
+          ],
+          [
+            1427458277333,
+            109397,
+            109398
+          ],
+          [
+            1427460077333,
+            109054,
+            109060
+          ],
+          [
+            1427461877327,
+            109149,
+            109156
+          ],
+          [
+            1427463677817,
+            109038,
+            109040
+          ],
+          [
+            1427465479070,
+            109042,
+            109047
+          ],
+          [
+            1427467280810,
+            108944,
+            108948
+          ]
+        ],
+        "orientation": 1
+      },
+      "independent": {
+        "conservative_total_reserve_peak": 17.4,
+        "cost": 17.1,
+        "end_net": 0.0,
+        "flat": true,
+        "gross": 2.0,
+        "low": -180.6,
+        "margin": 0.4848084073653508,
+        "net": 0.5,
+        "observed_violations": "LOSS",
+        "paid_cost": 17.1,
+        "pending": 0,
+        "pending_open_max_reserve": 3.4,
+        "pnl": -180.6,
+        "realized_mid": -148.5,
+        "reserve_exit": 0.0,
+        "residual": 0.0,
+        "verified_fills": 5
+      },
+      "journal": [
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": -1129.5,
+          "order": null,
+          "quote_utc_ms": 1427463677177,
+          "rejects": 0,
+          "slip": 2,
+          "spread": 1,
+          "step": 0,
+          "unknown": false
+        },
+        {
+          "event": "SWITCH_B",
+          "mid": -1129.5,
+          "order": null,
+          "quote_utc_ms": 1427463677177,
+          "step": 0
+        },
+        {
+          "event": "CREATED",
+          "mid": -1129.5,
+          "order": "halr03-1",
+          "quote_utc_ms": 1427463677177,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": -1129.5,
+          "order": "halr03-1",
+          "quote_utc_ms": 1427463677177,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": -1129.5,
+          "order": "halr03-1",
+          "quote_utc_ms": 1427463677177,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "FILL",
+          "gross": 150,
+          "mid": -1129.5,
+          "net": -50,
+          "order": "halr03-1",
+          "pnl": -5800.0,
+          "quote_utc_ms": 1427463677177,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "FILLED",
+          "mid": -1129.5,
+          "order": "halr03-1",
+          "quote_utc_ms": 1427463677177,
+          "remaining": 0,
+          "step": 0
+        },
+        {
+          "event": "CREATED",
+          "mid": -1129.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1427463677177,
+          "side": 1,
+          "step": 0,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": -1129.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1427463677177,
+          "remaining": 100,
+          "step": 0
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": -1129.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1427463677177,
+          "remaining": 100,
+          "step": 0
+        },
+        {
+          "event": "FILL",
+          "gross": 50,
+          "mid": -1129.5,
+          "net": 50,
+          "order": "halr03-2",
+          "pnl": -5800.0,
+          "quote_utc_ms": 1427463677177,
+          "side": 1,
+          "step": 0,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "FILLED",
+          "mid": -1129.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1427463677177,
+          "remaining": 0,
+          "step": 0
+        },
+        {
+          "event": "CREATED",
+          "mid": -1129.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1427463677177,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": -1129.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1427463677177,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": -1129.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1427463677177,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "FILL",
+          "gross": 0,
+          "mid": -1129.5,
+          "net": 0,
+          "order": "halr03-3",
+          "pnl": -5800.0,
+          "quote_utc_ms": 1427463677177,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "FILLED",
+          "mid": -1129.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1427463677177,
+          "remaining": 0,
+          "step": 0
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": -1345.0,
+          "order": null,
+          "quote_utc_ms": 1427465477647,
+          "rejects": 0,
+          "slip": 2,
+          "spread": 4,
+          "step": 1,
+          "unknown": false
+        },
+        {
+          "event": "B_OPEN",
+          "mid": -1345.0,
+          "order": null,
+          "quote_utc_ms": 1427465477647,
+          "step": 1
+        },
+        {
+          "event": "CREATED",
+          "mid": -1345.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1427465477647,
+          "side": -1,
+          "step": 1,
+          "ticket": null,
+          "units": 20
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": -1345.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1427465477647,
+          "remaining": 20,
+          "step": 1
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": -1345.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1427465477647,
+          "remaining": 20,
+          "step": 1
+        },
+        {
+          "event": "FILL",
+          "gross": 20,
+          "mid": -1345.0,
+          "net": -20,
+          "order": "halr03-4",
+          "pnl": -6480.0,
+          "quote_utc_ms": 1427465477647,
+          "side": -1,
+          "step": 1,
+          "ticket": null,
+          "units": 20
+        },
+        {
+          "event": "FILLED",
+          "mid": -1345.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1427465477647,
+          "remaining": 0,
+          "step": 1
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": -1308.5,
+          "order": null,
+          "quote_utc_ms": 1427467277373,
+          "rejects": 0,
+          "slip": 2,
+          "spread": 3,
+          "step": 2,
+          "unknown": false
+        },
+        {
+          "event": "B_HOLD",
+          "mid": -1308.5,
+          "order": null,
+          "quote_utc_ms": 1427467277373,
+          "step": 2
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": -1301.5,
+          "order": null,
+          "quote_utc_ms": 1427469077597,
+          "rejects": 0,
+          "slip": 2,
+          "spread": 1,
+          "step": 3,
+          "unknown": false
+        },
+        {
+          "event": "B_HOLD",
+          "mid": -1301.5,
+          "order": null,
+          "quote_utc_ms": 1427469077597,
+          "step": 3
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": -1237.5,
+          "order": null,
+          "quote_utc_ms": 1427470877350,
+          "rejects": 0,
+          "slip": 2,
+          "spread": 3,
+          "step": 4,
+          "unknown": false
+        },
+        {
+          "event": "B_HOLD",
+          "mid": -1237.5,
+          "order": null,
+          "quote_utc_ms": 1427470877350,
+          "step": 4
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": -1251.0,
+          "order": null,
+          "quote_utc_ms": 1427472677570,
+          "rejects": 0,
+          "slip": 2,
+          "spread": 2,
+          "step": 5,
+          "unknown": false
+        },
+        {
+          "event": "B_HOLD",
+          "mid": -1251.0,
+          "order": null,
+          "quote_utc_ms": 1427472677570,
+          "step": 5
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": -1231.0,
+          "order": null,
+          "quote_utc_ms": 1427474477577,
+          "rejects": 0,
+          "slip": 2,
+          "spread": 4,
+          "step": 6,
+          "unknown": false
+        },
+        {
+          "event": "B_HOLD",
+          "mid": -1231.0,
+          "order": null,
+          "quote_utc_ms": 1427474477577,
+          "step": 6
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": -602.5,
+          "order": null,
+          "quote_utc_ms": 1427476277333,
+          "rejects": 0,
+          "slip": 2,
+          "spread": 1,
+          "step": 7,
+          "unknown": false
+        },
+        {
+          "event": "DEADLINE_OR_FORCED",
+          "mid": -602.5,
+          "order": null,
+          "quote_utc_ms": 1427476277333,
+          "step": 7
+        },
+        {
+          "event": "CREATED",
+          "mid": -602.5,
+          "order": "halr03-5",
+          "quote_utc_ms": 1427476277333,
+          "side": 1,
+          "step": 7,
+          "ticket": 2,
+          "units": 20
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": -602.5,
+          "order": "halr03-5",
+          "quote_utc_ms": 1427476277333,
+          "remaining": 20,
+          "step": 7
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": -602.5,
+          "order": "halr03-5",
+          "quote_utc_ms": 1427476277333,
+          "remaining": 20,
+          "step": 7
+        },
+        {
+          "event": "FILL",
+          "gross": 0,
+          "mid": -602.5,
+          "net": 0,
+          "order": "halr03-5",
+          "pnl": -36120.0,
+          "quote_utc_ms": 1427476277333,
+          "side": 1,
+          "step": 7,
+          "ticket": 2,
+          "units": 20
+        },
+        {
+          "event": "FILLED",
+          "mid": -602.5,
+          "order": "halr03-5",
+          "quote_utc_ms": 1427476277333,
+          "remaining": 0,
+          "step": 7
+        }
+      ],
+      "mode": "BOUNDED_SLIPPAGE",
+      "outcome": {
+        "action_counts": [
+          [
+            "B_HOLD",
+            5
+          ],
+          [
+            "B_OPEN",
+            1
+          ],
+          [
+            "DEADLINE_OR_FORCED",
+            1
+          ],
+          [
+            "SWITCH_B",
+            1
+          ]
+        ],
+        "attempts": 5,
+        "core_closed_early": true,
+        "cost": 17.1,
+        "cost_with_reserve": 17.4,
+        "decision": "M-ER",
+        "drawdown": 180.6,
+        "elapsed_ms": 12600156,
+        "failures": 0,
+        "flat": true,
+        "forced": 1,
+        "gross": 2.0,
+        "low": -180.6,
+        "margin": 0.4848084073653508,
+        "margin_stopout": false,
+        "net": 0.5,
+        "pending": 0,
+        "pnl": -180.6,
+        "quote_events": 8,
+        "residual": 0.0,
+        "success": false,
+        "time": 7,
+        "violations": "LOSS"
+      },
+      "policy": "M-ER"
+    },
+    {
+      "episode": {
+        "complete": true,
+        "entry": [
+          1422000000137,
+          111861,
+          111865
+        ],
+        "id": "2015-01-23",
+        "month": "201501",
+        "obs": [
+          [
+            1422002378617,
+            112163,
+            112171
+          ],
+          [
+            1422004178837,
+            112425,
+            112430
+          ],
+          [
+            1422005979603,
+            112257,
+            112264
+          ],
+          [
+            1422007778837,
+            112486,
+            112488
+          ],
+          [
+            1422009579303,
+            112875,
+            112881
+          ],
+          [
+            1422011378817,
+            112520,
+            112526
+          ],
+          [
+            1422013179053,
+            112801,
+            112806
+          ],
+          [
+            1422014979303,
+            112749,
+            112755
+          ],
+          [
+            1422016783520,
+            112635,
+            112641
+          ],
+          [
+            1422018579020,
+            112455,
+            112460
+          ],
+          [
+            1422020379020,
+            112298,
+            112302
+          ],
+          [
+            1422022180487,
+            112303,
+            112307
+          ],
+          [
+            1422023978737,
+            112417,
+            112419
+          ]
+        ],
+        "orientation": 1
+      },
+      "independent": {
+        "conservative_total_reserve_peak": 17.0,
+        "cost": 14.25,
+        "end_net": 0.0,
+        "flat": true,
+        "gross": 2.0,
+        "low": -30.0,
+        "margin": 0.5005899508003295,
+        "net": 0.5,
+        "observed_violations": "MARGIN",
+        "paid_cost": 14.25,
+        "pending": 0,
+        "pending_open_max_reserve": 0.0,
+        "pnl": 169.5,
+        "realized_mid": 196.75,
+        "reserve_exit": 0.0,
+        "residual": 0.0,
+        "verified_fills": 3
+      },
+      "journal": [
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 1,
+          "event": "QUOTE",
+          "mid": 2167.0,
+          "order": null,
+          "quote_utc_ms": 1422020378617,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 8,
+          "step": 0,
+          "unknown": false
+        },
+        {
+          "event": "SAFE",
+          "mid": 2167.0,
+          "order": null,
+          "quote_utc_ms": 1422020378617,
+          "step": 0
+        },
+        {
+          "event": "CREATED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 1,
+          "event": "QUOTE",
+          "mid": 2427.5,
+          "order": null,
+          "quote_utc_ms": 1422022178837,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 5,
+          "step": 1,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 150,
+          "mid": 2427.5,
+          "net": -50,
+          "order": "halr03-1",
+          "pnl": -5400.0,
+          "quote_utc_ms": 1422022178837,
+          "side": -1,
+          "step": 1,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "FILLED",
+          "mid": 2427.5,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 0,
+          "step": 1
+        },
+        {
+          "event": "CREATED",
+          "mid": 2427.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422022178837,
+          "side": 1,
+          "step": 1,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2427.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 100,
+          "step": 1
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2427.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 100,
+          "step": 1
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 1,
+          "event": "QUOTE",
+          "mid": 2260.5,
+          "order": null,
+          "quote_utc_ms": 1422023979603,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 7,
+          "step": 2,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 50,
+          "mid": 2260.5,
+          "net": 50,
+          "order": "halr03-2",
+          "pnl": 11000.0,
+          "quote_utc_ms": 1422023979603,
+          "side": 1,
+          "step": 2,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "FILLED",
+          "mid": 2260.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422023979603,
+          "remaining": 0,
+          "step": 2
+        },
+        {
+          "event": "TARGET",
+          "mid": 2260.5,
+          "order": null,
+          "quote_utc_ms": 1422023979603,
+          "step": 2
+        },
+        {
+          "event": "CREATED",
+          "mid": 2260.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422023979603,
+          "side": -1,
+          "step": 2,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2260.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422023979603,
+          "remaining": 50,
+          "step": 2
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2260.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422023979603,
+          "remaining": 50,
+          "step": 2
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 1,
+          "event": "QUOTE",
+          "mid": 2487.0,
+          "order": null,
+          "quote_utc_ms": 1422025778837,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 2,
+          "step": 3,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 0,
+          "mid": 2487.0,
+          "net": 0,
+          "order": "halr03-3",
+          "pnl": 33900.0,
+          "quote_utc_ms": 1422025778837,
+          "side": -1,
+          "step": 3,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "FILLED",
+          "mid": 2487.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422025778837,
+          "remaining": 0,
+          "step": 3
+        },
+        {
+          "event": "TARGET",
+          "mid": 2487.0,
+          "order": null,
+          "quote_utc_ms": 1422025778837,
+          "step": 3
+        }
+      ],
+      "mode": "DELAY_ONLY",
+      "outcome": {
+        "action_counts": [
+          [
+            "SAFE",
+            1
+          ],
+          [
+            "TARGET",
+            2
+          ]
+        ],
+        "attempts": 3,
+        "core_closed_early": true,
+        "cost": 14.25,
+        "cost_with_reserve": 17.0,
+        "drawdown": 30.0,
+        "elapsed_ms": 5400220,
+        "failures": 0,
+        "flat": true,
+        "forced": 1,
+        "gross": 2.0,
+        "low": -30.0,
+        "margin": 0.5005899508003295,
+        "margin_stopout": false,
+        "net": 0.5,
+        "pending": 0,
+        "pnl": 169.5,
+        "quote_events": 4,
+        "residual": 0.0,
+        "success": true,
+        "time": 3,
+        "violations": "MARGIN"
+      },
+      "policy": "M-ER"
+    },
+    {
+      "episode": {
+        "complete": true,
+        "entry": [
+          1425024002873,
+          112340,
+          112344
+        ],
+        "id": "2015-02-27",
+        "month": "201502",
+        "obs": [
+          [
+            1425029032200,
+            112039,
+            112040
+          ],
+          [
+            1425030832403,
+            111796,
+            111798
+          ],
+          [
+            1425032632623,
+            112032,
+            112037
+          ],
+          [
+            1425034433367,
+            112184,
+            112187
+          ],
+          [
+            1425036232870,
+            112196,
+            112198
+          ],
+          [
+            1425038032637,
+            111948,
+            111951
+          ],
+          [
+            1425039836610,
+            111976,
+            111980
+          ],
+          [
+            1425041634140,
+            111904,
+            111906
+          ],
+          [
+            1425043444380,
+            111932,
+            111937
+          ],
+          [
+            1425045238383,
+            112003,
+            112007
+          ],
+          [
+            1425047038107,
+            111974,
+            111982
+          ],
+          [
+            1425048841877,
+            111974,
+            111978
+          ],
+          [
+            1425050635877,
+            111850,
+            111854
+          ]
+        ],
+        "orientation": -1
+      },
+      "independent": {
+        "conservative_total_reserve_peak": 13.125,
+        "cost": 11.75,
+        "end_net": 0.0,
+        "flat": true,
+        "gross": 2.0,
+        "low": -182.75,
+        "margin": 0.4987202599541519,
+        "net": 0.5,
+        "observed_violations": "LOSS",
+        "paid_cost": 11.75,
+        "pending": 0,
+        "pending_open_max_reserve": 0.0,
+        "pnl": -164.25,
+        "realized_mid": -139.5,
+        "reserve_exit": 0.0,
+        "residual": 0.0,
+        "verified_fills": 8
+      },
+      "journal": [
+        {
+          "cancel_race": false,
+          "capacity": 25,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2039.5,
+          "order": null,
+          "quote_utc_ms": 1425047032200,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 1,
+          "step": 0,
+          "unknown": false
+        },
+        {
+          "event": "SAFE",
+          "mid": 2039.5,
+          "order": null,
+          "quote_utc_ms": 1425047032200,
+          "step": 0
+        },
+        {
+          "event": "CREATED",
+          "mid": 2039.5,
+          "order": "halr03-1",
+          "quote_utc_ms": 1425047032200,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2039.5,
+          "order": "halr03-1",
+          "quote_utc_ms": 1425047032200,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2039.5,
+          "order": "halr03-1",
+          "quote_utc_ms": 1425047032200,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "FILL",
+          "gross": 175,
+          "mid": 2039.5,
+          "net": -25,
+          "order": "halr03-1",
+          "pnl": -4600.0,
+          "quote_utc_ms": 1425047032200,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 25
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 2039.5,
+          "order": "halr03-1",
+          "quote_utc_ms": 1425047032200,
+          "remaining": 25,
+          "step": 0
+        },
+        {
+          "cancel_race": false,
+          "capacity": 25,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 1797.0,
+          "order": null,
+          "quote_utc_ms": 1425048832403,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 2,
+          "step": 1,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 150,
+          "mid": 1797.0,
+          "net": -50,
+          "order": "halr03-1",
+          "pnl": 7350.0,
+          "quote_utc_ms": 1425048832403,
+          "side": -1,
+          "step": 1,
+          "ticket": 0,
+          "units": 25
+        },
+        {
+          "event": "FILLED",
+          "mid": 1797.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1425048832403,
+          "remaining": 0,
+          "step": 1
+        },
+        {
+          "event": "TARGET",
+          "mid": 1797.0,
+          "order": null,
+          "quote_utc_ms": 1425048832403,
+          "step": 1
+        },
+        {
+          "event": "CREATED",
+          "mid": 1797.0,
+          "order": "halr03-2",
+          "quote_utc_ms": 1425048832403,
+          "side": 1,
+          "step": 1,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 1797.0,
+          "order": "halr03-2",
+          "quote_utc_ms": 1425048832403,
+          "remaining": 100,
+          "step": 1
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 1797.0,
+          "order": "halr03-2",
+          "quote_utc_ms": 1425048832403,
+          "remaining": 100,
+          "step": 1
+        },
+        {
+          "cancel_race": false,
+          "capacity": 25,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2034.5,
+          "order": null,
+          "quote_utc_ms": 1425050632623,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 5,
+          "step": 2,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 125,
+          "mid": 2034.5,
+          "net": -25,
+          "order": "halr03-2",
+          "pnl": -16850.0,
+          "quote_utc_ms": 1425050632623,
+          "side": 1,
+          "step": 2,
+          "ticket": 1,
+          "units": 25
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 2034.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1425050632623,
+          "remaining": 75,
+          "step": 2
+        },
+        {
+          "cancel_race": false,
+          "capacity": 25,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2185.5,
+          "order": null,
+          "quote_utc_ms": 1425052433367,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 3,
+          "step": 3,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 100,
+          "mid": 2185.5,
+          "net": 0,
+          "order": "halr03-2",
+          "pnl": -24150.0,
+          "quote_utc_ms": 1425052433367,
+          "side": 1,
+          "step": 3,
+          "ticket": 1,
+          "units": 25
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 2185.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1425052433367,
+          "remaining": 50,
+          "step": 3
+        },
+        {
+          "cancel_race": false,
+          "capacity": 25,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2197.0,
+          "order": null,
+          "quote_utc_ms": 1425054232870,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 2,
+          "step": 4,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 75,
+          "mid": 2197.0,
+          "net": 25,
+          "order": "halr03-2",
+          "pnl": -24050.0,
+          "quote_utc_ms": 1425054232870,
+          "side": 1,
+          "step": 4,
+          "ticket": 1,
+          "units": 25
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 2197.0,
+          "order": "halr03-2",
+          "quote_utc_ms": 1425054232870,
+          "remaining": 25,
+          "step": 4
+        },
+        {
+          "cancel_race": false,
+          "capacity": 25,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 1949.5,
+          "order": null,
+          "quote_utc_ms": 1425056032637,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 3,
+          "step": 5,
+          "unknown": false
+        },
+        {
+          "event": "EXPIRED",
+          "mid": 1949.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1425056032637,
+          "remaining": 25,
+          "step": 5
+        },
+        {
+          "event": "CREATED",
+          "mid": 1949.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1425056032637,
+          "side": -1,
+          "step": 5,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 1949.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1425056032637,
+          "remaining": 50,
+          "step": 5
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 1949.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1425056032637,
+          "remaining": 50,
+          "step": 5
+        },
+        {
+          "event": "FILL",
+          "gross": 50,
+          "mid": 1949.5,
+          "net": 0,
+          "order": "halr03-3",
+          "pnl": -36500.0,
+          "quote_utc_ms": 1425056032637,
+          "side": -1,
+          "step": 5,
+          "ticket": 0,
+          "units": 25
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 1949.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1425056032637,
+          "remaining": 25,
+          "step": 5
+        },
+        {
+          "cancel_race": false,
+          "capacity": 25,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 1978.0,
+          "order": null,
+          "quote_utc_ms": 1425057836610,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 4,
+          "step": 6,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 25,
+          "mid": 1978.0,
+          "net": -25,
+          "order": "halr03-3",
+          "pnl": -36550.0,
+          "quote_utc_ms": 1425057836610,
+          "side": -1,
+          "step": 6,
+          "ticket": 0,
+          "units": 25
+        },
+        {
+          "event": "FILLED",
+          "mid": 1978.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1425057836610,
+          "remaining": 0,
+          "step": 6
+        },
+        {
+          "event": "CREATED",
+          "mid": 1978.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1425057836610,
+          "side": 1,
+          "step": 6,
+          "ticket": 1,
+          "units": 25
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 1978.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1425057836610,
+          "remaining": 25,
+          "step": 6
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 1978.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1425057836610,
+          "remaining": 25,
+          "step": 6
+        },
+        {
+          "cancel_race": false,
+          "capacity": 25,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 1905.0,
+          "order": null,
+          "quote_utc_ms": 1425059634140,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 2,
+          "step": 7,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 0,
+          "mid": 1905.0,
+          "net": 0,
+          "order": "halr03-4",
+          "pnl": -32850.0,
+          "quote_utc_ms": 1425059634140,
+          "side": 1,
+          "step": 7,
+          "ticket": 1,
+          "units": 25
+        },
+        {
+          "event": "FILLED",
+          "mid": 1905.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1425059634140,
+          "remaining": 0,
+          "step": 7
+        }
+      ],
+      "mode": "PARTIAL_ONLY",
+      "outcome": {
+        "action_counts": [
+          [
+            "SAFE",
+            1
+          ],
+          [
+            "TARGET",
+            1
+          ]
+        ],
+        "attempts": 4,
+        "core_closed_early": true,
+        "cost": 11.75,
+        "cost_with_reserve": 13.125,
+        "drawdown": 219.5,
+        "elapsed_ms": 12601940,
+        "failures": 1,
+        "flat": true,
+        "forced": 1,
+        "gross": 2.0,
+        "low": -182.75,
+        "margin": 0.4987202599541519,
+        "margin_stopout": false,
+        "net": 0.5,
+        "pending": 0,
+        "pnl": -164.25,
+        "quote_events": 8,
+        "residual": 0.0,
+        "success": false,
+        "time": 7,
+        "violations": "LOSS"
+      },
+      "policy": "M-ER"
+    },
+    {
+      "episode": {
+        "complete": true,
+        "entry": [
+          1422000000137,
+          111861,
+          111865
+        ],
+        "id": "2015-01-23",
+        "month": "201501",
+        "obs": [
+          [
+            1422002378617,
+            112163,
+            112171
+          ],
+          [
+            1422004178837,
+            112425,
+            112430
+          ],
+          [
+            1422005979603,
+            112257,
+            112264
+          ],
+          [
+            1422007778837,
+            112486,
+            112488
+          ],
+          [
+            1422009579303,
+            112875,
+            112881
+          ],
+          [
+            1422011378817,
+            112520,
+            112526
+          ],
+          [
+            1422013179053,
+            112801,
+            112806
+          ],
+          [
+            1422014979303,
+            112749,
+            112755
+          ],
+          [
+            1422016783520,
+            112635,
+            112641
+          ],
+          [
+            1422018579020,
+            112455,
+            112460
+          ],
+          [
+            1422020379020,
+            112298,
+            112302
+          ],
+          [
+            1422022180487,
+            112303,
+            112307
+          ],
+          [
+            1422023978737,
+            112417,
+            112419
+          ]
+        ],
+        "orientation": 1
+      },
+      "independent": {
+        "conservative_total_reserve_peak": 21.0,
+        "cost": 18.0,
+        "end_net": 0.0,
+        "flat": true,
+        "gross": 2.0,
+        "low": -34.0,
+        "margin": 0.5007237179058944,
+        "net": 0.5,
+        "observed_violations": "MARGIN",
+        "paid_cost": 18.0,
+        "pending": 0,
+        "pending_open_max_reserve": 0.0,
+        "pnl": -31.0,
+        "realized_mid": 0.0,
+        "reserve_exit": 0.0,
+        "residual": 0.0,
+        "verified_fills": 3
+      },
+      "journal": [
+        {
+          "cancel_race": false,
+          "capacity": 25,
+          "carry": 0,
+          "delay": 1,
+          "event": "QUOTE",
+          "mid": 2167.0,
+          "order": null,
+          "quote_utc_ms": 1422020378617,
+          "rejects": 0,
+          "slip": 2,
+          "spread": 8,
+          "step": 0,
+          "unknown": false
+        },
+        {
+          "event": "SAFE",
+          "mid": 2167.0,
+          "order": null,
+          "quote_utc_ms": 1422020378617,
+          "step": 0
+        },
+        {
+          "event": "CREATED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2427.5,
+          "order": null,
+          "quote_utc_ms": 1422022178837,
+          "rejects": 0,
+          "slip": 2,
+          "spread": 5,
+          "step": 1,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 150,
+          "mid": 2427.5,
+          "net": -50,
+          "order": "halr03-1",
+          "pnl": -6200.0,
+          "quote_utc_ms": 1422022178837,
+          "side": -1,
+          "step": 1,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "FILLED",
+          "mid": 2427.5,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 0,
+          "step": 1
+        },
+        {
+          "event": "CREATED",
+          "mid": 2427.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422022178837,
+          "side": 1,
+          "step": 1,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2427.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 100,
+          "step": 1
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2427.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 100,
+          "step": 1
+        },
+        {
+          "event": "FILL",
+          "gross": 50,
+          "mid": 2427.5,
+          "net": 50,
+          "order": "halr03-2",
+          "pnl": -6200.0,
+          "quote_utc_ms": 1422022178837,
+          "side": 1,
+          "step": 1,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "FILLED",
+          "mid": 2427.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 0,
+          "step": 1
+        },
+        {
+          "event": "CREATED",
+          "mid": 2427.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422022178837,
+          "side": -1,
+          "step": 1,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2427.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 50,
+          "step": 1
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2427.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 50,
+          "step": 1
+        },
+        {
+          "event": "FILL",
+          "gross": 0,
+          "mid": 2427.5,
+          "net": 0,
+          "order": "halr03-3",
+          "pnl": -6200.0,
+          "quote_utc_ms": 1422022178837,
+          "side": -1,
+          "step": 1,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "FILLED",
+          "mid": 2427.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 0,
+          "step": 1
+        }
+      ],
+      "mode": "DELAYED_PARTIAL",
+      "outcome": {
+        "action_counts": [
+          [
+            "SAFE",
+            1
+          ]
+        ],
+        "attempts": 3,
+        "core_closed_early": true,
+        "cost": 18.0,
+        "cost_with_reserve": 21.0,
+        "decision": "M-ER",
+        "drawdown": 34.0,
+        "elapsed_ms": 1800220,
+        "failures": 0,
+        "flat": true,
+        "forced": 1,
+        "gross": 2.0,
+        "low": -34.0,
+        "margin": 0.5007237179058944,
+        "margin_stopout": false,
+        "net": 0.5,
+        "pending": 0,
+        "pnl": -31.0,
+        "quote_events": 2,
+        "residual": 0.0,
+        "success": false,
+        "time": 1,
+        "violations": "MARGIN"
+      },
+      "policy": "M-ER"
+    },
+    {
+      "episode": {
+        "complete": true,
+        "entry": [
+          1422000000137,
+          111861,
+          111865
+        ],
+        "id": "2015-01-23",
+        "month": "201501",
+        "obs": [
+          [
+            1422002378617,
+            112163,
+            112171
+          ],
+          [
+            1422004178837,
+            112425,
+            112430
+          ],
+          [
+            1422005979603,
+            112257,
+            112264
+          ],
+          [
+            1422007778837,
+            112486,
+            112488
+          ],
+          [
+            1422009579303,
+            112875,
+            112881
+          ],
+          [
+            1422011378817,
+            112520,
+            112526
+          ],
+          [
+            1422013179053,
+            112801,
+            112806
+          ],
+          [
+            1422014979303,
+            112749,
+            112755
+          ],
+          [
+            1422016783520,
+            112635,
+            112641
+          ],
+          [
+            1422018579020,
+            112455,
+            112460
+          ],
+          [
+            1422020379020,
+            112298,
+            112302
+          ],
+          [
+            1422022180487,
+            112303,
+            112307
+          ],
+          [
+            1422023978737,
+            112417,
+            112419
+          ]
+        ],
+        "orientation": 1
+      },
+      "independent": {
+        "conservative_total_reserve_peak": 17.0,
+        "cost": 14.0,
+        "end_net": 0.0,
+        "flat": true,
+        "gross": 2.0,
+        "low": -30.0,
+        "margin": 0.5005899508003295,
+        "net": 0.5,
+        "observed_violations": "MARGIN",
+        "paid_cost": 14.0,
+        "pending": 0,
+        "pending_open_max_reserve": 0.0,
+        "pnl": -27.0,
+        "realized_mid": 0.0,
+        "reserve_exit": 0.0,
+        "residual": 0.0,
+        "verified_fills": 3
+      },
+      "journal": [
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2167.0,
+          "order": null,
+          "quote_utc_ms": 1422020378617,
+          "rejects": 1,
+          "slip": 0,
+          "spread": 8,
+          "step": 0,
+          "unknown": false
+        },
+        {
+          "event": "SAFE",
+          "mid": 2167.0,
+          "order": null,
+          "quote_utc_ms": 1422020378617,
+          "step": 0
+        },
+        {
+          "event": "CREATED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "REJECTED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2427.5,
+          "order": null,
+          "quote_utc_ms": 1422022178837,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 5,
+          "step": 1,
+          "unknown": false
+        },
+        {
+          "event": "CREATED",
+          "mid": 2427.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422022178837,
+          "side": -1,
+          "step": 1,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2427.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 50,
+          "step": 1
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2427.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 50,
+          "step": 1
+        },
+        {
+          "event": "FILL",
+          "gross": 150,
+          "mid": 2427.5,
+          "net": -50,
+          "order": "halr03-2",
+          "pnl": -5400.0,
+          "quote_utc_ms": 1422022178837,
+          "side": -1,
+          "step": 1,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "FILLED",
+          "mid": 2427.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 0,
+          "step": 1
+        },
+        {
+          "event": "CREATED",
+          "mid": 2427.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422022178837,
+          "side": 1,
+          "step": 1,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2427.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 100,
+          "step": 1
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2427.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 100,
+          "step": 1
+        },
+        {
+          "event": "FILL",
+          "gross": 50,
+          "mid": 2427.5,
+          "net": 50,
+          "order": "halr03-3",
+          "pnl": -5400.0,
+          "quote_utc_ms": 1422022178837,
+          "side": 1,
+          "step": 1,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "FILLED",
+          "mid": 2427.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 0,
+          "step": 1
+        },
+        {
+          "event": "CREATED",
+          "mid": 2427.5,
+          "order": "halr03-4",
+          "quote_utc_ms": 1422022178837,
+          "side": -1,
+          "step": 1,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2427.5,
+          "order": "halr03-4",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 50,
+          "step": 1
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2427.5,
+          "order": "halr03-4",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 50,
+          "step": 1
+        },
+        {
+          "event": "FILL",
+          "gross": 0,
+          "mid": 2427.5,
+          "net": 0,
+          "order": "halr03-4",
+          "pnl": -5400.0,
+          "quote_utc_ms": 1422022178837,
+          "side": -1,
+          "step": 1,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "FILLED",
+          "mid": 2427.5,
+          "order": "halr03-4",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 0,
+          "step": 1
+        }
+      ],
+      "mode": "REJECT_ONLY",
+      "outcome": {
+        "action_counts": [
+          [
+            "SAFE",
+            1
+          ]
+        ],
+        "attempts": 4,
+        "core_closed_early": true,
+        "cost": 14.0,
+        "cost_with_reserve": 17.0,
+        "drawdown": 30.0,
+        "elapsed_ms": 1800220,
+        "failures": 1,
+        "flat": true,
+        "forced": 1,
+        "gross": 2.0,
+        "low": -30.0,
+        "margin": 0.5005899508003295,
+        "margin_stopout": false,
+        "net": 0.5,
+        "pending": 0,
+        "pnl": -27.0,
+        "quote_events": 2,
+        "residual": 0.0,
+        "success": false,
+        "time": 1,
+        "violations": "MARGIN"
+      },
+      "policy": "M-ER"
+    },
+    {
+      "episode": {
+        "complete": true,
+        "entry": [
+          1422000000137,
+          111861,
+          111865
+        ],
+        "id": "2015-01-23",
+        "month": "201501",
+        "obs": [
+          [
+            1422002378617,
+            112163,
+            112171
+          ],
+          [
+            1422004178837,
+            112425,
+            112430
+          ],
+          [
+            1422005979603,
+            112257,
+            112264
+          ],
+          [
+            1422007778837,
+            112486,
+            112488
+          ],
+          [
+            1422009579303,
+            112875,
+            112881
+          ],
+          [
+            1422011378817,
+            112520,
+            112526
+          ],
+          [
+            1422013179053,
+            112801,
+            112806
+          ],
+          [
+            1422014979303,
+            112749,
+            112755
+          ],
+          [
+            1422016783520,
+            112635,
+            112641
+          ],
+          [
+            1422018579020,
+            112455,
+            112460
+          ],
+          [
+            1422020379020,
+            112298,
+            112302
+          ],
+          [
+            1422022180487,
+            112303,
+            112307
+          ],
+          [
+            1422023978737,
+            112417,
+            112419
+          ]
+        ],
+        "orientation": 1
+      },
+      "independent": {
+        "conservative_total_reserve_peak": 17.0,
+        "cost": 11.0,
+        "end_net": 0.0,
+        "flat": true,
+        "gross": 2.0,
+        "low": -30.0,
+        "margin": 0.5007478632478632,
+        "net": 0.5,
+        "observed_violations": "MARGIN",
+        "paid_cost": 11.0,
+        "pending": 0,
+        "pending_open_max_reserve": 0.0,
+        "pnl": -24.0,
+        "realized_mid": 0.0,
+        "reserve_exit": 0.0,
+        "residual": 0.0,
+        "verified_fills": 3
+      },
+      "journal": [
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2167.0,
+          "order": null,
+          "quote_utc_ms": 1422020378617,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 8,
+          "step": 0,
+          "unknown": true
+        },
+        {
+          "event": "SAFE",
+          "mid": 2167.0,
+          "order": null,
+          "quote_utc_ms": 1422020378617,
+          "step": 0
+        },
+        {
+          "event": "CREATED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "UNKNOWN",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2427.5,
+          "order": null,
+          "quote_utc_ms": 1422022178837,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 5,
+          "step": 1,
+          "unknown": true
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2260.5,
+          "order": null,
+          "quote_utc_ms": 1422023979603,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 7,
+          "step": 2,
+          "unknown": true
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2487.0,
+          "order": null,
+          "quote_utc_ms": 1422025778837,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 2,
+          "step": 3,
+          "unknown": false
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2487.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422025778837,
+          "remaining": 50,
+          "step": 3
+        },
+        {
+          "event": "FILL",
+          "gross": 150,
+          "mid": 2487.0,
+          "net": -50,
+          "order": "halr03-1",
+          "pnl": -4800.0,
+          "quote_utc_ms": 1422025778837,
+          "side": -1,
+          "step": 3,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "FILLED",
+          "mid": 2487.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422025778837,
+          "remaining": 0,
+          "step": 3
+        },
+        {
+          "event": "CREATED",
+          "mid": 2487.0,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422025778837,
+          "side": 1,
+          "step": 3,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2487.0,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422025778837,
+          "remaining": 100,
+          "step": 3
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2487.0,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422025778837,
+          "remaining": 100,
+          "step": 3
+        },
+        {
+          "event": "FILL",
+          "gross": 50,
+          "mid": 2487.0,
+          "net": 50,
+          "order": "halr03-2",
+          "pnl": -4800.0,
+          "quote_utc_ms": 1422025778837,
+          "side": 1,
+          "step": 3,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "FILLED",
+          "mid": 2487.0,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422025778837,
+          "remaining": 0,
+          "step": 3
+        },
+        {
+          "event": "CREATED",
+          "mid": 2487.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422025778837,
+          "side": -1,
+          "step": 3,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2487.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422025778837,
+          "remaining": 50,
+          "step": 3
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2487.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422025778837,
+          "remaining": 50,
+          "step": 3
+        },
+        {
+          "event": "FILL",
+          "gross": 0,
+          "mid": 2487.0,
+          "net": 0,
+          "order": "halr03-3",
+          "pnl": -4800.0,
+          "quote_utc_ms": 1422025778837,
+          "side": -1,
+          "step": 3,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "FILLED",
+          "mid": 2487.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422025778837,
+          "remaining": 0,
+          "step": 3
+        }
+      ],
+      "mode": "UNKNOWN_ONLY",
+      "outcome": {
+        "action_counts": [
+          [
+            "SAFE",
+            1
+          ]
+        ],
+        "attempts": 3,
+        "core_closed_early": true,
+        "cost": 11.0,
+        "cost_with_reserve": 17.0,
+        "drawdown": 30.0,
+        "elapsed_ms": 5400220,
+        "failures": 1,
+        "flat": true,
+        "forced": 1,
+        "gross": 2.0,
+        "low": -30.0,
+        "margin": 0.5007478632478632,
+        "margin_stopout": false,
+        "net": 0.5,
+        "pending": 0,
+        "pnl": -24.0,
+        "quote_events": 4,
+        "residual": 0.0,
+        "success": false,
+        "time": 3,
+        "violations": "MARGIN"
+      },
+      "policy": "M-ER"
+    },
+    {
+      "episode": {
+        "complete": true,
+        "entry": [
+          1422000000137,
+          111861,
+          111865
+        ],
+        "id": "2015-01-23",
+        "month": "201501",
+        "obs": [
+          [
+            1422002378617,
+            112163,
+            112171
+          ],
+          [
+            1422004178837,
+            112425,
+            112430
+          ],
+          [
+            1422005979603,
+            112257,
+            112264
+          ],
+          [
+            1422007778837,
+            112486,
+            112488
+          ],
+          [
+            1422009579303,
+            112875,
+            112881
+          ],
+          [
+            1422011378817,
+            112520,
+            112526
+          ],
+          [
+            1422013179053,
+            112801,
+            112806
+          ],
+          [
+            1422014979303,
+            112749,
+            112755
+          ],
+          [
+            1422016783520,
+            112635,
+            112641
+          ],
+          [
+            1422018579020,
+            112455,
+            112460
+          ],
+          [
+            1422020379020,
+            112298,
+            112302
+          ],
+          [
+            1422022180487,
+            112303,
+            112307
+          ],
+          [
+            1422023978737,
+            112417,
+            112419
+          ]
+        ],
+        "orientation": 1
+      },
+      "independent": {
+        "conservative_total_reserve_peak": 17.0,
+        "cost": 15.0,
+        "end_net": 0.0,
+        "flat": true,
+        "gross": 2.0,
+        "low": -30.0,
+        "margin": 0.5026315789473684,
+        "net": 0.5,
+        "observed_violations": "MARGIN",
+        "paid_cost": 15.0,
+        "pending": 0,
+        "pending_open_max_reserve": 0.0,
+        "pnl": -28.0,
+        "realized_mid": 0.0,
+        "reserve_exit": 0.0,
+        "residual": 0.0,
+        "verified_fills": 3
+      },
+      "journal": [
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2167.0,
+          "order": null,
+          "quote_utc_ms": 1422020378617,
+          "rejects": 1,
+          "slip": 0,
+          "spread": 8,
+          "step": 0,
+          "unknown": false
+        },
+        {
+          "event": "SAFE",
+          "mid": 2167.0,
+          "order": null,
+          "quote_utc_ms": 1422020378617,
+          "step": 0
+        },
+        {
+          "event": "CREATED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "REJECTED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2427.5,
+          "order": null,
+          "quote_utc_ms": 1422022178837,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 5,
+          "step": 1,
+          "unknown": true
+        },
+        {
+          "event": "CREATED",
+          "mid": 2427.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422022178837,
+          "side": -1,
+          "step": 1,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2427.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 50,
+          "step": 1
+        },
+        {
+          "event": "UNKNOWN",
+          "mid": 2427.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 50,
+          "step": 1
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2260.5,
+          "order": null,
+          "quote_utc_ms": 1422023979603,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 7,
+          "step": 2,
+          "unknown": true
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2487.0,
+          "order": null,
+          "quote_utc_ms": 1422025778837,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 2,
+          "step": 3,
+          "unknown": true
+        },
+        {
+          "cancel_race": false,
+          "capacity": 1000,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2878.0,
+          "order": null,
+          "quote_utc_ms": 1422027579303,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 6,
+          "step": 4,
+          "unknown": false
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2878.0,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422027579303,
+          "remaining": 50,
+          "step": 4
+        },
+        {
+          "event": "FILL",
+          "gross": 150,
+          "mid": 2878.0,
+          "net": -50,
+          "order": "halr03-2",
+          "pnl": -5600.0,
+          "quote_utc_ms": 1422027579303,
+          "side": -1,
+          "step": 4,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "FILLED",
+          "mid": 2878.0,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422027579303,
+          "remaining": 0,
+          "step": 4
+        },
+        {
+          "event": "CREATED",
+          "mid": 2878.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422027579303,
+          "side": 1,
+          "step": 4,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2878.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422027579303,
+          "remaining": 100,
+          "step": 4
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2878.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422027579303,
+          "remaining": 100,
+          "step": 4
+        },
+        {
+          "event": "FILL",
+          "gross": 50,
+          "mid": 2878.0,
+          "net": 50,
+          "order": "halr03-3",
+          "pnl": -5600.0,
+          "quote_utc_ms": 1422027579303,
+          "side": 1,
+          "step": 4,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "FILLED",
+          "mid": 2878.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422027579303,
+          "remaining": 0,
+          "step": 4
+        },
+        {
+          "event": "CREATED",
+          "mid": 2878.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1422027579303,
+          "side": -1,
+          "step": 4,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2878.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1422027579303,
+          "remaining": 50,
+          "step": 4
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2878.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1422027579303,
+          "remaining": 50,
+          "step": 4
+        },
+        {
+          "event": "FILL",
+          "gross": 0,
+          "mid": 2878.0,
+          "net": 0,
+          "order": "halr03-4",
+          "pnl": -5600.0,
+          "quote_utc_ms": 1422027579303,
+          "side": -1,
+          "step": 4,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "FILLED",
+          "mid": 2878.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1422027579303,
+          "remaining": 0,
+          "step": 4
+        }
+      ],
+      "mode": "REJECT_UNKNOWN",
+      "outcome": {
+        "action_counts": [
+          [
+            "SAFE",
+            1
+          ]
+        ],
+        "attempts": 4,
+        "core_closed_early": true,
+        "cost": 15.0,
+        "cost_with_reserve": 17.0,
+        "drawdown": 30.0,
+        "elapsed_ms": 7200686,
+        "failures": 2,
+        "flat": true,
+        "forced": 1,
+        "gross": 2.0,
+        "low": -30.0,
+        "margin": 0.5026315789473684,
+        "margin_stopout": false,
+        "net": 0.5,
+        "pending": 0,
+        "pnl": -28.0,
+        "quote_events": 5,
+        "residual": 0.0,
+        "success": false,
+        "time": 4,
+        "violations": "MARGIN"
+      },
+      "policy": "M-ER"
+    },
+    {
+      "episode": {
+        "complete": true,
+        "entry": [
+          1422000000137,
+          111861,
+          111865
+        ],
+        "id": "2015-01-23",
+        "month": "201501",
+        "obs": [
+          [
+            1422002378617,
+            112163,
+            112171
+          ],
+          [
+            1422004178837,
+            112425,
+            112430
+          ],
+          [
+            1422005979603,
+            112257,
+            112264
+          ],
+          [
+            1422007778837,
+            112486,
+            112488
+          ],
+          [
+            1422009579303,
+            112875,
+            112881
+          ],
+          [
+            1422011378817,
+            112520,
+            112526
+          ],
+          [
+            1422013179053,
+            112801,
+            112806
+          ],
+          [
+            1422014979303,
+            112749,
+            112755
+          ],
+          [
+            1422016783520,
+            112635,
+            112641
+          ],
+          [
+            1422018579020,
+            112455,
+            112460
+          ],
+          [
+            1422020379020,
+            112298,
+            112302
+          ],
+          [
+            1422022180487,
+            112303,
+            112307
+          ],
+          [
+            1422023978737,
+            112417,
+            112419
+          ]
+        ],
+        "orientation": 1
+      },
+      "independent": {
+        "conservative_total_reserve_peak": 17.0,
+        "cost": 9.15,
+        "end_net": -0.3,
+        "flat": false,
+        "gross": 2.0,
+        "low": -244.9,
+        "margin": 0.49953685148073923,
+        "net": 0.5,
+        "observed_violations": "DEADLINE|LOSS",
+        "paid_cost": 9.15,
+        "pending": 1,
+        "pending_open_max_reserve": 0.0,
+        "pnl": -70.0,
+        "realized_mid": 122.5,
+        "reserve_exit": 3.85,
+        "residual": 0.7,
+        "verified_fills": 13
+      },
+      "journal": [
+        {
+          "cancel_race": false,
+          "capacity": 10,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2167.0,
+          "order": null,
+          "quote_utc_ms": 1422020378617,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 8,
+          "step": 0,
+          "unknown": false
+        },
+        {
+          "event": "SAFE",
+          "mid": 2167.0,
+          "order": null,
+          "quote_utc_ms": 1422020378617,
+          "step": 0
+        },
+        {
+          "event": "CREATED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "FILL",
+          "gross": 190,
+          "mid": 2167.0,
+          "net": -10,
+          "order": "halr03-1",
+          "pnl": -6000.0,
+          "quote_utc_ms": 1422020378617,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 10
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "remaining": 40,
+          "step": 0
+        },
+        {
+          "cancel_race": false,
+          "capacity": 10,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2427.5,
+          "order": null,
+          "quote_utc_ms": 1422022178837,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 5,
+          "step": 1,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 180,
+          "mid": 2427.5,
+          "net": -20,
+          "order": "halr03-1",
+          "pnl": -10640.0,
+          "quote_utc_ms": 1422022178837,
+          "side": -1,
+          "step": 1,
+          "ticket": 0,
+          "units": 10
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 2427.5,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 30,
+          "step": 1
+        },
+        {
+          "cancel_race": false,
+          "capacity": 10,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2260.5,
+          "order": null,
+          "quote_utc_ms": 1422023979603,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 7,
+          "step": 2,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 170,
+          "mid": 2260.5,
+          "net": -30,
+          "order": "halr03-1",
+          "pnl": -4320.0,
+          "quote_utc_ms": 1422023979603,
+          "side": -1,
+          "step": 2,
+          "ticket": 0,
+          "units": 10
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 2260.5,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422023979603,
+          "remaining": 20,
+          "step": 2
+        },
+        {
+          "cancel_race": false,
+          "capacity": 10,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2487.0,
+          "order": null,
+          "quote_utc_ms": 1422025778837,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 2,
+          "step": 3,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 160,
+          "mid": 2487.0,
+          "net": -40,
+          "order": "halr03-1",
+          "pnl": -17060.0,
+          "quote_utc_ms": 1422025778837,
+          "side": -1,
+          "step": 3,
+          "ticket": 0,
+          "units": 10
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 2487.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422025778837,
+          "remaining": 10,
+          "step": 3
+        },
+        {
+          "cancel_race": false,
+          "capacity": 10,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2878.0,
+          "order": null,
+          "quote_utc_ms": 1422027579303,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 6,
+          "step": 4,
+          "unknown": false
+        },
+        {
+          "event": "EXPIRED",
+          "mid": 2878.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422027579303,
+          "remaining": 10,
+          "step": 4
+        },
+        {
+          "event": "CREATED",
+          "mid": 2878.0,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422027579303,
+          "side": -1,
+          "step": 4,
+          "ticket": 0,
+          "units": 10
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2878.0,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422027579303,
+          "remaining": 10,
+          "step": 4
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2878.0,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422027579303,
+          "remaining": 10,
+          "step": 4
+        },
+        {
+          "event": "FILL",
+          "gross": 150,
+          "mid": 2878.0,
+          "net": -50,
+          "order": "halr03-2",
+          "pnl": -48980.0,
+          "quote_utc_ms": 1422027579303,
+          "side": -1,
+          "step": 4,
+          "ticket": 0,
+          "units": 10
+        },
+        {
+          "event": "FILLED",
+          "mid": 2878.0,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422027579303,
+          "remaining": 0,
+          "step": 4
+        },
+        {
+          "event": "CREATED",
+          "mid": 2878.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422027579303,
+          "side": 1,
+          "step": 4,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2878.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422027579303,
+          "remaining": 100,
+          "step": 4
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2878.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422027579303,
+          "remaining": 100,
+          "step": 4
+        },
+        {
+          "cancel_race": false,
+          "capacity": 10,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2523.0,
+          "order": null,
+          "quote_utc_ms": 1422029378817,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 6,
+          "step": 5,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 140,
+          "mid": 2523.0,
+          "net": -40,
+          "order": "halr03-3",
+          "pnl": -13480.0,
+          "quote_utc_ms": 1422029378817,
+          "side": 1,
+          "step": 5,
+          "ticket": 1,
+          "units": 10
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 2523.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422029378817,
+          "remaining": 90,
+          "step": 5
+        },
+        {
+          "cancel_race": false,
+          "capacity": 10,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2803.5,
+          "order": null,
+          "quote_utc_ms": 1422031179053,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 5,
+          "step": 6,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 130,
+          "mid": 2803.5,
+          "net": -30,
+          "order": "halr03-3",
+          "pnl": -35780.0,
+          "quote_utc_ms": 1422031179053,
+          "side": 1,
+          "step": 6,
+          "ticket": 1,
+          "units": 10
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 2803.5,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422031179053,
+          "remaining": 80,
+          "step": 6
+        },
+        {
+          "cancel_race": false,
+          "capacity": 10,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2752.0,
+          "order": null,
+          "quote_utc_ms": 1422032979303,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 6,
+          "step": 7,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 120,
+          "mid": 2752.0,
+          "net": -20,
+          "order": "halr03-3",
+          "pnl": -32820.0,
+          "quote_utc_ms": 1422032979303,
+          "side": 1,
+          "step": 7,
+          "ticket": 1,
+          "units": 10
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 2752.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422032979303,
+          "remaining": 70,
+          "step": 7
+        },
+        {
+          "cancel_race": false,
+          "capacity": 10,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2638.0,
+          "order": null,
+          "quote_utc_ms": 1422034783520,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 6,
+          "step": 8,
+          "unknown": false
+        },
+        {
+          "event": "EXPIRED",
+          "mid": 2638.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422034783520,
+          "remaining": 70,
+          "step": 8
+        },
+        {
+          "event": "CREATED",
+          "mid": 2638.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1422034783520,
+          "side": -1,
+          "step": 8,
+          "ticket": 0,
+          "units": 30
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2638.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1422034783520,
+          "remaining": 30,
+          "step": 8
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2638.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1422034783520,
+          "remaining": 30,
+          "step": 8
+        },
+        {
+          "event": "FILL",
+          "gross": 110,
+          "mid": 2638.0,
+          "net": -30,
+          "order": "halr03-4",
+          "pnl": -28260.0,
+          "quote_utc_ms": 1422034783520,
+          "side": -1,
+          "step": 8,
+          "ticket": 0,
+          "units": 10
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 2638.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1422034783520,
+          "remaining": 20,
+          "step": 8
+        },
+        {
+          "cancel_race": false,
+          "capacity": 10,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2457.5,
+          "order": null,
+          "quote_utc_ms": 1422036579020,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 5,
+          "step": 9,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 100,
+          "mid": 2457.5,
+          "net": -40,
+          "order": "halr03-4",
+          "pnl": -17320.0,
+          "quote_utc_ms": 1422036579020,
+          "side": -1,
+          "step": 9,
+          "ticket": 0,
+          "units": 10
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 2457.5,
+          "order": "halr03-4",
+          "quote_utc_ms": 1422036579020,
+          "remaining": 10,
+          "step": 9
+        },
+        {
+          "cancel_race": false,
+          "capacity": 10,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2300.0,
+          "order": null,
+          "quote_utc_ms": 1422038379020,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 4,
+          "step": 10,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 90,
+          "mid": 2300.0,
+          "net": -50,
+          "order": "halr03-4",
+          "pnl": -4620.0,
+          "quote_utc_ms": 1422038379020,
+          "side": -1,
+          "step": 10,
+          "ticket": 0,
+          "units": 10
+        },
+        {
+          "event": "FILLED",
+          "mid": 2300.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1422038379020,
+          "remaining": 0,
+          "step": 10
+        },
+        {
+          "event": "CREATED",
+          "mid": 2300.0,
+          "order": "halr03-5",
+          "quote_utc_ms": 1422038379020,
+          "side": 1,
+          "step": 10,
+          "ticket": 1,
+          "units": 70
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2300.0,
+          "order": "halr03-5",
+          "quote_utc_ms": 1422038379020,
+          "remaining": 70,
+          "step": 10
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2300.0,
+          "order": "halr03-5",
+          "quote_utc_ms": 1422038379020,
+          "remaining": 70,
+          "step": 10
+        },
+        {
+          "cancel_race": false,
+          "capacity": 10,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2305.0,
+          "order": null,
+          "quote_utc_ms": 1422040180487,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 4,
+          "step": 11,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 80,
+          "mid": 2305.0,
+          "net": -40,
+          "order": "halr03-5",
+          "pnl": -5120.0,
+          "quote_utc_ms": 1422040180487,
+          "side": 1,
+          "step": 11,
+          "ticket": 1,
+          "units": 10
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 2305.0,
+          "order": "halr03-5",
+          "quote_utc_ms": 1422040180487,
+          "remaining": 60,
+          "step": 11
+        },
+        {
+          "cancel_race": false,
+          "capacity": 10,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2418.0,
+          "order": null,
+          "quote_utc_ms": 1422041978737,
+          "rejects": 0,
+          "slip": 0,
+          "spread": 2,
+          "step": 12,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 70,
+          "mid": 2418.0,
+          "net": -30,
+          "order": "halr03-5",
+          "pnl": -14000.0,
+          "quote_utc_ms": 1422041978737,
+          "side": 1,
+          "step": 12,
+          "ticket": 1,
+          "units": 10
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 2418.0,
+          "order": "halr03-5",
+          "quote_utc_ms": 1422041978737,
+          "remaining": 50,
+          "step": 12
+        }
+      ],
+      "mode": "LOW_LIQUIDITY",
+      "outcome": {
+        "action_counts": [
+          [
+            "SAFE",
+            1
+          ]
+        ],
+        "attempts": 5,
+        "core_closed_early": true,
+        "cost": 9.15,
+        "cost_with_reserve": 17.0,
+        "drawdown": 244.9,
+        "elapsed_ms": 21600120,
+        "failures": 2,
+        "flat": false,
+        "forced": 1,
+        "gross": 2.0,
+        "low": -244.9,
+        "margin": 0.49953685148073923,
+        "margin_stopout": false,
+        "net": 0.5,
+        "pending": 1,
+        "pnl": -70.0,
+        "quote_events": 13,
+        "residual": 0.7,
+        "success": false,
+        "time": 12,
+        "violations": "DEADLINE|LOSS"
+      },
+      "policy": "M-ER"
+    },
+    {
+      "episode": {
+        "complete": true,
+        "entry": [
+          1422000000137,
+          111861,
+          111865
+        ],
+        "id": "2015-01-23",
+        "month": "201501",
+        "obs": [
+          [
+            1422002378617,
+            112163,
+            112171
+          ],
+          [
+            1422004178837,
+            112425,
+            112430
+          ],
+          [
+            1422005979603,
+            112257,
+            112264
+          ],
+          [
+            1422007778837,
+            112486,
+            112488
+          ],
+          [
+            1422009579303,
+            112875,
+            112881
+          ],
+          [
+            1422011378817,
+            112520,
+            112526
+          ],
+          [
+            1422013179053,
+            112801,
+            112806
+          ],
+          [
+            1422014979303,
+            112749,
+            112755
+          ],
+          [
+            1422016783520,
+            112635,
+            112641
+          ],
+          [
+            1422018579020,
+            112455,
+            112460
+          ],
+          [
+            1422020379020,
+            112298,
+            112302
+          ],
+          [
+            1422022180487,
+            112303,
+            112307
+          ],
+          [
+            1422023978737,
+            112417,
+            112419
+          ]
+        ],
+        "orientation": 1
+      },
+      "independent": {
+        "conservative_total_reserve_peak": 53.0,
+        "cost": 21.5,
+        "end_net": 0.0,
+        "flat": false,
+        "gross": 2.0,
+        "low": -333.0,
+        "margin": 0.5008575565207707,
+        "net": 0.5,
+        "observed_violations": "COST|DEADLINE|LOSS|MARGIN",
+        "paid_cost": 21.5,
+        "pending": 1,
+        "pending_open_max_reserve": 0.0,
+        "pnl": -242.25,
+        "realized_mid": -178.25,
+        "reserve_exit": 29.5,
+        "residual": 1.0,
+        "verified_fills": 4
+      },
+      "journal": [
+        {
+          "cancel_race": false,
+          "capacity": 25,
+          "carry": 0,
+          "delay": 1,
+          "event": "QUOTE",
+          "mid": 2167.0,
+          "order": null,
+          "quote_utc_ms": 1422020378617,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 8,
+          "step": 0,
+          "unknown": false
+        },
+        {
+          "event": "SAFE",
+          "mid": 2167.0,
+          "order": null,
+          "quote_utc_ms": 1422020378617,
+          "step": 0
+        },
+        {
+          "event": "CREATED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "side": -1,
+          "step": 0,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2167.0,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422020378617,
+          "remaining": 50,
+          "step": 0
+        },
+        {
+          "cancel_race": false,
+          "capacity": 25,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2427.5,
+          "order": null,
+          "quote_utc_ms": 1422022178837,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 5,
+          "step": 1,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 175,
+          "mid": 2427.5,
+          "net": -25,
+          "order": "halr03-1",
+          "pnl": -7000.0,
+          "quote_utc_ms": 1422022178837,
+          "side": -1,
+          "step": 1,
+          "ticket": 0,
+          "units": 25
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 2427.5,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422022178837,
+          "remaining": 25,
+          "step": 1
+        },
+        {
+          "cancel_race": false,
+          "capacity": 25,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2260.5,
+          "order": null,
+          "quote_utc_ms": 1422023979603,
+          "rejects": 1,
+          "slip": 4,
+          "spread": 7,
+          "step": 2,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 150,
+          "mid": 2260.5,
+          "net": -50,
+          "order": "halr03-1",
+          "pnl": 1000.0,
+          "quote_utc_ms": 1422023979603,
+          "side": -1,
+          "step": 2,
+          "ticket": 0,
+          "units": 25
+        },
+        {
+          "event": "FILLED",
+          "mid": 2260.5,
+          "order": "halr03-1",
+          "quote_utc_ms": 1422023979603,
+          "remaining": 0,
+          "step": 2
+        },
+        {
+          "event": "TARGET",
+          "mid": 2260.5,
+          "order": null,
+          "quote_utc_ms": 1422023979603,
+          "step": 2
+        },
+        {
+          "event": "CREATED",
+          "mid": 2260.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422023979603,
+          "side": 1,
+          "step": 2,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2260.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422023979603,
+          "remaining": 100,
+          "step": 2
+        },
+        {
+          "event": "REJECTED",
+          "mid": 2260.5,
+          "order": "halr03-2",
+          "quote_utc_ms": 1422023979603,
+          "remaining": 100,
+          "step": 2
+        },
+        {
+          "cancel_race": false,
+          "capacity": 25,
+          "carry": 0,
+          "delay": 1,
+          "event": "QUOTE",
+          "mid": 2487.0,
+          "order": null,
+          "quote_utc_ms": 1422025778837,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 42,
+          "step": 3,
+          "unknown": false
+        },
+        {
+          "event": "CREATED",
+          "mid": 2487.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422025778837,
+          "side": 1,
+          "step": 3,
+          "ticket": 1,
+          "units": 100
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2487.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422025778837,
+          "remaining": 100,
+          "step": 3
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2487.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422025778837,
+          "remaining": 100,
+          "step": 3
+        },
+        {
+          "cancel_race": false,
+          "capacity": 25,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2878.0,
+          "order": null,
+          "quote_utc_ms": 1422027579303,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 46,
+          "step": 4,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 125,
+          "mid": 2878.0,
+          "net": -25,
+          "order": "halr03-3",
+          "pnl": -66600.0,
+          "quote_utc_ms": 1422027579303,
+          "side": 1,
+          "step": 4,
+          "ticket": 1,
+          "units": 25
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 2878.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422027579303,
+          "remaining": 75,
+          "step": 4
+        },
+        {
+          "cancel_race": false,
+          "capacity": 25,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2523.0,
+          "order": null,
+          "quote_utc_ms": 1422029378817,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 46,
+          "step": 5,
+          "unknown": false
+        },
+        {
+          "event": "FILL",
+          "gross": 100,
+          "mid": 2523.0,
+          "net": 0,
+          "order": "halr03-3",
+          "pnl": -48850.0,
+          "quote_utc_ms": 1422029378817,
+          "side": 1,
+          "step": 5,
+          "ticket": 1,
+          "units": 25
+        },
+        {
+          "event": "PARTIAL",
+          "mid": 2523.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422029378817,
+          "remaining": 50,
+          "step": 5
+        },
+        {
+          "cancel_race": false,
+          "capacity": 0,
+          "carry": 0,
+          "delay": 1,
+          "event": "QUOTE",
+          "mid": 2803.5,
+          "order": null,
+          "quote_utc_ms": 1422031179053,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 45,
+          "step": 6,
+          "unknown": false
+        },
+        {
+          "cancel_race": false,
+          "capacity": 0,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2752.0,
+          "order": null,
+          "quote_utc_ms": 1422032979303,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 46,
+          "step": 7,
+          "unknown": false
+        },
+        {
+          "event": "EXPIRED",
+          "mid": 2752.0,
+          "order": "halr03-3",
+          "quote_utc_ms": 1422032979303,
+          "remaining": 50,
+          "step": 7
+        },
+        {
+          "event": "CREATED",
+          "mid": 2752.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1422032979303,
+          "side": -1,
+          "step": 7,
+          "ticket": 0,
+          "units": 50
+        },
+        {
+          "event": "SUBMITTED",
+          "mid": 2752.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1422032979303,
+          "remaining": 50,
+          "step": 7
+        },
+        {
+          "event": "ACCEPTED",
+          "mid": 2752.0,
+          "order": "halr03-4",
+          "quote_utc_ms": 1422032979303,
+          "remaining": 50,
+          "step": 7
+        },
+        {
+          "cancel_race": false,
+          "capacity": 0,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2638.0,
+          "order": null,
+          "quote_utc_ms": 1422034783520,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 46,
+          "step": 8,
+          "unknown": true
+        },
+        {
+          "cancel_race": false,
+          "capacity": 0,
+          "carry": 0,
+          "delay": 1,
+          "event": "QUOTE",
+          "mid": 2457.5,
+          "order": null,
+          "quote_utc_ms": 1422036579020,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 45,
+          "step": 9,
+          "unknown": true
+        },
+        {
+          "cancel_race": false,
+          "capacity": 0,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2300.0,
+          "order": null,
+          "quote_utc_ms": 1422038379020,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 44,
+          "step": 10,
+          "unknown": true
+        },
+        {
+          "cancel_race": false,
+          "capacity": 0,
+          "carry": 0,
+          "delay": 0,
+          "event": "QUOTE",
+          "mid": 2305.0,
+          "order": null,
+          "quote_utc_ms": 1422040180487,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 44,
+          "step": 11,
+          "unknown": true
+        },
+        {
+          "cancel_race": false,
+          "capacity": 0,
+          "carry": 0,
+          "delay": 1,
+          "event": "QUOTE",
+          "mid": 2418.0,
+          "order": null,
+          "quote_utc_ms": 1422041978737,
+          "rejects": 0,
+          "slip": 4,
+          "spread": 42,
+          "step": 12,
+          "unknown": true
+        }
+      ],
+      "mode": "COMPOUND_STRESS",
+      "outcome": {
+        "action_counts": [
+          [
+            "SAFE",
+            1
+          ],
+          [
+            "TARGET",
+            1
+          ]
+        ],
+        "attempts": 4,
+        "core_closed_early": true,
+        "cost": 21.5,
+        "cost_with_reserve": 53.0,
+        "decision": "M-ER",
+        "drawdown": 338.0,
+        "elapsed_ms": 21600120,
+        "failures": 2,
+        "flat": false,
+        "forced": 1,
+        "gross": 2.0,
+        "low": -333.0,
+        "margin": 0.5008575565207707,
+        "margin_stopout": false,
+        "net": 0.5,
+        "pending": 1,
+        "pnl": -242.25,
+        "quote_events": 13,
+        "residual": 1.0,
+        "success": false,
+        "time": 12,
+        "violations": "COST|DEADLINE|LOSS|MARGIN"
+      },
+      "policy": "M-ER"
+    }
+  ],
+  "scenario_source_hash": "8f013c564c1dc4ac04087a8671590f85b15eabed75517a29d3caafecaee5a011"
+}

@@ -1,0 +1,9 @@
+{
+  "paths": 2070,
+  "fills": 9728,
+  "flat": 1654,
+  "residual_or_pending": 416,
+  "exact_dispatch_parities": 207,
+  "source": "HALR04 prior cohort; not new test",
+  "passed": true
+}

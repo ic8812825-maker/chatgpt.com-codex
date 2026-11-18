@@ -1,0 +1,19 @@
+{
+  "archived_stress_rows": 264,
+  "archives": 36,
+  "classifications": 782,
+  "eligible": 322,
+  "eligible_clusters": 30,
+  "first_observation_checks": 777,
+  "locked_hashes_verified": true,
+  "passed": true,
+  "previous_month_overlap": 0,
+  "primary_cluster_statistics_reproduced": true,
+  "primary_rows": 322,
+  "quotes": 53567600,
+  "source_pins": {
+    "HALR02_DIR": "ac17e6a365ec97457b3fd358163f5aab91f15924",
+    "HALR03_DIR": "7d12c24192730b27dac92bb8a5bad0c0efa900cc",
+    "HALR04_DIR": "dd957384a43253964c906379cf37c0ec80de0828"
+  }
+}
