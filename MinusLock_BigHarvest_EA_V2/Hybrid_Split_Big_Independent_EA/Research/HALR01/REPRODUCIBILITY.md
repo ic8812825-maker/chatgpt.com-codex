@@ -18,11 +18,23 @@ Wilson 95% применяется к независимым синтетичес
 ```sh
 git fetch origin refs/pull/5/head
 HALR=MinusLock_BigHarvest_EA_V2/Hybrid_Split_Big_Independent_EA/Research
-LEGACY=$(mktemp)
+LEGACY=$(mktemp --suffix=.py)
 git show "e507cb93a1e721f3b436baf9c6403d4d18715fd2:$HALR/UMLRS01/research.py" > "$LEGACY"
-cp "$LEGACY" "$LEGACY.py"
-python -B "$HALR/HALR01/audit_legacy.py" "$LEGACY.py"
-rm "$LEGACY" "$LEGACY.py"
+python -B "$HALR/HALR01/audit_legacy.py" "$LEGACY"
+rm "$LEGACY"
 ```
 
 Для вывода о превосходстве M требуется улучшение парного восстановления при подтверждённом рисковом допуске и отсутствии ухудшения худшего PnL и CVaR95 относительно сравнимых альтернатив. Pareto Frontier показывает компромиссы на тестовой выборке и включает также точки без робастного допуска. Глобальная оптимальность по всем причинным стратегиям требует более широкого поиска.
+
+Проверка статистики и сборка отчёта:
+
+```sh
+python -B audit_results.py
+python -B render_report.py
+```
+
+Диаграмма строится отдельно стандартным Matplotlib с локальным шрифтом, поддерживающим кириллицу.
+
+```sh
+python -B plot_budget.py
+```
