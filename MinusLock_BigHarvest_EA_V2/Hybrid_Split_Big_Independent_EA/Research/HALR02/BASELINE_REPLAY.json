@@ -1,0 +1,398 @@
+[
+  {
+    "variant": "K",
+    "split": "independent_test",
+    "trials": 1200,
+    "recoveries": 0,
+    "violations": 0,
+    "worst": -58.0,
+    "residual": 0
+  },
+  {
+    "variant": "K",
+    "split": "adversarial_holdout",
+    "trials": 88,
+    "recoveries": 0,
+    "violations": 0,
+    "worst": -97.0,
+    "residual": 0
+  },
+  {
+    "variant": "K",
+    "split": "exhaustive_6",
+    "trials": 31250,
+    "recoveries": 0,
+    "violations": 0,
+    "worst": -58.0,
+    "residual": 0
+  },
+  {
+    "variant": "A1",
+    "split": "independent_test",
+    "trials": 1200,
+    "recoveries": 780,
+    "violations": 0,
+    "worst": -140.25,
+    "residual": 0
+  },
+  {
+    "variant": "A1",
+    "split": "adversarial_holdout",
+    "trials": 88,
+    "recoveries": 28,
+    "violations": 6,
+    "worst": -990.25,
+    "residual": 8
+  },
+  {
+    "variant": "A1",
+    "split": "exhaustive_6",
+    "trials": 31250,
+    "recoveries": 12248,
+    "violations": 0,
+    "worst": -140.25,
+    "residual": 0
+  },
+  {
+    "variant": "A2",
+    "split": "independent_test",
+    "trials": 1200,
+    "recoveries": 838,
+    "violations": 0,
+    "worst": -178.0,
+    "residual": 0
+  },
+  {
+    "variant": "A2",
+    "split": "adversarial_holdout",
+    "trials": 88,
+    "recoveries": 36,
+    "violations": 12,
+    "worst": -1538.0,
+    "residual": 8
+  },
+  {
+    "variant": "A2",
+    "split": "exhaustive_6",
+    "trials": 31250,
+    "recoveries": 14168,
+    "violations": 0,
+    "worst": -178.0,
+    "residual": 0
+  },
+  {
+    "variant": "A3",
+    "split": "independent_test",
+    "trials": 1200,
+    "recoveries": 932,
+    "violations": 0,
+    "worst": -178.0,
+    "residual": 0
+  },
+  {
+    "variant": "A3",
+    "split": "adversarial_holdout",
+    "trials": 88,
+    "recoveries": 28,
+    "violations": 4,
+    "worst": -798.0,
+    "residual": 4
+  },
+  {
+    "variant": "A3",
+    "split": "exhaustive_6",
+    "trials": 31250,
+    "recoveries": 15224,
+    "violations": 0,
+    "worst": -178.0,
+    "residual": 0
+  },
+  {
+    "variant": "A1-strict",
+    "split": "independent_test",
+    "trials": 1200,
+    "recoveries": 112,
+    "violations": 0,
+    "worst": -150.9,
+    "residual": 1088
+  },
+  {
+    "variant": "A1-strict",
+    "split": "adversarial_holdout",
+    "trials": 88,
+    "recoveries": 2,
+    "violations": 8,
+    "worst": -1080.9,
+    "residual": 86
+  },
+  {
+    "variant": "A1-strict",
+    "split": "exhaustive_6",
+    "trials": 31250,
+    "recoveries": 950,
+    "violations": 0,
+    "worst": -150.9,
+    "residual": 30300
+  },
+  {
+    "variant": "A2-strict",
+    "split": "independent_test",
+    "trials": 1200,
+    "recoveries": 456,
+    "violations": 0,
+    "worst": -166.0,
+    "residual": 744
+  },
+  {
+    "variant": "A2-strict",
+    "split": "adversarial_holdout",
+    "trials": 88,
+    "recoveries": 20,
+    "violations": 4,
+    "worst": -798.0,
+    "residual": 68
+  },
+  {
+    "variant": "A2-strict",
+    "split": "exhaustive_6",
+    "trials": 31250,
+    "recoveries": 8200,
+    "violations": 0,
+    "worst": -166.0,
+    "residual": 23050
+  },
+  {
+    "variant": "A3-strict",
+    "split": "independent_test",
+    "trials": 1200,
+    "recoveries": 426,
+    "violations": 0,
+    "worst": -178.0,
+    "residual": 774
+  },
+  {
+    "variant": "A3-strict",
+    "split": "adversarial_holdout",
+    "trials": 88,
+    "recoveries": 12,
+    "violations": 8,
+    "worst": -444.0,
+    "residual": 76
+  },
+  {
+    "variant": "A3-strict",
+    "split": "exhaustive_6",
+    "trials": 31250,
+    "recoveries": 5656,
+    "violations": 8,
+    "worst": -181.0,
+    "residual": 25594
+  },
+  {
+    "variant": "B1",
+    "split": "independent_test",
+    "trials": 1200,
+    "recoveries": 780,
+    "violations": 0,
+    "worst": -140.25,
+    "residual": 0
+  },
+  {
+    "variant": "B1",
+    "split": "adversarial_holdout",
+    "trials": 88,
+    "recoveries": 28,
+    "violations": 4,
+    "worst": -990.25,
+    "residual": 4
+  },
+  {
+    "variant": "B1",
+    "split": "exhaustive_6",
+    "trials": 31250,
+    "recoveries": 12248,
+    "violations": 0,
+    "worst": -140.25,
+    "residual": 0
+  },
+  {
+    "variant": "B2",
+    "split": "independent_test",
+    "trials": 1200,
+    "recoveries": 780,
+    "violations": 0,
+    "worst": -140.25,
+    "residual": 0
+  },
+  {
+    "variant": "B2",
+    "split": "adversarial_holdout",
+    "trials": 88,
+    "recoveries": 28,
+    "violations": 8,
+    "worst": -990.25,
+    "residual": 4
+  },
+  {
+    "variant": "B2",
+    "split": "exhaustive_6",
+    "trials": 31250,
+    "recoveries": 12248,
+    "violations": 0,
+    "worst": -140.25,
+    "residual": 0
+  },
+  {
+    "variant": "B3",
+    "split": "independent_test",
+    "trials": 1200,
+    "recoveries": 636,
+    "violations": 0,
+    "worst": -140.25,
+    "residual": 0
+  },
+  {
+    "variant": "B3",
+    "split": "adversarial_holdout",
+    "trials": 88,
+    "recoveries": 12,
+    "violations": 8,
+    "worst": -1065.25,
+    "residual": 0
+  },
+  {
+    "variant": "B3",
+    "split": "exhaustive_6",
+    "trials": 31250,
+    "recoveries": 10320,
+    "violations": 0,
+    "worst": -140.25,
+    "residual": 0
+  },
+  {
+    "variant": "B4",
+    "split": "independent_test",
+    "trials": 1200,
+    "recoveries": 804,
+    "violations": 0,
+    "worst": -167.0,
+    "residual": 0
+  },
+  {
+    "variant": "B4",
+    "split": "adversarial_holdout",
+    "trials": 88,
+    "recoveries": 28,
+    "violations": 8,
+    "worst": -990.25,
+    "residual": 4
+  },
+  {
+    "variant": "B4",
+    "split": "exhaustive_6",
+    "trials": 31250,
+    "recoveries": 12120,
+    "violations": 0,
+    "worst": -167.0,
+    "residual": 0
+  },
+  {
+    "variant": "M-minimax",
+    "split": "independent_test",
+    "trials": 1200,
+    "recoveries": 0,
+    "violations": 0,
+    "worst": -58.0,
+    "residual": 0
+  },
+  {
+    "variant": "M-minimax",
+    "split": "adversarial_holdout",
+    "trials": 88,
+    "recoveries": 0,
+    "violations": 0,
+    "worst": -58.0,
+    "residual": 0
+  },
+  {
+    "variant": "M-minimax",
+    "split": "exhaustive_6",
+    "trials": 31250,
+    "recoveries": 0,
+    "violations": 0,
+    "worst": -58.0,
+    "residual": 0
+  },
+  {
+    "variant": "M-probability",
+    "split": "independent_test",
+    "trials": 1200,
+    "recoveries": 866,
+    "violations": 0,
+    "worst": -178.0,
+    "residual": 0
+  },
+  {
+    "variant": "M-probability",
+    "split": "adversarial_holdout",
+    "trials": 88,
+    "recoveries": 41,
+    "violations": 4,
+    "worst": -858.0,
+    "residual": 3
+  },
+  {
+    "variant": "M-probability",
+    "split": "exhaustive_6",
+    "trials": 31250,
+    "recoveries": 16492,
+    "violations": 0,
+    "worst": -178.0,
+    "residual": 0
+  },
+  {
+    "variant": "M-adjusted",
+    "split": "independent_test",
+    "trials": 1200,
+    "recoveries": 880,
+    "violations": 0,
+    "worst": -178.0,
+    "residual": 0
+  },
+  {
+    "variant": "M-adjusted",
+    "split": "adversarial_holdout",
+    "trials": 88,
+    "recoveries": 41,
+    "violations": 4,
+    "worst": -858.0,
+    "residual": 8
+  },
+  {
+    "variant": "M-adjusted",
+    "split": "exhaustive_6",
+    "trials": 31250,
+    "recoveries": 16492,
+    "violations": 0,
+    "worst": -178.0,
+    "residual": 0
+  },
+  {
+    "variant": "J Balanced",
+    "split": "independent_test",
+    "trials": 1200,
+    "recoveries": 528,
+    "violations": 0,
+    "worst": -133.48000000000002,
+    "residual": 0
+  },
+  {
+    "variant": "J Balanced",
+    "split": "exhaustive_6",
+    "trials": 31250,
+    "recoveries": 5656,
+    "violations": 0,
+    "worst": -133.48000000000002,
+    "residual": 0
+  }
+]
