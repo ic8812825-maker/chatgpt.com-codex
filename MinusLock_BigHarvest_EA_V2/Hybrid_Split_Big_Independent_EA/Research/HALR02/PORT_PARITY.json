@@ -1,0 +1,26 @@
+[
+  {
+    "policy": "A3-original",
+    "n": 256,
+    "equal": 256,
+    "max_error": 0.0
+  },
+  {
+    "policy": "B4",
+    "n": 256,
+    "equal": 256,
+    "max_error": 0.0
+  },
+  {
+    "policy": "M-original",
+    "n": 256,
+    "equal": 256,
+    "max_error": 0.0
+  },
+  {
+    "policy": "J-Balanced",
+    "n": 256,
+    "equal": 256,
+    "max_error": 2.842170943040401e-14
+  }
+]
