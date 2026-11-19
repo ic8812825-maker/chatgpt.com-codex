@@ -1,6 +1,11 @@
 # AUDIT03 — единый реестр ошибок и незакрытых обязательств
 
-**Текущий срез COVERAGE-COMPLETION:** 50 записей, P0=14/P1=31/P2=5; ERR-048/049 — новые локальные SOURCE_DEFECT, ERR-050 — AMBIGUOUS_SPECIFICATION. Первоначальные47 карточек и их ID сохранены; старые сводки ниже являются историческими. Окончательная переоценка и снятая transitionShare-гипотеза — в конце файла.
+**Текущий checkpoint R4:** 51 записей; P0=14/P1=32/P2=5/P3=0. ERR051 переоценён в R3 как CONDITIONAL_STATIC_RISK (не наблюдённое native зависание); подробная история ниже сохранена. Аудит PARTIAL; publication state отдельно в R4_GITHUB_PUBLICATION.
+
+**Текущий срез R2:**51 записей, P0=14/P1=32/P2=5/P3=0; новая ERR051 — статический nonprogress grid iterator при явно указанном binary64RNE допущении. Native/broker incident не заявлен. Прежние50ID сохранены; неутверждённые контракты остаются pending.
+
+
+**Исторический срез COVERAGE-COMPLETION:** 50 записей, P0=14/P1=31/P2=5; ERR-048/049 — новые локальные SOURCE_DEFECT, ERR-050 — AMBIGUOUS_SPECIFICATION. Первоначальные47 карточек и их ID сохранены; старые сводки ниже являются историческими. Окончательная переоценка и снятая transitionShare-гипотеза — в конце файла.
 
 База: `6231bfbe94d39fbbb469b90a93e01426a83756bb`. Метод: ручная алгебра и статическое чтение, **без запуска кода системы, тестов и компиляции**. Каждый статус ниже относится к указанному scope. P0 означает блокирующий риск будущего включения/денежного контракта; это не заявление об отправке ордеров текущим EA. Основной EA остаётся DISABLED и вызывает неторговый stub.
 
@@ -740,3 +745,179 @@ Acceptance несогласованных count/body следует из тек�
 | HSBI-A03-ERR-048 | P0 | ReserveCatchUp public value bindings | SOURCE_DEFECT | IMP-004/010 |
 | HSBI-A03-ERR-049 | P1 | Closed enums intent/action/event/bucket | SOURCE_DEFECT | IMP-005/007/008 |
 | HSBI-A03-ERR-050 | P1 | completedActionCount schema semantics | AMBIGUOUS_SPECIFICATION | IMP-009 |
+
+
+## FINAL-CLOSURE — уточнение ERR-027/028 по прочитанным inventories
+
+Полностью прочитаны R4 MONOTONIC_REQUIREMENTS(1–1025), PROOF_REGISTRY(1–238), R5 PROPERTY_REQUIREMENTS(1–694), predicate registries R4/R5/R6/R12. В R4 proof VOLUME_MIN_MAX_PROOF ссылается на ZERO_REQUEST, что само по себе не проверяет положительные объёмы ниже min или выше max. В requirements одинаковые generic expected/negative/boundary clauses распространяются на разнородные свойства; FutureOwner под Include/HSB2E — предполагаемый, не существующий owner. R5 повторно использует некоторые mutation IDs для иных properties. Эти факты подтверждают ограниченность traceability, но не новый failure evaluator и не source-дефект trading EA. Существующие ERR-027/028 сохраняют ID/историю, новый ID за ту же причину не присваивается. Связь IMP-017/018.
+
+R12 predicate contract/registry читаются в историческом qualification scope: batch NEVER applicability относится к старому контракту; R12A задаёт более конкретные фазы/partial/full-fill правила. Нельзя взять старую строку из registry и выдать её за полный текущий batch norm. Current full production provider/settlement эта декларация не реализует.
+
+
+## FINAL-CLOSURE — уточнение ERR-031: плановая route, а не торговля в pure solver
+
+Повторно прочитаны FutureSmallSolver:113–149, FutureSmallTypes:29–62 и Docs/27_FUTURE_SMALL_SOLVER_RU.md:3–7. Pure solver **не обязан исполнять** terminal close. Ошибка не в отсутствии сделки внутри planning. Контракт требует отклонять отсутствие terminal route, однако поле terminalRouteAllowed(Types:38) не читается ни одной production-функцией: полный поиск имени по74 sources дал только объявление. Ветка Solver:144 считает terminal при Far≤Vmin+tolerance, затем:146–147 выставляет finiteSequence/EXACT_PROOF без independently validated feasibility terminal route. Существующий ERR-031 сохраняет SOURCE_DEFECT именно для недостающего планового precondition/binding, не для отсутствующей execution operation. Ненулевой Vmin не actual zero; сама mathematical bound F037/F058 остаётся условно верной. Связь IMP-013, ERR-021/032; source/caller evidence не превращается в real trading incident.
+
+## HSBI-A03-ERR-051 — Перебор NewFar grid не проверяет продвижение binary64-счётчика
+
+| Поле | Индивидуальное доказательство |
+|---|---|
+| ID / заголовок | HSBI-A03-ERR-051; nonprogress candidate enumeration |
+| Severity / type | P1 / SOURCE_DEFECT в локальном объявленном numeric-domain; native/broker reachability не доказана |
+| Source | Include/Planning/HSBI_NewFarSolver.mqh:108–114, цикл n+=volumeStep; broker domain Include/Money/HSBI_BrokerMoneyTypes.mqh:11–18 |
+| Normative contract | Docs/14_NEW_FAR_SOLVER_SPECIFICATION_RU.md:9–26 требует ascending broker grid и reject/TERMINAL_SAFE при plateau/no-safe-candidate. Docs/25_BROKER_GRID_AND_ROUNDING_RU.md:5 требует bounds/finite/grid. |
+| Stage / operation | Pure candidate enumeration до любого promotion/ledger/dispatch |
+| Preconditions | Локальные DTO проходят startup/source/plan checks; broker VolumeMin=VolumeMax=10^16, Step=1, actual residual=10^16, OldFar=2·10^16; остальные identity/fresh/persist flags согласованы. Фактический брокер с таким profile НЕ заявляется. |
+| Independent arithmetic | В IEEE binary64 при round-to-nearest-even spacing около10^16 равен2. Число10^16 представимо;10^16+1 — midpoint; округляется обратно к10^16. Следовательно nextN==N, хотя step>0 finite. Это ручной вывод, код/тест не исполнялся. |
+| Positive control | При min=max=upper=1,step=1 текущий n1 после одной итерации становится2 и выходит из цикла, даже если candidate proof отклонён. |
+| Negative control | При min=max=upper=10^16,step1 и том же отказе candidate proof значение n остаётся10^16. upper+GridTolerance(1) также округляется к10^16. Условие n<=upper остаётся истинным. |
+| Actual source logic | Continue при невалидном candidate proof возвращает управление к update n+=step без nextN>n, iteration limit или checked integer grid index. |
+| Independent expected | Завершить локальный solver отказом/unsupported-domain/plateau, а не продолжать неизменный grid point. Конкретный typed status ещё требует contract freeze. |
+| Proof scope | CONFIRMED_STATIC_UNDER_BINARY64_RNE; MQL5_NATIVE_TESTS=NOT_RUN. Не утверждается наблюдённый native hang или реальный broker incident. |
+| Caller / reachability | NO_CALLER_FOUND для HSBI_SolveNewFar в74 production bodies; main DISABLED/no-trade. Опасность локального public solver при будущей интеграции/недопустимом provider profile. |
+| State delta | Исходный input const, ledger/context/trading не меняются; локальные candidate counters растут, возможны stall/resource failure/overflow до нормального return. Это не double spend. |
+| Root cause | Положительный конечный floating step не доказывает строгое продвижение представимого loop counter. |
+| Nonduplication | ERR040 — выбор numeric/settled boundary и epsilon semantics; ERR032 — завершение торгового recovery. ERR051 — конкретная локальная алгоритмическая проверка прогресса grid iterator; собственного root cause в прежних50 карточках нет. |
+| Formula links | F041 numeric-domain; F048 broker-grid; F058 различие идеального bound и operational completion. Новый независимый monetary formula ID не вводится. |
+| Improvement | HSBI-A03-IMP-023; bounded checked grid enumeration либо explicit unsupported-domain refusal |
+| Decision / dependencies | NUM-DOMAIN-1, MQL-DOMAIN, broker grid policy; выбор domain/iteration budget отдельно AWAITING_ADMIN_APPROVAL |
+| Status | OPEN. Никакого production patch и никакого выполненного теста в R2. P1 относится к будущему solver admission, не работающему торговому пути. |
+
+R2 новый текущий счёт:51 ошибок/пробелов; SOURCE_DEFECT19, CONTRADICTION3, AMBIGUOUS_SPECIFICATION10, MISSING_CONTRACT9, UNPROVEN_CLAIM8, POTENTIAL_RISK2. P0=14/P1=32/P2=5/P3=0. Прежние50 ID и исторические счёты выше сохранены.
+
+## R2 — повторная индивидуальная проверка6 критических карточек
+
+Это новые статические уточнения в тех же ID, не замена истории и не результаты тестов. Все связанные production bodies прочитаны; historical machine-contract чтение ещё не завершено.
+
+### R2 recheck ERR-020
+
+| Поле | Вывод |
+|---|---|
+| Проверенный source | Include/Planning/HSBI_FutureSmallSolver.mqh:89–90,143; HSBI_EvaluateFutureSmallLevel/SolveFutureSmall |
+| Нормативы / historical scope | Docs/04:21 NextBigGross; source199map; связанные исторические machine contracts ещё не все прочитаны |
+| Все проверенные caller boundaries | EvaluateLevel вызывается SolveFutureSmall; затем CandidateMoney/NewFar; main financial ingress отсутствует |
+| Независимый контрпример | F1,C1.1,T1,S0.9: next BigGross2.1,Net1.2; priorBigGross1.5. Net1.2<1.5 не доказываетGross2.1<1.5. Slope0.2>0; отдельно остальные gates не объявлены выполненными. |
+| Область дефекта / классификация | SOURCE_DEFECT: конкретный Net-vs-Gross predicate, не общий runtime bypass |
+| Severity / reachability | P1 сохранён; не подтверждён live trading incident |
+| Предложение / решение | IMP012; отдельные именованные Gross/Net и causal future acceptance |
+| Проверка недублирования | Не duplicate ERR041: здесь неверная величина в solver; ERR041 — prefix exposure envelope |
+| Итог | Сохранено; historical-contract review PARTIAL, код не менялся |
+| Execution / state delta | TESTS_EXECUTED_BY_CODEX=NO; только ручной вывод; financial state не изменялся |
+
+### R2 recheck ERR-041
+
+| Поле | Вывод |
+|---|---|
+| Проверенный source | Docs/13_SMALL_TRANSITION_SPECIFICATION_RU.md:12–14; solver не executor |
+| Нормативы / historical scope | Docs/15_RISK_AND_MARGIN_CONTRACT_RU.md; полный historical prefix/cap scope ещё не закрыт |
+| Все проверенные caller boundaries | Нет полного closing chain в текущем main; sourceplanning не означает исполнение |
+| Независимый контрпример | BUY Core2+Trend1,SELL Far1+Small1: Gross5,Net+1. CloseSmall1→Gross4,Net+2. СледующийCloseFar→Gross3,Net+3. Значит decreasingGross не гарантирует decreasingabsNet на префиксе. |
+| Область дефекта / классификация | MISSING_CONTRACT: требуется prefix risk/margin/loss envelope, не запрет любого такого close |
+| Severity / reachability | P1 сохранён; market-specific денежный риск отдельно оценивается |
+| Предложение / решение | IMP022; D05/cost/margin/actual prefix requirements |
+| Проверка недублирования | Не duplicate ERR020: отсутствие path condition, а не смешанные labels в одном сравнении |
+| Итог | Сохранено; full historicalcontract check не завершён |
+| Execution / state delta | TESTS_EXECUTED_BY_CODEX=NO; только ручной вывод; financial state не изменялся |
+
+### R2 recheck ERR-046
+
+| Поле | Вывод |
+|---|---|
+| Проверенный source | Docs/03_FULL_SYSTEM_MANUAL_RU.md:12; Docs/05_GEOMETRY_MODEL_RU.md:22; GeometrySolver:12–19 |
+| Нормативы / historical scope | Направленная благоприятная координата u=s(P−P0); sourcehelper получает только2money |
+| Все проверенные caller boundaries | Geometry money-direction helper принимает supplied значения; он не строит price sweep; full main path отсутствует |
+| Независимый контрпример | FarBUY,F1,C2,T1,S1,K>0: dRecovery/dP=−K, поэтому P+tick уменьшаетRecovery наKtick; зеркалоFarSELL увеличивает. |
+| Область дефекта / классификация | CONTRADICTION документов/универсальногоP+tick; F039mathFALSE отдельно |
+| Severity / reachability | P1 сохранён; не ошибка сравнения двух правильно переданных moneyvalues сама по себе |
+| Предложение / решение | IMP007/021; owner chooses wording/domain; не требуетсяapprovalдлясамогоконтрпримера |
+| Проверка недублирования | Не новаяERR из-за переклассификацииF039; тот жеrootID046 |
+| Итог | Сохранено; FORMULA_STATUS_RECONCILIATION завершён, full historicalauthority review ещёнет |
+| Execution / state delta | TESTS_EXECUTED_BY_CODEX=NO; только ручной вывод; financial state не изменялся |
+
+### R2 recheck ERR-048
+
+| Поле | Вывод |
+|---|---|
+| Проверенный source | ReserveCatchUpEvaluator:24–75, особенно35–47,63–74 |
+| Нормативы / historical scope | Docs/24:9; Docs/31_MONEY_PROOF_IDENTITY_RU.md:3–7; Docs/32_RESERVE_ALLOCATION_CONSUMPTION_RU.md:3–7 |
+| Все проверенные caller boundaries | NewFarSolver:121–127 сам выводитfarLoss=max(0,−proofnet), что ограничивает этот caller; прямой public evaluator не требуетэтойсвязи |
+| Независимый контрпример | Allocation reserve40/net50/consumed0; Far proof net−100 неизменён, предъявленный farLossIncreaseMoney0,buffer0,share0.8,Bnet2,Far1. Локальные lot1.6>1 иmargin40>0 не доказывают покрытиеproofloss100. Остальные identity/flags могутоставатьсясогласованными. |
+| Область дефекта / классификация | SOURCE_DEFECT local amount-binding; не доказанное расходование grant и не native/broker bypass |
+| Severity / reachability | P0 сохранён как future funding/catchup blocker |
+| Предложение / решение | IMP004/010; binding amount/basis/currency сindependent allocation/farproof |
+| Проверка недублирования | Неduplicate rootsource independenceERR013: дажевалиднаяidentityнеbindscalaramount |
+| Итог | Сохранено; полныйglobal/historicalproof не заявлен |
+| Execution / state delta | TESTS_EXECUTED_BY_CODEX=NO; только ручной вывод; financial state не изменялся |
+
+### R2 recheck ERR-049
+
+| Поле | Вывод |
+|---|---|
+| Проверенный source | ExecutionIntent:28–40; Identifiers:6; MoneyProofIdentity:10–14; Action/Event/Bucket helpers; source199map |
+| Нормативы / historical scope | Docs/02:7–16,23–30; Docs/25 domain; типы closed source enums |
+| Все проверенные caller boundaries | IntentStructure обязателен вPreflight иNestedIntent; TypedControlPrice проверяет свойdirection, но не равенство intent.direction. Отдельные knownrole gates защищают свои narrowpaths, не весь publicshape API. |
+| Независимый контрпример | Intent.direction=77,role=77,side=BID,valid otherfields,recomputed digest. !=NONE passes; conditional BUY/SELL side checks оба false. Это локальный аналитическийacceptance; не запуск. |
+| Область дефекта / классификация | SOURCE_DEFECT closed-domain predicate. Unknown не синоним zero/NONE. |
+| Severity / reachability | P1 сохранён; смежные отдельные checks не универсальное caller proof |
+| Предложение / решение | IMP005/007/008; whitelist+causal clause check в будущемразрешённом этапе |
+| Проверка недублирования | Один root для множества enum sites, не новые ID на каждую функцию |
+| Итог | Сохранено; enumeration всех исторических DTOcontracts ещёPARTIAL |
+| Execution / state delta | TESTS_EXECUTED_BY_CODEX=NO; только ручной вывод; financial state не изменялся |
+
+### R2 recheck ERR-050
+
+| Поле | Вывод |
+|---|---|
+| Проверенный source | ExecutionStateSnapshot:27–40; RecoverExecutionState:42–43 |
+| Нормативы / historical scope | Docs/HSB.2C_Journal_Persistence_Reconciliation.md:5 говорит единственность, но точная cardinality completedActionCount не задана |
+| Все проверенные caller boundaries | RuntimeRestartValidator используетsnapshotvalidator; standalone recoverypure; no productionstorage |
+| Независимый контрпример | completedActionCount1,completedIntent.intentId0,pendingid0,activecount0 иconsistentotherfields/digest проходят count bounds; iff только дляactivecount. При count-as-cardinality это inconsistentshape. |
+| Область дефекта / классификация | AMBIGUOUS_SPECIFICATION: смысл completedcount требуетowner, не безусловный экономический exploit |
+| Severity / reachability | P1 сохранён; RECOVERY_ACCEPTED не historicalauthorization |
+| Предложение / решение | IMP009; SNAP-FIXTURE-1/schema mapping решение |
+| Проверка недублирования | Неduplicate ERR017durability: specific count/body semantic gap |
+| Итог | Сохранено, не повышено до unconditionalSOURCE_DEFECT |
+| Execution / state delta | TESTS_EXECUTED_BY_CODEX=NO; только ручной вывод; financial state не изменялся |
+
+## R3 — переоценка ERR-051 с разделением достижимости
+
+**ERR_051_STATUS=CONDITIONAL_STATIC_RISK.** Прежний R2 вывод SOURCE_DEFECT_UNDER_BINARY64_RNE сохранён выше как история. R3 не отзывает арифметический контрпример, но не считает его безусловно подтверждённым дефектом в реальном broker-domain. Текущая категория реестра — POTENTIAL_RISK, severity P1 сохранена для будущей интеграции.
+
+| Проверяемое свойство | Source / вывод |
+|---|---|
+| Counter type / start | NewFarSolver.mqh:109: double n=broker.volumeMin |
+| Upper bound | :108: min(volumeMax,actualResidualVolume) |
+| Continuation | :109: n<=upper+GridTolerance(step) |
+| Update | :109: n+=volumeStep; отдельного nextN>n нет |
+| Normalization | :110 NormalizeVolume(n,step,PARTIAL_FAR) даёт floor; нормализуется candidate, а не loop counter |
+| Range validation | :103→ValidateNewFarSource→ValidateVolume→BrokerProperties:11–18: finite/positive min/max/step, но нет upper domain/progress/iteration budget |
+| Stop / max iterations | Возврат после окончания цикла; в цикле continue, но нет maxIterations/plateau break |
+| Mathematical condition | В модели binary64 RNE fl(x+delta)=x при положительном delta меньше половины ulp(x); midpoint также даёт x при even significand. Для x=10^16 ulp=2 и delta1 midpoint округляется к x. Ручная алгебра, не исполнение. |
+| Input admissibility | Такой профиль проходит перечисленные локальные shape bounds. Не установлено, что независимый реальный broker/provider способен вернуть min=max=10^16,step1; не утверждён полный MQL-DOMAIN. |
+| Branch reachability | До цикла есть mode/fresh/source/plan/cap gates. Формально согласованные DTO могут их удовлетворить; реальный production caller SolveNewFar не найден в74 sources. Не доказана runtime/broker достижимость. |
+| next==current | Source не распознаёт; candidate rejection повторяет тот же grid point. Нет нормального гарантированного выхода по no-safe-candidate в countermodel. |
+| Overflow / NaN / Inf | Properties finite не доказывают finite/progressive addition и bounded counters. При overflow может возникнуть nonfinite n и другой выход/ошибка; это не доказательство native hang. Поведение native rounding/overflow не выполнялось. |
+| No safe candidate | При прогрессирующей конечной grid цикл возвращает NO_SAFE_CANDIDATE. Это не гарантировано одним step>0. |
+| Actual hazard | Условный stall/resource exhaustion при широком DTO domain; не заявлен infinite native run, реальная сделка или потеря денег. |
+| Missing evidence | Approved actual broker numeric bounds, progress guarantee/iteration cap, MQL5 rounding/native evidence. По заданию тесты запрещены и NOT_RUN. |
+
+IMP023 остаётся PROPOSAL_ONLY. До выбора domain нельзя автоматически ограничить production типы или внедрить integer-grid codec. Total51 ERR неизменен; текущие категории: SOURCE_DEFECT18, CONTRADICTION3, AMBIGUOUS_SPECIFICATION10, MISSING_CONTRACT9, UNPROVEN_CLAIM8, POTENTIAL_RISK3. P0=14/P1=32/P2=5/P3=0.
+
+
+## R3 — новые доказательные уточнения существующих root causes
+
+### ERR002/033: versioned schema не тождественна логическому source
+
+Полностью прочитанный Tests/Contracts/NEXT_STAGE_02B_R0A_NORMATIVE_MATRIX.json, decisions[D08].ExactNormativeText включаетSchemaVersion вSourceDealKey. Полностью прочитанные R0G_IDENTITY_MATRIX.SourceKey иR0F_CONTRACT_MATRIX, EconomicFields отделяют логический Broker/Server/AccountLogin/DealTicket отimmutableSchemaVersion. Все документыPROPOSED,неapproved; это конфликт совместимости кандидатных контрактов,не новыйдоказанный nativefundingdefect. Контрпример: один brokerdealD, capturedpayloadизschemav1/v2. Если источникрегистрируетсятолько(version,namespace,D),сменаверсиисоздаётвторойkey. Требование: migration/schema/codecнеувеличиваютмножествоэкономическихисточников; схемаversioningобязательна, ноindependentlogicalsourceindexдолженсохранятьsource. D08/NUM-CODEC/legacy compatibility требуют явногоадминистративногоfreeze; productionkeyнеизменён. СвязьIMP001/002/017/018; F017/F041/F057/F060/F062.
+
+### ERR027: конкретный non-isolated negative historical invariant
+
+HSBI_FULL_SYSTEM_AUDIT_01_INVARIANT_MATRIX.json Rows[NO_FALSE_NOOP].MathematicalNegative: profitA7301,profitB7306,commissionA0,commissionB0,netA=netB7301. Изменённый B одновременно нарушаетcomponent-sumidentity. Поэтому rejection такогоB не доказываетотдельную необходимостьfull-componentimmutableequality: раннийrawsumguardдостаточен. Корректный отдельныйcounterexample ужеестьERR001: Profit50/Commission0vsProfit60/Commission−10приNet50,остальныеполяодинаковы. Этостатическаяпроверкаfixture,неfreshmutationи неотмена всехhistoricalreferencePASS. СвязьIMP001/017;F007/F017/F057/F060.
+
+### ERR016/028: нормативная FSM не замыкается counts
+
+R3-FSM-SG01..10 вFSM_COMPLETE_MATRIX дают точныеисточникиоткрытогоstate/eventdomain,overlapcriticalroutes,partial/restart/compensation. 1089historicalpurepairsнеfinancialhandlers.16дополнительныхTests/StaticFSMtransitions используютдругой qualificationstatevocabulary;18lifecyclecase-labelsнеполныйproductioneventdomain. НельзяутверждатьFSM_COMPLETENESS,переименовав этиrecords. Отсутствиеclosednormrelationневыдуманныйruntimebypass. СвязьIMP008/009/018;F036/F053/F057/F060.
+
+### Текущая классификация без потери прежнихIDs
+
+Всего51ERR, прежние001–051сохранены;23IMP, прежние001–023сохранены. P0=14,P1=32,P2=5,P3=0. R3ERR051переведён изprovisionalconditionalSOURCE_DEFECT вPOTENTIAL_RISK/CONDITIONAL_STATIC_RISK: источник18+potential3,аисторическийR2source19+potential2сохранёнкакcheckpoint. Другиетипы: CONTRADICTION3,AMBIGUOUS_CONTRACT10,MISSING_SPEC9,UNPROVEN_CLAIM8. Это18+3+3+10+9+8=51; severityнеповышаласьрадиcounts.
